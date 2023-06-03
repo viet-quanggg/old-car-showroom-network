@@ -31,9 +31,9 @@
                     <h5 class="blog-widget-title">latest blogs</h5>
                     <ul class="blog-widget-feed">
                         <c:forEach begin="0" end="3" items="${latest}" var="latest">
-                            <li><a class="blog-widget-media" href="blog-single.html"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/blog/01.jpg"
+                            <li><a class="blog-widget-media" href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/blog/01.jpg"
                                                                                           alt="blog"></a>
-                                <h5 class="blog-widget-text"><a href="blog-single.html">${latest.blogTitle}</a><span>${latest.blogDate}</span></h5>
+                                <h5 class="blog-widget-text"><a href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>">${latest.blogTitle}</a><span>${latest.blogDate}</span></h5>
                             </li>
                         </c:forEach>
                     </ul>
@@ -109,10 +109,10 @@
                                                     href="blog-single.html">${blog.userId}</a></span></li>
                                         <li><i class="material-icons">event_note</i><span>${blog.blogDate}</span></li>                                       
                                     </ul>
-                                    <h3 class="blog-list-title"><a href="blog-single.html">${blog.blogTitle}.</a>
+                                    <h3 class="blog-list-title"><a href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">${blog.blogTitle}.</a>
                                     </h3>
                                     <p class="blog-list-descrip" id="blog-detail-${blog.blogId}">${blog.blogDetail}<a href="blog-single.html">read more</a></p>
-                                    <a href="blog-single.html">read more</a>
+                                    <a href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">read more</a>
                                 </div>
                             </div>
                         </div>

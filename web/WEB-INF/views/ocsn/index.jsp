@@ -21,9 +21,8 @@
                             They offer a wide range of features including price comparisons, dealer reviews, and vehicle history reports.</p>
                         <ul>
                             <li><i class="material-icons">email</i><span><small>contact
-                                        email</small>info@example.com</span></li>
-                            <li><i class="material-icons">phone</i><span><small>contact number</small>934 7273
-                                    2392</span></li>
+                                        email</small>daihocfpt@fpt.edu.vn</span></li>
+                            <li><i class="material-icons">phone</i><span><small>contact number</small>028 7300 5588</span></li>
                         </ul><a href="<c:url value="/cars/carlist.do"/>" class="btn btn-inline"><i
                                 class="material-icons">visibility</i><span>show listing</span></a>
                     </div>
@@ -41,9 +40,8 @@
                             or looking to sell your current vehicle quickly and easily, our user-friendly website has everything you need</p>
                         <ul>
                             <li><i class="material-icons">email</i><span><small>contact
-                                        email</small>info@example.com</span></li>
-                            <li><i class="material-icons">phone</i><span><small>contact number</small>934 7273
-                                    2392</span></li>
+                                        email</small>daihocfpt@fpt.edu.vn</span></li>
+                            <li><i class="material-icons">phone</i><span><small>contact number</small>028 7300 5588</span></li>
                         </ul><a href="<c:url value="/cars/carlist.do"/>" class="btn btn-inline"><i
                                 class="material-icons">visibility</i><span>show listing</span></a>
                     </div>
@@ -60,9 +58,8 @@
                             brands, and other key factors.</p>
                         <ul>
                             <li><i class="material-icons">email</i><span><small>contact
-                                        email</small>info@example.com</span></li>
-                            <li><i class="material-icons">phone</i><span><small>contact number</small>934 7273
-                                    2392</span></li>
+                                        email</small>daihocfpt@fpt.edu.vn</span></li>
+                            <li><i class="material-icons">phone</i><span><small>contact number</small>028 7300 5588</span></li>
                         </ul><a href="<c:url value="/cars/carlist.do"/>" class="btn btn-inline"><i
                                 class="material-icons">visibility</i><span>show listing</span></a>
                     </div>

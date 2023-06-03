@@ -100,7 +100,7 @@
                                 <li class="option-item"><a href="#" class="option-link"><img class="option-image"
                                                                                              src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/flag/us.png" alt="flag"><span class="option-text">english -
                                             LTR</span></a></li>
-                                <li class="option-item"><a href="https://mironmahmud.com/ghurnek/assets/rtl/index.html"
+                                <li class="option-item"><a href="<c:url value="/ocsn/index.do"/>"
                                                            class="option-link"><img class="option-image" src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/flag/sa.png"
                                                              alt="flag"><span class="option-text">arabic - RTL</span></a></li>
                             </ul>
@@ -267,12 +267,10 @@
                     <div class="footer-top"><a href="#"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/logo.png" alt="logo"></a>
                         <ul>
                             <li><i
-                                    class="material-icons">description</i><span>info@example.com<br>carrer@example.com</span>
+                                    class="material-icons">description</i><span>daihocfpt@fpt.edu.vn<br>daihocfpt@fpt.edu.vn</span>
                             </li>
-                            <li><i class="material-icons">perm_phone_msg</i><span>+91 987-654-3210<br>+91
-                                    987-654-5466</span></li>
-                            <li><i class="material-icons">map</i><span>1Hd- 50, 010 Avenue, <br>NY 90001 United
-                                    States</span></li>
+                            <li><i class="material-icons">perm_phone_msg</i><span>02473001866</span></li>
+                            <li><i class="material-icons">map</i><span>Lô E2a-7, Đường D1 Khu Công nghệ cao, P. Long Thạnh Mỹ,<br>TP. Thủ Đức, TP. Hồ Chí Minh</span></li>
                         </ul>
                     </div>
                 </div>

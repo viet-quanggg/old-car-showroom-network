@@ -65,6 +65,13 @@ public class BlogController extends HttpServlet {
                     //in thong bao loi chi tiet cho developer
                     break;
                 case "blogsingle":
+                    String bid = request.getParameter("bid");
+                    Blog b = bf.listBlogId(bid);
+                    request.setAttribute("bid", b);
+                    blog = bf.listBlog();
+                    request.setAttribute("blog", blog);
+                    latest = bf.listLatest();
+                    request.setAttribute("latest", latest);
                     request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                     //in thong bao loi chi tiet cho developer
                     break;

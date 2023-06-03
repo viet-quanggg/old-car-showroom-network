@@ -69,6 +69,25 @@ public class BlogFacade {
         return list;
     }
     
+    public Blog listBlogId(String id) throws SQLException {
+        con = DBContext.getConnection();
+        ps = con.prepareStatement("select * from [Blog] where blogId = ?");
+        ps.setString(1, id);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            Blog blog = new Blog();
+            blog.setBlogId(rs.getInt(1));
+            blog.setBlogTitle(rs.getString(2));
+            blog.setBlogDetail(rs.getString(3));
+            blog.setBlogImage(rs.getString(4));
+            blog.setUserId(rs.getInt(5));
+            blog.setBlogDate(rs.getDate(6));
+            return blog;
+        }
+        con.close();
+        return null;
+    }
+    
     public Blog createBlog(String blogTile, String blogDetail, String blogImage) throws SQLException{
         Blog newBlog = new Blog();
         con = DBContext.getConnection();
@@ -81,4 +100,6 @@ public class BlogFacade {
         con.close();
         return newBlog;
     }
+    
+    
 }
