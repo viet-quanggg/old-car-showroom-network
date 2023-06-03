@@ -71,17 +71,17 @@
   <body>
     <div class="form-container">
       <h2>Create a Blog</h2>
-      <form method="post" enctype="multipart/form-data">
+      <form method="post" enctype="multipart/form-data" action="<c:url value="/blog/create_blog_handler.do"/>">
         <label for="title">Blog Title:</label>
-        <input type="text" id="title" name="title" required>
+        <input type="text" id="title" name="blogtitle" required>
         
         <label for="description">Blog Detail:</label>
-        <textarea id="description" name="description" rows="4" cols="50" required></textarea>
+        <textarea id="description" name="blogdetail" rows="4" cols="50" required></textarea>
         
         <label for="image">Image:</label><br/>
-        <input type="file" id="image" name="image"><br/>
+        <input type="file" id="image" name="blogimage"><br/>
         
-        <button type="submit">Create Blog</button>
+        <button type="submit" name="op" value="create">Create Blog</button>
       </form>
     </div>
   </body>

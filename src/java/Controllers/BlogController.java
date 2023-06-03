@@ -68,9 +68,12 @@ public class BlogController extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                     //in thong bao loi chi tiet cho developer
                     break;
-                     case "blogcreate":
+                case "blogcreate":
                     request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                     //in thong bao loi chi tiet cho developer
+                    break;
+                case "create_blog_handler":
+                    create_blog_handler(request, response);
                     break;
                 default:
                     //Show error page
@@ -81,6 +84,35 @@ public class BlogController extends HttpServlet {
             }
         } catch (SQLException ex) {
             Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void create_blog_handler(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        String op = request.getParameter("op");
+        switch (op) {
+            case "create":
+                try {
+                String blogTitle = request.getParameter("blogtitle");
+                String blogDetail = request.getParameter("blogdetail");
+                BlogFacade bf = new BlogFacade();
+                if (blogTitle.isEmpty()) {
+                    request.setAttribute("error", "Blog Title can not be empty!");
+                }
+                if (blogDetail.isEmpty()) {
+                    request.setAttribute("error", "Blog Detail can not be empty!");
+                } else {
+                    Blog newBlog = bf.createBlog(blogTitle, blogDetail, blogTitle);
+                    request.setAttribute("Blog", newBlog);
+                    request.setAttribute("message", "Create successfully");
+                    request.getRequestDispatcher("/login/login.do").forward(request, response);
+                }
+            } catch (Exception e) {
+                request.setAttribute("error", e.toString());
+                request.getRequestDispatcher("/blog/blogcreate.do").forward(request, response);
+            }
+
+            break;
+            default:
         }
     }
 

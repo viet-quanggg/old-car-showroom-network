@@ -71,7 +71,7 @@
 
                 <a href="<c:url value="/login/profile.do"/>" class="header-user"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png"
                                                                                       alt="user"><span>join</span></a>
-                                                                                      <a href="<c:url value="/login/logout.do"/>" style="color: whitesmoke">Logout</a>                                                                          
+                <a href="<c:url value="/login/logout.do"/>" style="color: whitesmoke">Logout</a>                                                                          
             </c:if>     
 
             <a href="<c:url value="/order/createad.do"/>" class="btn header-btn"><i
@@ -161,6 +161,8 @@
                                                 class="material-icons">remove</i><span>blog grid</span></a></li>
                                     <li class="drop-item"><a href="<c:url value="/blog/bloglist.do"/>" class="drop-link"><i
                                                 class="material-icons">remove</i><span>blog list</span></a></li>
+                                    <li class="drop-item"><a href="<c:url value="/blog/blogcreate.do"/>" class="drop-link"><i
+                                                class="material-icons">remove</i><span>blog creation</span></a></li>
                                 </ul>
                             </li>
                             <li class="nav-item"><a href="#" class="nav-link"><i

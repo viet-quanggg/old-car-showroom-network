@@ -2619,6 +2619,11 @@ input::placeholder,textarea::placeholder{
     -ms-transition:all linear .3s;
     -o-transition:all linear .3s
 }
+
+.blog-grid-descrip{
+    max-height: 50px;
+    overflow: hidden;
+}
 .blog-grid-descrip a:hover{
     text-decoration:underline
 }

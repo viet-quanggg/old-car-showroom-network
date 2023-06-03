@@ -33,12 +33,12 @@
                     <h5 class="blog-widget-title">popular feeds</h5>
                     <ul class="blog-widget-feed">
                         <c:forEach begin="0" end="3" items="${latest}" var="latest">                         
-                        <li><a class="blog-widget-media" href="blog-single.html"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/blog/01.jpg"
-                                                                                      alt="blog"></a>
-                            <h5 class="blog-widget-text"><a href="blog-single.html">${latest.blogTitle}</a><span>${latest.blogDate}</span></h5>
-                        </li>
+                            <li><a class="blog-widget-media" href="blog-single.html"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/blog/01.jpg"
+                                                                                          alt="blog"></a>
+                                <h5 class="blog-widget-text"><a href="blog-single.html">${latest.blogTitle}</a><span>${latest.blogDate}</span></h5>
+                            </li>
                         </c:forEach>
-                        
+
                     </ul>
                 </div>
                 <div class="blog-widget">
@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2">
-                    <c:forEach var="blog" items="${blog}"> 
+                    <c:forEach begin="0" end="3" var="blog" items="${blog}">
                         <div class="col">
                             <div class="blog-grid-card">
                                 <div class="blog-grid-media"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/blog/01.jpg" alt="blog">
@@ -111,17 +111,28 @@
                                 </div>
                                 <div class="blog-grid-content">
                                     <ul class="blog-grid-meta">
-                                        <li><i class="material-icons">person</i><span>post by <a
-                                                    href="blog-single.html">"${blog.userId}"</a></span></li>
+                                        <li><i class="material-icons">person</i><span>post by <a href="blog-single.html">${blog.userId}</a></span></li>
                                         <li><i class="material-icons">event</i><span>${blog.blogDate}</span></li>
                                     </ul>
                                     <h3 class="blog-grid-name"><a href="blog-single.html">${blog.blogTitle}</a></h3>
-                                    <p class="blog-grid-descrip">${blog.blogDetail}...<a
-                                            href="blog-single.html">read more</a></p>
+                                    <p class="blog-grid-descrip" id="blog-detail-${blog.blogId}">${blog.blogDetail}</p>
+                                    <a href="<c:url value="/blog/bloggrid.do?"/>">read more</a>
                                 </div>
                             </div>
                         </div>
-                                    </c:forEach>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                const MAX_LENGTH = 200; // Maximum length of truncated text
+                                const paragraph = document.getElementById("blog-detail-${blog.blogId}");
+                                const shortenedText = paragraph.textContent.slice(0, MAX_LENGTH);
+                                const truncatedText = shortenedText + "...";
+                                paragraph.textContent = truncatedText;
+                                
+                            });
+                        </script>
+                    </c:forEach>
+
+
                 </div>
                 <div class="row">
                     <div class="col-xl-12">
