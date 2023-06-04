@@ -2586,8 +2586,8 @@
                                                 href="blog-single.html">${blog.userId}</a></span></li>
                                     <li><i class="material-icons">event</i><span>${blog.blogDate}</span></li>
                                 </ul>
-                                <h3 class="blog-grid-name"><a href="blog-single.html">${blog.blogTitle}</a></h3>
-                                <p class="blog-grid-descrip">${blog.blogDetail}...<a href="blog-single.html">read more</a>
+                                <h3 class="blog-grid-name"><a href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">${blog.blogTitle}</a></h3>
+                                <p class="blog-grid-descrip">${blog.blogDetail}...<a href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">read more</a>
                                 </p>
                             </div>
                         </div>

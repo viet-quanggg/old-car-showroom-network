@@ -72,15 +72,15 @@
     <div class="form-container">
       <h2>Create a Blog</h2>
       <form method="post" enctype="multipart/form-data" action="<c:url value="/blog/create_blog_handler.do"/>">
+        <label for="title">Author:</label>
+        <input type="text" id="title" name="userName" disabled="true" value="${User.userName}">
         <label for="title">Blog Title:</label>
-        <input type="text" id="title" name="blogtitle" required>
-        
+        <input type="text" id="title" name="blogtitle" required">
         <label for="description">Blog Detail:</label>
         <textarea id="description" name="blogdetail" rows="4" cols="50" required></textarea>
-        
+        <input type="text" id="title" name="userId" hidden="true" value="${User.userID}">
         <label for="image">Image:</label><br/>
         <input type="file" id="image" name="blogimage"><br/>
-        
         <button type="submit" name="op" value="create">Create Blog</button>
       </form>
     </div>
