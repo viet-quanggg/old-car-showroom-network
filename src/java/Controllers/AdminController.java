@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author _viet.quangg
  */
-@WebServlet(name = "UserController", urlPatterns = {"/user"})
+@WebServlet(name = "AdminController", urlPatterns = {"/admin"})
 public class AdminController extends HttpServlet {
 
     /**
@@ -48,7 +48,6 @@ public class AdminController extends HttpServlet {
         String action = (String) request.getAttribute("action");
         switch (action) {
             case "adminpage":
-                
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
                 break;

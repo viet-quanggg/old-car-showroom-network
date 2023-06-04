@@ -189,10 +189,11 @@
                                 <ul class="drop-list">
                                     <li class="drop-item"><a href="<c:url value="/views/login/login.do"/>" class="drop-link"><i
                                                 class="material-icons">remove</i><span>login</span></a></li>
-                                    <li class="drop-item"><a href="<c:url value="/views/login/register.do"/>" class="drop-link"><i
+                                    <li class="drop-item"><a href="<c:url value="/login/register.do"/>" class="drop-link"><i
                                                 class="material-icons">remove</i><span>register</span></a></li>
-                                    <li class="drop-item"><a href="<c:url value="/views/login/forgotpassword.do"/>" class="drop-link"><i
+                                    <li class="drop-item"><a href="<c:url value="/login/forgotpassword.do"/>" class="drop-link"><i
                                                 class="material-icons">remove</i><span>forgot password</span></a></li>
+                                             
                                 </ul>
                             </li>
                         </ul>
@@ -213,15 +214,10 @@
                                         class="material-icons">favorite</i><span class="nav-text">favorites</span></a></li>
                             <li class="nav-item"><a href="compare.html" class="nav-link"><i
                                         class="material-icons">compare</i><span class="nav-text">compares</span></a></li>
-                            <li class="nav-item"><a href="review.html" class="nav-link"><i
-                                        class="material-icons">star</i><span class="nav-text">reviews</span></a></li>
-                            <li class="nav-item"><a href="notify.html" class="nav-link"><i
-                                        class="material-icons">notifications</i><span
-                                        class="nav-text">notifications</span></a></li>
-                            <li class="nav-item"><a href="setting.html" class="nav-link"><i
-                                        class="material-icons">settings</i><span class="nav-text">settings</span></a></li>
                             <li class="nav-item"><a href="<c:url value="/views/login/login.do"/>" class="nav-link"><i
                                         class="material-icons">lock</i><span class="nav-text">logout</span></a></li>
+                            <li class="drop-item"><a href="<c:url value="/user/setting.do"/>" class="drop-link"><i
+                                                class="material-icons">remove</i><span>admin page</span></a></li>   
                         </ul>
                     </div>
                 </nav>

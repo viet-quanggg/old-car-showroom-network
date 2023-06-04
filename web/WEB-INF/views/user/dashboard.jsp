@@ -1,20 +1,20 @@
 <%-- 
     Document   : dashboard
-    Created on : May 28, 2023, 11:30:32 AM
+    Created on : Jun 4, 2023, 9:41:50 PM
     Author     : _viet.quangg
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core"%>
- <section class="section-gap-75">
-        <div style="background: url(${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/banner/single/02.jpg) no-repeat center / cover;">
+<section class="section-gap-75">
+        <div style="background: url(../images/banner/single/02.jpg) no-repeat center / cover;">
             <div class="user-banner">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-7 col-xl-8">
                             <div class="user-banner-profile">
                                 <div class="user-banner-profile-avatar"><a href="profile.html"><img
-                                            src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="avatar"></a></div>
+                                            src="../images/avatar/01.jpg" alt="avatar"></a></div>
                                 <div class="user-banner-profile-meta">
                                     <div class="user-banner-profile-name">
                                         <h3><a href="profile.html">person name</a></h3><span>individual</span>
@@ -68,7 +68,7 @@
             <div class="mc-breadcrumb-group">
                 <h2 class="mc-breadcrumb-title">user dashboard</h2>
                 <ul class="mc-breadcrumb-list">
-                    <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">home</a></li>
+                    <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="index.html">home</a></li>
                     <li class="mc-breadcrumb-item">dashboard</li>
                 </ul>
             </div>
@@ -111,7 +111,7 @@
                                 <div class="comment-group">
                                     <div class="comment-head">
                                         <div class="comment-user"><a class="comment-media" href="#"><img
-                                                    src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="avatar"></a>
+                                                    src="../images/avatar/01.jpg" alt="avatar"></a>
                                             <div class="comment-meta">
                                                 <h5>mahmudul hasan</h5><span>02 february 2022</span>
                                             </div>
@@ -145,7 +145,7 @@
                                         <div class="comment-group">
                                             <div class="comment-head">
                                                 <div class="comment-user"><a class="comment-media" href="#"><img
-                                                            src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/02.jpg" alt="avatar"></a>
+                                                            src="../images/avatar/02.jpg" alt="avatar"></a>
                                                     <div class="comment-meta">
                                                         <h5>tahmina bonny</h5><span><b>vendor</b>02 february 2022</span>
                                                     </div>
@@ -180,7 +180,7 @@
                                                 <div class="comment-group">
                                                     <div class="comment-head">
                                                         <div class="comment-user"><a class="comment-media" href="#"><img
-                                                                    src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="avatar"></a>
+                                                                    src="../images/avatar/01.jpg" alt="avatar"></a>
                                                             <div class="comment-meta">
                                                                 <h5>mahmudul hasan</h5><span>02 february 2022</span>
                                                             </div>
@@ -216,7 +216,7 @@
                                         <div class="comment-group">
                                             <div class="comment-head">
                                                 <div class="comment-user"><a class="comment-media" href="#"><img
-                                                            src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/03.jpg" alt="avatar"></a>
+                                                            src="../images/avatar/03.jpg" alt="avatar"></a>
                                                     <div class="comment-meta">
                                                         <h5>shahin chowdhury</h5><span>02 february 2022</span>
                                                     </div>
@@ -252,7 +252,7 @@
                             <li class="comment-item">
                                 <div class="comment-head">
                                     <div class="comment-user"><a class="comment-media" href="#"><img
-                                                src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/04.jpg" alt="avatar"></a>
+                                                src="../images/avatar/04.jpg" alt="avatar"></a>
                                         <div class="comment-meta">
                                             <h5>khadija labonno</h5><span>02 february 2022</span>
                                         </div>
@@ -282,7 +282,7 @@
                             <li class="comment-item">
                                 <div class="comment-head">
                                     <div class="comment-user"><a class="comment-media" href="#"><img
-                                                src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/05.jpg" alt="avatar"></a>
+                                                src="../images/avatar/05.jpg" alt="avatar"></a>
                                         <div class="comment-meta">
                                             <h5>burhan hawladar</h5><span>02 february 2022</span>
                                         </div>
