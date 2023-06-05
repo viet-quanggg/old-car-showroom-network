@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class DBContext {
     public static Connection getConnection() throws SQLException{
-        String url = "jdbc:sqlserver://localhost;databaseName=OldCarShowroom;user=sa;password=12345";
+        String url = "jdbc:sqlserver://localhost;databaseName=OldCarShowroom;user=sa;password=123456@Aa";
         Connection con = null;
         try{
             //Loading a driver
