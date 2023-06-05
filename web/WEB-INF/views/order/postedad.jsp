@@ -20,7 +20,7 @@
                                         <li><i class="material-icons">feed</i><span>support@example.com</span></li>
                                         <li><i class="material-icons">public</i><span>exampleGhurnek.com</span></li>
                                         <li><i class="material-icons">map</i><span>1Hd- 50, 010 Avenue, NY 90001 United
-                                                States</span></li>iujjj
+                                                States</span></li>
                                     </ul>
                                 </div>
                             </div>
