@@ -5,6 +5,8 @@
 package Controllers;
 
 
+import DB.CarFacade;
+import Models.Car;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -17,6 +19,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 /**
  *
  * @author _viet.quangg
@@ -33,32 +36,7 @@ public class CarController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String controller = (String) request.getAttribute("controller");
-        String action = (String) request.getAttribute("action");
-        switch (action) {
-            case "carlist":
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
-                //in thong bao loi chi tiet cho developer
-                break;
-            case "cargrid":
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
-                //in thong bao loi chi tiet cho developer
-                break;
-            case "carsingle":
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
-                //in thong bao loi chi tiet cho developer
-                break;
-            default:
-                //Show error page
-                request.setAttribute("controller", "error");
-                request.setAttribute("action", "error");
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-
-        }
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -72,7 +50,55 @@ public class CarController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            String controller = (String) request.getAttribute("controller");
+            String action = (String) request.getAttribute("action");
+
+            switch (action) {
+                case "carlist":
+                    CarFacade fa = new CarFacade();
+                    List<Car> list = fa.getCar(); // danh sach tat ca trong db
+
+                    String xpage = request.getParameter("page"); // lay ve 1 tham so ten la page
+                    String xnumberPerPage = request.getParameter("numberPerPage"); // lay ve 1 tham so chua so luong phan tu trong 1 trang
+
+                    int page = (xpage == null) ? 1 : Integer.parseInt(xpage); // danh dau so trang hien tai
+                    int numberPerPage = (xnumberPerPage == null) ? 8 : Integer.parseInt(xnumberPerPage);
+                    int size = list.size();
+
+                    int numberOfPage = ((size % numberPerPage == 0) ? (size / numberPerPage) : (size / numberPerPage + 1));
+
+                    int start = (page - 1) * numberPerPage;
+                    int end = Math.min(page * numberPerPage, size);
+
+                    List<Car> listByPage = fa.getListByPage(list, start, end);
+                    request.setAttribute("listByPage", listByPage);
+                    request.setAttribute("page", page);
+                    request.setAttribute("numberOfPage", numberOfPage);
+                    request.setAttribute("start", start + 1);
+                    request.setAttribute("end", end);
+                    request.setAttribute("numberPerPage", numberPerPage);
+                    request.setAttribute("size", size);
+
+                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                    break;
+                case "cargrid":
+                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                    break;
+                case "carsingle":
+                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                    break;
+                default:
+                    //Show error page
+                    request.setAttribute("controller", "error");
+                    request.setAttribute("action", "error");
+                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+            }
+
+//        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CarController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -86,7 +112,7 @@ public class CarController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**

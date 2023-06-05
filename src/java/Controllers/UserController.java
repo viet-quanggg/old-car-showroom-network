@@ -36,7 +36,7 @@ public class UserController extends HttpServlet {
         String action = (String) request.getAttribute("action");
         switch (action) {
             case "dashboard":
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+                request.getRequestDispatcher("/WEB-INF/layouts/dashboard.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
                 break;
             case "setting":

@@ -5,37 +5,55 @@
  */
 package Models;
 
+import java.sql.Date;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+
 /**
  *
  * @author Admin
  */
 public class Car {
-    private int carID;
+   private int carID;
     private int ownerID;
     private String carShowroom;
-    private float carPrice;
+    private double carPrice;
     private String carName;
-    private String carBrand;
     private int carYear;
     private String carDescription;
-    private String carImage;
+
     private boolean carCondition;
+    private Date createDate;
+    private Date updateDate;
+
+    private Brand brand;
+
+    private List<Image> image;
+    private Color color;
 
     public Car() {
     }
 
-    public Car(int carID, int ownerID, String carShowroom, float carPrice, String carName, String carBrand, int carYear, String carDescription, String carImage, boolean carCondition) {
+    public Car(int carID, int ownerID, String carShowroom, double carPrice, String carName, int carYear, String carDescription, boolean carCondition, Date createDate, Date updateDate, Brand brand, List<Image> image, Color color) {
         this.carID = carID;
         this.ownerID = ownerID;
         this.carShowroom = carShowroom;
         this.carPrice = carPrice;
         this.carName = carName;
-        this.carBrand = carBrand;
         this.carYear = carYear;
         this.carDescription = carDescription;
-        this.carImage = carImage;
         this.carCondition = carCondition;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.brand = brand;
+        this.image = image;
+        this.color = color;
     }
+
+    
+
+    
 
     public int getCarID() {
         return carID;
@@ -61,11 +79,11 @@ public class Car {
         this.carShowroom = carShowroom;
     }
 
-    public float getCarPrice() {
+    public double getCarPrice() {
         return carPrice;
     }
 
-    public void setCarPrice(float carPrice) {
+    public void setCarPrice(double carPrice) {
         this.carPrice = carPrice;
     }
 
@@ -75,14 +93,6 @@ public class Car {
 
     public void setCarName(String carName) {
         this.carName = carName;
-    }
-
-    public String getCarBrand() {
-        return carBrand;
-    }
-
-    public void setCarBrand(String carBrand) {
-        this.carBrand = carBrand;
     }
 
     public int getCarYear() {
@@ -101,14 +111,6 @@ public class Car {
         this.carDescription = carDescription;
     }
 
-    public String getCarImage() {
-        return carImage;
-    }
-
-    public void setCarImage(String carImage) {
-        this.carImage = carImage;
-    }
-
     public boolean isCarCondition() {
         return carCondition;
     }
@@ -116,6 +118,53 @@ public class Car {
     public void setCarCondition(boolean carCondition) {
         this.carCondition = carCondition;
     }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public List<Image> getImage() {
+        return image;
+    }
+
+    public void setImage(List<Image> image) {
+        this.image = image;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public String getFormatPrice() {
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat vn = NumberFormat.getInstance(localeVN);
+        return vn.format(this.carPrice);
+    }
+
     
     
 }

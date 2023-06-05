@@ -201,8 +201,14 @@
                     <div class="sidebar-group">
                         <h5 class="sidebar-title">user menu</h5>
                         <ul class="nav-list">
-                            <li class="nav-item"><a href="<c:url value="/user/dashboard.do"/>" class="nav-link"><i
+                            <c:if test="${User==null}">
+                            <li class="nav-item"><a href="<c:url value="/login/login.do"/>" class="nav-link"><i
                                         class="material-icons">dashboard</i><span class="nav-text">dashboard</span></a></li>
+                            </c:if>   
+                            <c:if test="${User!=null && User.userRole == 2}">
+                            <li class="nav-item"><a href="<c:url value="/admin/dashboard.do"/>" class="nav-link"><i
+                                        class="material-icons">dashboard</i><span class="nav-text">dashboard</span></a></li>
+                            </c:if>
                             <li class="nav-item"><a href="<c:url value="/login/profile.do"/>" class="nav-link"><i
                                         class="material-icons">account_circle</i><span class="nav-text">profile</span></a>
                             </li>

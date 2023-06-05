@@ -17,9 +17,15 @@ public class User {
     private String userPhone;
     private int userRole;
     private String userImage;
+    private int totalUser;
 
     public User() {
     }
+
+    public User(int totalUser) {
+        this.totalUser = totalUser;
+    }
+
 
     public User(int userID, String userPass, String userName, String userEmail, String userAddress, String userPhone) {
         this.userID = userID;
@@ -95,6 +101,16 @@ public class User {
     public void setUserImage(String userImage) {
         this.userImage = userImage;
     }
+    
+    public int getTotalUser() {
+        return totalUser;
+    }
+
+    public void setTotalUser(int totalUser) {
+        this.totalUser = totalUser;
+    }
+    
+    
     
     
 }

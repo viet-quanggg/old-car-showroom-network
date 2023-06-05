@@ -4,6 +4,7 @@
  */
 package Controllers;
 
+import DB.AdminPageFacade;
 import DB.UserFacade;
 import Models.User;
 import java.io.IOException;
@@ -37,29 +38,26 @@ public class AdminController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        HttpSession session = request.getSession();
-        
-        ArrayList<User> list = new ArrayList<>();
-        UserFacade uf = new UserFacade();
-        list = uf.userList();
-        session.setAttribute("UserList", list);
         response.setContentType("text/html;charset=UTF-8");
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
-        switch (action) {
-            case "adminpage":
+        AdminPageFacade apf = new AdminPageFacade();
+        User user = null;
+       switch (action) {
+            case "dashboard":
+                int countUser = apf.countUser();
+                request.setAttribute("countUser", countUser);
+                request.getRequestDispatcher("/WEB-INF/layouts/dashboard.jsp").forward(request, response); //Hien trang thong bao loi
+                //in thong bao loi chi tiet cho developer
+                break;
+            case "setting":
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
                 break;
-            case "userlist":
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+            case "table":
+                request.getRequestDispatcher("/WEB-INF/views/admin/table.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
                 break;
-            case "postedad":
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
-                //in thong bao loi chi tiet cho developer
-                break;
-            
             default:
                 //Show error page
                 request.setAttribute("controller", "error");
