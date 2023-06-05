@@ -76,6 +76,7 @@ public class BlogController extends HttpServlet {
                     //in thong bao loi chi tiet cho developer
                     break;
                 case "blogcreate":
+                    
                     request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                     //in thong bao loi chi tiet cho developer
                     break;
@@ -111,13 +112,12 @@ public class BlogController extends HttpServlet {
                     Blog newBlog = bf.createBlog(blogTitle, blogDetail, blogTitle);
                     request.setAttribute("Blog", newBlog);
                     request.setAttribute("message", "Create successfully");
-                    request.getRequestDispatcher("/login/login.do").forward(request, response);
+                    request.getRequestDispatcher("/views/blog/blogcreate.do").forward(request, response);
                 }
             } catch (Exception e) {
                 request.setAttribute("error", e.toString());
                 request.getRequestDispatcher("/blog/blogcreate.do").forward(request, response);
             }
-
             break;
             default:
         }

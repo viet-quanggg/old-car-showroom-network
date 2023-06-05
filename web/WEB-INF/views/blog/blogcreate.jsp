@@ -82,6 +82,7 @@
         <label for="image">Image:</label><br/>
         <input type="file" id="image" name="blogimage"><br/>
         <button type="submit" name="op" value="create">Create Blog</button>
+        ${message}
       </form>
     </div>
   </body>

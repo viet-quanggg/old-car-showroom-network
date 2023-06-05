@@ -59,6 +59,7 @@ public class AdminController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
                 break;
+            
             default:
                 //Show error page
                 request.setAttribute("controller", "error");
