@@ -145,7 +145,7 @@ create table [Blog]
 (
 blogId int identity (1,1) PRIMARY KEY,
 blogTitle nvarchar(150) NOT NULL,
-blogDetail nvarchar(2000) Not NUll, 
+blogDetail nvarchar(4000) Not NUll, 
 blogImage nvarchar(255),
 userId int NOT NULL,
 blogDate Date NOT NULL,

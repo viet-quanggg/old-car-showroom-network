@@ -1610,7 +1610,7 @@
                     <div class="section-head">
                         <div class="section-text">
                             <h2>browse by top brands</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
+                            <p>Find your want-to-buy car based on brands</p>
                         </div><a href="<c:url value="/cars/carlist.do"/>" class="btn btn-inline"><i
                                 class="material-icons">travel_explore</i><span>browse all</span></a>
                     </div>
@@ -1692,7 +1692,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
+<!--                <div class="col">
                     <div class="city-card"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/city/losangeles.jpg" alt="city">
                         <div class="city-overlay"><a href="<c:url value="/cars/carlist.do"/>" class="material-icons">add</a>
                             <h3><a href="<c:url value="/cars/carlist.do"/>">los angeles</a></h3>
@@ -1747,7 +1747,7 @@
                             <p>84 vehicles</p>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </section>
@@ -1774,10 +1774,11 @@
                 <div class="col-lg-6 col-xl-6">
                     <div class="about-content">
                         <h3>Ghurnek has been standing on the trust of customers for the last 10 years</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, eligendi consectetur
-                            laboriosam qui optio illo provident impedit, vero nisi commodi delectus pariatur eum
-                            mollitia excepturi temporibus aspernatur, repudiandae animi. Quaerat sit rem doloremque
-                            repellat tenetur mollitia quae, provident quasi voluptatibus ducimus velit excepturi?</p>
+                        <p>Welcome to our website, the ultimate destination for all your car buying and selling needs! 
+                            Whether you're looking to purchase a new vehicle or sell your current one, we've got you covered. 
+                            Our platform connects buyers and sellers from all over, making it easy to find the perfect ride at a competitive price. With our user-friendly search tools, 
+                            secure payment system, and helpful customer support team, you can enjoy a stress-free and convenient car buying or selling experience. 
+                            So why wait? Sign up today and join the thousands of satisfied customers who have already turned to us for their automotive needs!</p>
                     </div>
                 </div>
             </div>
