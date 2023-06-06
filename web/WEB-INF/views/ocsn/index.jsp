@@ -136,7 +136,7 @@
                         </div>
                         <div class="product-grid-content">
                             <div class="product-grid-group">
-                                <div class="product-grid-price"><span>$18,759/-</span><small>fixed</small></div>
+                                <div class="product-grid-price"><span>${item.carPrice}/-</span><small>fixed</small></div>
                                 <div class="product-grid-action"><button type="button" title="Compare"
                                                                          class="compare material-icons">compare</button><button type="button"
                                                                          title="Favorite" class="favorite material-icons">favorite</button></div>
@@ -145,7 +145,7 @@
                                 <h4><a href="inventory-single.html">${item.carName}</a></h4>
                                 <ul>
                                     <li>delpara, narayanganj</li>
-                                    <li>23h ago!</li>
+                                    <li>${item.createDate}</li>
                                 </ul>
                             </div>
                             <ul class="product-grid-extra">
@@ -180,10 +180,12 @@
                     </div>
                 </div>
             </div>
+                  
             <div class="row product-feature-slider slider-arrow">
+                <c:forEach begin="1" end="4" items="${carDAO.car}" var="item">
                 <div class="col">
                     <div class="product-feature-card">
-                        <div class="product-feature-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/product/19.jpg" alt="product"><a
+                        <div class="product-feature-image"><img src="${pageContext.request.contextPath}${item.image.size() == 0 ? '' : item.image.get(0).url}" alt="product"><a
                                 href="inventory-single.html" class="product-feature-btn badge-hover"><i
                                     class="material-icons">add</i><span class="badge arrow-right">more
                                     details</span></a>
@@ -191,56 +193,13 @@
                                     class="badge featured">featured</span></div>
                         </div>
                         <div class="product-feature-meta">
-                            <h3><a href="inventory-single.html">Mercedez benz super mclaren</a></h3>
-                            <h4>$45,658/- <span>negotiable</span></h4>
+                            <h3><a href="inventory-single.html">${item.carName}</a></h3>
+                            <h4>${item.carPrice}/- <span>negotiable</span></h4>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="product-feature-card">
-                        <div class="product-feature-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/product/18.jpg" alt="product"><a
-                                href="inventory-single.html" class="product-feature-btn badge-hover"><i
-                                    class="material-icons">add</i><span class="badge arrow-right">more
-                                    details</span></a>
-                            <div class="product-feature-badge"><span class="badge new">new</span><span
-                                    class="badge featured">featured</span></div>
-                        </div>
-                        <div class="product-feature-meta">
-                            <h3><a href="inventory-single.html">Mercedez benz super mclaren</a></h3>
-                            <h4>$45,658/- <span>negotiable</span></h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="product-feature-card">
-                        <div class="product-feature-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/product/17.jpg" alt="product"><a
-                                href="inventory-single.html" class="product-feature-btn badge-hover"><i
-                                    class="material-icons">add</i><span class="badge arrow-right">more
-                                    details</span></a>
-                            <div class="product-feature-badge"><span class="badge new">new</span><span
-                                    class="badge featured">featured</span></div>
-                        </div>
-                        <div class="product-feature-meta">
-                            <h3><a href="inventory-single.html">Mercedez benz super mclaren</a></h3>
-                            <h4>$45,658/- <span>negotiable</span></h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="product-feature-card">
-                        <div class="product-feature-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/product/16.jpg" alt="product"><a
-                                href="inventory-single.html" class="product-feature-btn badge-hover"><i
-                                    class="material-icons">add</i><span class="badge arrow-right">more
-                                    details</span></a>
-                            <div class="product-feature-badge"><span class="badge new">new</span><span
-                                    class="badge featured">featured</span></div>
-                        </div>
-                        <div class="product-feature-meta">
-                            <h3><a href="inventory-single.html">Mercedez benz super mclaren</a></h3>
-                            <h4>$45,658/- <span>negotiable</span></h4>
-                        </div>
-                    </div>
-                </div>
+                </c:forEach>                
+
             </div>
         </div>
     </section>
@@ -274,9 +233,10 @@
             </div>
             <div class="tab-pane fade show active" id="vendor">
                 <div class="row row-cols-xl-4">
+                    <c:forEach begin="1" end="8" items="${carDAO.car}" var="item">
                     <div class="col">
                         <div class="product-grid-card">
-                            <div class="product-grid-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/product/13.jpg" alt="feature">
+                            <div class="product-grid-image"><img src="${pageContext.request.contextPath}${item.image.size() == 0 ? '' : item.image.get(0).url}" alt="feature">
                                 <div class="product-grid-badge"><span class="badge new">new</span></div>
                                 <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
                                 </div>
@@ -289,16 +249,16 @@
                             </div>
                             <div class="product-grid-content">
                                 <div class="product-grid-group">
-                                    <div class="product-grid-price"><span>$18,759/-</span><small>fixed</small></div>
+                                    <div class="product-grid-price"><span>${item.carPrice}/-</span><small>fixed</small></div>
                                     <div class="product-grid-action"><button type="button" title="Compare"
                                                                              class="compare material-icons">compare</button><button type="button"
                                                                              title="Favorite" class="favorite material-icons">favorite</button></div>
                                 </div>
                                 <div class="product-grid-meta">
-                                    <h4><a href="inventory-single.html">Mercedez benz super mclaren</a></h4>
+                                    <h4><a href="inventory-single.html">${item.carName}</a></h4>
                                     <ul>
                                         <li>delpara, narayanganj</li>
-                                        <li>23h ago!</li>
+                                        <li>${item.createDate}</li>
                                     </ul>
                                 </div>
                                 <ul class="product-grid-extra">
@@ -314,293 +274,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="product-grid-card">
-                            <div class="product-grid-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/product/14.jpg" alt="feature">
-                                <div class="product-grid-badge"><span class="badge used">used</span></div>
-                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
-                                </div>
-                                <div class="product-grid-overlay">
-                                    <div class="product-grid-vendor"><i class="material-icons">person</i><a
-                                            href="profile.html">by autoland</a></div>
-                                    <div class="product-grid-rating"><i class="material-icons">star</i><a
-                                            href="review.html">28 review</a></div>
-                                </div>
-                            </div>
-                            <div class="product-grid-content">
-                                <div class="product-grid-group">
-                                    <div class="product-grid-price"><span>$18,759/-</span><small>negotiable</small>
-                                    </div>
-                                    <div class="product-grid-action"><button type="button" title="Compare"
-                                                                             class="compare material-icons">compare</button><button type="button"
-                                                                             title="Favorite" class="favorite material-icons">favorite</button></div>
-                                </div>
-                                <div class="product-grid-meta">
-                                    <h4><a href="inventory-single.html">Mercedez benz super mclaren</a></h4>
-                                    <ul>
-                                        <li>delpara, narayanganj</li>
-                                        <li>23h ago!</li>
-                                    </ul>
-                                </div>
-                                <ul class="product-grid-extra">
-                                    <li><i class="material-icons">construction</i><span>manual</span></li>
-                                    <li><i class="material-icons">settings</i><span>2000 km</span></li>
-                                    <li><i class="material-icons">local_gas_station</i><span>diesel</span></li>
-                                </ul>
-                                <div class="product-grid-btn"><a href="inventory-single.html"><i
-                                            class="material-icons">visibility</i><span>details</span></a><a
-                                        href="https://youtu.be/VWrJkx6O0L8" class="venobox" data-autoplay="true"
-                                        data-vbtype="video"><i class="material-icons">videocam</i><span>video</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="product-grid-card">
-                            <div class="product-grid-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/product/15.jpg" alt="feature">
-                                <div class="product-grid-badge"><span class="badge new">new</span></div>
-                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
-                                </div>
-                                <div class="product-grid-overlay">
-                                    <div class="product-grid-vendor"><i class="material-icons">person</i><a
-                                            href="profile.html">by autoland</a></div>
-                                    <div class="product-grid-rating"><i class="material-icons">star</i><a
-                                            href="review.html">28 review</a></div>
-                                </div>
-                            </div>
-                            <div class="product-grid-content">
-                                <div class="product-grid-group">
-                                    <div class="product-grid-price"><span>$18,759/-</span><small>negotiable</small>
-                                    </div>
-                                    <div class="product-grid-action"><button type="button" title="Compare"
-                                                                             class="compare material-icons">compare</button><button type="button"
-                                                                             title="Favorite" class="favorite material-icons">favorite</button></div>
-                                </div>
-                                <div class="product-grid-meta">
-                                    <h4><a href="inventory-single.html">Mercedez benz super mclaren</a></h4>
-                                    <ul>
-                                        <li>delpara, narayanganj</li>
-                                        <li>23h ago!</li>
-                                    </ul>
-                                </div>
-                                <ul class="product-grid-extra">
-                                    <li><i class="material-icons">construction</i><span>manual</span></li>
-                                    <li><i class="material-icons">settings</i><span>2000 km</span></li>
-                                    <li><i class="material-icons">local_gas_station</i><span>diesel</span></li>
-                                </ul>
-                                <div class="product-grid-btn"><a href="inventory-single.html"><i
-                                            class="material-icons">visibility</i><span>details</span></a><a
-                                        href="https://youtu.be/VWrJkx6O0L8" class="venobox" data-autoplay="true"
-                                        data-vbtype="video"><i class="material-icons">videocam</i><span>video</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="product-grid-card">
-                            <div class="product-grid-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/product/16.jpg" alt="feature">
-                                <div class="product-grid-badge"><span class="badge new">new</span></div>
-                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
-                                </div>
-                                <div class="product-grid-overlay">
-                                    <div class="product-grid-vendor"><i class="material-icons">person</i><a
-                                            href="profile.html">by autoland</a></div>
-                                    <div class="product-grid-rating"><i class="material-icons">star</i><a
-                                            href="review.html">28 review</a></div>
-                                </div>
-                            </div>
-                            <div class="product-grid-content">
-                                <div class="product-grid-group">
-                                    <div class="product-grid-price"><span>$18,759/-</span><small>negotiable</small>
-                                    </div>
-                                    <div class="product-grid-action"><button type="button" title="Compare"
-                                                                             class="compare material-icons">compare</button><button type="button"
-                                                                             title="Favorite" class="favorite material-icons">favorite</button></div>
-                                </div>
-                                <div class="product-grid-meta">
-                                    <h4><a href="inventory-single.html">Mercedez benz super mclaren</a></h4>
-                                    <ul>
-                                        <li>delpara, narayanganj</li>
-                                        <li>23h ago!</li>
-                                    </ul>
-                                </div>
-                                <ul class="product-grid-extra">
-                                    <li><i class="material-icons">construction</i><span>manual</span></li>
-                                    <li><i class="material-icons">settings</i><span>2000 km</span></li>
-                                    <li><i class="material-icons">local_gas_station</i><span>diesel</span></li>
-                                </ul>
-                                <div class="product-grid-btn"><a href="inventory-single.html"><i
-                                            class="material-icons">visibility</i><span>details</span></a><a
-                                        href="https://youtu.be/VWrJkx6O0L8" class="venobox" data-autoplay="true"
-                                        data-vbtype="video"><i class="material-icons">videocam</i><span>video</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="product-grid-card">
-                            <div class="product-grid-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/product/17.jpg" alt="feature">
-                                <div class="product-grid-badge"><span class="badge used">used</span></div>
-                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
-                                </div>
-                                <div class="product-grid-overlay">
-                                    <div class="product-grid-vendor"><i class="material-icons">person</i><a
-                                            href="profile.html">by autoland</a></div>
-                                    <div class="product-grid-rating"><i class="material-icons">star</i><a
-                                            href="review.html">28 review</a></div>
-                                </div>
-                            </div>
-                            <div class="product-grid-content">
-                                <div class="product-grid-group">
-                                    <div class="product-grid-price"><span>$18,759/-</span><small>negotiable</small>
-                                    </div>
-                                    <div class="product-grid-action"><button type="button" title="Compare"
-                                                                             class="compare material-icons">compare</button><button type="button"
-                                                                             title="Favorite" class="favorite material-icons">favorite</button></div>
-                                </div>
-                                <div class="product-grid-meta">
-                                    <h4><a href="inventory-single.html">Mercedez benz super mclaren</a></h4>
-                                    <ul>
-                                        <li>delpara, narayanganj</li>
-                                        <li>23h ago!</li>
-                                    </ul>
-                                </div>
-                                <ul class="product-grid-extra">
-                                    <li><i class="material-icons">construction</i><span>manual</span></li>
-                                    <li><i class="material-icons">settings</i><span>2000 km</span></li>
-                                    <li><i class="material-icons">local_gas_station</i><span>diesel</span></li>
-                                </ul>
-                                <div class="product-grid-btn"><a href="inventory-single.html"><i
-                                            class="material-icons">visibility</i><span>details</span></a><a
-                                        href="https://youtu.be/VWrJkx6O0L8" class="venobox" data-autoplay="true"
-                                        data-vbtype="video"><i class="material-icons">videocam</i><span>video</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="product-grid-card">
-                            <div class="product-grid-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/product/18.jpg" alt="feature">
-                                <div class="product-grid-badge"><span class="badge new">new</span></div>
-                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
-                                </div>
-                                <div class="product-grid-overlay">
-                                    <div class="product-grid-vendor"><i class="material-icons">person</i><a
-                                            href="profile.html">by autoland</a></div>
-                                    <div class="product-grid-rating"><i class="material-icons">star</i><a
-                                            href="review.html">28 review</a></div>
-                                </div>
-                            </div>
-                            <div class="product-grid-content">
-                                <div class="product-grid-group">
-                                    <div class="product-grid-price"><span>$18,759/-</span><small>negotiable</small>
-                                    </div>
-                                    <div class="product-grid-action"><button type="button" title="Compare"
-                                                                             class="compare material-icons">compare</button><button type="button"
-                                                                             title="Favorite" class="favorite material-icons">favorite</button></div>
-                                </div>
-                                <div class="product-grid-meta">
-                                    <h4><a href="inventory-single.html">Mercedez benz super mclaren</a></h4>
-                                    <ul>
-                                        <li>delpara, narayanganj</li>
-                                        <li>23h ago!</li>
-                                    </ul>
-                                </div>
-                                <ul class="product-grid-extra">
-                                    <li><i class="material-icons">construction</i><span>manual</span></li>
-                                    <li><i class="material-icons">settings</i><span>2000 km</span></li>
-                                    <li><i class="material-icons">local_gas_station</i><span>diesel</span></li>
-                                </ul>
-                                <div class="product-grid-btn"><a href="inventory-single.html"><i
-                                            class="material-icons">visibility</i><span>details</span></a><a
-                                        href="https://youtu.be/VWrJkx6O0L8" class="venobox" data-autoplay="true"
-                                        data-vbtype="video"><i class="material-icons">videocam</i><span>video</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="product-grid-card">
-                            <div class="product-grid-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/product/19.jpg" alt="feature">
-                                <div class="product-grid-badge"><span class="badge new">new</span></div>
-                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
-                                </div>
-                                <div class="product-grid-overlay">
-                                    <div class="product-grid-vendor"><i class="material-icons">person</i><a
-                                            href="profile.html">by autoland</a></div>
-                                    <div class="product-grid-rating"><i class="material-icons">star</i><a
-                                            href="review.html">28 review</a></div>
-                                </div>
-                            </div>
-                            <div class="product-grid-content">
-                                <div class="product-grid-group">
-                                    <div class="product-grid-price"><span>$18,759/-</span><small>negotiable</small>
-                                    </div>
-                                    <div class="product-grid-action"><button type="button" title="Compare"
-                                                                             class="compare material-icons">compare</button><button type="button"
-                                                                             title="Favorite" class="favorite material-icons">favorite</button></div>
-                                </div>
-                                <div class="product-grid-meta">
-                                    <h4><a href="inventory-single.html">Mercedez benz super mclaren</a></h4>
-                                    <ul>
-                                        <li>delpara, narayanganj</li>
-                                        <li>23h ago!</li>
-                                    </ul>
-                                </div>
-                                <ul class="product-grid-extra">
-                                    <li><i class="material-icons">construction</i><span>manual</span></li>
-                                    <li><i class="material-icons">settings</i><span>2000 km</span></li>
-                                    <li><i class="material-icons">local_gas_station</i><span>diesel</span></li>
-                                </ul>
-                                <div class="product-grid-btn"><a href="inventory-single.html"><i
-                                            class="material-icons">visibility</i><span>details</span></a><a
-                                        href="https://youtu.be/VWrJkx6O0L8" class="venobox" data-autoplay="true"
-                                        data-vbtype="video"><i class="material-icons">videocam</i><span>video</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="product-grid-card">
-                            <div class="product-grid-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/product/20.jpg" alt="feature">
-                                <div class="product-grid-badge"><span class="badge used">used</span></div>
-                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
-                                </div>
-                                <div class="product-grid-overlay">
-                                    <div class="product-grid-vendor"><i class="material-icons">person</i><a
-                                            href="profile.html">by autoland</a></div>
-                                    <div class="product-grid-rating"><i class="material-icons">star</i><a
-                                            href="review.html">28 review</a></div>
-                                </div>
-                            </div>
-                            <div class="product-grid-content">
-                                <div class="product-grid-group">
-                                    <div class="product-grid-price"><span>$18,759/-</span><small>negotiable</small>
-                                    </div>
-                                    <div class="product-grid-action"><button type="button" title="Compare"
-                                                                             class="compare material-icons">compare</button><button type="button"
-                                                                             title="Favorite" class="favorite material-icons">favorite</button></div>
-                                </div>
-                                <div class="product-grid-meta">
-                                    <h4><a href="inventory-single.html">Mercedez benz super mclaren</a></h4>
-                                    <ul>
-                                        <li>delpara, narayanganj</li>
-                                        <li>23h ago!</li>
-                                    </ul>
-                                </div>
-                                <ul class="product-grid-extra">
-                                    <li><i class="material-icons">construction</i><span>manual</span></li>
-                                    <li><i class="material-icons">settings</i><span>2000 km</span></li>
-                                    <li><i class="material-icons">local_gas_station</i><span>diesel</span></li>
-                                </ul>
-                                <div class="product-grid-btn"><a href="inventory-single.html"><i
-                                            class="material-icons">visibility</i><span>details</span></a><a
-                                        href="https://youtu.be/VWrJkx6O0L8" class="venobox" data-autoplay="true"
-                                        data-vbtype="video"><i class="material-icons">videocam</i><span>video</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>             
                 </div>
             </div>
             <div class="tab-pane fade" id="ratings">
