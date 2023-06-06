@@ -34,13 +34,13 @@
                     </div>
                     <div class="col-lg-5 col-xl-4">
                         <ul class="user-banner-data">
-                            <li class="ads"><i class="material-icons">store</i>
-                                <h3>4334</h3>
-                                <p>total advertise</p>
+                            <li class="ads"><i class="material-icons">note</i>
+                                <h3>${Post.count}0</h3>
+                                <p>total post</p>
                             </li>
-                            <li class="star"><i class="material-icons">star</i>
-                                <h3>2112</h3>
-                                <p>total ratings</p>
+                            <li class="star"><i class="material-icons">car</i>
+                                <h3>${order.count}0</h3>
+                                <p>total car buy</p>
                             </li>
                         </ul>
                     </div>
@@ -57,7 +57,6 @@
                             <li><a href="review.html">reviews</a></li>
                             <li><a href="notify.html">notify</a></li>
                             <li><a href="setting.html">settings</a></li>
-                            <li><a href="login.html">logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -70,8 +69,7 @@
         <div class="mc-breadcrumb-group">
             <h2 class="mc-breadcrumb-title">user profile</h2>
             <ul class="mc-breadcrumb-list">
-                <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="index.html">home</a></li>
-                <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="dashboard.html">dashboard</a>
+                <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">home</a></li>
                 </li>
                 <li class="mc-breadcrumb-item">profile</li>
             </ul>
@@ -82,29 +80,23 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-7 col-xl-8">
-                <div class="profile-cover-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/bg/cover.jpg" alt="cover"></div>
                 <div class="common-card">
                     <div class="common-card-header">
-                        <h4 class="common-card-header-title">about this vendor</h4>
+                        <h4 class="common-card-header-title">Profile</h4>
                     </div>
-                    <div class="common-card-body">
-                        <div class="profile-article">
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae modi tempora
-                                odit explicabo dicta qui, blanditiis incidunt possimus natus a adipisci laborum
-                                fugit quaerat perspiciatis reprehenderit expedita magni rerum voluptatum numquam?
-                                Unde eius consectetur quaerat expedita deserunt quis blanditiis ipsa, corporis
-                                mollitia vero modi adipisci ratione voluptate enim voluptas, numquam totam
-                                perspiciatis iure? Necessitatibus voluptates quod, velit in voluptas possimus
-                                accusamus. <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-                                    laborum nisi minus, modi facere, recusandae non animi porro assumenda dolorem
-                                    nemo. Commodi expedita ratione officia voluptate, vel ipsum nam, voluptatibus
-                                    nulla doloremque iure sed quas repudiandae atque beatae. Eligendi quaerat fugit
-                                    dolores laboriosam voluptatem nisi obcaecati, beatae eum alias? Temporibus eius
-                                    laudantium necessitatibus? Doloribus dolor officia nulla accusantium facere
-                                    minima</span></p>
-                        </div>
+                    <div class="common-card-body ">
+                        <ul class="profile-specify-list">
+                            <li><span>Joined:</span><span>${User.timeCreated}</span></li>
+                            <li><span>Role:</span><span><c:if test="${User.userRole == 2}">Admin</c:if> <c:if test="${User.userRole == 1}">Employee</c:if> <c:if test="${User.userRole == 0}">Customer</c:if></span></li>
+                            <li><span>Phone:</span><span>${User.userPhone}</span></li>
+                            <li><span>Address:</span><span>${User.userAddress}</span></li>
+                        </ul>
                     </div>
-                </div>
+                        <div class="common-card-header"></div>
+                    <div>
+                        <button type="submit" class="form-btn">Update</button>
+                    </div>
+                </div>  
                 <div class="common-card">
                     <div class="common-card-header">
                         <h4 class="common-card-header-title">vendor location</h4>
@@ -119,19 +111,18 @@
             <div class="col-lg-5 col-xl-4">
                 <div class="common-card">
                     <div class="common-card-header">
-                        <h4 class="common-card-header-title">Membership status</h4>
+                        <h4 class="common-card-header-title">Profile</h4>
                     </div>
                     <div class="common-card-body">
                         <ul class="profile-specify-list">
-                            <li><span>Joined:</span><span>02 February 2022</span></li>
-                            <li><span>type:</span><span>  <c:if test="${User.userRole == 2}">Admin</c:if>     
-                                    <c:if test="${User.userRole == 1}">Employee</c:if> 
-                                    <c:if test="${User.userRole == 0}">Customer</c:if></span></li>
-                            <li><span>plan:</span><span>business</span></li>
-                            <li><span>Spand:</span><span>$4,587</span></li>
+                            <li><span>Joined:</span><span>${User.timeCreated}</span></li>
+                            <li><span>Role:</span><span><c:if test="${User.userRole == 2}">Admin</c:if> <c:if test="${User.userRole == 1}">Employee</c:if> <c:if test="${User.userRole == 0}">Customer</c:if></span></li>
+                            <li><span>Phone:</span><span>${User.userPhone}</span></li>
+                            <li><span>Address:</span><span>${User.userAddress}</span></li>
                         </ul>
                     </div>
                 </div>
+            </div>
                 <div class="common-card">
                     <div class="common-card-header">
                         <h4 class="common-card-header-title">contact address</h4>
@@ -163,28 +154,18 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 <div class="form-group"><textarea class="form-control"
-                                                                  placeholder="describe your message"></textarea></div>
+                            placeholder="describe your message"></textarea></div>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><button class="form-btn"
-                                                                                                type="submit">send email</button></div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><button class="form-btn" type="submit">send email</button></div>
                         </div>
                     </form>
                 </div>
-                <div class="common-card">
-                    <div class="common-card-header">
-                        <h4 class="common-card-header-title">social media</h4>
-                    </div>
-                    <div class="common-card-body">
-                        <ul class="profile-social-list">
-                            <li><a href="#" class="icofont-facebook facebook"></a></li>
-                            <li><a href="#" class="icofont-twitter twitter"></a></li>
-                            <li><a href="#" class="icofont-linkedin linkedin"></a></li>
-                            <li><a href="#" class="icofont-instagram instagram"></a></li>
-                            <li><a href="#" class="icofont-pinterest pinterest"></a></li>
-                        </ul>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
 </section>
+
+
+
+

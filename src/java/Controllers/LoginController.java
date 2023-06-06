@@ -8,9 +8,7 @@ import Models.User;
 import DB.UserFacade;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -18,6 +16,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -116,41 +119,59 @@ public class LoginController extends HttpServlet {
                 String username = request.getParameter("userName");
                 String userphone = request.getParameter("userPhone");
                 String useraddress = request.getParameter("userAddress");
+                String agree = request.getParameter("termsAndPrivacy");
                 UserFacade uf = new UserFacade();
                 User user = uf.checkEmail(useremail);
+                request.setAttribute("userEmail", useremail);
+                request.setAttribute("userName", username);
+                request.setAttribute("userPhone", userphone);
+                request.setAttribute("userAddress", useraddress);
+
                 if (useremail.isEmpty()) {
-                    request.setAttribute("errorE", "please enter your Email!");
+                    request.setAttribute("errorE", "please fill in  your Email!");
+                    //  request.getRequestDispatcher("/login/register.do").forward(request, response);
                 }
                 if (userpass.isEmpty()) {
-                    request.setAttribute("errorPa", "please enter your fill in your password!");
+                    request.setAttribute("errorPa", "please  fill in your Password!");
+                    // request.getRequestDispatcher("/login/register.do").forward(request, response);
                 }
                 if (re_pass.isEmpty()) {
-                    request.setAttribute("errorR", "please enter your fill in your repeate password!");
+                    request.setAttribute("errorR", "please  fill in your repeat password!");
+                    // request.getRequestDispatcher("/login/register.do").forward(request, response);
                 }
                 if (username.isEmpty()) {
-                    request.setAttribute("errorN", "please enter your fill in your user name!");
+                    request.setAttribute("errorN", "please fill in your User name!");
+                    //  request.getRequestDispatcher("/login/register.do").forward(request, response);
                 }
                 if (userphone.isEmpty()) {
-                    request.setAttribute("errorPh", "please enter your fill in your phone!");
+                    request.setAttribute("errorPh", "please fill in your phone!");
+                    //    request.getRequestDispatcher("/login/register.do").forward(request, response);
                 }
                 if (useraddress.isEmpty()) {
-                    request.setAttribute("errorA", "please enter your fill in your address!");
+                    request.setAttribute("errorA", "please fill in your address!");
+                    //  request.getRequestDispatcher("/login/register.do").forward(request, response);
                 }
-                if (useremail.isEmpty() || userpass.isEmpty() || username.isEmpty() || userphone.isEmpty() || useraddress.isEmpty()) {
+                if (useremail.isEmpty() || userpass.isEmpty() || re_pass.isEmpty() || username.isEmpty() || userphone.isEmpty() || useraddress.isEmpty()) {
                     request.getRequestDispatcher("/login/register.do").forward(request, response);
+                } else {
                     if (user != null) {
 //                    check = true;
-                        request.setAttribute("error", "Email này đã được đăng ký!");
+                        request.setAttribute("errorE", "Email already exist!");
                         request.getRequestDispatcher("/login/register.do").forward(request, response);
                     } else {
                         if (!userpass.equals(re_pass)) {
-                            request.setAttribute("error", "Mật khẩu không trùng khớp!");
+                            request.setAttribute("errorR", "Password and Re-password doest not match!");
+                            request.getRequestDispatcher("/login/register.do").forward(request, response);
+                        } else if (agree == null || !agree.equals("agree")) {
+                            request.setAttribute("errorT", "Agree to Terms and Privacy Policy to continue!");
                             request.getRequestDispatcher("/login/register.do").forward(request, response);
                         } else {
-                            User newUser = uf.register(useremail, userpass, username, userphone, useraddress);
+                            Date date = new Date();
+                            
+                            User newUser = uf.register(useremail, userpass, username, userphone, useraddress, date);
                             HttpSession session = request.getSession();
                             session.setAttribute("User", newUser);
-                            request.setAttribute("message", "Sign in success,please login to continue.");
+                            request.setAttribute("message", "Sign up success,please login to continue.");
                             request.getRequestDispatcher("/login/login.do").forward(request, response);
                         }
                     }
@@ -184,7 +205,7 @@ public class LoginController extends HttpServlet {
                     try {
                     String email = request.getParameter("email");
                     String phone = request.getParameter("userPhone");
-                    user = uf.forgetpass(email, phone);
+                    //    user = uf.forgotpass(email, phone);
                     if (user != null) {
                         session.setAttribute("User1", user);
                         request.setAttribute("message2", user.getUserName());
@@ -237,6 +258,8 @@ public class LoginController extends HttpServlet {
                 String username = request.getParameter("userName");
                 String userphone = request.getParameter("userPhone");
                 String useraddress = request.getParameter("userAddress");
+                int userrole = Integer.parseInt(request.getParameter("userRole"));
+                String userimage = request.getParameter("userImage");
                 UserFacade uf = new UserFacade();
                 if (useremail.isEmpty() || userpass.isEmpty() || username.isEmpty() || userphone.isEmpty() || useraddress.isEmpty()) {
                     request.setAttribute("error", "Vui lòng điền đầy đủ thông tin!");
@@ -246,7 +269,7 @@ public class LoginController extends HttpServlet {
                         request.setAttribute("error", "Mật khẩu không trùng khớp!");
                         request.getRequestDispatcher("/user/updateUser.do").forward(request, response);
                     } else {
-                        User user = new User(userId, useremail, userpass, username, userphone, useraddress);
+                        User user = new User(userId, useremail, userpass, username, userphone, useraddress, new Date(), userrole, userimage, 1);
                         uf.update(user);
                         HttpSession session = request.getSession();
                         session.setAttribute("User", user);
@@ -301,14 +324,16 @@ public class LoginController extends HttpServlet {
         try {
             String useremail = request.getParameter("userEmail");
             String userpass = request.getParameter("userPass");
-            // String remember = request.getParameter("remember");
+            request.setAttribute("userEmail", useremail);
+
+            //    String remember = request.getParameter("remember");
             UserFacade uf = new UserFacade();
             User user = uf.login(useremail, userpass);
             // String remember = request.getParameter("remember");
             if (user != null) {
                 //Neu login thanh cong:
                 //Luu user vao session
-                if (request.getParameter("remember") != null) {
+                if (request.getParameter("remember") != null && request.getParameter("remember").equals("on")) {
                     String remember = request.getParameter("remember");
                     System.out.println("remember : " + remember);
                     Cookie cUserName = new Cookie("cookuser", useremail.trim());

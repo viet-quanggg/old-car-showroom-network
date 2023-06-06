@@ -47,11 +47,11 @@
         </div>
                                                                                                             <%
 	    Cookie[] cookies=request.getCookies();
-	    String userName = "", password = "",rememberVal="";
+	    String cookiename = "", password = "",rememberVal="";
 	    if (cookies != null) {
 	         for (Cookie cookie : cookies) {
 	           if(cookie.getName().equals("cookuser")) {
-	             userName = cookie.getValue();
+	             cookiename = cookie.getValue();
 	           }
 	           if(cookie.getName().equals("cookpass")){
 	             password = cookie.getValue();
@@ -63,11 +63,11 @@
 	    }
 	%>
 
-        <form class="auth-form" action="<c:url value="/login/login_handler.do"/>">
+        <form class="auth-form" action="<c:url value="/login/login_handler.do"/>" >
             <div class="auth-form-content">
                 <h3 class="auth-form-title">Login with your credentials.</h3>
-                <div class="form-group"><input type="email" id="userEmail" name="userEmail" placeholder="userEmail" class="form-control" placeholder="enter your email" autocomplete="off" value="<%=userName%>" ></div>
-                <div class="form-group"><input type="password" id="password" name="userPass" class="form-control" placeholder="enter your password" autocomplete="off" value="<%=password%>" >
+                <div class="form-group"><input type="email" id="userEmail" name="userEmail" placeholder="Enter your email" class="form-control" placeholder="enter your email" required autocomplete="off" value="${userEmail}" ></div>
+                <div class="form-group"><input type="password" id="password" name="userPass" class="form-control" placeholder="Enter your password" required autocomplete="off" value="<%=password%>" >
                 </div>
                 <div class="form-group-content">
                     <div class="form-check mb-0"><input class="form-check-input" type="checkbox" id="checkAgree"><label

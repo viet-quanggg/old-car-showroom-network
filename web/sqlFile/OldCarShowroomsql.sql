@@ -3,18 +3,18 @@ go
 /*******************************************************************************
    Drop database if it exists
 ********************************************************************************/
-IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'OldCarShowroom')
+IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'OldCarShowroom2')
 BEGIN
-	ALTER DATABASE [OldCarShowroom] SET OFFLINE WITH ROLLBACK IMMEDIATE;
-	ALTER DATABASE [OldCarShowroom] SET ONLINE;
-	DROP DATABASE [OldCarShowroom];
+	ALTER DATABASE [OldCarShowroom2] SET OFFLINE WITH ROLLBACK IMMEDIATE;
+	ALTER DATABASE [OldCarShowroom2] SET ONLINE;
+	DROP DATABASE [OldCarShowroom2];
 END
 GO
 
-CREATE DATABASE [OldCarShowroom]
+CREATE DATABASE [OldCarShowroom2]
 GO
 
-USE [OldCarShowroom]
+USE [OldCarShowroom2]
 GO
 
 /*******************************************************************************
@@ -45,16 +45,29 @@ WHERE  TABLE_TYPE = 'BASE TABLE'
 
 Exec Sp_executesql @sql2 
 GO
+create table  [Plan]
+(planId int identity(1,1) PRIMARY KEY,
+planName nvarchar(30) not null,
+planTime int not null,
+planLimit int,
+planPrice money NOT NULL,
+)
 
+
+GO
 create table [User] 
 (userId int identity (1,1) PRIMARY KEY,
 userEmail varchar(25) NOT NULL, 
 userPass varchar(16) NOT NULL,
 userName nvarchar(25) NOT NULL,
-userPhone int NOT NULL,
+userPhone varchar(11) NOT NULL,
 userAddress varchar(50) NOT NULL,
+timeCreated Date NOT NULL,
 userRole int NOT NULL,
-userImage nvarchar(255) 
+userImage nvarchar(255),
+planId int,
+planStart Date,
+foreign key (planId) references [Plan](planId)
 );
 GO
 
@@ -94,26 +107,27 @@ CREATE TABLE Color (
 	PRIMARY KEY (id)
 )
 GO
-
+create table [Post]
+(postId int identity (1,1) PRIMARY KEY,
+userId int NOT NULL,
+carId int NOT NULL,
+postTitle nvarchar(100) NOT NULL,
+postDescript nvarchar(4000) NOT NULL,
+postDate Date NOT NULL,
+postStatus nvarchar(20) NOT NULL,
+foreign key (userId) references [User] (userId),
+foreign key (carId) references Car (carId)
+)
+go
 create table  [Order]
 (orderId int identity (1,1) PRIMARY KEY,
-orderTotal float NOT NULL,
-orderStatus bit NOT NULL, 
+postId int not null,
+orderStatus nvarchar(50) NOT NULL, 
 orderDate Date NOT NULL,
-userId int NOT NULL
-foreign key (userId) references [User] (userId)
-
+userId int NOT NULL,
+foreign key (userId) references [User] (userId),
+foreign key(postId) references [Post] (postId)
 );
-GO
-
-create table [OrderDetail]
-(orderId int NOT NULL,
-carId int NOT NULL,
-carPrice float NOT NULL
-foreign key (orderId) references [Order] (orderId),
-foreign key (carId) references Car (carId),
-primary key (orderId, carId)
-)
 GO
 
 CREATE TABLE Car_Image (
@@ -132,15 +146,6 @@ GO
 
 
 
-
-create table [Post]
-(postId int identity (1,1) PRIMARY KEY,
-userId int NOT NULL,
-carId int NOT NULL,
-postDate Date NOT NULL,
-foreign key (userId) references [User] (userId),
-foreign key (carId) references Car (carId)
-)
 create table [Blog]
 (
 blogId int identity (1,1) PRIMARY KEY,
@@ -247,6 +252,12 @@ VALUES
 
 
 GO
+INSERT INTO [dbo].[Plan] ( [planName],[planTime],[planLimit],[planPrice])
+values
+('Silver Package',1,3,15),
+('Gold Package',3,10,30),
+('Platinum Package',6, null,60)
+
 INSERT INTO [dbo].[Car_Image]	([url],[createDate],[updateDate],[carID])
 VALUES	
 		('/mironmahmud.com/ghurnek/assets/images/product/Mazda/Mazda6Premium20/1.jpg', GETDATE(), GETDATE(), 1),
@@ -451,18 +462,18 @@ VALUES
 		('/mironmahmud.com/ghurnek/assets/images/product/Porsche/PorschePanamera36V6/5.jpg', GETDATE(), GETDATE(), 40)
 
 
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[userRole],[userImage])
-				values(N'admin@gmail.com',123,N'Admin',132465,N'SaiGon',2,'D:\CN5\FolderUser')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[userRole],[userImage])
-				values(N'staff1@gmail.com',123,N'Staff1',242425,N'SaiGon',1,'D:\CN5\FolderUser')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[userRole],[userImage])
-				values(N'staff2@gmail.com',123,N'Staff2',31313,N'SaiGon',1,'D:\CN5\FolderUser')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[userRole],[userImage])
-				values(N'john@gmail.com',123,N'John Wick',75743,N'SaiGon',0,'D:\CN5\FolderUser')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[userRole],[userImage])
-				values(N'trump@gmail.com',123,N'Trump',5267457,N'SaiGon',0,'D:\CN5\FolderUser')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[userRole],[userImage])
-				values(N'trong@gmail.com',123,N'Nguyen Phu Trong',3635,N'SAigon',0,'D:\CN5\FolderUser')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'admin@gmail.com',123,N'Admin',132465,N'SaiGon',CURRENT_TIMESTAMP,2,'D:\CN5\FolderUser')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'staff1@gmail.com',123,N'Staff1',242425,N'SaiGon',CURRENT_TIMESTAMP,1,'D:\CN5\FolderUser')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'staff2@gmail.com',123,N'Staff2',31313,N'SaiGon',CURRENT_TIMESTAMP,1,'D:\CN5\FolderUser')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'john@gmail.com',123,N'John Wick',75743,N'SaiGon',CURRENT_TIMESTAMP,0,'D:\CN5\FolderUser')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'trump@gmail.com',123,N'Trump',5267457,N'SaiGon',CURRENT_TIMESTAMP,0,'D:\CN5\FolderUser')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'trong@gmail.com',123,N'Nguyen Phu Trong',3635,N'SAigon',CURRENT_TIMESTAMP,0,'D:\CN5\FolderUser')
 
 INSERT[dbo].[Blog](blogTitle,blogDetail,blogImage,userId ,blogDate ) values('The Evolution of Cars - From the First Automobile to Modern-Day Vehicles',N'The history of cars can be traced back to the late 1800s when Karl Benz invented the first gasoline-powered automobile. This invention revolutionized transportation and paved the way for the development of modern-day vehicles. In the early days of cars, they were considered a luxury item and were only accessible to the wealthy. However, as technology advanced and production costs decreased, cars became more affordable and accessible to the average consumer.One major turning point in the history of cars was the introduction of the assembly line by Henry Ford in 1913. The assembly line allowed for mass production of cars, making them even more affordable and popular. Ford Model T, which was introduced in 1908, quickly became one of the most popular cars in the world and is often credited with democratizing the automobile.Over the years, cars have evolved significantly in terms of design, features, and safety. In the 1930s, chrome accents and streamlined shapes became popular, leading to the age of iconic classic cars like the Ford Thunderbird and the Chevrolet Bel Air. In the 1950s and 60s, muscle cars gained popularity, with models like the Ford Mustang and the Chevrolet Camaro becoming symbols of American automotive culture.In the 1970s, concerns about environmental pollution led to the development of smaller, more fuel-efficient cars. Japanese automakers like Toyota and Honda gained market share for their reliable and efficient models. The 1980s and 90s saw advances in safety features like airbags and anti-lock brakes, as well as the introduction of electronic systems like GPS navigation and automatic transmissions.In recent years, the automotive industry has seen a shift towards electric and hybrid cars as concerns about climate change and fuel efficiency rise. Companies like Tesla have led the charge in making electric cars mainstream and desirable, with sleek designs and impressive performance figures. Self-driving cars have also become a reality, with companies like Google and Uber testing autonomous vehicles on public roads.Looking to the future, its clear that cars will continue to evolve and adapt to changing consumer needs and technological advancements. Some experts predict that hydrogen fuel cell technology could be the next big thing in automotive innovation, offering an alternative to traditional fossil fuels. Whatever the future holds, one thing is for sure – the history of cars is a fascinating and ever-evolving story that has changed the world as we know it.',null,1,'2023/05/30');
 INSERT [dbo].[Blog](blogTitle,blogDetail,blogImage,userId ,blogDate ) VALUES ('The Rise of Electric Cars: Environmental Benefits and Challenges', 'Electric cars are becoming increasingly popular as consumers seek eco-friendly alternatives to traditional gasoline-powered vehicles. These cars run on electricity stored in rechargeable batteries, rather than fossil fuels. As a result, electric cars produce zero emissions while driving, which is a significant benefit for the environment. In addition, electric cars are generally quieter and smoother than gasoline-powered cars, providing a more comfortable ride. However, there are also challenges associated with electric cars. One major issue is battery range, or how far an electric car can travel on a single charge. While some models have a range of over 300 miles, many electric cars still have a relatively limited range compared to gasoline-powered cars. Charging infrastructure is also a concern, as it is not yet as widespread as gas stations. However, governments and private companies are investing in the expansion of charging networks and the development of more efficient batteries, which should help address these issues.', null, 2, CURRENT_TIMESTAMP);

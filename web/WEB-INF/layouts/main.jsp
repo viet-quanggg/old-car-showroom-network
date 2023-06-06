@@ -27,7 +27,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/css/ltr.min.css"/>
     </head>
     <body>
-        <div class="backdrop"></div>
+        <div class="backdrop"> </div>
         <header class="header-part"><a href="<c:url value="/ocsn/index.do"/>" class="header-logo"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/logo.png" alt="logo"></a>
             <div class="header-content">
                 <div class="header-responsive"><button type="button" class="header-widget sidebar-open"><i
@@ -46,7 +46,7 @@
                                          class="advance-search material-icons">tune</button></div>
                     <div class="header-option"><input type="text" placeholder="Max Price"><input type="text"
                                                                                                  placeholder="Min Price"><select class="form-select">
-                            <option selected>makes</option>
+                            <option selected>makes</option> 
                             <option value="1">all makes</option>
                             <option value="2">chevrolet</option>
                             <option value="3">bentley</option>
@@ -60,22 +60,23 @@
                             <option value="4">camero</option>
                             <option value="5">elantra</option>
                         </select><button type="submit">search</button></div>
-                </form>
+                </form></div>
+                                                                                                                                                                
+                <div class="header-user"> <img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png"
+                                                                                      alt="user"    ><span></span> 
 
-            </div>
-            <c:if test="${User==null}">
-                <a href="<c:url value="/login/login.do"/>" class="header-user"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png"
-                                                                                    alt="user"><span>join</span></a>
-                </c:if>   
-                <c:if test="${User!=null}">
+                        <c:if test="${User==null}">
+                            <a href="<c:url value="/login/login.do"/>" style="color:whitesmoke;display: inline-block"  alt="user">Log In |</a> 
+                            <a href="<c:url value="/login/register.do"/>" style="color:whitesmoke;display: inline-block" alt="user">Register</a>
+                        </c:if>
+                        <c:if test="${User!=null}">
+                            <a href="<c:url value="/login/profile.do"/>" style="color:whitesmoke" class="header-user" alt="user">Profile |</a>
+                            <a href="<c:url value="/login/logout.do"/>" style="color:whitesmoke" class="header-user" alt="user">Log Out</a>
+                        </c:if>
+                    </div>
 
-                <a href="<c:url value="/login/profile.do"/>" class="header-user"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png"
-                                                                                      alt="user"><span>profile</span></a> |     
-                <a href="<c:url value="/login/logout.do"/>" class="header-user"><span>logout</span></a>                                                                        
-            </c:if>     
-
-            <a href="<c:url value="/order/createad.do"/>" class="btn header-btn"><i
-                    class="material-icons">storefront</i><span>sell vehicles</span></a>
+                <a href="<c:url value="/order/createad.do"/>" class="btn header-btn"><i
+                        class="material-icons">storefront</i><span>sell vehicles</span></a>
         </header>
 
         <div class="row">
@@ -161,14 +162,14 @@
                                                 class="material-icons">remove</i><span>blog grid</span></a></li>
                                     <li class="drop-item"><a href="<c:url value="/blog/bloglist.do"/>" class="drop-link"><i
                                                 class="material-icons">remove</i><span>blog list</span></a></li>
-                                    <c:if test="${User==null}">
-                                    <li class="drop-item"><a href="<c:url value="/login/login.do"/>" class="drop-link"><i
+                                            <c:if test="${User==null}">
+                                        <li class="drop-item"><a href="<c:url value="/login/login.do"/>" class="drop-link"><i
                                                     class="material-icons">remove</i><span>blog creation</span></a></li>
-                                    </c:if>
-                                    <c:if test="${User!=null}">
-                                    <li class="drop-item"><a href="<c:url value="/blog/blogcreate.do"/>" class="drop-link"><i
+                                            </c:if>
+                                            <c:if test="${User!=null}">
+                                        <li class="drop-item"><a href="<c:url value="/blog/blogcreate.do"/>" class="drop-link"><i
                                                     class="material-icons">remove</i><span>blog creation</span></a></li>                    
-                                    </c:if>
+                                            </c:if>
 
                                 </ul>
                             </li>
@@ -193,7 +194,7 @@
                                                 class="material-icons">remove</i><span>register</span></a></li>
                                     <li class="drop-item"><a href="<c:url value="/login/forgotpassword.do"/>" class="drop-link"><i
                                                 class="material-icons">remove</i><span>forgot password</span></a></li>
-                                             
+
                                 </ul>
                             </li>
                         </ul>
@@ -202,13 +203,13 @@
                         <h5 class="sidebar-title">user menu</h5>
                         <ul class="nav-list">
                             <c:if test="${User==null}">
-                            <li class="nav-item"><a href="<c:url value="/login/login.do"/>" class="nav-link"><i
-                                        class="material-icons">dashboard</i><span class="nav-text">dashboard</span></a></li>
-                            </c:if>   
-                            <c:if test="${User!=null && User.userRole == 2}">
-                            <li class="nav-item"><a href="<c:url value="/admin/dashboard.do"/>" class="nav-link"><i
-                                        class="material-icons">dashboard</i><span class="nav-text">dashboard</span></a></li>
-                            </c:if>
+                                <li class="nav-item"><a href="<c:url value="/login/login.do"/>" class="nav-link"><i
+                                            class="material-icons">dashboard</i><span class="nav-text">dashboard</span></a></li>
+                                    </c:if>   
+                                    <c:if test="${User!=null && User.userRole == 2}">
+                                <li class="nav-item"><a href="<c:url value="/admin/dashboard.do"/>" class="nav-link"><i
+                                            class="material-icons">dashboard</i><span class="nav-text">dashboard</span></a></li>
+                                    </c:if>
                             <li class="nav-item"><a href="<c:url value="/login/profile.do"/>" class="nav-link"><i
                                         class="material-icons">account_circle</i><span class="nav-text">profile</span></a>
                             </li>
@@ -223,7 +224,7 @@
                             <li class="nav-item"><a href="<c:url value="/views/login/login.do"/>" class="nav-link"><i
                                         class="material-icons">lock</i><span class="nav-text">logout</span></a></li>
                             <li class="drop-item"><a href="<c:url value="/user/setting.do"/>" class="drop-link"><i
-                                                class="material-icons">remove</i><span>admin page</span></a></li>   
+                                        class="material-icons">remove</i><span>admin page</span></a></li>   
                         </ul>
                     </div>
                 </nav>

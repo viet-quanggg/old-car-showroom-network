@@ -12,7 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,6 +54,7 @@ public class UserFacade {
             user.setUserName(rs.getString("userName"));
             user.setUserPhone(rs.getString("userPhone"));
             user.setUserAddress(rs.getString("userAddress"));
+            user.setTimeCreated(rs.getDate("timeCreated"));
             user.setUserRole(rs.getInt("userRole"));
             user.setUserImage(rs.getString("userImage"));
         }
@@ -59,20 +62,22 @@ public class UserFacade {
         return user;
     }
 
-    public User register(String userEmail, String userPass, String userName, String userPhone, String userAddress) throws SQLException {
+    public User register(String userEmail, String userPass, String userName, String userPhone, String userAddress, Date timeCreated) throws SQLException {
         User user = null;
         Connection con = DBContext.getConnection();
-        PreparedStatement stm = con.prepareStatement("INSERT INTO [User] VALUES (?, ?, ?, ?, ?, 0,'');");
+        PreparedStatement stm = con.prepareStatement("INSERT INTO [User] VALUES (?, ?, ?, ?, ?, ?, 0,NULL,NULL,NULL);");
         stm.setString(1, userEmail);
         stm.setString(2, userPass);
         stm.setString(3, userName);
         stm.setString(4, userPhone);
         stm.setString(5, userAddress);
+        
+        stm.setString(6, timeCreated.toString());
         int count = stm.executeUpdate();
         con.close();
         return user;
     }
-    
+
     public ArrayList<User> userList() throws SQLException {
         User user = null;
         ArrayList<User> list = new ArrayList<>();
@@ -87,6 +92,7 @@ public class UserFacade {
             user.setUserName(rs.getString("userName"));
             user.setUserPhone(rs.getString("userPhone"));
             user.setUserAddress(rs.getString("userAddress"));
+            user.setTimeCreated(rs.getDate("timeCreated"));
             user.setUserRole(rs.getInt("userRole"));
             user.setUserImage(rs.getString("userImage"));
             list.add(user);
@@ -109,6 +115,7 @@ public class UserFacade {
             user.setUserName(rs.getString("userName"));
             user.setUserPhone(rs.getString("userPhone"));
             user.setUserAddress(rs.getString("userAddress"));
+            user.setTimeCreated(rs.getDate("timeCreated"));
             user.setUserRole(rs.getInt("userRole"));
             user.setUserImage(rs.getString("userImage"));
         }

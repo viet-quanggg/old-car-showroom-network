@@ -4,6 +4,8 @@
  */
 package Models;
 
+import java.util.Date;
+
 /**
  *
  * @author _viet.quangg
@@ -15,6 +17,7 @@ public class User {
     private String userEmail;
     private String userAddress;
     private String userPhone;
+    private Date timeCreated;
     private int userRole;
     private String userImage;
     private int totalUser;
@@ -26,18 +29,21 @@ public class User {
         this.totalUser = totalUser;
     }
 
-
-    public User(int userID, String userPass, String userName, String userEmail, String userAddress, String userPhone) {
+    public User(int userID, String userPass, String userName, String userEmail, String userAddress, String userPhone, Date timeCreated, int userRole, String userImage, int totalUser) {
         this.userID = userID;
         this.userPass = userPass;
         this.userName = userName;
         this.userEmail = userEmail;
         this.userAddress = userAddress;
         this.userPhone = userPhone;
+        this.timeCreated = timeCreated;
         this.userRole = userRole;
         this.userImage = userImage;
+        this.totalUser = totalUser;
     }
 
+
+    
     public int getUserID() {
         return userID;
     }
@@ -108,6 +114,14 @@ public class User {
 
     public void setTotalUser(int totalUser) {
         this.totalUser = totalUser;
+    }
+
+    public Date getTimeCreated() {
+        return timeCreated;
+    }
+
+    public void setTimeCreated(Date timeCreated) {
+        this.timeCreated = timeCreated;
     }
     
     

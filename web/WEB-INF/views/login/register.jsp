@@ -48,25 +48,36 @@
         <form class="auth-form"action="<c:url value="/login/register_handler.do"/>" >
             <div class="auth-form-content">
                 <h3 class="auth-form-title">Register a new account.</h3>
-                <div class="form-group"><input type="text" class="form-control" name="userName"placeholder="enter full name"></div>
-                <div class="form-group"><input type="email" name="userEmail" class="form-control" placeholder="enter email address">
+                <div class="form-group"><input type="text" class="form-control" name="userName" placeholder="enter full name" value="${userName}">
+                    <div style="color: red">${errorN}</div>
                 </div>
-                <div class="form-group"><input type="password" name="userPass"class="form-control" placeholder="enter strong password">
+                <div class="form-group"><input type="email" name="userEmail" class="form-control" placeholder="enter email address" value="${userEmail}" >
+                    <div style="color: red">${errorE}</div>
                 </div>
-                <div class="form-group"><input type="password" name="re_pass"class="form-control" placeholder="enter reapet password">
+                <div class="form-group"><input type="password" name="userPass"class="form-control" placeholder="enter strong password" >
+                    <div style="color: red">${errorPa}</div>
                 </div>
-                <div class="form-group"><input type="number" class="form-control" name="userPhone"placeholder="enter phone number"></div>
-                <div class="form-group"><input type="text" class="form-control" name="userAddress"placeholder="enter your address"></div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" id="checkAgree"><label
+                <div class="form-group"><input type="password" name="re_pass"class="form-control" placeholder="enter reapet password" >
+                    <div style="color: red">${errorR}</div>
+                </div>
+                <div class="form-group"><input type="number" class="form-control" name="userPhone"placeholder="enter phone number" value="${userPhone}">
+                    <div style="color: red">${errorPh}</div>
+                </div>
+                <div class="form-group"><input type="text" class="form-control" name="userAddress"placeholder="enter your address" value="${userAddress}">
+                    <div style="color: red">${errorA}</div></div>
+
+
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="termsAndPrivacy" value="agree"><label
                         class="form-check-label" for="checkAgree">I agree to the <a href="#">Terms </a> and <a
-                            href="<c:url value="/login/privacy.do"/>">Privacy Policy</a>.</label></div>
+                            href="<c:url value="/login/privacy.do"/>">Privacy Policy</a>.</label>  
+                    <div style="color: red">${errorT} </div>
+                </div>
+
                 <button type="submit" name="op" value="register" class="form-btn">register</button>
 
                 <div class="auth-form-or"><span>or</span></div>
                 <ul class="auth-form-continue">
                     <p class="auth-form-text">Already have an account? <a href="<c:url value="/login/login.do"/>">Login here</a></p>
-                    <i style="color: red">${error}</i>
-                    <i style="color: greenyellow">${message}</i>
                 </ul>
             </div>
         </form>
