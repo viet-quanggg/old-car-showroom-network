@@ -49,8 +49,8 @@
                     <div class="col-xl-12">
                         <ul class="user-banner-menu-list">
                             <li><a href="dashboard.html">dashboard</a></li>
-                            <li><a href="<c:url value="/login/profile.do"/>" class="active">profile</a></li>
-                            <li><a href="<c:url value="/login/update_profile.do"/>" class="inactive">update profile</a></li>
+                            <li><a href="<c:url value="/login/profile.do"/>" class="inactive">profile</a></li>
+                            <li><a href="<c:url value="/login/update_profile.do"/>" class="active">update profile</a></li>
                             <li><a href="create-ads.html">create car</a></li>
                             <li><a href="posted-ads.html">posted car</a></li>
                             <li><a href="favorite.html">favorites</a></li>
@@ -68,11 +68,11 @@
 <section class="mc-breadcrumb">
     <div class="container">
         <div class="mc-breadcrumb-group">
-            <h2 class="mc-breadcrumb-title">user profile</h2>
+            <h2 class="mc-breadcrumb-title">update profile</h2>
             <ul class="mc-breadcrumb-list">
                 <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">home</a></li>
                 </li>
-                <li class="mc-breadcrumb-item">profile</li>
+                <li class="mc-breadcrumb-item">Update profile</li>
             </ul>
         </div>
     </div>
@@ -80,60 +80,60 @@
 <section class="section-gap-75">
     <div class="container">
         <div class="row">
-            <div class="col-lg-7 col-xl-8">
+
+            <div class="col-lg-6  col-xl-8">
                 <div class="common-card">
                     <div class="common-card-header">
-                        <h4 class="common-card-header-title">Profile</h4>
+                        <h4 class="common-card-header-title">update</h4>
                     </div>
-                    <div class="common-card-body ">
-                        <ul class="profile-specify-list">
-                            <li><span>Joined:</span><span>${User.timeCreated}</span></li>
-                            <li><span>Name:</span><span>${User.userName}</span></li>
-                            <li><span>Email:</span><span>${User.userEmail}</span></li>
-                            <li><span>Role:</span><span><c:if test="${User.userRole == 2}">Admin</c:if> <c:if test="${User.userRole == 1}">Employee</c:if> <c:if test="${User.userRole == 0}">Customer</c:if></span></li>
-                            <li><span>Phone:</span><span>${User.userPhone}</span></li>
-                            <li><span>Address:</span><span>${User.userAddress}</span></li>
-                        </ul>
-                    </div>
-                </div>  
-                <div class="common-card">
-                    <div class="common-card-header">
-                        <h4 class="common-card-header-title">vendor location</h4>
-                    </div>
-                    <div class="common-card-body">
-                        <div class="profile-location"><iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3654.3406974350205!2d90.48469931445422!3d23.663771197998262!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b0d5983f048d%3A0x754f30c82bcad3cd!2sJalkuri%20Bus%20Stop!5e0!3m2!1sen!2sbd!4v1605354966349!5m2!1sen!2sbd"></iframe>
+                    <form action="<c:url value="/user/update.do"/>" > 
+                        <div class="common-card-body ">
+                            <ul class="profile-specify-list">
+                                <li><span>Name:</span><span><input class="form-control" type="text" name="userName" value="${User.userName}"></span></li>
+                                <div style="color: red">${errorN}</div>
+                                <li><span>Phone:</span><span><input class="form-control" type="number" name="userPhone" value="${User.userPhone}"  style="-webkit-appearance: none; margin: 0;"></span></li>
+                                <div style="color: red">${errorPh}</div>
+                                <li><span>Address:</span><span><input class="form-control" type="text" name="userAddress" value="${User.userAddress}"></span></li>
+                                <div style="color: red">${errorA}</div>
+                            </ul>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5 col-xl-4">
-                <div class="common-card">
-                    <div class="common-card-header">
-                        <h4 class="common-card-header-title">email this vendor</h4>
-                    </div>
-                    <form>
-                        <div class="row">
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12">
-                                <div class="form-group"><input type="text" class="form-control"
-                                                               placeholder="enter your name"></div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12">
-                                <div class="form-group"><input type="email" class="form-control"
-                                                               placeholder="enter your email"></div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <div class="form-group"><textarea class="form-control"
-                                                                  placeholder="describe your message"></textarea></div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><button class="form-btn" type="submit">send email</button></div>
+                        <br>
+                        <div>
+                            <button type="submit" class="form-btn" name="op" value="update">Update</button>
+                            <div style="color: red">${error}</div>
+                            <div style="color: green">${messageU}</div>
                         </div>
                     </form>
-                </div>
+                </div>  
+            </div>    
+            <div class="col-lg-6 col-xl-8">
+                <div class="common-card">
+                    <div class="common-card-header">
+                        <h4 class="common-card-header-title">change password</h4>
+                    </div>
+                    <form method="post" action="<c:url value="/user/change.do"/>" > 
+                        <div class="common-card-body ">
+                            <ul class="profile-specify-list">
+                                <li><span>Current Password:</span><span><input class="form-control" type="password" name="userPass" ></span></li>
+                                <div style="color: red">${ePa}</div>
+                                <li><span>New Password:</span><span><input class="form-control" type="password" name="newPass" ></span></li>
+                                <div style="color: red">${errorNP}</div>
+                                <li><span>Repeat New Password:</span><span><input class="form-control" type="password" name="re_pass"  ></span></li>
+                                <div style="color: red">${eR}</div>
+                            </ul>
+                        </div>
+                        <br>
+                        <div>
+                            <button type="submit" class="form-btn" name="op" value="change">Change</button>
+                            <div style="color: red">${error}</div>
+                            <div style="color: green">${messageC}</div>
+
+                        </div>
+                    </form>
+                </div>            
             </div>
         </div>
     </div>
-</div>
 </section>
 
 

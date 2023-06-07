@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-        <form class="auth-form"action="<c:url value="/login/register_handler.do"/>" >
+        <form method="post"  class="auth-form" action="<c:url value="/login/register_handler.do"/>" >
             <div class="auth-form-content">
                 <h3 class="auth-form-title">Register a new account.</h3>
                 <div class="form-group"><input type="text" class="form-control" name="userName" placeholder="enter full name" value="${userName}">

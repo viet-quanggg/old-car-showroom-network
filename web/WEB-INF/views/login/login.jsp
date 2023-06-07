@@ -63,7 +63,7 @@
 	    }
 	%>
 
-        <form class="auth-form" action="<c:url value="/login/login_handler.do"/>" >
+        <form method="post" class="auth-form" action="<c:url value="/login/login_handler.do"/>" >
             <div class="auth-form-content">
                 <h3 class="auth-form-title">Login with your credentials.</h3>
                 <div class="form-group"><input type="email" id="userEmail" name="userEmail" placeholder="Enter your email" class="form-control" placeholder="enter your email" required autocomplete="off" value="${userEmail}" ></div>

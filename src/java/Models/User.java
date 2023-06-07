@@ -29,7 +29,7 @@ public class User {
         this.totalUser = totalUser;
     }
 
-    public User(int userID, String userPass, String userName, String userEmail, String userAddress, String userPhone, Date timeCreated, int userRole, String userImage, int totalUser) {
+    public User(int userID, String userEmail, String userPass, String userName, String userAddress, String userPhone, Date timeCreated, int userRole, String userImage, int totalUser) {
         this.userID = userID;
         this.userPass = userPass;
         this.userName = userName;
@@ -40,6 +40,18 @@ public class User {
         this.userRole = userRole;
         this.userImage = userImage;
         this.totalUser = totalUser;
+    }
+
+    public User(int userID, String userEmail, String userPass, String userName, String userAddress, String userPhone, Date timeCreated, int userRole, String userImage) {
+        this.userID = userID;
+        this.userPass = userPass;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userAddress = userAddress;
+        this.userPhone = userPhone;
+        this.timeCreated = timeCreated;
+        this.userRole = userRole;
+        this.userImage = userImage;
     }
 
 
