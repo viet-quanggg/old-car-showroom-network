@@ -63,7 +63,7 @@
                 </form></div>
                                                                                                                                                                 
                 <div class="header-user"> <img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png"
-                                                                                      alt="user"    ><span></span> 
+                                                                                      alt="user"><span></span> 
 
                         <c:if test="${User==null}">
                             <a href="<c:url value="/login/login.do"/>" style="color:whitesmoke;display: inline-block"  alt="user">Log In |</a> 

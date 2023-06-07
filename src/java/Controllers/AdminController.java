@@ -6,6 +6,7 @@ package Controllers;
 
 import DB.AdminPageFacade;
 import DB.UserFacade;
+import Models.OrderList;
 import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +20,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -43,10 +45,39 @@ public class AdminController extends HttpServlet {
         String action = (String) request.getAttribute("action");
         AdminPageFacade apf = new AdminPageFacade();
         User user = null;
-       switch (action) {
+        switch (action) {
             case "dashboard":
+                //count user in the system
                 int countUser = apf.countUser();
+                //count completed order
+                int countComplete = apf.countCompleteOrders();
+                //count the user account that was created yesterday
+                int countUserYesterday = apf.countUserYesterday();
+                //calculate the percent of orders
+                int a = apf.countOrderThisMonth();
+                int b = apf.countOrderLastMonth();
+                int percent;
+                if (b == 0) {
+                    percent = a == 0 ? 0 : 100;
+                } else if (b >= a) {
+                    percent = (int) (((float) (b - a) / b) * 100);
+                } else {
+                    percent = (int) (((float) (a - b) / b) * 100);
+                }
+                /////////////////////////////////////////////////////
+                double completeSale = apf.countCompleteSaleSalary();
+                //List all the order
+                List<OrderList> order = apf.listallOrder();
+                //List all the order that is created this week
+                List<OrderList> weekorder = apf.listOrderThisWeek();
+                //
+                request.setAttribute("percent", percent);
+                request.setAttribute("orderList", order);
+                request.setAttribute("countComplete", countComplete);
                 request.setAttribute("countUser", countUser);
+                request.setAttribute("completeSale", completeSale);
+                request.setAttribute("userYesterday", countUserYesterday);
+                request.setAttribute("weekOrder", weekorder);
                 request.getRequestDispatcher("/WEB-INF/layouts/dashboard.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
                 break;
@@ -55,6 +86,8 @@ public class AdminController extends HttpServlet {
                 //in thong bao loi chi tiet cho developer
                 break;
             case "table":
+                List<User> staffList = apf.listallStaff();
+                request.setAttribute("staffList", staffList);
                 request.getRequestDispatcher("/WEB-INF/views/admin/table.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
                 break;
@@ -115,4 +148,3 @@ public class AdminController extends HttpServlet {
     }// </editor-fold>
 
 }
-

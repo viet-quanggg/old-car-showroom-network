@@ -106,7 +106,7 @@
                                 <div class="blog-list-content">
                                     <ul class="blog-list-meta">
                                         <li><i class="material-icons">account_circle</i><span>post by <a
-                                                    href="blog-single.html">${blog.userId}</a></span></li>
+                                                    href="blog-single.html">${blog.userName}</a></span></li>
                                         <li><i class="material-icons">event_note</i><span>${blog.blogDate}</span></li>                                       
                                     </ul>
                                     <h3 class="blog-list-title"><a href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">${blog.blogTitle}.</a>

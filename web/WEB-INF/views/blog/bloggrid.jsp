@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="blog-grid-content">
                                     <ul class="blog-grid-meta">
-                                        <li><i class="material-icons">person</i><span>post by <a href="">${blog.userId}</a></span></li>
+                                        <li><i class="material-icons">person</i><span>post by <a href="">${blog.userName}</a></span></li>
                                         <li><i class="material-icons">event</i><span>${blog.blogDate}</span></li>
                                     </ul>
                                     <h3 class="blog-grid-name"><a href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">${blog.blogTitle}</a></h3>

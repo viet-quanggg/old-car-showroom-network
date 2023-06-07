@@ -120,7 +120,7 @@
                 <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
                 <a class="navbar-brand m-0" href="<c:url value="/ocsn/index.do"/>" target="_blank">
                     <img src="${pageContext.request.contextPath}/material-dashboard/demos.creative-tim.com/material-dashboard/assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
-                    <span class="ms-1 font-weight-bold text-white">Material Dashboard 2</span>
+                    <span class="ms-1 font-weight-bold text-white">Admin Dashboard</span>
                 </a>
             </div>
             <hr class="horizontal light mt-0 mb-2">
@@ -221,7 +221,7 @@
                         </ol>
                         <h6 class="font-weight-bolder mb-0">Dashboard</h6>
                     </nav>
-                    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+<!--                    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                             <div class="input-group input-group-outline">
                                 <label class="form-label">Type here...</label>
@@ -329,7 +329,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </div>-->
                 </div>
             </nav>
 
@@ -365,7 +365,7 @@
                             </div>
                             <hr class="dark horizontal my-0">
                             <div class="card-footer p-3">
-<!--                                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than last month</p>-->
+                                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than last month</p>
                             </div>
                         </div>
                     </div>
@@ -377,12 +377,12 @@
                                 </div>
                                 <div class="text-end pt-1">
                                     <p class="text-sm mb-0 text-capitalize">New Clients</p>
-                                    <h4 class="mb-0">3,462</h4>
+                                    <h4 class="mb-0">${userYesterday}</h4>
                                 </div>
                             </div>
                             <hr class="dark horizontal my-0">
                             <div class="card-footer p-3">
-                                <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than yesterday</p>
+                                <p class="mb-0"><span class="text-danger text-sm font-weight-bolder"></span> than yesterday</p>
                             </div>
                         </div>
                     </div>
@@ -394,7 +394,7 @@
                                 </div>
                                 <div class="text-end pt-1">
                                     <p class="text-sm mb-0 text-capitalize">Sales</p>
-                                    <h4 class="mb-0">$103,430</h4>
+                                    <h4 class="mb-0">${completeSale}</h4>
                                 </div>
                             </div>
                             <hr class="dark horizontal my-0">
@@ -420,7 +420,7 @@
                                 <hr class="dark horizontal">
                                 <div class="d-flex ">
                                     <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                    <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
+                                    <p class="mb-0 text-sm"><a href="<c:url value="/admin/dashboard.do"/>"> click to update </a></p>
                                 </div>
                             </div>
                         </div>
@@ -440,7 +440,7 @@
                                 <hr class="dark horizontal">
                                 <div class="d-flex ">
                                     <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                    <p class="mb-0 text-sm"> updated 4 min ago </p>
+                                    <p class="mb-0 text-sm"><a href="<c:url value="/admin/dashboard.do"/>"> click to update </a></p>
                                 </div>
                             </div>
                         </div>
@@ -460,7 +460,7 @@
                                 <hr class="dark horizontal">
                                 <div class="d-flex ">
                                     <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                    <p class="mb-0 text-sm">just updated</p>
+                                    <p class="mb-0 text-sm"><a href="<c:url value="/admin/dashboard.do"/>"> click to update </a></p>
                                 </div>
                             </div>
                         </div>
@@ -475,7 +475,7 @@
                                         <h6>Current Orders</h6>
                                         <p class="text-sm mb-0">
                                             <i class="fa fa-check text-info" aria-hidden="true"></i>
-                                            <span class="font-weight-bold ms-1">30 done</span> this month
+                                            <span class="font-weight-bold ms-1">${countComplete} Complete</span> this month
                                         </p>
                                     </div>
                                     <div class="col-lg-6 col-5 my-auto text-end">
@@ -497,57 +497,66 @@
                                     <table class="table align-items-center mb-0">
                                         <thead>
                                             <tr>
-                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Companies</th>
-                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Members</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Budget</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Completion</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Order ID</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Car Name</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">User ID|User Name</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Order Price</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Order Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <c:forEach items="${orderList}" var="list">
                                             <tr>
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
-                                                        <div>
+<!--                                                        <div>
                                                             <img src="${pageContext.request.contextPath}/material-dashboard/demos.creative-tim.com/material-dashboard/assets/img/small-logos/logo-xd.svg" class="avatar avatar-sm me-3" alt="xd">
-                                                        </div>
+                                                        </div>-->
                                                         <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">Material XD Version</h6>
+                                                            <h6 class="mb-0 text-sm">   ${list.orderId}</h6>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="avatar-group mt-2">
-                                                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ryan Tompson">
-                                                            <img src="${pageContext.request.contextPath}/material-dashboard/demos.creative-tim.com/material-dashboard/assets/img/team-1.jpg" alt="team1">
-                                                        </a>
-                                                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Romina Hadid">
-                                                            <img src="${pageContext.request.contextPath}/material-dashboard/demos.creative-tim.com/material-dashboard/assets/img/team-2.jpg" alt="team2">
-                                                        </a>
-                                                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Alexander Smith">
-                                                            <img src="${pageContext.request.contextPath}/material-dashboard/demos.creative-tim.com/material-dashboard/assets/img/team-3.jpg" alt="team3">
-                                                        </a>
-                                                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Jessica Doe">
-                                                            <img src="${pageContext.request.contextPath}/material-dashboard/demos.creative-tim.com/material-dashboard/assets/img/team-4.jpg" alt="team4">
-                                                        </a>
-                                                    </div>
+                                                     <div class="d-flex flex-column justify-content-center">
+                                                            <h6 class="mb-0 text-sm">${list.carName}</h6>
+                                                        </div>
                                                 </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="text-xs font-weight-bold"> $14,000 </span>
+                                                <td>
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm"  ><a href="#">${list.userId}|${list.userName}</a></h6>
+                                                        </div>
                                                 </td>
-                                                <td class="align-middle">
-                                                    <div class="progress-wrapper w-75 mx-auto">
+                                                <td>
+<!--                                                    <div class="progress-wrapper w-75 mx-auto">-->
+<!--                                                        <div class="progress-info">
+                                                            <div class="progress-percentage">
+                                                                <span class="text-xs font-weight-bold"></span>
+                                                            </div>
+                                                        </div>-->
+                                                       <div class="d-flex flex-column justify-content-center">
+                                                            <h6 class="mb-0 text-sm-center">${list.carPrice}</h6>
+                                                        </div>
+<!--                                                    </div>-->
+                                                </td>
+                                                 <td class="align-middle">
+                                                      <div class="d-flex flex-column justify-content-center">
+                                                            <h6 class="mb-0 text-sm-center">${list.orderStatus}</h6>
+                                                        </div>
+<!--                                                    <div class="progress-wrapper w-75 mx-auto">
                                                         <div class="progress-info">
                                                             <div class="progress-percentage">
-                                                                <span class="text-xs font-weight-bold">60%</span>
+                                                                <span class="text-xs font-weight-bold">${list.orderStatus}</span>
                                                             </div>
-                                                        </div>
-                                                        <div class="progress">
+                                                        </div>-->
+<!--                                                        <div class="progress">
                                                             <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
+                                                        </div>-->
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            </c:forEach>
+<!--                                            <tr>
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
@@ -734,7 +743,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                            </tr>
+                                            </tr>-->
                                         </tbody>
                                     </table>
                                 </div>
@@ -747,12 +756,12 @@
                                 <h6>Orders overview</h6>
                                 <p class="text-sm">
                                     <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
-                                    <span class="font-weight-bold">24%</span> this month
+                                    <span class="font-weight-bold">${percent}%</span> this month
                                 </p>
                             </div>
                             <div class="card-body p-3">
                                 <div class="timeline timeline-one-side">
-                                    <div class="timeline-block mb-3">
+<!--                                    <div class="timeline-block mb-3">
                                         <span class="timeline-step">
                                             <i class="material-icons text-success text-gradient">notifications</i>
                                         </span>
@@ -760,17 +769,19 @@
                                             <h6 class="text-dark text-sm font-weight-bold mb-0">$2400, Design changes</h6>
                                             <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">22 DEC 7:20 PM</p>
                                         </div>
-                                    </div>
+                                    </div>-->                           
+                                    <c:forEach items="${weekOrder}" var="weekOrder">
                                     <div class="timeline-block mb-3">
                                         <span class="timeline-step">
                                             <i class="material-icons text-danger text-gradient">code</i>
                                         </span>
                                         <div class="timeline-content">
-                                            <h6 class="text-dark text-sm font-weight-bold mb-0">New order #1832412</h6>
-                                            <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 11 PM</p>
+                                            <h6 class="text-dark text-sm font-weight-bold mb-0">New order #${weekOrder.orderId}</h6>
+                                            <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">${weekOrder.createdDate}</p>
                                         </div>
                                     </div>
-                                    <div class="timeline-block mb-3">
+                                     </c:forEach>
+<!--                                    <div class="timeline-block mb-3">
                                         <span class="timeline-step">
                                             <i class="material-icons text-info text-gradient">shopping_cart</i>
                                         </span>
@@ -805,7 +816,7 @@
                                             <h6 class="text-dark text-sm font-weight-bold mb-0">New order #9583120</h6>
                                             <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">17 DEC</p>
                                         </div>
-                                    </div>
+                                    </div>                      -->
                                 </div>
                             </div>
                         </div>

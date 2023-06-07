@@ -26,7 +26,7 @@ public class BlogFacade {
     public List<Blog> listBlog() throws SQLException {
         List<Blog> list = new ArrayList<>();
         con = DBContext.getConnection();
-        ps = con.prepareStatement("select * from [Blog]");
+        ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName from [Blog] b join [User] u on b.blogId = u.userId");
         rs = ps.executeQuery();
         while (rs.next()) {
             Blog blog = new Blog();
@@ -34,8 +34,9 @@ public class BlogFacade {
             blog.setBlogTitle(rs.getString(2));
             blog.setBlogDetail(rs.getString(3));
             blog.setBlogImage(rs.getString(4));
-            blog.setUserId(rs.getInt(5));
-            blog.setBlogDate(rs.getDate(6));
+            blog.setBlogDate(rs.getDate(5));
+            blog.setUserId(rs.getInt(6));
+            blog.setUserName(rs.getString(7));
             list.add(blog);
         }
         con.close();
@@ -53,16 +54,17 @@ public class BlogFacade {
     public List<Blog> listLatest() throws SQLException {
         List<Blog> list = new ArrayList<>();
         con = DBContext.getConnection();
-        ps = con.prepareStatement("select * from [Blog] order by blogId desc");
+        ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName from [Blog] b join [User] u on b.blogId = u.userId order by blogId DESC");
         rs = ps.executeQuery();
         while (rs.next()) {
-            Blog blog = new Blog();
+             Blog blog = new Blog();
             blog.setBlogId(rs.getInt(1));
             blog.setBlogTitle(rs.getString(2));
             blog.setBlogDetail(rs.getString(3));
             blog.setBlogImage(rs.getString(4));
-            blog.setUserId(rs.getInt(5));
-            blog.setBlogDate(rs.getDate(6));
+            blog.setBlogDate(rs.getDate(5));
+            blog.setUserId(rs.getInt(6));
+            blog.setUserName(rs.getString(7));
             list.add(blog);
         }
         con.close();
@@ -71,7 +73,7 @@ public class BlogFacade {
     
     public Blog listBlogId(String id) throws SQLException {
         con = DBContext.getConnection();
-        ps = con.prepareStatement("select * from [Blog] where blogId = ?");
+        ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName from [Blog] b join [User] u on b.blogId = u.userId where blogId = ?");
         ps.setString(1, id);
         rs = ps.executeQuery();
         while (rs.next()) {
@@ -80,8 +82,9 @@ public class BlogFacade {
             blog.setBlogTitle(rs.getString(2));
             blog.setBlogDetail(rs.getString(3));
             blog.setBlogImage(rs.getString(4));
-            blog.setUserId(rs.getInt(5));
-            blog.setBlogDate(rs.getDate(6));
+            blog.setBlogDate(rs.getDate(5));
+            blog.setUserId(rs.getInt(6));
+            blog.setUserName(rs.getString(7));
             return blog;
         }
         con.close();

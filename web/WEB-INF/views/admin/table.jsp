@@ -347,7 +347,7 @@
                         <div class="card my-4">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">Authors table</h6>
+                                    <h6 class="text-white text-capitalize ps-3">Staff table</h6>
                                 </div>
                             </div>
                             <div class="card-body px-0 pb-2">
@@ -363,6 +363,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <c:forEach items="${staffList}" var="staffList">
                                             <tr>
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
@@ -370,8 +371,8 @@
                                                             <img src="${pageContext.request.contextPath}/material-dashboard/demos.creative-tim.com/material-dashboard/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                                                         </div>
                                                         <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">John Michael</h6>
-                                                            <p class="text-xs text-secondary mb-0"><a class="__cf_email__"">someone@gmail.com</a></p>
+                                                            <h6 class="mb-0 text-sm">${staffList.userName}</h6>
+                                                            <p class="text-xs text-secondary mb-0"><a class="__cf_email__"">${staffList.userEmail}</a></p>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -391,6 +392,7 @@
                                                     </a>
                                                 </td>
                                             </tr>
+                                            </c:forEach>
                                             <tr>
                                                 <td>
                                                     <div class="d-flex px-2 py-1">

@@ -1959,12 +1959,12 @@
     </section>
     <section class="section-gap-95">
         <div class="container">
-            <div class="row">
+            <div class="row">blogs
                 <div class="col-xl-12">
                     <div class="section-head">
                         <div class="section-text">
                             <h2>our recent articles</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
+                            <p>Our recent </p>
                         </div><a href="<c:url value="/blog/bloggrid.do"/>" class="btn btn-inline"><i
                                 class="material-icons">travel_explore</i><span>browse all</span></a>
                     </div>
@@ -1983,7 +1983,7 @@
                             <div class="blog-grid-content">
                                 <ul class="blog-grid-meta">
                                     <li><i class="material-icons">person</i><span>post by <a
-                                                href="blog-single.html">${blog.userId}</a></span></li>
+                                                href="blog-single.html">${blog.userName}</a></span></li>
                                     <li><i class="material-icons">event</i><span>${blog.blogDate}</span></li>
                                 </ul>
                                 <h3 class="blog-grid-name"><a href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">${blog.blogTitle}</a></h3>

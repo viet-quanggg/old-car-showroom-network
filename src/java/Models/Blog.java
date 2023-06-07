@@ -16,20 +16,24 @@ public class Blog {
    private String blogTitle;
    private String blogDetail;
    private String blogImage;
-   private int userId;
    private Date blogDate;
+   private int userId;
+   private String userName;
+   
 
     public Blog() {
     }
 
-    public Blog(int blogId, String blogTitle, String blogDetail, String blogImage, int userId, Date blogDate) {
+    public Blog(int blogId, String blogTitle, String blogDetail, String blogImage, Date blogDate, int userId, String userName) {
         this.blogId = blogId;
         this.blogTitle = blogTitle;
         this.blogDetail = blogDetail;
         this.blogImage = blogImage;
-        this.userId = userId;
         this.blogDate = blogDate;
+        this.userId = userId;
+        this.userName = userName;
     }
+
 
     public int getBlogId() {
         return blogId;
@@ -79,10 +83,20 @@ public class Blog {
         this.blogDate = blogDate;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public String toString() {
-        return "Blog{" + "blogId=" + blogId + ", blogTitle=" + blogTitle + ", blogDetail=" + blogDetail + ", blogImage=" + blogImage + ", userId=" + userId + ", blogDate=" + blogDate + '}';
+        return "Blog{" + "blogId=" + blogId + ", blogTitle=" + blogTitle + ", blogDetail=" + blogDetail + ", blogImage=" + blogImage + ", blogDate=" + blogDate + ", userId=" + userId + ", userName=" + userName + '}';
     }
+
+    
     
    
 }
