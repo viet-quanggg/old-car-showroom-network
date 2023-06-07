@@ -41,6 +41,7 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
         switch (action) {
@@ -76,10 +77,22 @@ public class LoginController extends HttpServlet {
                 break;
             }
             case "profile":
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+                session = request.getSession();
+                if (session.getAttribute("User") == null) {
+                    request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
+                    return;
+                }
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); 
+                //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
                 break;
             case "update_profile":
+                session = request.getSession();
+                if (session.getAttribute("User") == null) {
+                    request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
+                    return;
+                }
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 request.setAttribute("action", "updateprofile");
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
@@ -169,7 +182,7 @@ public class LoginController extends HttpServlet {
                         if (!userpass.equals(re_pass)) {
                             request.setAttribute("errorR", "Password and Re-password doest not match!");
                             request.getRequestDispatcher("/login/register.do").forward(request, response);
-                            
+
                         } else if (agree == null || !agree.equals("agree")) {
                             request.setAttribute("errorT", "Agree to Terms and Privacy Policy to continue!");
                             request.getRequestDispatcher("/login/register.do").forward(request, response);

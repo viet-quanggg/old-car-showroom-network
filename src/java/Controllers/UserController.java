@@ -35,8 +35,16 @@ public class UserController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        if (session.getAttribute("User") == null) {
+            request.setAttribute("controller", "login");
+            request.setAttribute("action", "login");
+            request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+            return;
+        }
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
+        
         switch (action) {
             case "dashboard":
                 request.getRequestDispatcher("/WEB-INF/layouts/dashboard.jsp").forward(request, response); //Hien trang thong bao loi
