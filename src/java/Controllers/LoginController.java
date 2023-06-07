@@ -79,6 +79,12 @@ public class LoginController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
                 break;
+            case "update_profile":
+                request.setAttribute("action", "updateprofile");
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+                //in thong bao loi chi tiet cho developer
+                break;
+
             case "privacy":
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
@@ -136,7 +142,7 @@ public class LoginController extends HttpServlet {
                     // request.getRequestDispatcher("/login/register.do").forward(request, response);
                 }
                 if (re_pass.isEmpty()) {
-                    request.setAttribute("errorR", "please  fill in your repeat password!");
+                    request.setAttribute("errorR", "please repeat your password!");
                     // request.getRequestDispatcher("/login/register.do").forward(request, response);
                 }
                 if (username.isEmpty()) {
@@ -153,6 +159,7 @@ public class LoginController extends HttpServlet {
                 }
                 if (useremail.isEmpty() || userpass.isEmpty() || re_pass.isEmpty() || username.isEmpty() || userphone.isEmpty() || useraddress.isEmpty()) {
                     request.getRequestDispatcher("/login/register.do").forward(request, response);
+
                 } else {
                     if (user != null) {
 //                    check = true;
@@ -162,16 +169,17 @@ public class LoginController extends HttpServlet {
                         if (!userpass.equals(re_pass)) {
                             request.setAttribute("errorR", "Password and Re-password doest not match!");
                             request.getRequestDispatcher("/login/register.do").forward(request, response);
+                            
                         } else if (agree == null || !agree.equals("agree")) {
                             request.setAttribute("errorT", "Agree to Terms and Privacy Policy to continue!");
                             request.getRequestDispatcher("/login/register.do").forward(request, response);
+
                         } else {
                             Date date = new Date();
-                            
                             User newUser = uf.register(useremail, userpass, username, userphone, useraddress, date);
                             HttpSession session = request.getSession();
                             session.setAttribute("User", newUser);
-                            request.setAttribute("message", "Sign up success,please login to continue.");
+                            request.setAttribute("message", "Sign up success, please login to continue.");
                             request.getRequestDispatcher("/login/login.do").forward(request, response);
                         }
                     }
@@ -241,53 +249,6 @@ public class LoginController extends HttpServlet {
                 break;
             }
         } catch (Exception e) {
-        }
-    }
-
-    protected void updateUser_handler(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String op = request.getParameter("op");
-        switch (op) {
-            case "update":
-                try {
-//            boolean check = false;
-                int userId = Integer.parseInt(request.getParameter("userId"));
-                String useremail = request.getParameter("userEmail");
-                String userpass = request.getParameter("userPass");
-                String re_pass = request.getParameter("re_pass");
-                String username = request.getParameter("userName");
-                String userphone = request.getParameter("userPhone");
-                String useraddress = request.getParameter("userAddress");
-                int userrole = Integer.parseInt(request.getParameter("userRole"));
-                String userimage = request.getParameter("userImage");
-                UserFacade uf = new UserFacade();
-                if (useremail.isEmpty() || userpass.isEmpty() || username.isEmpty() || userphone.isEmpty() || useraddress.isEmpty()) {
-                    request.setAttribute("error", "Vui lòng điền đầy đủ thông tin!");
-                    request.getRequestDispatcher("/user/updateUser.do").forward(request, response);
-                } else {
-                    if (!userpass.equals(re_pass)) {
-                        request.setAttribute("error", "Mật khẩu không trùng khớp!");
-                        request.getRequestDispatcher("/user/updateUser.do").forward(request, response);
-                    } else {
-                        User user = new User(userId, useremail, userpass, username, userphone, useraddress, new Date(), userrole, userimage, 1);
-                        uf.update(user);
-                        HttpSession session = request.getSession();
-                        session.setAttribute("User", user);
-                        request.setAttribute("message", "Cập nhật thành công");
-                        request.getRequestDispatcher("/user/info.do").forward(request, response);
-                    }
-                }
-
-            } catch (Exception e) {
-                request.setAttribute("error", e.toString());
-                request.getRequestDispatcher("/user/updateUser.do").forward(request, response);
-            }
-            break;
-            case "cancel": {
-                response.sendRedirect(request.getContextPath() + "/user/info.do");
-                break;
-            }
-
         }
     }
 

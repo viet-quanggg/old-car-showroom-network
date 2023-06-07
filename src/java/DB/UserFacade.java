@@ -63,17 +63,33 @@ public class UserFacade {
     }
 
     public User register(String userEmail, String userPass, String userName, String userPhone, String userAddress, Date timeCreated) throws SQLException {
-        User user = null;
+        User user = new User();
         Connection con = DBContext.getConnection();
-        PreparedStatement stm = con.prepareStatement("INSERT INTO [User] VALUES (?, ?, ?, ?, ?, ?, 0,NULL,NULL,NULL);");
+        PreparedStatement stm = con.prepareStatement("INSERT INTO [User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage]) VALUES (?, ?, ?, ?, ?, ?, 0,'');");
         stm.setString(1, userEmail);
         stm.setString(2, userPass);
         stm.setString(3, userName);
         stm.setString(4, userPhone);
         stm.setString(5, userAddress);
-        
-        stm.setString(6, timeCreated.toString());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        stm.setString(6, sdf.format(timeCreated));
         int count = stm.executeUpdate();
+
+        stm = con.prepareStatement("Select * from [User] where userEmail = ?");
+        stm.setString(1, userEmail);
+        ResultSet rs = stm.executeQuery();
+        int id = 0;
+        if (rs.next()) {  
+        user.setUserID(rs.getInt("userId"));
+        user.setUserEmail(rs.getString("userEmail"));
+        user.setUserPass(rs.getString("userPass"));
+        user.setUserName(rs.getString("userName"));
+        user.setUserPhone(rs.getString("userPhone"));
+        user.setUserAddress(rs.getString("userAddress"));
+        user.setTimeCreated(rs.getDate("timeCreated"));
+        user.setUserRole(rs.getInt("userRole"));
+        user.setUserImage("");
+        }
         con.close();
         return user;
     }
@@ -159,7 +175,7 @@ public class UserFacade {
         //Tạo connection để kết nối vào DBMS
         Connection con = DBContext.getConnection();
         //Tạo đối tượng PreparedStatement
-        PreparedStatement stm = con.prepareStatement("update [User] set EMAIL = ?, ACCOUNTPASS = ?, ACCOUNT_NAME = ?, ACCOUNT_PHONE = ?, ACCOUNT_ADDRESS = ? where ACCOUNT_ID = ?");
+        PreparedStatement stm = con.prepareStatement("update [User] set userEmail = ?, userPass = ?, userName = ?, userPhone = ?, userAddress = ? where userId = ?");
         stm.setString(1, user.getUserEmail());
         stm.setString(2, user.getUserPass());
         stm.setString(3, user.getUserName());

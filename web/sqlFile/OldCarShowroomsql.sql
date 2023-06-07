@@ -3,18 +3,18 @@ go
 /*******************************************************************************
    Drop database if it exists
 ********************************************************************************/
-IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'OldCarShowroom2')
+IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'OldCarShowroom')
 BEGIN
-	ALTER DATABASE [OldCarShowroom2] SET OFFLINE WITH ROLLBACK IMMEDIATE;
-	ALTER DATABASE [OldCarShowroom2] SET ONLINE;
-	DROP DATABASE [OldCarShowroom2];
+	ALTER DATABASE [OldCarShowroom] SET OFFLINE WITH ROLLBACK IMMEDIATE;
+	ALTER DATABASE [OldCarShowroom] SET ONLINE;
+	DROP DATABASE [OldCarShowroom];
 END
 GO
 
-CREATE DATABASE [OldCarShowroom2]
+CREATE DATABASE [OldCarShowroom]
 GO
 
-USE [OldCarShowroom2]
+USE [OldCarShowroom]
 GO
 
 /*******************************************************************************
