@@ -27,7 +27,7 @@
                     <div class="blog-single-content">
                         <ul class="blog-single-meta-list">
                             <li><i class="material-icons">account_circle</i><span>post by <a
-                                        href="blog-single.html">${bid.userId}</a></span></li>
+                                        href="blog-single.html">${bid.userName}</a></span></li>
                             <li><i class="material-icons">event_note</i><span>${bid.blogDate}</span></li>
                             <li><i class="material-icons">forum</i><span>05 comments</span></li>
                             <li><i class="material-icons">public</i><span>03 share</span></li>
@@ -56,7 +56,7 @@
                         <div class="blog-author">
                             <div class="blog-author-group">
                                 <div class="blog-author-info"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="author">
-                                    <h4><a href="blog-author.html">Miron Mahmud</a></h4>
+                                    <h4><a href="blog-author.html">${bid.userName}</a></h4>
                                     <h6><a href="#">www.mironmahmud.com</a></h6>
                                 </div>
                                 <div class="blog-author-content">
@@ -91,7 +91,7 @@
                                     <div class="blog-grid-content">
                                         <ul class="blog-grid-meta">
                                             <li><i class="material-icons">person</i><span>post by <a
-                                                        href="blog-single.html">${latest.userId}</a></span></li>
+                                                        href="blog-single.html">${latest.userName}</a></span></li>
                                             <li><i class="material-icons">event</i><span>${latest.blogDate}</span></li>
                                         </ul>
                                         <h3 class="blog-grid-name"><a href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>">${latest.blogTitle}</a></h3>

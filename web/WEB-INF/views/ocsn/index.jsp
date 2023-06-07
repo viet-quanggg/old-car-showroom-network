@@ -1817,30 +1817,32 @@
                     <div class="section-head">
                         <div class="section-text">
                             <h2>our ads pricing plans</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
+                            <p>We provided to you 3 most suitable plans for each user's need</p>
                         </div><a href="<c:url value="/order/pricingplan.do"/>" class="btn btn-inline"><i
                                 class="material-icons">details</i><span>more details</span></a>
                     </div>
                 </div>
             </div>
             <div class="row price-slider slider-arrow">
-                <div class="col">
-                    <div class="price-card"><i class="price-icon material-icons">task_alt</i>
-                        <h3 class="price-title">starter plan</h3>
-                        <p class="price-subtitle">Perfect for getting start</p>
-                        <ul class="price-list">
-                            <li class="price-item"><span>first pricing feature type</span></li>
-                            <li class="price-item"><del>second pricing feature type</del></li>
-                            <li class="price-item"><del>third pricing feature type</del></li>
-                            <li class="price-item"><span>four pricing feature type</span></li>
-                            <li class="price-item"><span>five pricing feature type</span></li>
-                        </ul>
-                        <h4 class="price-amount">$35/-</h4>
-                        <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/login/register.do"/>">get
-                            register</a>
-                    </div>
+                <c:forEach items="${plan}" var="plan">           
+            <div class="col">
+                <div class="price-card"><i class="price-icon material-icons">task_alt</i>
+                    <h3 class="price-title">${plan.planName}</h3>
+                    <p class="price-subtitle">Choose what most suitable for your need</p>
+                    <ul class="price-list">
+                        <li class="price-item"><span>Plan Period: ${plan.planTime} months</span></li>
+                        <li class="price-item"><del>Third Parties Ads</del></li>
+                        <li class="price-item"><del>Surcharge</del></li>
+                        <li class="price-item"><span>Post Limit: ${plan.planLimit} Posts</span></li>
+                        <li class="price-item"><span>Full Support From OCSN</span></li>
+                    </ul>
+                    <h4 class="price-amount">$${plan.planPrice}/-</h4>
+                    <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/login/register.do"/>">get
+                        register</a>
                 </div>
-                <div class="col">
+            </div>
+            </c:forEach>         
+<!--                <div class="col">
                     <div class="price-card active"><i class="price-icon material-icons">task_alt</i>
                         <h3 class="price-title">business plan</h3>
                         <p class="price-subtitle">Perfect for growing ads</p>
@@ -1871,7 +1873,7 @@
                         <h5 class="price-mode">per advertise post</h5><a class="price-action" href="r<c:url value="/login/register.do"/>">get
                             register</a>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </section>
@@ -1959,12 +1961,12 @@
     </section>
     <section class="section-gap-95">
         <div class="container">
-            <div class="row">blogs
+            <div class="row">
                 <div class="col-xl-12">
                     <div class="section-head">
                         <div class="section-text">
                             <h2>our recent articles</h2>
-                            <p>Our recent </p>
+                            <p>Our recent blogs</p>
                         </div><a href="<c:url value="/blog/bloggrid.do"/>" class="btn btn-inline"><i
                                 class="material-icons">travel_explore</i><span>browse all</span></a>
                     </div>

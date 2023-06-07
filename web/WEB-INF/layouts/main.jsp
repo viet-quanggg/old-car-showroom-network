@@ -70,7 +70,7 @@
                             <a href="<c:url value="/login/register.do"/>" style="color:whitesmoke;display: inline-block" alt="user">Register</a>
                         </c:if>
                         <c:if test="${User!=null}">
-                            <a href="<c:url value="/login/profile.do"/>" style="color:whitesmoke" class="header-user" alt="user">Profile |</a>
+                            <a href="<c:url value="/login/profile.do"/>" style="color:whitesmoke" class="header-user" alt="user">${User.userName} |</a>
                             <a href="<c:url value="/login/logout.do"/>" style="color:whitesmoke" class="header-user" alt="user">Log Out</a>
                         </c:if>
                     </div>

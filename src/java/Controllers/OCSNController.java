@@ -4,9 +4,10 @@
  */
 package Controllers;
 
-
 import DB.BlogFacade;
+import DB.OrderFacade;
 import Models.Blog;
+import Models.PricingPlan;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -43,7 +44,9 @@ public class OCSNController extends HttpServlet {
             String controller = (String) request.getAttribute("controller");
             String action = (String) request.getAttribute("action");
             BlogFacade bf = new BlogFacade();
+            OrderFacade of = new OrderFacade();
             List<Blog> blog = null;
+            List<PricingPlan> plan = null;
             switch (action) {
                 case "index":
                     String bid = request.getParameter("bid");
@@ -51,6 +54,8 @@ public class OCSNController extends HttpServlet {
                     request.setAttribute("blog", blog);
                     Blog b = bf.listBlogId(bid);
                     request.setAttribute("bid", b);
+                    plan = of.listBlog();
+                    request.setAttribute("plan", plan);
                     request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                     //in thong bao loi chi tiet cho developer
                     break;
@@ -65,7 +70,7 @@ public class OCSNController extends HttpServlet {
                     request.setAttribute("controller", "error");
                     request.setAttribute("action", "error");
                     request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-                    
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(OCSNController.class.getName()).log(Level.SEVERE, null, ex);
