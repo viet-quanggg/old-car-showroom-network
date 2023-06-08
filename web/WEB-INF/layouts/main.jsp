@@ -222,9 +222,7 @@
                             <li class="nav-item"><a href="compare.html" class="nav-link"><i
                                         class="material-icons">compare</i><span class="nav-text">compares</span></a></li>
                             <li class="nav-item"><a href="<c:url value="/views/login/login.do"/>" class="nav-link"><i
-                                        class="material-icons">lock</i><span class="nav-text">logout</span></a></li>
-                            <li class="drop-item"><a href="<c:url value="/user/setting.do"/>" class="drop-link"><i
-                                        class="material-icons">remove</i><span>admin page</span></a></li>   
+                                        class="material-icons">lock</i><span class="nav-text">logout</span></a></li> 
                         </ul>
                     </div>
                 </nav>

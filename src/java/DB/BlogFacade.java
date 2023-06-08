@@ -43,21 +43,16 @@ public class BlogFacade {
         return list;
     }
 
-    public static void main(String[] args) throws SQLException {
-        BlogFacade bf = new BlogFacade();
-        List<Blog> blog = bf.listBlog();
-        for(Blog o : blog){
-            System.out.println(o);
-        }
-    }
-
-    public List<Blog> listLatest() throws SQLException {
+    public List<Blog> listBlogRandomly() throws SQLException {
         List<Blog> list = new ArrayList<>();
         con = DBContext.getConnection();
-        ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName from [Blog] b join [User] u on b.blogId = u.userId order by blogId DESC");
+        ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName \n"
+                + "from [Blog] b join [User] u \n"
+                + "on b.blogId = u.userId \n"
+                + "ORDER BY NEWID();");
         rs = ps.executeQuery();
         while (rs.next()) {
-             Blog blog = new Blog();
+            Blog blog = new Blog();
             blog.setBlogId(rs.getInt(1));
             blog.setBlogTitle(rs.getString(2));
             blog.setBlogDetail(rs.getString(3));
@@ -70,7 +65,35 @@ public class BlogFacade {
         con.close();
         return list;
     }
-    
+
+    public static void main(String[] args) throws SQLException {
+        BlogFacade bf = new BlogFacade();
+        List<Blog> blog = bf.listBlog();
+        for (Blog o : blog) {
+            System.out.println(o);
+        }
+    }
+
+    public List<Blog> listLatest() throws SQLException {
+        List<Blog> list = new ArrayList<>();
+        con = DBContext.getConnection();
+        ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName from [Blog] b join [User] u on b.blogId = u.userId order by blogId DESC");
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            Blog blog = new Blog();
+            blog.setBlogId(rs.getInt(1));
+            blog.setBlogTitle(rs.getString(2));
+            blog.setBlogDetail(rs.getString(3));
+            blog.setBlogImage(rs.getString(4));
+            blog.setBlogDate(rs.getDate(5));
+            blog.setUserId(rs.getInt(6));
+            blog.setUserName(rs.getString(7));
+            list.add(blog);
+        }
+        con.close();
+        return list;
+    }
+
     public Blog listBlogId(String id) throws SQLException {
         con = DBContext.getConnection();
         ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName from [Blog] b join [User] u on b.blogId = u.userId where blogId = ?");
@@ -90,8 +113,8 @@ public class BlogFacade {
         con.close();
         return null;
     }
-    
-    public Blog createBlog(String blogTile, String blogDetail, String blogImage) throws SQLException{
+
+    public Blog createBlog(String blogTile, String blogDetail, String blogImage) throws SQLException {
         Blog newBlog = new Blog();
         con = DBContext.getConnection();
         ps = con.prepareStatement("INSERT [dbo].[Blog] VALUES (?,?,?,1,CURRENT_TIMESTAMP); ");
@@ -103,6 +126,5 @@ public class BlogFacade {
         con.close();
         return newBlog;
     }
-    
-    
+
 }

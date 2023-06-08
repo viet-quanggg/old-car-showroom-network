@@ -48,7 +48,9 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <ul class="user-banner-menu-list">
-                            <li><a href="dashboard.html">dashboard</a></li>
+                            <c:if test="${User.userRole == 2 || User.userRole == 1}">
+                             <li><a href="dashboard.html">dashboard</a></li>   
+                            </c:if>
                             <li><a href="<c:url value="/login/profile.do"/>" class="active">profile</a></li>
                             <li><a href="<c:url value="/login/update_profile.do"/>" class="inactive">update profile</a></li>
                             <li><a href="create-ads.html">create car</a></li>

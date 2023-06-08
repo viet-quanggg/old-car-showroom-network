@@ -22,7 +22,7 @@ public class OrderFacade {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public List<PricingPlan> listBlog() throws SQLException {
+    public List<PricingPlan> listPlan() throws SQLException {
         List<PricingPlan> list = new ArrayList<>();
         con = DBContext.getConnection();
         ps = con.prepareStatement("select * from [Plan]");

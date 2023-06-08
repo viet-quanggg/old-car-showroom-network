@@ -50,11 +50,11 @@ public class OCSNController extends HttpServlet {
             switch (action) {
                 case "index":
                     String bid = request.getParameter("bid");
-                    blog = bf.listBlog();
+                    blog = bf.listBlogRandomly();
                     request.setAttribute("blog", blog);
                     Blog b = bf.listBlogId(bid);
                     request.setAttribute("bid", b);
-                    plan = of.listBlog();
+                    plan = of.listPlan();
                     request.setAttribute("plan", plan);
                     request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                     //in thong bao loi chi tiet cho developer

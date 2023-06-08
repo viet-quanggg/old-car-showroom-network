@@ -70,7 +70,7 @@ public class BlogController extends HttpServlet {
                     request.setAttribute("bid", b);
                     blog = bf.listBlog();
                     request.setAttribute("blog", blog);
-                    latest = bf.listLatest();
+                    latest = bf.listBlogRandomly();
                     request.setAttribute("latest", latest);
                     request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                     //in thong bao loi chi tiet cho developer

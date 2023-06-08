@@ -92,7 +92,6 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
                     return;
                 }
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 request.setAttribute("action", "updateprofile");
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
