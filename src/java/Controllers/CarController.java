@@ -4,7 +4,6 @@
  */
 package Controllers;
 
-
 import DB.CarFacade;
 import Models.Car;
 import java.io.IOException;
@@ -20,6 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+
 /**
  *
  * @author _viet.quangg
@@ -36,8 +36,6 @@ public class CarController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -88,6 +86,9 @@ public class CarController extends HttpServlet {
                 case "carsingle":
                     request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                     break;
+                case "comparecar":
+                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                    break;
                 default:
                     //Show error page
                     request.setAttribute("controller", "error");
@@ -112,7 +113,7 @@ public class CarController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**

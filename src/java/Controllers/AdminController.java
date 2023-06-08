@@ -47,12 +47,19 @@ public class AdminController extends HttpServlet {
         User user = null;
         switch (action) {
             case "dashboard":
+                try {
                 //count user in the system
                 int countUser = apf.countUser();
                 //count completed order
                 int countComplete = apf.countCompleteOrders();
-                //count the user account that was created yesterday
-                int countUserYesterday = apf.countUserYesterday();
+                //count the user account that was created last month
+                int countUserlastMonth = apf.countUserlastMonth();
+                //count the user account that was created this month
+                int countUserthisMonth = apf.countUserthisMonth();
+                //count the account this month
+                int countAccthisMonth = apf.countAccthisMonth();
+                //count the account last month
+                int countAcclastMonth = apf.countAcclastMonth();
                 //calculate the percent of orders
                 int a = apf.countOrderThisMonth();
                 int b = apf.countOrderLastMonth();
@@ -65,32 +72,85 @@ public class AdminController extends HttpServlet {
                     percent = (int) (((float) (a - b) / b) * 100);
                 }
                 /////////////////////////////////////////////////////
+                //calculate the percent of users
+                int c = countUserthisMonth;
+                int d = countUserlastMonth;
+                int percent1;
+                if (d == 0) {
+                    percent1 = c == 0 ? 0 : 100;
+                } else if (d >= c) {
+                    percent1 = (int) (((float) (d - c) / d) * 100);
+                } else {
+                    percent1 = (int) (((float) (c - d) / d) * 100);
+                }
+//                /////////////////////////////////////////////////////
+                int e = apf.countAccthisMonth();
+                int f = apf.countAcclastMonth();
+                int percent2;
+                if (f == 0) {
+                    percent2 = e == 0 ? 0 : 100;
+                } else if (f >= e) {
+                    percent2 = (int) (((float) (f - e) / f) * 100);
+                } else {
+                    percent2 = (int) (((float) (e - f) / f) * 100);
+                }
+                ////////////////////////////////////////////////////////
                 double completeSale = apf.countCompleteSaleSalary();
+                double completeSalelastMonth = apf.countCompleteSaleSalarylastMonth();
+                double g = completeSale;
+                double h = completeSalelastMonth;
+                int percent3 = 0;
+                if (h == 0) {
+                    percent3 = g == 0 ? 0 : 100;
+                } else if (h >= g) {
+                    percent3 = (int) (((float) (h - g) / h) * 100);
+                } else {
+                    percent3 = (int) (((float) (g - h) / h) * 100);
+                }
                 //List all the order
                 List<OrderList> order = apf.listallOrder();
                 //List all the order that is created this week
                 List<OrderList> weekorder = apf.listOrderThisWeek();
                 //
                 request.setAttribute("percent", percent);
+                request.setAttribute("percent1", percent1);
+                request.setAttribute("percent2", percent2);
+                request.setAttribute("percent3", percent3);
                 request.setAttribute("orderList", order);
                 request.setAttribute("countComplete", countComplete);
+                request.setAttribute("completeSale", completeSale);
+                request.setAttribute("completeSalelastMonth", completeSalelastMonth);
                 request.setAttribute("countUser", countUser);
                 request.setAttribute("completeSale", completeSale);
-                request.setAttribute("userYesterday", countUserYesterday);
+                request.setAttribute("userlastMonth", countUserlastMonth);
+                request.setAttribute("userthisMonth", countUserthisMonth);
+                request.setAttribute("acclastMonth", countAcclastMonth);
+                request.setAttribute("accthisMonth", countAccthisMonth);
                 request.setAttribute("weekOrder", weekorder);
                 request.getRequestDispatcher("/WEB-INF/layouts/dashboard.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
-                break;
+            } catch (Exception e) {
+                request.setAttribute("controller", "error");
+                request.setAttribute("action", "error");
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+            }
+            break;
             case "setting":
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
                 break;
             case "table":
+                try {
                 List<User> staffList = apf.listallStaff();
                 request.setAttribute("staffList", staffList);
                 request.getRequestDispatcher("/WEB-INF/views/admin/table.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
-                break;
+            } catch (Exception e) {
+                request.setAttribute("controller", "error");
+                request.setAttribute("action", "error");
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+            }
+            break;
             default:
                 //Show error page
                 request.setAttribute("controller", "error");

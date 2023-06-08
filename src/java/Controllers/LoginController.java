@@ -232,7 +232,7 @@ public class LoginController extends HttpServlet {
                         request.getRequestDispatcher("/user/forgetpass.do").forward(request, response);
                     } else {
                         //Cho hien lai login form
-                        request.setAttribute("message1", "Email hoặc số điện thoại không trùng khớp! Vui lòng thử lại!");
+                        request.setAttribute("message1", "Email or Phone Number is not match! Please try again!");
                         request.getRequestDispatcher("/user/forgetpass.do").forward(request, response);
                     }
                 } catch (Exception e) {
@@ -249,11 +249,11 @@ public class LoginController extends HttpServlet {
                     if (!userpass.equals(re_pass)) {
                         session.setAttribute("User1", user);
                         request.setAttribute("message2", user.getUserName());
-                        request.setAttribute("message1", "Mật khẩu không trùng khớp!");
+                        request.setAttribute("message1", "The password is not matched!!");
                         request.getRequestDispatcher("/user/forgetpass.do").forward(request, response);
                     } else {
                         user = uf.changepassword(userpass, user.getUserEmail());
-                        request.setAttribute("message", "Đổi mật khẩu thành công!vui lòng đăng nhập lại");
+                        request.setAttribute("message", "Password changed successfully! Please login again!!");
                         request.getRequestDispatcher("/user/login.do").forward(request, response);
                     }
                 } catch (Exception e) {

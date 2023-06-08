@@ -39,41 +39,43 @@ public class OCSNController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            String controller = (String) request.getAttribute("controller");
-            String action = (String) request.getAttribute("action");
-            BlogFacade bf = new BlogFacade();
-            OrderFacade of = new OrderFacade();
-            List<Blog> blog = null;
-            List<PricingPlan> plan = null;
-            switch (action) {
-                case "index":
-                    String bid = request.getParameter("bid");
-                    blog = bf.listBlogRandomly();
-                    request.setAttribute("blog", blog);
-                    Blog b = bf.listBlogId(bid);
-                    request.setAttribute("bid", b);
-                    plan = of.listPlan();
-                    request.setAttribute("plan", plan);
-                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
-                    //in thong bao loi chi tiet cho developer
-                    break;
-                case "aboutus":
-                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-                    break;
-                case "contact":
-                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-                    break;
-                default:
-                    //Show error page
-                    request.setAttribute("controller", "error");
-                    request.setAttribute("action", "error");
-                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-
+        response.setContentType("text/html;charset=UTF-8");
+        String controller = (String) request.getAttribute("controller");
+        String action = (String) request.getAttribute("action");
+        BlogFacade bf = new BlogFacade();
+        OrderFacade of = new OrderFacade();
+        List<Blog> blog = null;
+        List<PricingPlan> plan = null;
+        switch (action) {
+            case "index":
+                try {
+                String bid = request.getParameter("bid");
+                blog = bf.listBlogRandomly();
+                request.setAttribute("blog", blog);
+                Blog b = bf.listBlogId(bid);
+                request.setAttribute("bid", b);
+                plan = of.listPlan();
+                request.setAttribute("plan", plan);
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+                //in thong bao loi chi tiet cho developer
+            } catch (Exception e) {
+                request.setAttribute("controller", "error");
+                request.setAttribute("action", "error");
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(OCSNController.class.getName()).log(Level.SEVERE, null, ex);
+            break;
+            case "aboutus":
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                break;
+            case "contact":
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                break;
+            default:
+                //Show error page
+                request.setAttribute("controller", "error");
+                request.setAttribute("action", "error");
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+
         }
     }
 

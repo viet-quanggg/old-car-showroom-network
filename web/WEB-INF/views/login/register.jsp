@@ -28,10 +28,9 @@
             <div class="auth-banner-overlay">
                 <div class="auth-content"><a class="auth-logo" href="<c:url value="/ocsn/index.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/logo.png"
                                                                                                            alt="logo"></a>
-                    <h1 class="auth-headline">Lorem ipsum dolor sit amet consectetur adipisicing</h1>
-                    <p class="auth-details">Elit Iusto dolore libero recusandae dolor dolores explicabo ullam cum
-                        facilis aperiam alias odio quam excepturi molestiae omnis inventore. Repudiandae officia placeat
-                        amet consectetur dicta dolorem quo.</p>
+                    <h1 class="auth-headline">Looking for a reliable and convenient way to buy or sell a car?</h1>
+                    <p class="auth-details">OCSN is an online automotive marketplace that helps users find great deals on new and used cars. 
+                            They offer a wide range of features including price comparisons, dealer reviews, and vehicle history reports.</p>
                     <div class="auth-social">
                         <h5>follow on</h5>
                         <ul>

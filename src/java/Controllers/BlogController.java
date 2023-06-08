@@ -1,4 +1,4 @@
- /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
@@ -48,13 +48,20 @@ public class BlogController extends HttpServlet {
             List<Blog> latest = null;
             switch (action) {
                 case "bloglist":
+                try {
                     blog = bf.listBlog();
                     latest = bf.listLatest();
                     request.setAttribute("latest", latest);
                     request.setAttribute("blog", blog);
                     request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
-                    break;
+                } catch (Exception e) {
+                    request.setAttribute("controller", "error");
+                    request.setAttribute("action", "error");
+                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                }
+                break;
                 case "bloggrid":
+                    try {
                     blog = bf.listBlog();
                     request.setAttribute("blog", blog);
                     latest = bf.listLatest();
@@ -63,8 +70,14 @@ public class BlogController extends HttpServlet {
 
                     //Hien trang thong bao loi
                     //in thong bao loi chi tiet cho developer
-                    break;
+                } catch (Exception e) {
+                    request.setAttribute("controller", "error");
+                    request.setAttribute("action", "error");
+                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                }
+                break;
                 case "blogsingle":
+                    try {
                     String bid = request.getParameter("bid");
                     Blog b = bf.listBlogId(bid);
                     request.setAttribute("bid", b);
@@ -74,9 +87,14 @@ public class BlogController extends HttpServlet {
                     request.setAttribute("latest", latest);
                     request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                     //in thong bao loi chi tiet cho developer
-                    break;
+                } catch (Exception e) {
+                    request.setAttribute("controller", "error");
+                    request.setAttribute("action", "error");
+                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                }
+                break;
                 case "blogcreate":
-                    
+
                     request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                     //in thong bao loi chi tiet cho developer
                     break;

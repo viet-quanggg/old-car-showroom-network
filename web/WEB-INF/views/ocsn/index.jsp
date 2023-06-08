@@ -37,7 +37,7 @@
                         <p>Our platform brings together buyers and sellers from all over, 
                             creating a safe and easy-to-use marketplace for all your automotive needs. 
                             Whether you're searching for the perfect car to fit your lifestyle, 
-                            or looking to sell your current vehicle quickly and easily, our user-friendly website has everything you need</p>
+                            or looking to sell your current vehicle quickly and easily, our user-friendly website has everything you need.</p>
                         <ul>
                             <li><i class="material-icons">email</i><span><small>contact
                                         email</small>daihocfpt@fpt.edu.vn</span></li>

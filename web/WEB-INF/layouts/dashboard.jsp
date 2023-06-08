@@ -360,12 +360,12 @@
                                 </div>
                                 <div class="text-end pt-1">
                                     <p class="text-sm mb-0 text-capitalize">Total Users</p>
-                                    <h4 class="mb-0">${countUser}</h4>
+                                    <h4 class="mb-0">${accthisMonth}</h4>
                                 </div>
                             </div>
                             <hr class="dark horizontal my-0">
                             <div class="card-footer p-3">
-                                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than last month</p>
+                                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+${percent2}% </span>than last month(${acclastMonth})</p>
                             </div>
                         </div>
                     </div>
@@ -376,13 +376,13 @@
                                     <i class="material-icons opacity-10">person</i>
                                 </div>
                                 <div class="text-end pt-1">
-                                    <p class="text-sm mb-0 text-capitalize">New Clients</p>
-                                    <h4 class="mb-0">${userYesterday}</h4>
+                                    <p class="text-sm mb-0 text-capitalize">New Users</p>
+                                    <h4 class="mb-0">${userthisMonth}</h4>
                                 </div>
                             </div>
                             <hr class="dark horizontal my-0">
                             <div class="card-footer p-3">
-                                <p class="mb-0"><span class="text-danger text-sm font-weight-bolder"></span> than yesterday</p>
+                                <p class="mb-0"><span class="text-success text-sm font-weight-bolder"> +${percent1}%</span> than last month(${userlastMonth})</p>
                             </div>
                         </div>
                     </div>
@@ -399,7 +399,7 @@
                             </div>
                             <hr class="dark horizontal my-0">
                             <div class="card-footer p-3">
-                                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>than yesterday</p>
+                                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+${percent3}% </span>than last month(${completeSalelastMonth})</p>
                             </div>
                         </div>
                     </div>

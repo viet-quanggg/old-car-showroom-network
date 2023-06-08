@@ -25,12 +25,13 @@
     <section class="auth-part">
         <div class="auth-banner"><img class="auth-banner-bg" src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/bg/auth.jpg" alt="auth">
             <div class="auth-banner-overlay">
-                <div class="auth-content"><a class="auth-logo" href="index.html"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/logo.png"
+                <div class="auth-content"><a class="auth-logo" href="<c:url value="/ocsn/index.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/logo.png"
                                                                                       alt="logo"></a>
-                    <h1 class="auth-headline">Lorem ipsum dolor sit amet consectetur adipisicing</h1>
-                    <p class="auth-details">Elit Iusto dolore libero recusandae dolor dolores explicabo ullam cum
-                        facilis aperiam alias odio quam excepturi molestiae omnis inventore. Repudiandae officia placeat
-                        amet consectetur dicta dolorem quo.</p>
+                    <h1 class="auth-headline">best place to sell and buy a car</h1>
+                    <p class="auth-details">Our platform brings together buyers and sellers from all over, 
+                            creating a safe and easy-to-use marketplace for all your automotive needs. 
+                            Whether you're searching for the perfect car to fit your lifestyle, 
+                            or looking to sell your current vehicle quickly and easily, our user-friendly website has everything you need.</p>
                     <div class="auth-social">
                         <h5>follow on</h5>
                         <ul>

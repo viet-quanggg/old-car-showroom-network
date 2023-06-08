@@ -36,6 +36,64 @@ public class AdminPageFacade {
         return count;
     }
 
+    public int countUserlastMonth() throws SQLException {
+        con = DBContext.getConnection();
+        ps = con.prepareStatement("SELECT COUNT(*) \n"
+                + "FROM [User] \n"
+                + "WHERE MONTH(timeCreated) = MONTH(DATEADD(month, -1, GETDATE())) AND YEAR(timeCreated) = YEAR(DATEADD(month, -1, GETDATE()))\n"
+                + "and userRole !=2");
+        rs = ps.executeQuery();
+        int count = 0;
+        if (rs.next()) {
+            count = rs.getInt(1);
+        }
+        con.close();
+        return count;
+    }
+
+    public int countUserthisMonth() throws SQLException {
+        con = DBContext.getConnection();
+        ps = con.prepareStatement("SELECT COUNT(*) \n"
+                + "FROM [User] \n"
+                + "WHERE MONTH(timeCreated) = MONTH(CURRENT_TIMESTAMP) AND YEAR(timeCreated) = YEAR(CURRENT_TIMESTAMP)\n"
+                + "and userRole !=2");
+        rs = ps.executeQuery();
+        int count = 0;
+        if (rs.next()) {
+            count = rs.getInt(1);
+        }
+        con.close();
+        return count;
+    }
+
+    public int countAcclastMonth() throws SQLException {
+        con = DBContext.getConnection();
+        ps = con.prepareStatement("SELECT COUNT(userId) \n"
+                + "FROM [User] \n"
+                + "WHERE MONTH(timeCreated) = MONTH(DATEADD(month, -1, GETDATE())) AND YEAR(timeCreated) = YEAR(DATEADD(month, -1, GETDATE()))");
+        rs = ps.executeQuery();
+        int count = 0;
+        if (rs.next()) {
+            count = rs.getInt(1);
+        }
+        con.close();
+        return count;
+    }
+
+    public int countAccthisMonth() throws SQLException {
+        con = DBContext.getConnection();
+        ps = con.prepareStatement("SELECT COUNT(userId) \n"
+                + "FROM [User] \n"
+                + "WHERE MONTH(timeCreated) = MONTH(CURRENT_TIMESTAMP) AND YEAR(timeCreated) = YEAR(CURRENT_TIMESTAMP)");
+        rs = ps.executeQuery();
+        int count = 0;
+        if (rs.next()) {
+            count = rs.getInt(1);
+        }
+        con.close();
+        return count;
+    }
+
     public List<OrderList> listallOrder() throws SQLException {
         List<OrderList> list = new ArrayList<>();
         con = DBContext.getConnection();
@@ -114,23 +172,46 @@ public class AdminPageFacade {
         return count;
     }
 
-    public int countUserYesterday() throws SQLException {
+//    public int countUserYesterday() throws SQLException {
+//        con = DBContext.getConnection();
+//        ps = con.prepareStatement("SELECT COUNT(*) \n"
+//                + "FROM [User]\n"
+//                + "WHERE DATEDIFF(day, timeCreated, GETDATE()) = 1");
+//        rs = ps.executeQuery();
+//        int count = 0;
+//        if (rs.next()) {
+//            count = rs.getInt(1);
+//        }
+//        con.close();
+//        return count;
+//    }
+    public double countCompleteSaleSalary() throws SQLException {
         con = DBContext.getConnection();
-        ps = con.prepareStatement("SELECT COUNT(*) \n"
-                + "FROM [User]\n"
-                + "WHERE DATEDIFF(day, timeCreated, GETDATE()) = 1");
+        ps = con.prepareStatement("select distinct sum(carPrice) \n"
+                + "from [Order] o join [Post] p on o.postId = p.postId join [Car] c on p.carId = c.carId \n"
+                + "where o.orderStatus = 'Complete' \n"
+                + "and MONTH(orderDate) = MONTH(CURRENT_TIMESTAMP) \n"
+                + "AND YEAR(orderDate) = YEAR(CURRENT_TIMESTAMP)");
         rs = ps.executeQuery();
-        int count = 0;
+        double count = 0;
         if (rs.next()) {
-            count = rs.getInt(1);
+            count = rs.getDouble(1);
         }
         con.close();
         return count;
     }
 
-    public double countCompleteSaleSalary() throws SQLException {
+    public double countCompleteSaleSalarylastMonth() throws SQLException {
         con = DBContext.getConnection();
-        ps = con.prepareStatement("select distinct sum(carPrice) from [Order] o join [Post] p on o.postId = p.postId join [Car] c on p.carId = c.carId where o.orderStatus = 'Complete'");
+        ps = con.prepareStatement("select c.carPrice\n"
+                + "from [Order] o join [Post] p \n"
+                + "on o.postId = p.postId\n"
+                + "join [Car] c \n"
+                + "on p.carId = c.carId\n"
+                + "join [User] u \n"
+                + "on o.userId = u.userId\n"
+                + "where o.orderStatus ='Complete'\n"
+                + "and MONTH(orderDate) = MONTH(DATEADD(month, -1, GETDATE())) AND YEAR(orderDate) = YEAR(DATEADD(month, -1, GETDATE()))");
         rs = ps.executeQuery();
         double count = 0;
         if (rs.next()) {
@@ -162,12 +243,24 @@ public class AdminPageFacade {
 
     public static void main(String[] args) throws SQLException {
         AdminPageFacade test = new AdminPageFacade();
-        int count = test.countUserYesterday();
+        int count = test.countAccthisMonth();
+        double sale = test.countOrderThisMonth();
         List<OrderList> order = test.listallOrder();
+        int c = test.countUserthisMonth();
+        int d = test.countUserlastMonth();
+        int percent1;
+        if (d == 0) {
+            percent1 = c == 0 ? 0 : 100;
+        } else if (d >= c) {
+            percent1 = (int) (((float) (d - c) / d) * 100);
+        } else {
+            percent1 = (int) (((float) (c - d) / d) * 100);
+        }
         for (OrderList o : order) {
             System.out.println(o);
         }
         System.out.println(count);
+        System.out.println(sale);
 
     }
 }
