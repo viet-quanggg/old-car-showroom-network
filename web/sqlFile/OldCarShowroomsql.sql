@@ -3,18 +3,18 @@ go
 /*******************************************************************************
    Drop database if it exists
 ********************************************************************************/
-IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'OldCarShowroom')
+IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'OldCarShowroom2')
 BEGIN
-	ALTER DATABASE [OldCarShowroom] SET OFFLINE WITH ROLLBACK IMMEDIATE;
-	ALTER DATABASE [OldCarShowroom] SET ONLINE;
-	DROP DATABASE [OldCarShowroom];
+	ALTER DATABASE [OldCarShowroom2] SET OFFLINE WITH ROLLBACK IMMEDIATE;
+	ALTER DATABASE [OldCarShowroom2] SET ONLINE;
+	DROP DATABASE [OldCarShowroom2];
 END
 GO
 
-CREATE DATABASE [OldCarShowroom]
+CREATE DATABASE [OldCarShowroom2]
 GO
 
-USE [OldCarShowroom]
+USE [OldCarShowroom2]
 GO
 
 /*******************************************************************************
@@ -474,6 +474,37 @@ insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress]
 				values(N'trump@gmail.com',123,N'Trump',5267457,N'SaiGon',CURRENT_TIMESTAMP,0,'D:\CN5\FolderUser')
 insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
 				values(N'trong@gmail.com',123,N'Nguyen Phu Trong',3635,N'SAigon',CURRENT_TIMESTAMP,0,'D:\CN5\FolderUser')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('jim.jones@example.com', '123', 'Jim Jones', '5555555555', '101 Main Street, Anytown USA', '2023-06-07T04:25:28.633Z', 0, null)
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('mary.johnson@example.com', '123', 'Mary Ann Johnson', '5555555555', '111 Main Street, Anytown USA', '2023-06-07T04:30:28.633Z', 0, 'https://example.com/user-images/mary-johnson.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('john.doe@example.com', '123', 'John Doe', '5555555555', '456 Main Street, Anytown USA', '2023-06-07T04:15:28.633Z', 0, 'https://example.com/user-images/john-doe.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('sarah.green@example.com', '123', 'Sarah Green', '0919473970', '333 Main Street, Anytown USA', '2023-06-07T04:40:28.633Z', 0, 'https://example.com/user-images/sarah-green.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('jane.doe@example.com', '123', 'Jane Smith', '5555555555', '444 Main Street, Anytown USA', '2023-06-07T04:50:28.633Z', 0, 'https://example.com/user-images/jane-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('bob.johnson@example.com', '123', 'Bob Johnson', '5555555555', '555 Main Street, Anytown USA', '2023-06-07T04:55:28.633Z', 0, 'https://example.com/user-images/bob-johnson.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('tim.white@example.com', '123', 'Tim White', '5555555555', '', '2023-06-07T04:45:28.633Z', 0, 'https://example.com/user-images/tim-white.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('susan.smith@example.com', '123', 'Susan Smith', '5555555555', '789 Main Street, Anytown USA', '2023-06-07T04:20:28.633Z', 0, 'https://example.com/user-images/susan-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('tester1@example.com', '123', 'Tester Smith', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 0, 'https://example.com/user-images/susan-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('tester23@example.com', '123', 'Test Smith', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 0, 'https://example.com/user-images/susan-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('tester231@example.com', '123', 'Test Smith2', '5555555555', '789 Main Street, Anytown USA', '2023-05-05', 0, 'https://example.com/user-images/susan-smith.jpg')
+
+
+
+
+
+
+
+
+
 
 INSERT[dbo].[Blog](blogTitle,blogDetail,blogImage,userId ,blogDate ) values('The Evolution of Cars - From the First Automobile to Modern-Day Vehicles',N'The history of cars can be traced back to the late 1800s when Karl Benz invented the first gasoline-powered automobile. This invention revolutionized transportation and paved the way for the development of modern-day vehicles. In the early days of cars, they were considered a luxury item and were only accessible to the wealthy. However, as technology advanced and production costs decreased, cars became more affordable and accessible to the average consumer.One major turning point in the history of cars was the introduction of the assembly line by Henry Ford in 1913. The assembly line allowed for mass production of cars, making them even more affordable and popular. Ford Model T, which was introduced in 1908, quickly became one of the most popular cars in the world and is often credited with democratizing the automobile.Over the years, cars have evolved significantly in terms of design, features, and safety. In the 1930s, chrome accents and streamlined shapes became popular, leading to the age of iconic classic cars like the Ford Thunderbird and the Chevrolet Bel Air. In the 1950s and 60s, muscle cars gained popularity, with models like the Ford Mustang and the Chevrolet Camaro becoming symbols of American automotive culture.In the 1970s, concerns about environmental pollution led to the development of smaller, more fuel-efficient cars. Japanese automakers like Toyota and Honda gained market share for their reliable and efficient models. The 1980s and 90s saw advances in safety features like airbags and anti-lock brakes, as well as the introduction of electronic systems like GPS navigation and automatic transmissions.In recent years, the automotive industry has seen a shift towards electric and hybrid cars as concerns about climate change and fuel efficiency rise. Companies like Tesla have led the charge in making electric cars mainstream and desirable, with sleek designs and impressive performance figures. Self-driving cars have also become a reality, with companies like Google and Uber testing autonomous vehicles on public roads.Looking to the future, its clear that cars will continue to evolve and adapt to changing consumer needs and technological advancements. Some experts predict that hydrogen fuel cell technology could be the next big thing in automotive innovation, offering an alternative to traditional fossil fuels. Whatever the future holds, one thing is for sure – the history of cars is a fascinating and ever-evolving story that has changed the world as we know it.',null,1,'2023/05/30');
 INSERT [dbo].[Blog](blogTitle,blogDetail,blogImage,userId ,blogDate ) VALUES ('The Rise of Electric Cars: Environmental Benefits and Challenges', 'Electric cars are becoming increasingly popular as consumers seek eco-friendly alternatives to traditional gasoline-powered vehicles. These cars run on electricity stored in rechargeable batteries, rather than fossil fuels. As a result, electric cars produce zero emissions while driving, which is a significant benefit for the environment. In addition, electric cars are generally quieter and smoother than gasoline-powered cars, providing a more comfortable ride. However, there are also challenges associated with electric cars. One major issue is battery range, or how far an electric car can travel on a single charge. While some models have a range of over 300 miles, many electric cars still have a relatively limited range compared to gasoline-powered cars. Charging infrastructure is also a concern, as it is not yet as widespread as gas stations. However, governments and private companies are investing in the expansion of charging networks and the development of more efficient batteries, which should help address these issues.', null, 2, CURRENT_TIMESTAMP);
@@ -484,6 +515,58 @@ INSERT [dbo].[Blog]( blogTitle,blogDetail,blogImage,userId ,blogDate ) VALUES ('
 INSERT [dbo].[Blog]( blogTitle,blogDetail,blogImage,userId ,blogDate ) VALUES ('The Future of Connected Cars', 'Connected cars, also known as smart cars, are rapidly becoming the norm in the automotive industry. These vehicles are equipped with advanced features like internet connectivity, GPS navigation, and real-time traffic updates. One of the main benefits of connected cars is improved safety. With features like automatic emergency braking and lane departure warnings, these cars can help prevent accidents on the road. Additionally, many connected cars come with built-in cameras and sensors, providing drivers with a 360-degree view of their surroundings. Another advantage of connected cars is increased convenience. With features like voice commands and smartphone integration, drivers can easily control various aspects of their car without taking their hands off the wheel. This can help reduce distractions and improve safety on the road. As more automakers invest in connected car technology, it is clear that these vehicles will continue to play an important role in the future of transportation. From improved safety to increased convenience, the benefits of connected cars are hard to ignore.', null, 1, CURRENT_TIMESTAMP);
 INSERT [dbo].[Blog]( blogTitle,blogDetail,blogImage,userId ,blogDate ) VALUES ('The Rise of Hybrid Cars', 'Hybrid cars have become increasingly popular in recent years as consumers look for more environmentally friendly modes of transportation. These cars combine a traditional gasoline engine with an electric motor, providing improved fuel efficiency and reduced emissions. One of the main benefits of hybrid cars is their ability to switch between gasoline and electric power. This means that they can operate in all-electric mode at low speeds, reducing emissions and saving fuel. At higher speeds, the gasoline engine takes over to provide additional power. Another advantage of hybrid cars is reduced maintenance costs. With fewer moving parts than traditional gasoline engines, hybrid cars require less maintenance and have a longer lifespan. Additionally, many hybrid cars come with features like regenerative braking, which helps recharge the battery while driving and further improves fuel efficiency. As more automakers invest in the development of hybrid technology, it is clear that these vehicles will play an important role in the future of the automotive industry.', null, 1, CURRENT_TIMESTAMP);
 INSERT [dbo].[Blog]( blogTitle,blogDetail,blogImage,userId ,blogDate ) VALUES ('The Benefits of Autonomous Cars', 'Autonomous cars, also known as self-driving cars, are becoming increasingly popular as they offer several benefits over traditional vehicles. One of the main advantages of autonomous cars is increased safety on the road. With advanced sensors and algorithms, these cars can detect objects and make split-second decisions to avoid accidents. Another benefit of autonomous cars is increased efficiency. These vehicles can communicate with each other to optimize routes and reduce congestion on the road. Additionally, they can operate at optimal speeds, which can help save fuel and reduce emissions. Finally, autonomous cars offer greater convenience to drivers. With self-driving technology, drivers can sit back and relax while the car takes care of the driving. This can help reduce stress and improve the overall driving experience. While there are still some concerns about the safety and reliability of autonomous cars, it is clear that these vehicles have the potential to revolutionize the way we travel on the road.', null, 1,CURRENT_TIMESTAMP);
+-- POST TABLE VALUES INSERT
+DBCC CHECKIDENT ('[Post]', RESEED, 0);
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (12, 23, 'Test Driving the 2023 Audi R8', 'I had the chance to test drive the new Audi R8 and let me just say, it did not disappoint!', '2023-06-06', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus)
+VALUES (15, 6, 'Looking to sell my car', 'I have a 2015 Honda Civic in great condition with low mileage. Please contact me if interested.', '2023-06-06', 'Active');
+INSERT INTO Post (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (14, 7, 'Selling my Toyota Camry', '2019 model, only 10k miles driven, excellent condition', '2023-06-07', 'Active')
+INSERT INTO Post (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (12, 3, 'Looking to sell my Honda Civic', '2018 model, well-maintained, clean title, no accidents', '2023-06-06', 'Active')
+INSERT INTO Post (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (13, 4, 'Selling my BMW X5 SUV', 'Fully loaded with all features, mint condition, only 15k miles', '2023-06-05', 'Inactive'); 
+INSERT INTO Post (userId, carId, postTitle, postDescript, postDate, postStatus) VALUES (4, 11, 'Selling my Ford Mustang GT', '2017 model, low mileage, fully customized', '2023-06-04', 'Active');
+INSERT INTO Post (userId, carId, postTitle, postDescript, postDate, postStatus) VALUES (5, 15, 'Looking to sell my Mercedes-Benz C-Class', '2016 model, excellent condition, all services up-to-date', '2023-06-03', 'Inactive');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (6, 32, 'My Favorite Classic Car', 'I absolutely love the design and style of the 1969 Ford Mustang.', '2023-06-06', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (3, 12, 'My Custom Muscle Car', 'Check out these photos of my fully customized 1970 Dodge Charger!', '2023-06-06', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (16, 38, 'My Custom BMW Car', 'Check out these photos of my fully customized i8 BMW!', '2023-05-05', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (5, 32, 'My Custom Car', 'Check out these photos of my fully customized car!', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (8, 32, 'My Custom Car Wanted To Sell', 'Check out these photos of my fully customized car!Or Inbox for more Information', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (12, 12, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+
+-- INSERT DATA FOR ORDER TABLE
+DBCC CHECKIDENT ('[Order]', RESEED, 0);
+INSERT INTO [Order] (postId, orderStatus, orderDate, userId)
+VALUES (2, 'Pending', '2023-06-06', 12);
+INSERT INTO [Order] (postId, orderStatus, orderDate, userId)
+VALUES (5, 'Complete', '2023-06-06', 11);
+INSERT INTO [Order] (postId, orderStatus, orderDate, userId)
+VALUES (4, 'Pending', '2023-06-06', 10);
+INSERT INTO [Order] (postId, orderStatus, orderDate, userId)
+VALUES (5, 'Complete', '2023-06-06', 5);
+INSERT INTO [Order] (postId, orderStatus, orderDate, userId)
+VALUES (6, 'Cancel', '2023-06-06', 8);
+INSERT INTO [Order] (postId, orderStatus, orderDate, userId)
+VALUES (7, 'Cancel', '2023-06-06', 9);
+INSERT INTO [Order] (postId, orderStatus, orderDate, userId)
+VALUES (8, 'Pending', '2023-06-06', 4);
+INSERT INTO [Order] (postId, orderStatus, orderDate, userId)
+VALUES (11, 'Pending', '2023-05-05', 17);
+INSERT INTO [Order] (postId, orderStatus, orderDate, userId)
+VALUES (10, 'Complete', '2023-06-08', 5);
+INSERT INTO [Order] (postId, orderStatus, orderDate, userId)
+VALUES (6, 'Pending', '2023-06-08', 8);
+INSERT INTO [Order] (postId, orderStatus, orderDate, userId)
+VALUES (12, 'Complete', '2023-05-05', 11);
+
 
 
 GO                          
