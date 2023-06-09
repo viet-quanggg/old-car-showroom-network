@@ -24,7 +24,7 @@ public class UserGoogleDto {
 	private String family_name;
 
 	private String picture;
-
+        
 	public UserGoogleDto() {
 	}
 
