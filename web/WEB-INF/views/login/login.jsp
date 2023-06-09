@@ -78,8 +78,7 @@
                 <ul class="auth-form-continue">
                     <p class="auth-form-text"><a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/OldCarShowroom/LoginGoogleController&response_type=code
 		   &client_id=423146072038-10d7u9dnc003v871hpalrujk4ph63j1b.apps.googleusercontent.com&approval_prompt=force">Login with google</a></p>
-                    <h4 style="color: greenyellow">${message}</h4>
-                    <h4 style="color: red">${error}</h4>
+   
                 </ul>
                 <ul class="auth-form-continue">
                     <p class="auth-form-text"> Don't have any account? <a href="<c:url value="/login/register.do"/>">Register here</a></p>

@@ -60,7 +60,7 @@ public class LoginGoogleController extends HttpServlet {
         } else {
 
             // Forward to login page with an error message
-            request.setAttribute("message", "Login fail.");
+            request.setAttribute("error", "Login fail.");
             request.getRequestDispatcher("/login/login.do").forward(request, response);
 
         }
