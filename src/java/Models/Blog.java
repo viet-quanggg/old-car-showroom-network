@@ -34,6 +34,12 @@ public class Blog {
         this.userName = userName;
     }
 
+    public Blog(String blogTitle, String blogDetail, String blogImage, int userId) {
+        this.blogTitle = blogTitle;
+        this.blogDetail = blogDetail;
+        this.blogImage = blogImage;
+        this.userId = userId;
+    }
 
     public int getBlogId() {
         return blogId;

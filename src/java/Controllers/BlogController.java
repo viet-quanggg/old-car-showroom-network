@@ -19,7 +19,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 /**
  *
@@ -39,105 +41,121 @@ public class BlogController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            String controller = (String) request.getAttribute("controller");
-            String action = (String) request.getAttribute("action");
-            BlogFacade bf = new BlogFacade();
-            List<Blog> blog = null;
-            List<Blog> latest = null;
-            switch (action) {
-                case "bloglist":
+        response.setContentType("text/html;charset=UTF-8");
+        String controller = (String) request.getAttribute("controller");
+        String action = (String) request.getAttribute("action");
+        BlogFacade bf = new BlogFacade();
+        List<Blog> blog = null;
+        List<Blog> latest = null;
+        switch (action) {
+            case "bloglist":
                 try {
-                    blog = bf.listBlog();
-                    latest = bf.listLatest();
-                    request.setAttribute("latest", latest);
-                    request.setAttribute("blog", blog);
-                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
-                } catch (Exception e) {
-                    request.setAttribute("controller", "error");
-                    request.setAttribute("action", "error");
-                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-                }
-                break;
-                case "bloggrid":
-                    try {
-                    blog = bf.listBlog();
-                    request.setAttribute("blog", blog);
-                    latest = bf.listLatest();
-                    request.setAttribute("latest", latest);
-                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-
-                    //Hien trang thong bao loi
-                    //in thong bao loi chi tiet cho developer
-                } catch (Exception e) {
-                    request.setAttribute("controller", "error");
-                    request.setAttribute("action", "error");
-                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-                }
-                break;
-                case "blogsingle":
-                    try {
-                    String bid = request.getParameter("bid");
-                    Blog b = bf.listBlogId(bid);
-                    request.setAttribute("bid", b);
-                    blog = bf.listBlog();
-                    request.setAttribute("blog", blog);
-                    latest = bf.listBlogRandomly();
-                    request.setAttribute("latest", latest);
-                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
-                    //in thong bao loi chi tiet cho developer
-                } catch (Exception e) {
-                    request.setAttribute("controller", "error");
-                    request.setAttribute("action", "error");
-                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-                }
-                break;
-                case "blogcreate":
-
-                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
-                    //in thong bao loi chi tiet cho developer
-                    break;
-                case "create_blog_handler":
-                    create_blog_handler(request, response);
-                    break;
-                default:
-                    //Show error page
-                    request.setAttribute("controller", "error");
-                    request.setAttribute("action", "error");
-                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void create_blog_handler(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        String op = request.getParameter("op");
-        switch (op) {
-            case "create":
-                try {
-                String blogTitle = request.getParameter("blogtitle");
-                String blogDetail = request.getParameter("blogdetail");
-                BlogFacade bf = new BlogFacade();
-                if (blogTitle.isEmpty()) {
-                    request.setAttribute("error", "Blog Title can not be empty!");
-                }
-                if (blogDetail.isEmpty()) {
-                    request.setAttribute("error", "Blog Detail can not be empty!");
-                } else {
-                    Blog newBlog = bf.createBlog(blogTitle, blogDetail, blogTitle);
-                    request.setAttribute("Blog", newBlog);
-                    request.setAttribute("message", "Create successfully");
-                    request.getRequestDispatcher("/views/blog/blogcreate.do").forward(request, response);
-                }
+                blog = bf.listBlog();
+                latest = bf.listLatest();
+                request.setAttribute("latest", latest);
+                request.setAttribute("blog", blog);
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
             } catch (Exception e) {
-                request.setAttribute("error", e.toString());
-                request.getRequestDispatcher("/blog/blogcreate.do").forward(request, response);
+                request.setAttribute("controller", "error");
+                request.setAttribute("action", "error");
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
             }
             break;
+            case "bloggrid":
+                try {
+                blog = bf.listBlog();
+                request.setAttribute("blog", blog);
+                latest = bf.listLatest();
+                request.setAttribute("latest", latest);
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+
+                //Hien trang thong bao loi
+                //in thong bao loi chi tiet cho developer
+            } catch (Exception e) {
+                request.setAttribute("controller", "error");
+                request.setAttribute("action", "error");
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+            }
+            break;
+            case "blogsingle":
+                try {
+                String bid = request.getParameter("bid");
+                Blog b = bf.listBlogId(bid);
+                request.setAttribute("bid", b);
+                blog = bf.listBlog();
+                request.setAttribute("blog", blog);
+                latest = bf.listBlogRandomly();
+                request.setAttribute("latest", latest);
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+                //in thong bao loi chi tiet cho developer
+            } catch (Exception e) {
+                request.setAttribute("controller", "error");
+                request.setAttribute("action", "error");
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+            }
+            break;
+            case "blogcreate":
+
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+                //in thong bao loi chi tiet cho developer
+                break;
+            case "create_blog_handler":
+                String op = request.getParameter("op");
+                switch (op) {
+                    case "create_blog":
+                        try {
+                        // Validate the required form fields
+                        String blogTitle = request.getParameter("blogtitle");
+                        String blogDetail = request.getParameter("blogdetail");
+                        int userId = Integer.parseInt(request.getParameter("userId"));
+                        String blogImage = request.getParameter("blogimage");
+//                            Part filePart = request.getPart("blogimage");
+//
+                        if (blogTitle == null || blogTitle.isEmpty()
+                                || blogDetail == null || blogDetail.isEmpty()
+                                || blogImage == null) {
+                            throw new IllegalArgumentException("Missing or invalid input field(s)");
+                        }
+// Save the uploaded file to disk
+                        String fileName = UUID.randomUUID().toString() + ".jpg";
+                        String uploadsDirPath = getServletContext().getRealPath("/uploads/");
+                        File uploadsDir = new File(uploadsDirPath);
+                        if (!uploadsDir.exists()) {
+                            uploadsDir.mkdirs();
+                        }
+                        File file = new File(uploadsDir, fileName);
+//                            try (InputStream fileContent = blogImage.getInputStream(); OutputStream out = new FileOutputStream(file)) {
+//                                IOUtils.copy(fileContent, out);
+//                            }
+
+// Store the file path in the database using BlogFacade
+                        String imagePath = "D:\\SWP391\\old-car-showroom-network1\\old-car-showroom-network\\web\\mironmahmud.com\\ghurnek\\assets\\images\\blogImage" + fileName;
+//                            BlogFacade bf = new BlogFacade();
+                        Blog newBlog = new Blog(blogTitle, blogDetail, imagePath, userId);
+                        bf.create(newBlog);
+                        request.setAttribute("message", "Create successfully");
+                        request.getRequestDispatcher("/blog/blogcreate.do").forward(request, response);
+                    } catch (Exception ex) {
+                        // Log the exception
+                        ex.printStackTrace();
+                        request.setAttribute("action", "create_blog");
+                        request.setAttribute("error", ex.getMessage());
+                        response.sendRedirect(request.getContextPath() + "/error.jsp");
+                    }
+                    break;
+                    default:
+                        // Handle unexpected values of op here
+                        Logger.getLogger(BlogController.class.getName()).warning("Unexpected value of 'op' parameter: " + op);
+                        response.sendRedirect(request.getContextPath() + "/error.jsp");
+                        break;
+                }
+                break;
             default:
+                //Show error page
+                request.setAttribute("controller", "error");
+                request.setAttribute("action", "error");
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+
         }
     }
 

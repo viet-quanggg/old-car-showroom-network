@@ -114,17 +114,15 @@ public class BlogFacade {
         return null;
     }
 
-    public Blog createBlog(String blogTile, String blogDetail, String blogImage) throws SQLException {
-        Blog newBlog = new Blog();
+    public void create(Blog blog) throws SQLException {
         con = DBContext.getConnection();
-        ps = con.prepareStatement("INSERT [dbo].[Blog] VALUES (?,?,?,1,CURRENT_TIMESTAMP); ");
-        rs = ps.executeQuery();
-        ps.setString(1, "blogTitle");
-        ps.setString(2, "blogDetail");
-        ps.setString(3, "blogImage");
+        ps = con.prepareStatement("INSERT [dbo].[Blog](blogTitle,blogDetail,blogImage,userId ,blogDate) \n"
+                + "values(?,?,?,?,CURRENT_TIMESTAMP)");
+        ps.setString(1, blog.getBlogTitle());
+        ps.setString(2, blog.getBlogDetail());
+        ps.setString(3, blog.getBlogImage());
+        ps.setInt(4, blog.getUserId());
         int count = ps.executeUpdate();
         con.close();
-        return newBlog;
     }
-
 }

@@ -187,5 +187,39 @@ public class UserFacade {
         //Đóng kết nối
         con.close();
     }
+    
+     public boolean addUser(User user) {
+        
+    Connection con = null;
+    PreparedStatement ps = null;
+    try {
+        // Get a database connection
+        con = DBContext.getConnection();
+        
+        // Prepare the SQL statement for inserting a new user record
+        String sql = "INSERT INTO [User] ([userName], [userEmail],[userPass],[userPhone], [userAddress],[timeCreated],[userRole]) VALUES (?,?,1,1,0,CURRENT_TIMESTAMP,0)";
+        ps = con.prepareStatement(sql);
+        ps.setString(1, user.getUserName()); 
+        ps.setString(2, user.getUserEmail());
+        
+        // Execute the SQL statement
+        int rowsInserted = ps.executeUpdate();
+        
+        // Close the resources
+        ps.close();
+        con.close();
+        
+        // Check if the user record was inserted successfully
+        return (rowsInserted > 0);
+    } catch (SQLException ex) {
+        System.err.println("Error adding user to database: " + ex.getMessage());
+        return false;
+    } finally {
+        try { if (ps != null) ps.close(); } catch (Exception e) {}
+        try { if (con != null) con.close(); } catch (Exception e) {}
+    }
+}
+
+    
 
 }

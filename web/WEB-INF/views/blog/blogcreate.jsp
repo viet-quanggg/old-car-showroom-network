@@ -70,20 +70,21 @@
 </section>
   <body>
     <div class="form-container">
-      <h2>Create a Blog</h2>
-      <form method="post" enctype="multipart/form-data" action="<c:url value="/blog/create_blog_handler.do"/>">
-        <label for="title">Author:</label>
-        <input type="text" id="title" name="userName" disabled="true" value="${User.userName}">
-        <label for="title">Blog Title:</label>
-        <input type="text" id="title" name="blogtitle" required">
-        <label for="description">Blog Detail:</label>
-        <textarea id="description" name="blogdetail" rows="4" cols="50" required></textarea>
-        <input type="text" id="title" name="userId" hidden="true" value="${User.userID}">
-        <label for="image">Image:</label><br/>
-        <input type="file" id="image" name="blogimage"><br/>
-        <button type="submit" name="op" value="create">Create Blog</button>
+    <h2>Create a Blog</h2>
+    <form method="get" action="<c:url value="/blog/create_blog_handler.do"/>" enctype="multipart/form-data">
+        <label for="userName">Author:</label>
+        <input type="text" id="userName" name="userName" disabled="true" value="${User.userName}">
+        <label for="blogtitle">Blog Title:</label>
+        <input type="text" id="blogtitle" name="blogtitle" required="">
+        <label for="blogdetail">Blog Detail:</label>
+        <textarea id="blogdetail" name="blogdetail" rows="4" cols="50" required=""></textarea>
+        <input type="hidden" id="userId" name="userId" value="${User.userID}">
+        <!-- Added a new input field for image upload -->
+        <label for="blogimage">Image:</label><br/>
+        <input type="file" accept="image/*" id="blogimage" name="blogimage"><br/>
+        <button type="submit" id="op" name="op" value="create_blog">Create Blog</button>
         ${message}
-      </form>
-    </div>
+    </form>
+</div>
   </body>
 </html>
