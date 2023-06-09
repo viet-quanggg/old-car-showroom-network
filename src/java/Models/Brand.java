@@ -16,16 +16,28 @@ public class Brand {
     private String name;
     private Date createDate;
     private Date updateDate;
+    private int count;
 
     public Brand() {
     }
 
-    public Brand(int id, String name, Date createDate, Date updateDate) {
+    public Brand(int id, String name, Date createDate, Date updateDate, int count) {
         this.id = id;
         this.name = name;
         this.createDate = createDate;
         this.updateDate = updateDate;
+        this.count = count;
     }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    
 
     public int getId() {
         return id;

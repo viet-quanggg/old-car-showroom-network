@@ -3,7 +3,7 @@ go
 /*******************************************************************************
    Drop database if it exists
 ********************************************************************************/
-IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'OldCarShowroom2')
+IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'OldCarShowroom')
 BEGIN
 	ALTER DATABASE [OldCarShowroom2] SET OFFLINE WITH ROLLBACK IMMEDIATE;
 	ALTER DATABASE [OldCarShowroom2] SET ONLINE;
