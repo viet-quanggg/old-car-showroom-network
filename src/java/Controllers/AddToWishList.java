@@ -101,8 +101,7 @@ public class AddToWishList extends HttpServlet {
         response.addCookie(c);
         
         request.setAttribute("data", wish);
-        
-        response.sendRedirect("/OCSN/order/favorite.do");
+        request.getRequestDispatcher("/order/favorite.do").forward(request, response);
     } 
 
     /** 
