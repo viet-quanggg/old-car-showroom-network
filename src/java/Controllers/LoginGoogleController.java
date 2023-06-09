@@ -48,7 +48,7 @@ public class LoginGoogleController extends HttpServlet {
         // Set the name and email values from userGoogleDto to user's username and userEmail fields respectively
         user.setUserName(userGoogleDto.getName());
         user.setUserEmail(userGoogleDto.getEmail());
-
+        
         // Add the new user to the database using UserFacade
         UserFacade userFacade = new UserFacade();
         if (userFacade.addUser(user)) {
