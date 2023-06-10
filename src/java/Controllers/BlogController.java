@@ -50,8 +50,30 @@ public class BlogController extends HttpServlet {
         switch (action) {
             case "bloglist":
                 try {
-                blog = bf.listBlog();
+                String indexPage = request.getParameter("index");
+                if (indexPage == null) {
+                    indexPage = "1";
+                }
+                int index = Integer.parseInt(indexPage);
+
+                String blogPerPage = request.getParameter("blogPerPage");
+                if (blogPerPage == null) {
+                    blogPerPage = "4";
+                }
+                int num = Integer.parseInt(blogPerPage);
+
+                int countPage = bf.countBlog();
+                int endPage = countPage / num;
+                if (endPage % num != 0) {
+                    endPage++;
+                }
+                blog = bf.blogPerPage(index, num);
+                int currentPage = index;
+//
+//                blog = bf.pagingBlog(index);
                 latest = bf.listLatest();
+                request.setAttribute("currentPage", currentPage);
+                request.setAttribute("endPage", endPage);
                 request.setAttribute("latest", latest);
                 request.setAttribute("blog", blog);
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
@@ -63,10 +85,33 @@ public class BlogController extends HttpServlet {
             break;
             case "bloggrid":
                 try {
-                blog = bf.listBlog();
-                request.setAttribute("blog", blog);
+                String indexPage = request.getParameter("index");
+                if (indexPage == null) {
+                    indexPage = "1";
+                }
+                int index = Integer.parseInt(indexPage);
+
+                String blogPerPage = request.getParameter("blogPerPage");
+                if (blogPerPage == null) {
+                    blogPerPage = "2";
+                }
+                int num = Integer.parseInt(blogPerPage);
+
+                int countPage = bf.countBlog();
+                int endPage = countPage / num;
+                if (endPage % num != 0) {
+                    endPage++;
+                }
+                blog = bf.blogPerPage(index, num);
+                int currentPage = index;
+
+//                blog = bf.listBlog();
                 latest = bf.listLatest();
+
+                request.setAttribute("currentPage", currentPage);
+                request.setAttribute("endPage", endPage);
                 request.setAttribute("latest", latest);
+                request.setAttribute("blog", blog);
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
 
                 //Hien trang thong bao loi

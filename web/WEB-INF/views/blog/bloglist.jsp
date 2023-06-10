@@ -24,15 +24,17 @@
             <div class="col-lg-4 col-xl-4">
                 <div class="blog-widget">
                     <h5 class="blog-widget-title">Find blogs</h5>
-                    <form class="blog-widget-form"><input type="text" placeholder="Search blogs"><button
-                            type="submit" class="material-icons">search</button></form>
+                    <form class="blog-widget-form" method="post" action="<c:url value="/blog/create_blog_handler.do"/>">
+                        <input type="text" placeholder="Search blogs"><button
+                            type="submit" class="material-icons">search</button>
+                    </form>
                 </div>
                 <div class="blog-widget">
                     <h5 class="blog-widget-title">latest blogs</h5>
                     <ul class="blog-widget-feed">
                         <c:forEach begin="0" end="3" items="${latest}" var="latest">
                             <li><a class="blog-widget-media" href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/blog/01.jpg"
-                                                                                          alt="blog"></a>
+                                                                                                                                   alt="blog"></a>
                                 <h5 class="blog-widget-text"><a href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>">${latest.blogTitle}</a><span>${latest.blogDate}</span></h5>
                             </li>
                         </c:forEach>
@@ -76,15 +78,18 @@
             <div class="col-lg-8 col-xl-8">
                 <div class="row">
                     <div class="col-xl-12">
+
                         <div class="top-filter">
-                            <div class="filter-show"><label class="filter-label">Show :</label><select
-                                    class="form-select filter-select">
-                                    <option value="1">12</option>
-                                    <option value="2">24</option>
-                                    <option value="3">36</option>
-                                </select></div>
+                            <form action="" method="POST">
+                                <div class="filter-show"><label class="filter-label">Show :</label>
+                                    <select class="form-select filter-select" onchange="this.form.submit()" name="blogPerPage" >
+                                        <option selected value="4">4</option>
+                                        <option value="8"  >8</option>
+                                        <option value="12"  >12</option>
+                                    </select></div>
+                            </form> 
                             <div class="filter-short"><label class="filter-label">Short by :</label><select
-                                    class="form-select filter-select">
+                                    class="form-select filter-select"  >
                                     <option selected>default</option>
                                     <option value="3">trending</option>
                                     <option value="1">featured</option>
@@ -94,10 +99,11 @@
                                                           class="material-icons">grid_view</a><a href="<c:url value="/blog/bloglist.do"/>" title="List View"
                                                           class="material-icons active">list_alt</a></div>
                         </div>
+
                     </div>
                 </div>
                 <div class="row row-cols-1">
-                    <c:forEach begin="0" end="3" items="${blog}" var="blog">
+                    <c:forEach items="${blog}" var="blog">
 
 
                         <div class="col">
@@ -131,21 +137,27 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="bottom-paginate mb-50">
-                            <p class="page-info">Showing 12 of 60 Results</p>
+                            <p class="page-info">Showing ${currentPage} of ${endPage} Results</p>
                             <ul class="pagination">
                                 <li class="page-item"><a href="#" class="page-link material-icons">chevron_left</a>
                                 </li>
-                                <li class="page-item"><a href="#" class="page-link active">01</a></li>
-                                <li class="page-item"><a href="#" class="page-link">02</a></li>
-                                <li class="page-item"><a href="#" class="page-link">03</a></li>
-                                <li class="page-item"><a href="#" class="page-link">...</a></li>
-                                <li class="page-item"><a href="#" class="page-link">45</a></li>
-                                <li class="page-item"><a href="#" class="page-link material-icons">chevron_right</a>
+                                <c:forEach begin="1" end="${endPage}" var="i">
+                                    <li class="page-item">
+                                        <a href="<c:url value="/blog/bloglist.do?index=${i}"/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
+                                    </li>
+                                </c:forEach>
+
+                                <!--                            <li class="page-item"><a href="#" class="page-link">02</a></li>
+                                                                <li class="page-item"><a href="#" class="page-link">03</a></li>
+                                                                <li class="page-item"><a href="#" class="page-link">...</a></li>
+                                                                <li class="page-item"><a href="#" class="page-link">45</a></li>-->
+                                <li class="page-item"><a href="<c:url value="/blog/bloglist.do?index=${i + 1}"/>" class="page-link material-icons">chevron_right</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

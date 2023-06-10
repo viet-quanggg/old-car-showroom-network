@@ -80,12 +80,16 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="top-filter">
-                            <div class="filter-show"><label class="filter-label">Show :</label><select
-                                    class="form-select filter-select">
-                                    <option value="1">12</option>
-                                    <option value="2">24</option>
-                                    <option value="3">36</option>
-                                </select></div>
+                            <form action="" method="POST">
+                                <div class="filter-show"><label class="filter-label">Show :</label>
+                                    <select
+                                        class="form-select filter-select" onchange="this.form.submit()" name="blogPerPage">
+                                        <option selected value="2">2</option>
+                                        <option value="4">4</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
+                            </form>
                             <div class="filter-short"><label class="filter-label">Short by :</label><select
                                     class="form-select filter-select">
                                     <option selected>default</option>
@@ -100,7 +104,7 @@
                     </div>
                 </div>
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2">
-                    <c:forEach begin="0" end="5" var="blog" items="${blog}">
+                    <c:forEach  var="blog" items="${blog}">
                         <div class="col">
                             <div class="blog-grid-card">
                                 <div class="blog-grid-media"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/blog/01.jpg" alt="blog">
@@ -137,15 +141,19 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="bottom-paginate mb-50">
-                            <p class="page-info">Showing 12 of 60 Results</p>
+                            <p class="page-info">Showing ${currentPage} of ${endPage} Results</p>
                             <ul class="pagination">
                                 <li class="page-item"><a href="#" class="page-link material-icons">chevron_left</a>
                                 </li>
-                                <li class="page-item"><a href="#" class="page-link active">01</a></li>
-                                <li class="page-item"><a href="#" class="page-link">02</a></li>
-                                <li class="page-item"><a href="#" class="page-link">03</a></li>
-                                <li class="page-item"><a href="#" class="page-link">...</a></li>
-                                <li class="page-item"><a href="#" class="page-link">45</a></li>
+                                <c:forEach begin="1" end="${endPage}" var="i">
+                                    <li class="page-item">
+                                        <a href="<c:url value="/blog/bloggrid.do?index=${i}"/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
+                                    </li>
+                                </c:forEach>
+                                <!--                                <li class="page-item"><a href="#" class="page-link">02</a></li>
+                                                                <li class="page-item"><a href="#" class="page-link">03</a></li>
+                                                                <li class="page-item"><a href="#" class="page-link">...</a></li>
+                                                                <li class="page-item"><a href="#" class="page-link">45</a></li>-->
                                 <li class="page-item"><a href="#" class="page-link material-icons">chevron_right</a>
                                 </li>
                             </ul>

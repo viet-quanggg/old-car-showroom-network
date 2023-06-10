@@ -62,7 +62,7 @@
                                         <div class="product-grid-btn">
                                             <a href="<c:url value="/cars/carsingle.do?carId=${item.carID}"/>">
                                                 <i class="material-icons">visibility</i><span>details</span></a>
-                                            <a href="/OCSN/addToWish?id=${item.carID}" >
+                                            <a href="<c:url value="/addToWish?id=${item.carID}" />" >
                                                 <i class="material-icons">favorite</i><span>favorite</span>
                                             </a>
                                         </div>
