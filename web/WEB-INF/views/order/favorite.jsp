@@ -1,7 +1,6 @@
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <section class="section-gap-75">
     <div style="background: url(${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/banner/single/02.jpg) no-repeat center / cover;">
         <div class="user-banner">
@@ -44,11 +43,11 @@
                         <li class="favorite-item">
                             <div class="favorite-media"><img style="min-height: 200px; max-height: 200px;" src="${pageContext.request.contextPath}${item.car.image.size() > 0 ? item.car.image.get(0).url : ''}" alt="product">
                                 <div class="favorite-badge"><label class="badge new">new</label></div>
-                                <div class="favorite-hints"><i class="material-icons">collections</i><span>${item.car.image.size()}</span>
-                                </div>
+<!--                                <div class="favorite-hints"><i class="material-icons">collections</i><span>${item.car.image.size()}</span>
+                                </div>-->
                             </div>
                             <div class="favorite-info">
-                                <h3><a href="inventory-single.html">${item.car.carName}</a></h3>
+                                <h3><a href="<c:url value="/cars/carsingle.do?carId=${item.car.carID}"/>">${item.car.carName}</a></h3>
                                 <ul>
                                     <li><i class="material-icons">store</i><a href="profile.html">by autoland</a></li>
                                     <li><i class="material-icons">watch_later</i><span>posted 25m ago</span></li>
