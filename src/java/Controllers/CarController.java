@@ -5,9 +5,11 @@
 package Controllers;
 
 import DB.CarFacade;
+import DB.PostFacade;
 import Models.Brand;
 import Models.Car;
 import Models.Color;
+import Models.Post;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -42,11 +44,14 @@ public class CarController extends HttpServlet {
         }
 
         CarFacade cf = new CarFacade();
-
+        PostFacade pf = new PostFacade();
         Car car = cf.getDetails(id);
-
+        Post post = pf.checkCarId(id);
+        List<Brand> bl = cf.getAllBrand();
         request.setAttribute("data", car);
-
+        request.setAttribute("pdata", post);
+        request.setAttribute("blist", bl);
+        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

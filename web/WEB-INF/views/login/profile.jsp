@@ -49,7 +49,7 @@
                     <div class="col-xl-12">
                         <ul class="user-banner-menu-list">
                             <c:if test="${User.userRole == 2 || User.userRole == 1}">
-                             <li><a href="dashboard.html">dashboard</a></li>   
+                                <li><a href="<c:url value="/layouts/dashboard.do"/>">dashboard</a></li>   
                             </c:if>
                             <li><a href="<c:url value="/login/profile.do"/>" class="active">profile</a></li>
                             <li><a href="<c:url value="/login/update_profile.do"/>" class="inactive">update profile</a></li>

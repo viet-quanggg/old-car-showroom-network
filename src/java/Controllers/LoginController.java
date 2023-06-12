@@ -328,7 +328,7 @@ public class LoginController extends HttpServlet {
             } else {
                 //Cho hien lai login form
                 request.setAttribute("error", "Email or password is wrong, please enter again!");
-                request.getRequestDispatcher("/login/login.do").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
             }
         } //   if (!check.isEmpty()) {}
         catch (Exception ex) {

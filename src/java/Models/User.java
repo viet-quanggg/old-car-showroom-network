@@ -21,6 +21,24 @@ public class User {
     private int userRole;
     private String userImage;
     private int totalUser;
+    private int planId = 0;
+    private Date planStart = null;
+
+    public int getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(int planId) {
+        this.planId = planId;
+    }
+
+    public Date getPlanStart() {
+        return planStart;
+    }
+
+    public void setPlanStart(Date planStart) {
+        this.planStart = planStart;
+    }
 
     public User() {
     }

@@ -54,4 +54,8 @@ public class Common {
 
         return result.trim();
     }
+    
+    public static String getFormatString(String string) {
+        return string.replaceAll("\\s+", " ").trim();
+    }
 }

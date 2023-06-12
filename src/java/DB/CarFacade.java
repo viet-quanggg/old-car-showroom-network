@@ -23,6 +23,43 @@ import java.util.Set;
  */
 public class CarFacade {
 
+    public int addCar(int ownerID, Double carPrice, String carName, int carYear, String carDescription, int brandID, int colorID) throws SQLException {
+        Connection con = DBContext.getConnection();
+        int id = -1;
+        try {
+            String sql = "INSERT INTO [Car] ("
+                    + "[ownerId], "
+                    + "[carShowroom], "
+                    + "[carPrice], "
+                    + "[carName], "
+                    + "[carYear], "
+                    + "[carDescription], "
+                    + "[carCondition], "
+                    + "[createDate], "
+                    + "[updateDate], "
+                    + "[brandID], "
+                    + "[colorID]) VALUES (?,'',?,?,?,?,0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?)";
+            PreparedStatement stm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stm.setInt(1, ownerID);
+            stm.setDouble(2, carPrice);
+            stm.setString(3, carName);
+            stm.setInt(4, carYear);
+            stm.setString(5, carDescription);
+            stm.setInt(6, brandID);
+            stm.setInt(7, colorID);
+            int count = stm.executeUpdate();
+            if (count > 0) {
+                ResultSet rs = stm.getGeneratedKeys();
+                if (rs.next()) {
+                    id = rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return id;
+    }
+
     public List<Car> getCar() throws SQLException {
         List<Car> list = null;
 
@@ -329,6 +366,7 @@ public class CarFacade {
 
         return list;
     }
+
     public List<Car> getRelatedCar(int bid) throws SQLException {
         List<Car> list = new ArrayList<>();
 
@@ -400,5 +438,4 @@ public class CarFacade {
         return list;
     }
 
-    
 }
