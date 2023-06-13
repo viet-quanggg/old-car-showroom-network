@@ -29,6 +29,13 @@ public class Brand {
         this.count = count;
     }
 
+    public Brand(int id, String name, Date createDate, Date updateDate) {
+        this.id = id;
+        this.name = name;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+    }
+
     public int getCount() {
         return count;
     }
