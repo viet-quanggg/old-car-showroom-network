@@ -53,7 +53,7 @@
                                 </c:if>
                             <li><a href="<c:url value="/login/profile.do"/>" class="inactive">profile</a></li>
                             <li><a href="<c:url value="/login/update_profile.do"/>" class="active">update profile</a></li>
-                            <li><a href="create-ads.html">create car</a></li>
+                            <li><a href="<c:url value="/login/createad.do"/>">create car</a></li>
                             <li><a href="posted-ads.html">posted car</a></li>
                             <li><a href="favorite.html">favorites</a></li>
                             <li><a href="compare.html">compares</a></li>

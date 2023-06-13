@@ -13,32 +13,35 @@
                 <div class="row">
                     <div class="col-lg-7 col-xl-8">
                         <div class="user-banner-profile">
-                            <div class="user-banner-profile-avatar"><a href="profile.html"><img
+                            <div class="user-banner-profile-avatar"><a href="<c:url value="/views/login/profile.do"/>"><img
                                         src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="avatar"></a></div>
                             <div class="user-banner-profile-meta">
                                 <div class="user-banner-profile-name">
-                                    <h3><a href="profile.html">person name</a></h3><span>individual</span>
-                                </div>
-                                <ul class="user-banner-profile-contact-list">
-                                    <li><i class="material-icons">phone_in_talk</i><span>+91 987-654-3210</span>
+                                    <h3>${User.userName}</h3>
+                                    <span>
+                                        <c:if test="${User.userRole == 2}">Admin</c:if>     
+                                        <c:if test="${User.userRole == 1}">Employee</c:if> 
+                                        <c:if test="${User.userRole == 0}">Customer</c:if>
+                                        </span>
+                                    </div>
+                                    <ul class="user-banner-profile-contact-list">
+                                        <li><i class="material-icons">phone_in_talk</i><span>${User.userPhone}</span>
                                     </li>
-                                    <li><i class="material-icons">feed</i><span>support@example.com</span></li>
-                                    <li><i class="material-icons">public</i><span>exampleGhurnek.com</span></li>
-                                    <li><i class="material-icons">map</i><span>1Hd- 50, 010 Avenue, NY 90001 United
-                                            States</span></li>
+                                    <li><i class="material-icons">feed</i><span>${User.userEmail}</span></li>
+                                    <li><i class="material-icons">map</i><span>${User.userAddress}</span></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-5 col-xl-4">
                         <ul class="user-banner-data">
-                            <li class="ads"><i class="material-icons">store</i>
-                                <h3>4334</h3>
-                                <p>total advertise</p>
+                            <li class="ads"><i class="material-icons">note</i>
+                                <h3>${Post.count}0</h3>
+                                <p>total post</p>
                             </li>
-                            <li class="star"><i class="material-icons">star</i>
-                                <h3>2112</h3>
-                                <p>total ratings</p>
+                            <li class="star"><i class="material-icons">car</i>
+                                <h3>${order.count}0</h3>
+                                <p>total car buy</p>
                             </li>
                         </ul>
                     </div>
@@ -46,17 +49,18 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <ul class="user-banner-menu-list">
-                            <c:if test="${User.userRole == 2 || User.userRole == 1}">  <li><a href="<c:url value="/layouts/dashboard.do"/>">dashboard</a></li></c:if>
+                            <c:if test="${User.userRole == 2 || User.userRole == 1}">
+                                <li><a href="<c:url value="/layouts/dashboard.do"/>">dashboard</a></li>   
+                                </c:if>
                             <li><a href="<c:url value="/login/profile.do"/>" class="inactive">profile</a></li>
                             <li><a href="<c:url value="/login/update_profile.do"/>" class="active">update profile</a></li>
-                            <li><a href="create-ads.html" class="active">create car</a></li>
+                            <li><a href="<c:url value="/login/createad.do"/>">create car</a></li>
                             <li><a href="posted-ads.html">posted car</a></li>
                             <li><a href="favorite.html">favorites</a></li>
                             <li><a href="compare.html">compares</a></li>
                             <li><a href="review.html">reviews</a></li>
                             <li><a href="notify.html">notify</a></li>
                             <li><a href="setting.html">settings</a></li>
-                            <li><a href="login.html">logout</a></li>
                         </ul>
                     </div>
                 </div>

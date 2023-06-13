@@ -61,20 +61,22 @@
                             <option value="5">elantra</option>
                         </select><button type="submit">search</button></div>
                 </form></div>
-                                                                                                                                                                
+                                                         
+            <div class="header-responsive">
                 <div class="header-user"> <img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png"
                                                                                       alt="user"><span></span> 
+                    
 
                         <c:if test="${User==null}">
-                            <a href="<c:url value="/login/login.do"/>" style="color:whitesmoke;display: inline-block"  alt="user">Log In |</a> 
-                            <a href="<c:url value="/login/register.do"/>" style="color:whitesmoke;display: inline-block" alt="user">Register</a>
+                            <a href="<c:url value="/login/login.do"/>" style="color:whitesmoke;display: inline-block"  alt="user"><span>Log In |</span></a> 
+                            <a href="<c:url value="/login/register.do"/>" style="color:whitesmoke;display: inline-block" alt="user"><span>    Register </span></a>
                         </c:if>
                         <c:if test="${User!=null}">
                             <a href="<c:url value="/login/profile.do"/>" style="color:whitesmoke" class="header-user" alt="user">${User.userName} |</a>
                             <a href="<c:url value="/login/logout.do"/>" style="color:whitesmoke" class="header-user" alt="user">Log Out</a>
                         </c:if>
                     </div>
-
+                </div>
                 <a href="<c:url value="/order/createad.do"/>" class="btn header-btn"><i
                         class="material-icons">storefront</i><span>sell vehicles</span></a>
         </header>
