@@ -168,6 +168,19 @@ public class AdminController extends HttpServlet {
                 register_handler(request, response);
             }
             break;
+            case "delete_handler":{
+                try{
+                    String userId = request.getParameter("id");
+                    UserFacade uf = new UserFacade();
+                    uf.deleteUser(userId);
+                    response.sendRedirect(request.getContextPath() + "/admin/create.do");
+                    break;
+                    
+                }catch(Exception ex){
+                    
+                }
+            }
+            break;
             default:
                 //Show error page
                 request.setAttribute("controller", "error");

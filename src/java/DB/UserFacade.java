@@ -79,21 +79,21 @@ public class UserFacade {
         stm.setString(1, userEmail);
         ResultSet rs = stm.executeQuery();
         int id = 0;
-        if (rs.next()) {  
-        user.setUserID(rs.getInt("userId"));
-        user.setUserEmail(rs.getString("userEmail"));
-        user.setUserPass(rs.getString("userPass"));
-        user.setUserName(rs.getString("userName"));
-        user.setUserPhone(rs.getString("userPhone"));
-        user.setUserAddress(rs.getString("userAddress"));
-        user.setTimeCreated(rs.getDate("timeCreated"));
-        user.setUserRole(rs.getInt("userRole"));
-        user.setUserImage("");
+        if (rs.next()) {
+            user.setUserID(rs.getInt("userId"));
+            user.setUserEmail(rs.getString("userEmail"));
+            user.setUserPass(rs.getString("userPass"));
+            user.setUserName(rs.getString("userName"));
+            user.setUserPhone(rs.getString("userPhone"));
+            user.setUserAddress(rs.getString("userAddress"));
+            user.setTimeCreated(rs.getDate("timeCreated"));
+            user.setUserRole(rs.getInt("userRole"));
+            user.setUserImage("");
         }
         con.close();
         return user;
     }
-    
+
     public User registerStaff(String userEmail, String userPass, String userName, String userPhone, String userAddress, Date timeCreated) throws SQLException {
         User user = new User();
         Connection con = DBContext.getConnection();
@@ -111,16 +111,16 @@ public class UserFacade {
         stm.setString(1, userEmail);
         ResultSet rs = stm.executeQuery();
         int id = 0;
-        if (rs.next()) {  
-        user.setUserID(rs.getInt("userId"));
-        user.setUserEmail(rs.getString("userEmail"));
-        user.setUserPass(rs.getString("userPass"));
-        user.setUserName(rs.getString("userName"));
-        user.setUserPhone(rs.getString("userPhone"));
-        user.setUserAddress(rs.getString("userAddress"));
-        user.setTimeCreated(rs.getDate("timeCreated"));
-        user.setUserRole(rs.getInt("userRole"));
-        user.setUserImage("");
+        if (rs.next()) {
+            user.setUserID(rs.getInt("userId"));
+            user.setUserEmail(rs.getString("userEmail"));
+            user.setUserPass(rs.getString("userPass"));
+            user.setUserName(rs.getString("userName"));
+            user.setUserPhone(rs.getString("userPhone"));
+            user.setUserAddress(rs.getString("userAddress"));
+            user.setTimeCreated(rs.getDate("timeCreated"));
+            user.setUserRole(rs.getInt("userRole"));
+            user.setUserImage("");
         }
         con.close();
         return user;
@@ -219,39 +219,65 @@ public class UserFacade {
         //Đóng kết nối
         con.close();
     }
-    
-     public boolean addUser(User user) {
-        
-    Connection con = null;
-    PreparedStatement ps = null;
-    try {
-        // Get a database connection
-        con = DBContext.getConnection();
-        
-        // Prepare the SQL statement for inserting a new user record
-        String sql = "INSERT INTO [User] ([userName], [userEmail],[userPass],[userPhone], [userAddress],[timeCreated],[userRole]) VALUES (?,?,1,1,0,CURRENT_TIMESTAMP,0)";
-        ps = con.prepareStatement(sql);
-        ps.setString(1, user.getUserName()); 
-        ps.setString(2, user.getUserEmail());
-        
-        // Execute the SQL statement
-        int rowsInserted = ps.executeUpdate();
-        
-        // Close the resources
-        ps.close();
-        con.close();
-        
-        // Check if the user record was inserted successfully
-        return (rowsInserted > 0);
-    } catch (SQLException ex) {
-        System.err.println("Error adding user to database: " + ex.getMessage());
-        return false;
-    } finally {
-        try { if (ps != null) ps.close(); } catch (Exception e) {}
-        try { if (con != null) con.close(); } catch (Exception e) {}
-    }
-}
 
-    
+    public boolean addUser(User user) {
+
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            // Get a database connection
+            con = DBContext.getConnection();
+
+            // Prepare the SQL statement for inserting a new user record
+            String sql = "INSERT INTO [User] ([userName], [userEmail],[userPass],[userPhone], [userAddress],[timeCreated],[userRole]) VALUES (?,?,1,1,0,CURRENT_TIMESTAMP,0)";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, user.getUserName());
+            ps.setString(2, user.getUserEmail());
+
+            // Execute the SQL statement
+            int rowsInserted = ps.executeUpdate();
+
+            // Close the resources
+            ps.close();
+            con.close();
+
+            // Check if the user record was inserted successfully
+            return (rowsInserted > 0);
+        } catch (SQLException ex) {
+            System.err.println("Error adding user to database: " + ex.getMessage());
+            return false;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (Exception e) {
+            }
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    public void deleteUser(String id) throws SQLException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            //Tạo connection để kết nối vào DBMS
+             con = DBContext.getConnection();
+            //Tạo đối tượng PreparedStatement
+            PreparedStatement stm = con.prepareStatement("delete from [User] where userId = ?");
+            stm.setString(1, id);
+            //Thực thi lệnh sql
+            int count = stm.executeUpdate();
+            con.close();
+        } catch (SQLException ex) {
+
+        }
+    }
 
 }

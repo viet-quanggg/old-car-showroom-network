@@ -208,7 +208,7 @@
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                                     <h6 class="text-white text-capitalize ps-3">Create new Staff Account Page</h6>
-                                    <div style="color: green">${message}</div>
+                                    <div class="ps-3 text-dark" >${message}</div>
                                 </div>
                             </div>
                             <div class="card-body px-0 pb-2">
@@ -232,28 +232,28 @@
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <input type="email" class="form-text" id="userEmail" name="userEmail">
-                                                        <div style="color: red">${errorE}</div>
                                                     </div>
+                                                    <div class="d-flex px-2 py-1" style="color: red">${errorE}</div>
                                                 </td>
                                                 <td>
                                                     <div>
                                                         <input type="password" class="form-text" value="" name="userPass" id="userPassword">
                                                         <div style="color: red">${errorPa}</div><br/>
-                                                        <input type="password" class="form-text" value="" name="re_pass" id="userPassword">
+                                                        <input type="password" class="form-text" value="" name="re_pass" id="userPassword"><br/>
                                                         <div style="color: red">${errorR}</div>
                                                         <div/>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <div class="d-flex px-2 py-1">
                                                         <input type="text" class="form-text" id="userName" name="userName">
-                                                        <div style="color: red">${errorN}</div>
-                                                        <div/>
+                                                    </div>
+                                                    <div class="d-flex px-2 py-1" style="color: red">${errorN}</div>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <div class="d-flex px-2 py-1">
                                                         <input type="number" class="form-text" id="userPhone" name="userPhone"  value="">
-                                                        <div style="color: red">${errorPh}</div>
-                                                        <div/>
+                                                    </div>
+                                                    <div class="d-flex px-2 py-1" style="color: red">${errorPh}</div>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <div class="d-flex px-2 py-1">
@@ -263,8 +263,8 @@
                                                 <td class="align-middle text-center">
                                                     <div class="d-flex px-2 py-1">
                                                         <input type="text" class="form-text" id="userAddress" name="userAddress"  value="">
-                                                        <div style="color: red">${errorA}</div></div>
-                                                    <div/>
+                                                    </div>
+                                                    <div class="d-flex px-2 py-1" style="color: red">${errorA}</div></div>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <div class="d-flex px-2 py-1">
@@ -337,7 +337,7 @@
                                                         <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                             Edit | 
                                                         </a>
-                                                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                        <a href="<c:url value="/admin/delete_handler.do?id=${staffList.userID}"/>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Remove user">
                                                             Remove
                                                         </a>
                                                     </td>

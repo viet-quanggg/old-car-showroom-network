@@ -16,13 +16,13 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+//import javax.mail.Message;
+//import javax.mail.MessagingException;
+//import javax.mail.PasswordAuthentication;
+//import javax.mail.Session;
+//import javax.mail.Transport;
+//import javax.mail.internet.InternetAddress;
+//import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -49,28 +49,28 @@ public class SendEmailController extends HttpServlet {
 			props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 			props.put("mail.smtp.auth", "true");
 			props.put("mail.smtp.port", "465");
-			Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("your_email", "your_app_password");// Put your email
-																									// id and
-																									// password here
-				}
-			});
-			// compose message
-			try {
-				MimeMessage message = new MimeMessage(session);
-				message.setFrom(new InternetAddress(email));// change accordingly
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-				message.setSubject("Hello");
-				message.setText("your OTP is: " + otpvalue);
-				// send message
-				Transport.send(message);
-				System.out.println("message sent successfully");
-			}
-
-			catch (MessagingException e) {
-				throw new RuntimeException(e);
-			}
+//			Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+//				protected PasswordAuthentication getPasswordAuthentication() {
+//					return new PasswordAuthentication("your_email", "your_app_password");// Put your email
+//																									// id and
+//																									// password here
+//				}
+//			});
+//			// compose message
+//			try {
+//				MimeMessage message = new MimeMessage(session);
+//				message.setFrom(new InternetAddress(email));// change accordingly
+//				message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+//				message.setSubject("Hello");
+//				message.setText("your OTP is: " + otpvalue);
+//				// send message
+//				Transport.send(message);
+//				System.out.println("message sent successfully");
+//			}
+//
+//			catch (MessagingException e) {
+//				throw new RuntimeException(e);
+//			}
 			dispatcher = request.getRequestDispatcher("EnterOtp.jsp");
 			request.setAttribute("message","OTP is sent to your email id");
 			//request.setAttribute("connection", con);
