@@ -112,8 +112,8 @@
                     <div class="sidebar-group">
                         <h5 class="sidebar-title">user action</h5>
                         <ul class="nav-list">
-                            <li class="nav-item"><a href="<c:url value="/order/favorite.do"/>" class="nav-link"><i
-                                        class="material-icons">favorite</i><span class="nav-text">favorite</span><span
+                            <li class="nav-item"><a href="<c:url value="/order/ordermanager.do"/>" class="nav-link"><i
+                                        class="material-icons">favorite</i><span class="nav-text">Order_manager</span><span
                                         class="nav-count">0</span></a></li>
                             <li class="nav-item"><a href="compare.html" class="nav-link"><i
                                         class="material-icons">compare</i><span class="nav-text">compare</span><span

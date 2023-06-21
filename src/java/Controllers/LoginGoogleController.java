@@ -52,6 +52,7 @@ public class LoginGoogleController extends HttpServlet {
         user.setUserImage(userGoogleDto.getPicture());
         // Add the new user to the database using UserFacade
         UserFacade userFacade = new UserFacade();
+        //if (userFacade.checkEmail(user.)){
         if (userFacade.addUser(user)) {
             request.setAttribute("message", "Login success.");
             HttpSession httpSession = request.getSession();
@@ -65,6 +66,7 @@ public class LoginGoogleController extends HttpServlet {
             request.getRequestDispatcher("/login/login.do").forward(request, response);
 
         }
+        //}
     }
 
     public static String getToken(String code) throws ClientProtocolException, IOException {

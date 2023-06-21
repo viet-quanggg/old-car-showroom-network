@@ -1,4 +1,3 @@
-
 package Controllers;
 
 import Common.Common;
@@ -11,6 +10,8 @@ import DB.PostFacade;
 import DB.UserFacade;
 import Models.Brand;
 import Models.Color;
+import Models.Order;
+import Models.OrderList;
 import Models.PricingPlan;
 import Models.User;
 import java.io.IOException;
@@ -79,9 +80,12 @@ public class OrderController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
                 break;
-            case "favorite":
+            case "ordermanager":
+                OrderFacade orderFacade = new OrderFacade();
+                List<OrderList> orders = orderFacade.getAllOrders();
+                request.setAttribute("orders", orders);
+                
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
-                //in thong bao loi chi tiet cho developer
                 break;
             case "create_handler":
                 create_handler(request, response);
@@ -101,7 +105,7 @@ public class OrderController extends HttpServlet {
         request.setAttribute("clist", clist);
         request.setAttribute("blist", blist);
         request.setAttribute("controller", "order");
-            request.setAttribute("action", "createad");
+        request.setAttribute("action", "createad");
         request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
     }
 
@@ -162,7 +166,7 @@ public class OrderController extends HttpServlet {
                         createad(request, response);
                         return;
                     } else {
-            
+
                         CarFacade cf = new CarFacade();
                         int carId = cf.addCar(user.getUserID(), Double.valueOf(carprice), Common.getFormatString(carname), Integer.parseInt(caryear), description, Integer.parseInt(brandid), Integer.parseInt(colorid));
                         if (carId == -1) {

@@ -15,7 +15,10 @@ public class Order {
     private float orderTotal;
     private boolean orderStatus;
     private Date orderDate;
-
+    private int userId;
+    private int postId;
+    private String orderStatuss;
+    
     public Order() {
     }
 
@@ -24,6 +27,32 @@ public class Order {
         this.orderTotal = orderTotal;
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
+    }
+
+   
+
+    public String getOrderStatuss() {
+        return orderStatuss;
+    }
+
+    public void setOrderStatuss(String orderStatuss) {
+        this.orderStatuss = orderStatuss;
+    }
+
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getOrderID() {
