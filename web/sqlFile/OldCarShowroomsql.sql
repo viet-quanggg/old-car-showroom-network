@@ -496,6 +496,14 @@ insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress]
 				values ('tester23@example.com', '123', 'Test Smith', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 0, 'https://example.com/user-images/susan-smith.jpg')
 insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
 				values ('tester231@example.com', '123', 'Test Smith2', '5555555555', '789 Main Street, Anytown USA', '2023-05-05', 0, 'https://example.com/user-images/susan-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('tester@example.com', '123', 'Staff Test', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 1, 'https://example.com/user-images/susan-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('tester69@example.com', '123', 'Testing Zone', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 1, 'https://example.com/user-images/susan-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('staff23@example.com', '123', 'John Dope', '5555555555', '789 Main Street, Anytown USA', '2023-05-19', 1, 'https://example.com/user-images/susan-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('staff54@example.com', '123', 'Test Smith2', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 1, 'https://example.com/user-images/susan-smith.jpg')
 
 
 

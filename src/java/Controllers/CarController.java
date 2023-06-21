@@ -67,6 +67,9 @@ public class CarController extends HttpServlet {
                 case "carsingle":
                     getDetails(request, response);
                     break;
+                case "comparecar":
+                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                    break;
                 default:
                     //Show error page
                     request.setAttribute("controller", "error");
@@ -315,4 +318,3 @@ public class CarController extends HttpServlet {
     }// </editor-fold>
 
 }
-

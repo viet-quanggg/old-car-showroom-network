@@ -20,7 +20,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
+import org.apache.jasper.tagplugins.jstl.core.Catch;
 
 /**
  *
@@ -151,11 +153,102 @@ public class AdminController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
             }
             break;
+            case "create":
+                try {
+                    List<User> staffList = apf.listallStaff();
+                request.setAttribute("staffList", staffList);
+                request.getRequestDispatcher("/WEB-INF/views/admin/create.jsp").forward(request, response); //Hien trang thong bao loi
+            } catch (Exception e) {
+                request.setAttribute("controller", "error");
+                request.setAttribute("action", "error");
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+            }
+            break;
+            case "register_handler":{
+                register_handler(request, response);
+            }
+            break;
             default:
                 //Show error page
                 request.setAttribute("controller", "error");
                 request.setAttribute("action", "error");
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+
+        }
+    }
+    
+    private void register_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        String op = request.getParameter("op");
+        switch (op) {
+            case "create":
+                try {
+//            boolean check = false;
+                String useremail = request.getParameter("userEmail");
+                String userpass = request.getParameter("userPass");
+                String re_pass = request.getParameter("re_pass");
+                String username = request.getParameter("userName");
+                String userphone = request.getParameter("userPhone");
+                String useraddress = request.getParameter("userAddress");
+                UserFacade uf = new UserFacade();
+                User user = uf.checkEmail(useremail);
+                request.setAttribute("userEmail", useremail);
+                request.setAttribute("userName", username);
+                request.setAttribute("userPhone", userphone);
+                request.setAttribute("userAddress", useraddress);
+
+                if (useremail.isEmpty()) {
+                    request.setAttribute("errorE", "please fill in  your Email!");
+                    //  request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (userpass.isEmpty()) {
+                    request.setAttribute("errorPa", "please  fill in your Password!");
+                    // request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (re_pass.isEmpty()) {
+                    request.setAttribute("errorR", "please repeat your password!");
+                    // request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (username.isEmpty()) {
+                    request.setAttribute("errorN", "please fill in your User name!");
+                    //  request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (userphone.isEmpty()) {
+                    request.setAttribute("errorPh", "please fill in your phone!");
+                    //    request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (useraddress.isEmpty()) {
+                    request.setAttribute("errorA", "please fill in your address!");
+                    //  request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (useremail.isEmpty() || userpass.isEmpty() || re_pass.isEmpty() || username.isEmpty() || userphone.isEmpty() || useraddress.isEmpty()) {
+                    request.getRequestDispatcher("/admin/create.do").forward(request, response);
+
+                } else {
+                    if (user != null) {
+//                    check = true;
+                        request.setAttribute("errorE", "Email already exist!");
+                        request.getRequestDispatcher("/admin/create.do").forward(request, response);
+                    } else {
+                        if (!userpass.equals(re_pass)) {
+                            request.setAttribute("errorR", "Password and Re-password doest not match!");
+                            request.getRequestDispatcher("/admin/create.do").forward(request, response);
+
+                        }else {
+                            Date date = new Date();
+                            User newUser = uf.registerStaff(useremail, userpass, username, userphone, useraddress, date);
+                            HttpSession session = request.getSession();
+                            session.setAttribute("User", newUser);
+                            request.setAttribute("message", "Create Successfully!");
+                            request.getRequestDispatcher("/admin/create.do").forward(request, response);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                request.setAttribute("error", e.toString());
+                request.getRequestDispatcher("/admin/create.do").forward(request, response);
+            }
+            break;
 
         }
     }

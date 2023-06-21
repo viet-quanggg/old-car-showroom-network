@@ -50,11 +50,11 @@
                     <div class="col-xl-12">
                         <ul class="user-banner-menu-list">
                             <c:if test="${User.userRole == 2 || User.userRole == 1}">
-                                <li><a href="<c:url value="/layouts/dashboard.do"/>">dashboard</a></li>   
+                                <li><a href="<c:url value="/admin/dashboard.do"/>">dashboard</a></li>   
                                 </c:if>
                             <li><a href="<c:url value="/login/profile.do"/>" class="inactive">profile</a></li>
-                            <li><a href="<c:url value="/login/update_profile.do"/>" class="active">update profile</a></li>
-                            <li><a href="<c:url value="/login/createad.do"/>">create car</a></li>
+                            <li><a href="<c:url value="/login/update_profile.do"/>" class="inactive">update profile</a></li>
+                            <li><a href="<c:url value="/order/createad.do"/>" class="active">create car</a></li>
                             <li><a href="posted-ads.html">posted car</a></li>
                             <li><a href="favorite.html">favorites</a></li>
                             <li><a href="compare.html">compares</a></li>
@@ -166,7 +166,7 @@
                                         <span>*</span></label><select id="caryear" name="caryear" class="form-select">
                                         <option value="" disabled selected>Select a year</option>
 
-                                        <c:forEach begin="1886" end="2022" var="yearchoices">
+                                        <c:forEach begin="1900" end="2022" var="yearchoices">
                                             <option value="${yearchoices}" ${caryear == yearchoices ? 'selected' : ''}>${yearchoices}</option>
                                         </c:forEach>
                                     </select>

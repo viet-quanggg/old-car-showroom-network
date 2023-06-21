@@ -93,6 +93,38 @@ public class UserFacade {
         con.close();
         return user;
     }
+    
+    public User registerStaff(String userEmail, String userPass, String userName, String userPhone, String userAddress, Date timeCreated) throws SQLException {
+        User user = new User();
+        Connection con = DBContext.getConnection();
+        PreparedStatement stm = con.prepareStatement("INSERT INTO [User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage]) VALUES (?, ?, ?, ?, ?, ?, 1,'');");
+        stm.setString(1, userEmail);
+        stm.setString(2, userPass);
+        stm.setString(3, userName);
+        stm.setString(4, userPhone);
+        stm.setString(5, userAddress);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        stm.setString(6, sdf.format(timeCreated));
+        int count = stm.executeUpdate();
+
+        stm = con.prepareStatement("Select * from [User] where userEmail = ?");
+        stm.setString(1, userEmail);
+        ResultSet rs = stm.executeQuery();
+        int id = 0;
+        if (rs.next()) {  
+        user.setUserID(rs.getInt("userId"));
+        user.setUserEmail(rs.getString("userEmail"));
+        user.setUserPass(rs.getString("userPass"));
+        user.setUserName(rs.getString("userName"));
+        user.setUserPhone(rs.getString("userPhone"));
+        user.setUserAddress(rs.getString("userAddress"));
+        user.setTimeCreated(rs.getDate("timeCreated"));
+        user.setUserRole(rs.getInt("userRole"));
+        user.setUserImage("");
+        }
+        con.close();
+        return user;
+    }
 
     public ArrayList<User> userList() throws SQLException {
         User user = null;

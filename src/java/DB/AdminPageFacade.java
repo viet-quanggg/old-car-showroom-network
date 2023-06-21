@@ -149,8 +149,8 @@ public class AdminPageFacade {
             con = DBContext.getConnection();
             ps = con.prepareStatement("SELECT o.orderId, o.orderDate\n"
                     + "FROM [Order] o join [Post] p on o.postId = p.postId\n"
-                    + "WHERE DATEPART(week, orderDate) = DATEPART(week, GETDATE())\n"
-                    + "  AND DATEPART(year, orderDate) = DATEPART(year, GETDATE())");
+                    + "WHERE MONTH(o.orderDate) = MONTH(DATEADD(month, -1, GETDATE())) \n"
+                    + "AND YEAR(o.orderDate) = YEAR(DATEADD(month, -1, GETDATE()))");
             rs = ps.executeQuery();
             while (rs.next()) {
                 OrderList listOrder = new OrderList();
@@ -171,8 +171,8 @@ public class AdminPageFacade {
             con = DBContext.getConnection();
             ps = con.prepareStatement("SELECT count(orderId)\n"
                     + "FROM [Order] o join [Post] p on o.postId = p.postId\n"
-                    + "WHERE orderDate >= DATEADD(MONTH, -1, DATEADD(DAY, 1, EOMONTH(GETDATE(), -1)))\n"
-                    + "AND orderDate < DATEADD(DAY, 1, EOMONTH(GETDATE(), -1))");
+                    + "WHERE MONTH(o.orderDate) = MONTH(DATEADD(month, -1, GETDATE())) \n"
+                    + "AND YEAR(o.orderDate) = YEAR(DATEADD(month, -1, GETDATE()))");
             rs = ps.executeQuery();
             int count = 0;
             if (rs.next()) {
@@ -285,7 +285,7 @@ public class AdminPageFacade {
         try {
             List<User> list = new ArrayList<>();
             con = DBContext.getConnection();
-            ps = con.prepareStatement("select userId, userName, userEmail, userRole, timeCreated \n"
+            ps = con.prepareStatement("select userId, userName, userEmail,userPhone,userAddress, userRole, timeCreated \n"
                     + "from [User] \n"
                     + "where userRole = 1");
             rs = ps.executeQuery();
@@ -294,8 +294,10 @@ public class AdminPageFacade {
                 listStaff.setUserID(rs.getInt(1));
                 listStaff.setUserName(rs.getString(2));
                 listStaff.setUserEmail(rs.getString(3));
-                listStaff.setUserRole(rs.getInt(4));
-                listStaff.setTimeCreated(rs.getDate(5));
+                listStaff.setUserPhone(rs.getString(4));
+                listStaff.setUserAddress(rs.getString(5));
+                listStaff.setUserRole(rs.getInt(6));
+                listStaff.setTimeCreated(rs.getDate(7));
                 list.add(listStaff);
             }
             con.close();
