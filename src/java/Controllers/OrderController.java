@@ -117,11 +117,11 @@ public class OrderController extends HttpServlet {
                         of.updateOrderStatus(orderId4, "IN PROCESS");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
                         break;
-                    case "delete":
-                        int orderId5 = Integer.parseInt(request.getParameter("orderId"));
-                        of.Delete(orderId5);
-                        response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-                        break;
+//                    case "delete":
+//                        int orderId5 = Integer.parseInt(request.getParameter("orderId"));
+//                        of.Delete(orderId5);
+//                        response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+//                        break;
                     default:
                         request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                         break;
