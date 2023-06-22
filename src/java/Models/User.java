@@ -76,6 +76,16 @@ public class User {
         this.userImage = userImage;
     }
 
+    public User(String userEmail, String userPass, String userName, String userPhone, String userAddress, int userID) {
+        this.userID = userID;
+        this.userPass = userPass;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userAddress = userAddress;
+        this.userPhone = userPhone;
+    }
+
+    
 
     
     public int getUserID() {

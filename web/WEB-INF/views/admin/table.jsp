@@ -394,7 +394,7 @@
                                                     <span class="text-secondary text-xs font-weight-bold">${staffList.timeCreated}</span>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                    <a href="<c:url value="/admin/updatestaff.do?uid=${staffList.userID}"/>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                         Edit | 
                                                     </a>
                                                     <a href="<c:url value="/admin/delete_handler.do?id=${staffList.userID}"/>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Remove user">

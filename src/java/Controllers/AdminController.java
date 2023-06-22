@@ -155,7 +155,7 @@ public class AdminController extends HttpServlet {
             break;
             case "create":
                 try {
-                    List<User> staffList = apf.listallStaff();
+                List<User> staffList = apf.listallStaff();
                 request.setAttribute("staffList", staffList);
                 request.getRequestDispatcher("/WEB-INF/views/admin/create.jsp").forward(request, response); //Hien trang thong bao loi
             } catch (Exception e) {
@@ -164,23 +164,36 @@ public class AdminController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
             }
             break;
-            case "register_handler":{
+            case "register_handler":
                 register_handler(request, response);
+
+                break;
+            case "delete_handler":
+                try {
+                String userId = request.getParameter("id");
+                UserFacade uf = new UserFacade();
+                uf.deleteUser(userId);
+                response.sendRedirect(request.getContextPath() + "/admin/create.do");
+                break;
+
+            } catch (Exception ex) {
+
             }
             break;
-            case "delete_handler":{
-                try{
-                    String userId = request.getParameter("id");
-                    UserFacade uf = new UserFacade();
-                    uf.deleteUser(userId);
-                    response.sendRedirect(request.getContextPath() + "/admin/create.do");
-                    break;
-                    
-                }catch(Exception ex){
-                    
-                }
+            case "updatestaff":
+                try {
+                String userId = request.getParameter("uid");
+                UserFacade uf = new UserFacade();
+                List<User> uUser = uf.userListId(userId);
+                request.setAttribute("uUser", uUser);
+                request.getRequestDispatcher("/WEB-INF/views/admin/updatestaff.jsp").forward(request, response); //Hien trang thong bao loi
+            } catch (Exception ex) {
+
             }
             break;
+            case "update_handler":
+                update_handler(request, response);
+                break;
             default:
                 //Show error page
                 request.setAttribute("controller", "error");
@@ -189,7 +202,73 @@ public class AdminController extends HttpServlet {
 
         }
     }
-    
+
+    private void update_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        String op = request.getParameter("op");
+        switch (op) {
+            case "update":
+                try {
+//            boolean check = false;
+                int id = Integer.parseInt(request.getParameter("uid"));
+                String useremail = request.getParameter("userEmail");
+                String userpass = request.getParameter("userPass");
+                String re_pass = request.getParameter("re_pass");
+                String username = request.getParameter("userName");
+                String userphone = request.getParameter("userPhone");
+                String useraddress = request.getParameter("userAddress");
+                User uUser = new User( useremail, userpass, username, userphone, useraddress,id);
+                UserFacade uf = new UserFacade();
+//                uUser = uf.checkEmail(useremail);
+                if (useremail.isEmpty()) {
+                    request.setAttribute("errorE", "please fill in  your Email!");
+                    //  request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (userpass.isEmpty()) {
+                    request.setAttribute("errorPa", "please  fill in your Password!");
+                    // request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (re_pass.isEmpty()) {
+                    request.setAttribute("errorR", "please repeat your password!");
+                    // request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (username.isEmpty()) {
+                    request.setAttribute("errorN", "please fill in your User name!");
+                    //  request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (userphone.isEmpty()) {
+                    request.setAttribute("errorPh", "please fill in your phone!");
+                    //    request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (useraddress.isEmpty()) {
+                    request.setAttribute("errorA", "please fill in your address!");
+                    //  request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (useremail.isEmpty() || userpass.isEmpty() || re_pass.isEmpty() || username.isEmpty() || userphone.isEmpty() || useraddress.isEmpty()) {
+                    request.getRequestDispatcher("/admin/updatestaff.do").forward(request, response);
+
+                } else {
+
+                    if (!userpass.equals(re_pass)) {
+                        request.setAttribute("errorR", "Password and Re-password doest not match!");
+                        request.getRequestDispatcher("/admin/updatestaff.do").forward(request, response);
+
+                    } else {
+                        uf.update(uUser);
+                        request.setAttribute("message", "Update Successfully!");
+                        request.getRequestDispatcher("/admin/updatestaff.do").forward(request, response);
+                    }
+                }
+
+            } catch (Exception e) {
+                request.setAttribute("error", e.toString());
+                request.getRequestDispatcher("/admin/updatestaff.do").forward(request, response);
+            }
+            break;
+
+        }
+    }
+
     private void register_handler(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String op = request.getParameter("op");
@@ -247,7 +326,7 @@ public class AdminController extends HttpServlet {
                             request.setAttribute("errorR", "Password and Re-password doest not match!");
                             request.getRequestDispatcher("/admin/create.do").forward(request, response);
 
-                        }else {
+                        } else {
                             Date date = new Date();
                             User newUser = uf.registerStaff(useremail, userpass, username, userphone, useraddress, date);
                             HttpSession session = request.getSession();

@@ -158,7 +158,30 @@
                             <span class="nav-link-text ms-1">Billing</span>
                         </a>
                     </li>
-
+                    <!--                    <li class="nav-item">
+                                            <a class="nav-link text-white " href="virtual-reality.html">
+                                                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                                    <i class="material-icons opacity-10">view_in_ar</i>
+                                                </div>
+                                                <span class="nav-link-text ms-1">Virtual Reality</span>
+                                            </a>
+                                        </li>-->
+                    <!--                    <li class="nav-item">
+                                            <a class="nav-link text-white " href="rtl.html">
+                                                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                                    <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
+                                                </div>
+                                                <span class="nav-link-text ms-1">RTL</span>
+                                            </a>
+                                        </li>-->
+                    <!--                    <li class="nav-item">
+                                            <a class="nav-link text-white " href="notifications.html">
+                                                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                                    <i class="material-icons opacity-10">notifications</i>
+                                                </div>
+                                                <span class="nav-link-text ms-1">Notifications</span>
+                                            </a>
+                                        </li>-->
                     <li class="nav-item mt-3">
                         <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
                     </li>
@@ -178,6 +201,14 @@
                             <span class="nav-link-text ms-1">Sign In</span>
                         </a>
                     </li>
+                    <!--                    <li class="nav-item">
+                                            <a class="nav-link text-white " href="sign-up.html">
+                                                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                                    <i class="material-icons opacity-10">assignment</i>
+                                                </div>
+                                                <span class="nav-link-text ms-1">Sign Up</span>
+                                            </a>
+                                        </li>-->
                 </ul>
             </div>
             <div class="sidenav-footer position-absolute w-100 bottom-0 ">
@@ -198,6 +229,115 @@
                         </ol>
                         <h6 class="font-weight-bolder mb-0">Tables</h6>
                     </nav>
+                    <!--                    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                                            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                                                <div class="input-group input-group-outline">
+                                                    <label class="form-label">Type here...</label>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <ul class="navbar-nav  justify-content-end">
+                                                <li class="nav-item d-flex align-items-center">
+                                                    <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank" href="https://www.creative-tim.com/builder?ref=navbar-material-dashboard">Online Builder</a>
+                                                </li>
+                                                <li class="mt-2">
+                                                    <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/material-dashboard on GitHub">Star</a>
+                                                </li>
+                                                <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                                                    <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                                                        <div class="sidenav-toggler-inner">
+                                                            <i class="sidenav-toggler-line"></i>
+                                                            <i class="sidenav-toggler-line"></i>
+                                                            <i class="sidenav-toggler-line"></i>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item px-3 d-flex align-items-center">
+                                                    <a href="javascript:;" class="nav-link text-body p-0">
+                                                        <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                                                    <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa fa-bell cursor-pointer"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                                                        <li class="mb-2">
+                                                            <a class="dropdown-item border-radius-md" href="javascript:;">
+                                                                <div class="d-flex py-1">
+                                                                    <div class="my-auto">
+                                                                        <img src="${pageContext.request.contextPath}/material-dashboard/demos.creative-tim.com/material-dashboard/assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
+                                                                    </div>
+                                                                    <div class="d-flex flex-column justify-content-center">
+                                                                        <h6 class="text-sm font-weight-normal mb-1">
+                                                                            <span class="font-weight-bold">New message</span> from Laur
+                                                                        </h6>
+                                                                        <p class="text-xs text-secondary mb-0">
+                                                                            <i class="fa fa-clock me-1"></i>
+                                                                            13 minutes ago
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class="mb-2">
+                                                            <a class="dropdown-item border-radius-md" href="javascript:;">
+                                                                <div class="d-flex py-1">
+                                                                    <div class="my-auto">
+                                                                        <img src="https://demos.creative-tim.com/material-dashboard/assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
+                                                                    </div>
+                                                                    <div class="d-flex flex-column justify-content-center">
+                                                                        <h6 class="text-sm font-weight-normal mb-1">
+                                                                            <span class="font-weight-bold">New album</span> by Travis Scott
+                                                                        </h6>
+                                                                        <p class="text-xs text-secondary mb-0">
+                                                                            <i class="fa fa-clock me-1"></i>
+                                                                            1 day
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item border-radius-md" href="javascript:;">
+                                                                <div class="d-flex py-1">
+                                                                    <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
+                                                                        <svg width="12px" height="12px" viewbox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                        <title>credit-card</title>
+                                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                                                        <g transform="translate(1716.000000, 291.000000)">
+                                                                        <g transform="translate(453.000000, 454.000000)">
+                                                                        <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
+                                                                        <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
+                                                                        </g>
+                                                                        </g>
+                                                                        </g>
+                                                                        </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div class="d-flex flex-column justify-content-center">
+                                                                        <h6 class="text-sm font-weight-normal mb-1">
+                                                                            Payment successfully completed
+                                                                        </h6>
+                                                                        <p class="text-xs text-secondary mb-0">
+                                                                            <i class="fa fa-clock me-1"></i>
+                                                                            2 days
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="nav-item d-flex align-items-center">
+                                                    <a href="sign-in.html" class="nav-link text-body font-weight-bold px-0">
+                                                        <i class="fa fa-user me-sm-1"></i>
+                                                        <span class="d-sm-inline d-none">Sign In</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>-->
                 </div>
             </nav>
 
@@ -207,7 +347,8 @@
                         <div class="card my-4">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">Create new Staff Account Page</h6>
+                                    <h6 class="text-white text-capitalize ps-3">Staff Information</h6>
+                                    <a href = "<c:url value="/admin/table.do"/>" class="text-white text-capitalize ps-3">Staff List</a>
                                     <div class="ps-3 text-dark" >${message}</div>
                                 </div>
                             </div>
@@ -226,50 +367,54 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <form action="<c:url value="/admin/register_handler.do"/>" method="POST">
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <input type="email" class="form-text" id="userEmail" name="userEmail">
-                                                    </div>
-                                                    <div class="d-flex px-2 py-1" style="color: red">${errorE}</div>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <input type="password" class="form-text" value="" name="userPass" id="userPassword">
-                                                        <div style="color: red">${errorPa}</div><br/>
-                                                        <input type="password" class="form-text" value="" name="re_pass" id="userPassword"><br/>
-                                                        <div style="color: red">${errorR}</div>
-                                                        <div/>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <div class="d-flex px-2 py-1">
-                                                        <input type="text" class="form-text" id="userName" name="userName">
-                                                    </div>
-                                                    <div class="d-flex px-2 py-1" style="color: red">${errorN}</div>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <div class="d-flex px-2 py-1">
-                                                        <input type="number" class="form-text" id="userPhone" name="userPhone"  value="">
-                                                    </div>
-                                                    <div class="d-flex px-2 py-1" style="color: red">${errorPh}</div>
-                                                </td>
+                                        <form action="<c:url value="/admin/update_handler.do"/>" method="POST">
 
-                                                <td class="align-middle text-center">
-                                                    <div class="d-flex px-2 py-1">
-                                                        <input type="text" class="form-text" id="userAddress" name="userAddress"  value="">
-                                                    </div>
-                                                    <div class="d-flex px-2 py-1" style="color: red">${errorA}</div></div>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <div class="d-flex px-2 py-1">
-                                                        <input type="file" class="form-text" id="userImage" name="userImage"  value="">
-                                                        <div/>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <button type="submit" name="op" value="create" class="form-btn">Create</button>
-                                                </td>
-                                            </tr>
+                                            <c:forEach items="${uUser}" var="uUser">
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex px-2 py-1">
+                                                            <input type="text" class="form-text" id="userId" name="uid" value="${uUser.userID}" hidden="">
+                                                            <input type="email" class="form-text" id="userEmail" name="userEmail" value="${uUser.userEmail}">
+                                                        </div>
+                                                        <div class="d-flex px-2 py-1" style="color: red">${errorE}</div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <input type="password" class="form-text" value="" name="userPass" id="userPassword">
+                                                            <div style="color: red">${errorPa}</div><br/>
+                                                            <input type="password" class="form-text" value="" name="re_pass" id="userPassword"><br/>
+                                                            <div style="color: red">${errorR}</div>
+                                                            <div/>
+                                                    </td>
+                                                    <td class="align-middle text-center">
+                                                        <div class="d-flex px-2 py-1">
+                                                            <input type="text" class="form-text" id="userName" name="userName" value="${uUser.userName}">
+                                                        </div>
+                                                        <div class="d-flex px-2 py-1" style="color: red">${errorN}</div>
+                                                    </td>
+                                                    <td class="align-middle text-center">
+                                                        <div class="d-flex px-2 py-1">
+                                                            <input type="number" class="form-text" id="userPhone" name="userPhone"  value="${uUser.userPhone}">
+                                                        </div>
+                                                        <div class="d-flex px-2 py-1" style="color: red">${errorPh}</div>
+                                                    </td>
+
+                                                    <td class="align-middle text-center">
+                                                        <div class="d-flex px-2 py-1">
+                                                            <input type="text" class="form-text" id="userAddress" name="userAddress"  value="${uUser.userAddress}">
+                                                        </div>
+                                                        <div class="d-flex px-2 py-1" style="color: red">${errorA}</div></div>
+                                                    </td>
+                                                    <td class="align-middle text-center">
+                                                        <div class="d-flex px-2 py-1">
+                                                            <input type="file" class="form-text" id="userImage" name="userImage"  value="">
+                                                            <div/>
+                                                    </td>
+                                                    <td class="align-middle text-center">
+                                                        <button type="submit" name="op" value="update" class="form-btn">Save</button>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
                                         </form>
                                         </tbody>
                                     </table>
@@ -283,59 +428,58 @@
                         <div class="card my-4">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">Staff table</h6>
+                                    <h6 class="text-white text-capitalize ps-3">Current Staff</h6>
                                 </div>
                             </div>
                             <div class="card-body px-0 pb-2">
                                 <div class="table-responsive p-0">
-                                    <table class="table align-items-center mb-0">
+                                    <table class="table align-items-center justify-content-center mb-0">
                                         <thead>
                                             <tr>
-
                                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID | Staff Name</th>
                                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone Number</th>
                                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Function</th>
+                                                <!--                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Function</th>-->
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${staffList}" var="staffList">
+                                            <c:forEach items="${uUser}" var="uUser">
                                                 <tr>
                                                     <td>
                                                         <div class="d-flex px-2 py-1">
                                                             <div class="d-flex px-2 py-1">
     <!--                                                            <img src="${pageContext.request.contextPath}/material-dashboard/demos.creative-tim.com/material-dashboard/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">-->
-                                                                <h6 class="mb-0 text-sm">${staffList.userID} | </h6>
+                                                                <h6 class="mb-0 text-sm">${uUser.userID} | </h6>
                                                             </div>
                                                             <div class="d-flex flex-column justify-content-center">
-                                                                <h6 class="mb-0 text-sm"> ${staffList.userName}</h6>
-                                                                <p class="text-xs text-secondary mb-0"><a class="__cf_email__"">${staffList.userEmail}</a></p>
+                                                                <h6 class="mb-0 text-sm"> ${uUser.userName}</h6>
+                                                                <p class="text-xs text-secondary mb-0"><a class="__cf_email__"">${uUser.userEmail}</a></p>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex px-2 py-1">
-                                                            <p class="text-xs font-weight-bold mb-0">${staffList.userPhone}</p>
+                                                            <p class="text-xs font-weight-bold mb-0">${uUser.userPhone}</p>
                                                             <div/>
                                                     </td>
                                                     <td class="align-middle text-center text-sm">
                                                         <div class="d-flex px-2 py-1">
-                                                            <p class="text-xs font-weight-bold mb-0">${staffList.userAddress}</p>
+                                                            <p class="text-xs font-weight-bold mb-0">${uUser.userAddress}</p>
                                                             <div/>
                                                     </td>
                                                     <td class="align-middle text-center">
 
-                                                        <span class="text-secondary text-xs font-weight-bold">${staffList.timeCreated}</span>
+                                                        <span class="text-secondary text-xs font-weight-bold">${uUser.timeCreated}</span>
                                                     </td>
-                                                    <td class="align-middle text-center">
-                                                        <a href="<c:url value="/admin/updatestaff.do?uid=${staffList.userID}"/>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                            Edit | 
-                                                        </a>
-                                                        <a href="<c:url value="/admin/delete_handler.do?id=${staffList.userID}"/>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Remove user">
-                                                            Remove
-                                                        </a>
-                                                    </td>
+                                                    <!--                                                    <td class="align-middle text-center">
+                                                                                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                                                                                Edit | 
+                                                                                                            </a>
+                                                                                                            <a href="<c:url value="/admin/delete_handler.do?id=${uUser.userID}"/>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Remove user">
+                                                                                                                Remove
+                                                                                                            </a>
+                                                                                                        </td>-->
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
