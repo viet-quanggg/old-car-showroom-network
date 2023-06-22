@@ -61,7 +61,7 @@
             <div class="container">
                 <h2>blog creation page</h2>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/ocsn/index.do">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">blog-creation</li>
                 </ol>
             </div>

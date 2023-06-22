@@ -17,6 +17,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
@@ -37,35 +40,44 @@ public class LoginGoogleController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         String code = request.getParameter("code");
         String accessToken = getToken(code);
         UserGoogleDto userGoogleDto = getUserInfo(accessToken);
 
         // Create a new User object
+        // Create a new User object
         User user = new User();
 
-        // Set the name and email values from userGoogleDto to user's username and userEmail fields respectively
+// Set the name and email values from userGoogleDto to user's username and userEmail fields respectively
         user.setUserName(userGoogleDto.getName());
         user.setUserEmail(userGoogleDto.getEmail());
         user.setUserImage(userGoogleDto.getPicture());
-        // Add the new user to the database using UserFacade
+
+        // Check if the user already exists in the database
         UserFacade userFacade = new UserFacade();
-        //if (userFacade.checkEmail(user.)){
-        if (userFacade.addUser(user)) {
-            request.setAttribute("message", "Login success.");
+        var existUser = userFacade.checkEmail(user.getUserEmail());
+        if (existUser != null) {
+            // Forward to login page with an error message
             HttpSession httpSession = request.getSession();
-            httpSession.setAttribute("User", user);
-            // Redirect to index page
+            httpSession.setAttribute("User", existUser);
             request.getRequestDispatcher("/ocsn/index.do").forward(request, response);
         } else {
-
-            // Forward to login page with an error message
-            request.setAttribute("error", "Login fail.");
-            request.getRequestDispatcher("/login/login.do").forward(request, response);
-
+            // Add the new user to the database using UserFacade
+            if (userFacade.addUser(user)) {
+                request.setAttribute("message", "Login success.");
+                HttpSession httpSession = request.getSession();
+                httpSession.setAttribute("User", user);
+                // Redirect to index page
+                request.getRequestDispatcher("/ocsn/index.do").forward(request, response);
+            } else {
+                // Forward to login page with an error message
+                request.setAttribute("error", "Login fail.");
+                request.getRequestDispatcher("/login/login.do").forward(request, response);
+            }
         }
+
         //}
     }
 
@@ -104,7 +116,11 @@ public class LoginGoogleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginGoogleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -118,7 +134,11 @@ public class LoginGoogleController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginGoogleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

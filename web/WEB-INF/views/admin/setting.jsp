@@ -68,8 +68,8 @@
             <div class="mc-breadcrumb-group">
                 <h2 class="mc-breadcrumb-title">all settings</h2>
                 <ul class="mc-breadcrumb-list">
-                    <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="index.html">home</a></li>
-                    <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="dashboard.html">dashboard</a>
+                    <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="/ocsn/index.do">home</a></li>
+                    <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/admin/dashboard.do"/>">dashboard</a>
                     </li>
                     <li class="mc-breadcrumb-item">setting</li>
                 </ul>

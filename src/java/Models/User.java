@@ -47,6 +47,10 @@ public class User {
         this.totalUser = totalUser;
     }
 
+    public User(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
     public User(int userID, String userEmail, String userPass, String userName, String userAddress, String userPhone, Date timeCreated, int userRole, String userImage, int totalUser) {
         this.userID = userID;
         this.userPass = userPass;

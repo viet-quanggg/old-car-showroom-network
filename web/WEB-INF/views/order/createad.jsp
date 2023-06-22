@@ -54,8 +54,8 @@
                                 </c:if>
                             <li><a href="<c:url value="/login/profile.do"/>" class="active">profile</a></li>
                             <li><a href="<c:url value="/login/update_profile.do"/>" class="inactive">update profile</a></li>
-                            <li><a href="<c:url value="/login/createad.do"/>">create car</a></li>
-                            <li><a href="posted-ads.html">posted car</a></li>
+                            <li><a href="<c:url value="/order/createad.do"/>">create car</a></li>
+                            <li><a href="<c:url value="/order/postedad.do"/>">posted car</a></li>
                             <li><a href="<c:url value="/order/ordermanager.do"/>">Order_Manager</a></li>
                             <li><a href="compare.html">compares</a></li>
                             <li><a href="review.html">reviews</a></li>
