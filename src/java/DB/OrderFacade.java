@@ -46,45 +46,46 @@ public class OrderFacade {
 
     public List<OrderList> getAllOrders() throws SQLException {
 
-    List<OrderList> orders = new ArrayList<>();
-    Connection con = null;
-    PreparedStatement stmt = null;
-    ResultSet rs = null;
+        List<OrderList> orders = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
-    try {
-        con = DBContext.getConnection();
-        String sql = "SELECT o.orderId, c.carName, o.userId, c.carPrice, o.orderStatus, u.userName, o.orderDate FROM [Order] o JOIN [car] c ON o.postId = c.carId LEFT JOIN [User] u ON o.userId = u.userId";
-        stmt = con.prepareStatement(sql);
-        rs = stmt.executeQuery();
+        try {
+            con = DBContext.getConnection();
+            String sql = "SELECT o.orderId, c.carName, o.userId, c.carPrice, o.orderStatus, u.userName, o.orderDate FROM [Order] o JOIN [car] c ON o.postId = c.carId LEFT JOIN [User] u ON o.userId = u.userId";
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            OrderList orderlist = new OrderList();
-            orderlist.setOrderId(rs.getInt("orderId"));
-            orderlist.setCreatedDate(rs.getDate("orderDate"));
-            orderlist.setOrderStatus(rs.getString("orderStatus"));
-            orderlist.setCarPrice(rs.getDouble("carPrice"));
-            orderlist.setUserId(rs.getInt("userId"));
-            orderlist.setUserName(rs.getString("userName"));
-            orderlist.setCarName(rs.getString("carName"));
-            orders.add(orderlist);
+            while (rs.next()) {
+                OrderList orderlist = new OrderList();
+                orderlist.setOrderId(rs.getInt("orderId"));
+                orderlist.setCreatedDate(rs.getDate("orderDate"));
+                orderlist.setOrderStatus(rs.getString("orderStatus"));
+                orderlist.setCarPrice(rs.getDouble("carPrice"));
+                orderlist.setUserId(rs.getInt("userId"));
+                orderlist.setUserName(rs.getString("userName"));
+                orderlist.setCarName(rs.getString("carName"));
+                orders.add(orderlist);
+            }
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (con != null) {
+                con.close();
+            }
         }
-    } catch (SQLException e) {
-        throw e;
-    } finally {
-        if (rs != null) {
-            rs.close();
-        }
-        if (stmt != null) {
-            stmt.close();
-        }
-        if (con != null) {
-            con.close();
-        }
+
+        return orders;
     }
 
-    return orders;
-}
-      public void deny(int orderId) throws SQLException {
+    public void deny(int orderId) throws SQLException {
         con = DBContext.getConnection();
         ps = con.prepareStatement("UPDATE [Order] SET orderStatus=? WHERE orderId=?");
         ps.setString(1, "cancel");
@@ -97,6 +98,33 @@ public class OrderFacade {
         con = DBContext.getConnection();
         ps = con.prepareStatement("UPDATE [Order] SET orderStatus=? WHERE orderId=?");
         ps.setString(1, "success");
+        ps.setInt(2, orderId);
+        ps.executeUpdate();
+        con.close();
+    }
+
+    public void pending(int orderId) throws SQLException {
+        con = DBContext.getConnection();
+        ps = con.prepareStatement("UPDATE [Order] SET orderStatus=? WHERE orderId=?");
+        ps.setString(1, "cancel");
+        ps.setInt(2, orderId);
+        ps.executeUpdate();
+        con.close();
+    }
+
+    public void inprocess(int orderId) throws SQLException {
+        con = DBContext.getConnection();
+        ps = con.prepareStatement("UPDATE [Order] SET orderStatus=? WHERE orderId=?");
+        ps.setString(1, "cancel");
+        ps.setInt(2, orderId);
+        ps.executeUpdate();
+        con.close();
+    }
+
+    public void updateOrderStatus(int orderId, String orderStatus) throws SQLException {
+        con = DBContext.getConnection();
+        ps = con.prepareStatement("UPDATE [Order] SET orderStatus=? WHERE orderId=?");
+        ps.setString(1, orderStatus);
         ps.setInt(2, orderId);
         ps.executeUpdate();
         con.close();

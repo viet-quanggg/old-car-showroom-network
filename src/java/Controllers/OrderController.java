@@ -51,6 +51,7 @@ public class OrderController extends HttpServlet {
         String action = (String) request.getAttribute("action");
         List<PricingPlan> plan = null;
         OrderFacade of = new OrderFacade();
+        //int orderId = Integer.parseInt(request.getParameter("id"));
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("User");
         if (user == null) {
@@ -81,21 +82,59 @@ public class OrderController extends HttpServlet {
                 //in thong bao loi chi tiet cho developer
                 break;
             case "ordermanager":
-                OrderFacade orderFacade = new OrderFacade();
-                List<OrderList> orders = orderFacade.getAllOrders();
+//                OrderFacade orderFacade = new OrderFacade();
+                List<OrderList> orders = of.getAllOrders();
                 request.setAttribute("orders", orders);
-                
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+                String op = request.getParameter("op");
+                if (op == null) {
+                    op = "";
+                }
+                //int orderId = Integer.parseInt(request.getParameter("orderId"));
+                switch (op) {
+//
+//                    default:
+//                        request.setAttribute("controller", "error");
+//                        request.setAttribute("action", "error");
+//                        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+//                }
+                    case "denied":
+                        int orderId1 = Integer.parseInt(request.getParameter("orderId"));
+                        of.updateOrderStatus(orderId1, "cancel");
+                        response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                        break;
+                    case "success":
+                        int orderId2 = Integer.parseInt(request.getParameter("orderId"));
+                        of.updateOrderStatus(orderId2, "success");
+                        response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                        break;
+                    case "pending":
+                        int orderId3 = Integer.parseInt(request.getParameter("orderId"));
+                        of.updateOrderStatus(orderId3, "pending");
+                        response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                        break;
+                    case "inprocess":
+                        int orderId4 = Integer.parseInt(request.getParameter("orderId"));
+                        of.updateOrderStatus(orderId4, "in process");
+                        response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                        break;
+                    default:
+                        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                        break;
+                    
+                }
+               // request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
             case "create_handler":
                 create_handler(request, response);
+                break;
+
             default:
                 //Show error page
                 request.setAttribute("controller", "error");
                 request.setAttribute("action", "error");
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-
         }
+
     }
 
     public void createad(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

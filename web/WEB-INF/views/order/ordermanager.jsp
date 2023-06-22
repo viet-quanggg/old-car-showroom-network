@@ -74,46 +74,52 @@
         <div class="row">
             <div class="col-xl-12">
                 <h1>Order Manager</h1>
-
-                <table class="table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Order Date</th>
-                            <th>Status</th>
-                            <th>Car Price</th>
-                            <th>User ID</th>
-                            <th>User Name</th>
-                            <th>Car Name</th>
-                            <th>Edit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="orderlist" items="${orders}">
+                <form action="<c:url value="/order/ordermanager.do"/>" method="POST">
+                    <table class="table-bordered">
+                        <thead>
                             <tr>
-
-                                
-                                <td>${orderlist.orderId}</td>
-                                <td>${orderlist.createdDate}</td>
-                                <td>${orderlist.orderStatus}</td>
-                                <td>${orderlist.carPrice}</td>
-                                <td>${orderlist.userId}</td>
-                                <td>${orderlist.userName}</td>
-                                <td>${orderlist.carName}</td>
-                                <td>
-                                    <form method="GET">
-                                        <input type="hidden" name="orderId" value="${orderlist.orderId}">
-                                        <input type="hidden" name="op" value="denied">
-                                        <button type="submit" id="op" name="op" value="denide" class="form-btn">DENY</button>
-                                        <input type="hidden" name="op" value="success">
-                                        <button type="submit" id="op" name="op" value="success" class="form-btn">SUCCESS</button>
-                                    </form>
-                                </td>
+                                <th>Order ID</th>
+                                <th>Order Date</th>
+                                <th>Status</th>
+                                <th>Car Price</th>
+                                <th>User ID</th>
+                                <th>User Name</th>
+                                <th>Car Name</th>
+                                <th>Edit</th>
+                                <th>Submit</th>
                             </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+                        </thead>
 
+                        <tbody>
+
+                            <c:forEach var="orderlist" items="${orders}">
+
+                                <tr>
+                                    <td>${orderlist.orderId}</td>
+                                    <td>${orderlist.createdDate}</td>
+                                    <td>${orderlist.orderStatus}</td>
+                                    <td>${orderlist.carPrice}</td>
+                                    <td>${orderlist.userId}</td>
+                                    <td>${orderlist.userName}</td>u
+                                    <td>${orderlist.carName}</td>
+                                    <td>
+                                        <select class="form-select" name="op">
+                                           <option selected>--SELECT--</option>
+                                            <option class="form-btn" value="denied">DENY</option>
+                                            <option class="form-btn" value="pending">Pending</option>
+                                            <option class="form-btn" value="success">Complete</option>
+                                            <option class="form-btn" value="inprocess">In Process</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="hidden" name="orderId" value="${orderlist.orderId}">
+                                        <button class="btn-behance" type="submit">SUBMIT</button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </form>
             </div>
         </div>
     </div>
