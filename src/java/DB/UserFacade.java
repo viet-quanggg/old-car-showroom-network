@@ -235,7 +235,7 @@ public class UserFacade {
             ps = con.prepareStatement(sql);
             ps.setString(1, user.getUserName());
             ps.setString(2, user.getUserEmail());
-
+            ps.setString(3, user.getUserImage());
             // Execute the SQL statement
             int rowsInserted = ps.executeUpdate();
 
