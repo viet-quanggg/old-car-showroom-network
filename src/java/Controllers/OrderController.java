@@ -133,6 +133,26 @@ public class OrderController extends HttpServlet {
             case "create_handler":
                 create_handler(request, response);
                 break;
+            case "denied":
+                int orderId1 = Integer.parseInt(request.getParameter("id"));
+                of.updateOrderStatus(orderId1, "CANCEL");
+                response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                break;
+            case "success":
+                int orderId2 = Integer.parseInt(request.getParameter("id"));
+                of.updateOrderStatus(orderId2, "SUCCESS");
+                response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                break;
+            case "pending":
+                int orderId3 = Integer.parseInt(request.getParameter("id"));
+                of.updateOrderStatus(orderId3, "PENDING");
+                response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                break;
+            case "inprocess":
+                int orderId4 = Integer.parseInt(request.getParameter("id"));
+                of.updateOrderStatus(orderId4, "IN PROCESS");
+                response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                break;
             case "delete":
                 int orderId5 = Integer.parseInt(request.getParameter("id"));
                 of.Delete(orderId5);

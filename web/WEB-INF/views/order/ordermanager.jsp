@@ -101,22 +101,48 @@
                                     <td>${orderlist.carName}</td>
                                     <td>${orderlist.orderStatus}</td>
                                     <td>${orderlist.carPrice}</td>
-                                    <td>${orderlist.createdDate}</td>                             
-                                    <td>
+                                    <td>${orderlist.createdDate}</td> 
+                                    <input type="hidden" name="orderId" value="${orderlist.orderId}">
+<!--                                    <td>
                                         <select class="form-select" name="op">
                                             <option selected>--SELECT--</option>
-                                            <option class="form-check-label" value="denied">DENY</option>
+                                            <option class="form-check-label" value="denied">CANCEL</option>
                                             <option class="form-check-label" value="pending">PENDING</option>
                                             <option class="form-check-label" value="success">COMPLETE</option>
                                             <option class="form-check-label" value="inprocess">IN PROCESS</option>
-                                            <option class="form-check-label" value="delete">DELETE</option>
+                                                                                        <option class="form-check-label" value="delete">DELETE</option>
+
                                         </select>
+                                        <input type="hidden" name="orderId" value="${orderlist.orderId}">
                                     </td>
                                     <td>
                                         <input type="hidden" name="orderId" value="${orderlist.orderId}">
                                         <a class="form-btn" href="<c:url value="/order/delete.do?id=${orderlist.orderId}"/>">DELETE</a>                                      
-                                        <button class="form-btn" type="submit">SUBMIT</button>
-                                    </td>
+                                                                                <button class="form-btn" type="submit">SUBMIT</button>
+                                        <button class="form-btn" href="<c:url value="/order/${op}.do?id=${orderlist.orderId}"/>">SUBMIT</button>>
+
+                                        <script>
+                                            const selectElement = document.querySelector('.form-select');
+                                            const submitLink = document.querySelector('.form-btn');
+
+                                            selectElement.addEventListener('change', (event) => {
+                                                const opValue = event.target.value;
+                                                const currentHref = submitLink.getAttribute('href');
+                                                const newHref = currentHref.replace('${op}', opValue);
+                                                submitLink.setAttribute('href', newHref);
+                                            });
+                                        </script>
+                                    </td>-->
+                                <td>
+                                    <a class="form-btn" href="<c:url value="/order/denied.do?id=${orderlist.orderId}"/>">CANCEL</a>
+                                    <a class="form-btn" href="<c:url value="/order/pending.do?id=${orderlist.orderId}"/>">PENDING</a>
+                                    <a class="form-btn" href="<c:url value="/order/success.do?id=${orderlist.orderId}"/>">COMPLETE</a>
+                                    
+                                </td>
+                                <td>
+                                    <a class="form-btn" href="<c:url value="/order/inprocess.do?id=${orderlist.orderId}"/>">IN PROCESS</a>
+                                    <a class="form-btn" href="<c:url value="/order/delete.do?id=${orderlist.orderId}"/>">DELETE</a>
+                                </td>
                                 </tr>
                             </c:forEach>
                         </tbody>
