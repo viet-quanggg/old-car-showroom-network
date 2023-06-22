@@ -39,21 +39,23 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xl-12">
-                            <ul class="user-banner-menu-list">
-                                <li><a href="dashboard.html">dashboard</a></li>
-                                <li><a href="profile.html">profile</a></li>
-                                <li><a href="create-ads.html">create ads</a></li>
-                                <li><a href="posted-ads.html" class="active">posted ads</a></li>
-                                <li><a href="favorite.html">favorites</a></li>
-                                <li><a href="compare.html">compares</a></li>
-                                <li><a href="review.html">reviews</a></li>
-                                <li><a href="notify.html">notify</a></li>
-                                <li><a href="setting.html">settings</a></li>
-                                <li><a href="login.html">logout</a></li>
-                            </ul>
-                        </div>
+                    <div class="col-xl-12">
+                        <ul class="user-banner-menu-list">
+                            <c:if test="${User.userRole == 2 || User.userRole == 1}">
+                                <li><a href="<c:url value="/admin/dashboard.do"/>">dashboard</a></li>   
+                                </c:if>
+                            <li><a href="<c:url value="/login/profile.do"/>" class="active">profile</a></li>
+                            <li><a href="<c:url value="/login/update_profile.do"/>" class="inactive">update profile</a></li>
+                            <li><a href="<c:url value="/login/createad.do"/>">create car</a></li>
+                            <li><a href="posted-ads.html">posted car</a></li>
+                            <li><a href="<c:url value="/order/ordermanager.do"/>">Order_Manager</a></li>
+                            <li><a href="compare.html">compares</a></li>
+                            <li><a href="review.html">reviews</a></li>
+                            <li><a href="notify.html">notify</a></li>
+                            <li><a href="setting.html">settings</a></li>
+                        </ul>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

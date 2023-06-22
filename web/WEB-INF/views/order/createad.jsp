@@ -52,11 +52,11 @@
                             <c:if test="${User.userRole == 2 || User.userRole == 1}">
                                 <li><a href="<c:url value="/admin/dashboard.do"/>">dashboard</a></li>   
                                 </c:if>
-                            <li><a href="<c:url value="/login/profile.do"/>" class="inactive">profile</a></li>
+                            <li><a href="<c:url value="/login/profile.do"/>" class="active">profile</a></li>
                             <li><a href="<c:url value="/login/update_profile.do"/>" class="inactive">update profile</a></li>
-                            <li><a href="<c:url value="/order/createad.do"/>" class="active">create car</a></li>
+                            <li><a href="<c:url value="/login/createad.do"/>">create car</a></li>
                             <li><a href="posted-ads.html">posted car</a></li>
-                            <li><a href="favorite.html">favorites</a></li>
+                            <li><a href="<c:url value="/order/ordermanager.do"/>">Order_Manager</a></li>
                             <li><a href="compare.html">compares</a></li>
                             <li><a href="review.html">reviews</a></li>
                             <li><a href="notify.html">notify</a></li>

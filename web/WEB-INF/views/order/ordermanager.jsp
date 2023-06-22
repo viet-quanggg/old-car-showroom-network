@@ -75,18 +75,18 @@
             <div class="col-xl-12">
                 <h1>Order Manager</h1>
                 <form action="<c:url value="/order/ordermanager.do"/>" method="POST">
-                    <table class="table-bordered">
+                    <table class="table">
                         <thead>
                             <tr>
-                                <th>Order ID</th>
-                                <th>Order Date</th>
-                                <th>Status</th>
-                                <th>Car Price</th>
                                 <th>User ID</th>
                                 <th>User Name</th>
+                                <th>Order ID</th>
                                 <th>Car Name</th>
+                                <th>Status</th>
+                                <th>Car Price</th>
+                                <th>Order Date</th>
                                 <th>Edit</th>
-                                <th>Submit</th>
+                                <th></th>
                             </tr>
                         </thead>
 
@@ -95,25 +95,27 @@
                             <c:forEach var="orderlist" items="${orders}">
 
                                 <tr>
+                                    <td>${orderlist.userId}</td>
+                                    <td>${orderlist.userName}</td>
                                     <td>${orderlist.orderId}</td>
-                                    <td>${orderlist.createdDate}</td>
+                                    <td>${orderlist.carName}</td>
                                     <td>${orderlist.orderStatus}</td>
                                     <td>${orderlist.carPrice}</td>
-                                    <td>${orderlist.userId}</td>
-                                    <td>${orderlist.userName}</td>u
-                                    <td>${orderlist.carName}</td>
+                                    <td>${orderlist.createdDate}</td>                             
                                     <td>
                                         <select class="form-select" name="op">
-                                           <option selected>--SELECT--</option>
-                                            <option class="form-btn" value="denied">DENY</option>
-                                            <option class="form-btn" value="pending">Pending</option>
-                                            <option class="form-btn" value="success">Complete</option>
-                                            <option class="form-btn" value="inprocess">In Process</option>
+                                            <option selected>--SELECT--</option>
+                                            <option class="form-check-label" value="denied">DENY</option>
+                                            <option class="form-check-label" value="pending">PENDING</option>
+                                            <option class="form-check-label" value="success">COMPLETE</option>
+                                            <option class="form-check-label" value="inprocess">IN PROCESS</option>
+                                            <option class="form-check-label" value="delete">DELETE</option>
                                         </select>
                                     </td>
                                     <td>
                                         <input type="hidden" name="orderId" value="${orderlist.orderId}">
-                                        <button class="btn-behance" type="submit">SUBMIT</button>
+                                        <a class="form-btn" href="<c:url value="/order/delete.do?id=${orderlist.orderId}"/>">DELETE</a>                                      
+                                        <button class="form-btn" type="submit">SUBMIT</button>
                                     </td>
                                 </tr>
                             </c:forEach>

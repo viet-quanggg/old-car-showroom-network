@@ -194,7 +194,7 @@ input::placeholder,textarea::placeholder{
     font-size:16px;
     padding:0 16px;
     border-radius:6px;
-    letter-spacing:.3px;
+    letter-spacing:.2px;
     background-size:12px 10px;
     border:1px solid #e3e3e3;
     text-transform:capitalize;

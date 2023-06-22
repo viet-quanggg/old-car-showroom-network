@@ -85,38 +85,45 @@ public class OrderFacade {
         return orders;
     }
 
-    public void deny(int orderId) throws SQLException {
+//    public void deny(int orderId) throws SQLException {
+//        con = DBContext.getConnection();
+//        ps = con.prepareStatement("UPDATE [Order] SET orderStatus=? WHERE orderId=?");
+//        ps.setString(1, "cancel");
+//        ps.setInt(2, orderId);
+//        ps.executeUpdate();
+//        con.close();
+//    }
+//
+//    public void success(int orderId) throws SQLException {
+//        con = DBContext.getConnection();
+//        ps = con.prepareStatement("UPDATE [Order] SET orderStatus=? WHERE orderId=?");
+//        ps.setString(1, "success");
+//        ps.setInt(2, orderId);
+//        ps.executeUpdate();
+//        con.close();
+//    }
+//
+//    public void pending(int orderId) throws SQLException {
+//        con = DBContext.getConnection();
+//        ps = con.prepareStatement("UPDATE [Order] SET orderStatus=? WHERE orderId=?");
+//        ps.setString(1, "cancel");
+//        ps.setInt(2, orderId);
+//        ps.executeUpdate();
+//        con.close();
+//    }
+//
+//    public void inprocess(int orderId) throws SQLException {
+//        con = DBContext.getConnection();
+//        ps = con.prepareStatement("UPDATE [Order] SET orderStatus=? WHERE orderId=?");
+//        ps.setString(1, "cancel");
+//        ps.setInt(2, orderId);
+//        ps.executeUpdate();
+//        con.close();
+//    }
+    public void Delete(int orderId) throws SQLException{
         con = DBContext.getConnection();
-        ps = con.prepareStatement("UPDATE [Order] SET orderStatus=? WHERE orderId=?");
-        ps.setString(1, "cancel");
-        ps.setInt(2, orderId);
-        ps.executeUpdate();
-        con.close();
-    }
-
-    public void success(int orderId) throws SQLException {
-        con = DBContext.getConnection();
-        ps = con.prepareStatement("UPDATE [Order] SET orderStatus=? WHERE orderId=?");
-        ps.setString(1, "success");
-        ps.setInt(2, orderId);
-        ps.executeUpdate();
-        con.close();
-    }
-
-    public void pending(int orderId) throws SQLException {
-        con = DBContext.getConnection();
-        ps = con.prepareStatement("UPDATE [Order] SET orderStatus=? WHERE orderId=?");
-        ps.setString(1, "cancel");
-        ps.setInt(2, orderId);
-        ps.executeUpdate();
-        con.close();
-    }
-
-    public void inprocess(int orderId) throws SQLException {
-        con = DBContext.getConnection();
-        ps = con.prepareStatement("UPDATE [Order] SET orderStatus=? WHERE orderId=?");
-        ps.setString(1, "cancel");
-        ps.setInt(2, orderId);
+        ps = con.prepareStatement("DELETE FROM [Order] WHERE orderId=?");
+        ps.setInt(1, orderId);
         ps.executeUpdate();
         con.close();
     }
