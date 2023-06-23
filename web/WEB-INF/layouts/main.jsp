@@ -112,16 +112,14 @@
                     </div>
                     <div class="sidebar-group">
                         <h5 class="sidebar-title">user action</h5>
-                        <ul class="nav-list">
+                        <ul class="nav-list">                            <c:if test="${User.userRole == 2||User.userRole ==1}">
                             <li class="nav-item"><a href="<c:url value="/order/ordermanager.do"/>" class="nav-link"><i
-                                        class="material-icons">favorite</i><span class="nav-text">Order_manager</span><span
-                                        class="nav-count">0</span></a></li>
+                                        class="material-icons">favorite</i><span class="nav-text">Order Manager</span></a></li></c:if>
                                         <li class="nav-item"><a href="${pageContext.request.contextPath}/addToCompare?id=${item.carID}" class="nav-link"><i
-                                        class="material-icons">compare</i><span class="nav-text">compare</span><span
-                                        class="nav-count">0</span></a></li>
+                                        class="material-icons">compare</i><span class="nav-text">compare</span></a></li>
                             <li class="nav-item"><a href="notify.html" class="nav-link"><i
                                         class="material-icons">notifications</i><span
-                                        class="nav-text">notification</span><span class="nav-count">9+</span></a></li>
+                                        class="nav-text">notification</span></a></li>
                         </ul>
                     </div>
                     <div class="sidebar-group">
@@ -225,7 +223,7 @@
                             <li class="nav-item"><a href="compare.html" class="nav-link"><i
                                         class="material-icons">compare</i><span class="nav-text">compares</span></a></li>
                             <li class="nav-item"><a href="<c:url value="/views/login/login.do"/>" class="nav-link"><i
-                                        class="material-icons">lock</i><span class="nav-text">logout</span></a></li> 
+                                        class="material-icons">logout</i><span class="nav-text">logout</span></a></li> 
                         </ul>
                     </div>
                 </nav>

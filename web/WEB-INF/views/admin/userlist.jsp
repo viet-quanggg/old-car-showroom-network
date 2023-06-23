@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <section class="section-gap-75">
     <div style="background: url(${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/banner/single/02.jpg) no-repeat center / cover;">
         <div class="user-banner">
@@ -43,32 +44,36 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <ul class="user-banner-menu-list">
-                            <c:if test="${User.userRole == 2 || User.userRole == 1}">
-                                <li><a href="<c:url value="/layouts/dashboard.do"/>">dashboard</a></li>   
+                            <c:if test="${User.userRole == 2}">
+                                <li><a href="<c:url value="/admin/dashboard.do"/>">dashboard</a></li>   
                                 </c:if>
-                            <li><a href="<c:url value="/login/profile.do"/>" class="inactive">profile</a></li>
-                            <li><a href="<c:url value="/login/update_profile.do"/>" class="inactive">update profile</a></li>
-                            <li><a href="<c:url value="/login/createad.do"/>">create car</a></li>
-                            <li><a href="posted-ads.html">posted car</a></li>
-                            <li><c:if test="${User.userRole == 1}"><a href="<c:url value="/admin/userlist.do"/>" class="active">User list</a></c:if> <c:if test="${User.userRole == 0}"><a href="<c:url value="/order/favorite.do"/>"class="active">favorites</a></c:if></li>
-                                <li><a href="compare.html">compares</a></li>
-                                <li><a href="review.html">reviews</a></li>
-                                <li><a href="notify.html">notify</a></li>
-                                <li><a href="setting.html">settings</a></li>
-                            </ul>
-                        </div>
+                            <li><a href="<c:url value="/login/profile.do"/>">profile</a></li>
+                            <li><a href="<c:url value="/login/update_profile.do"/>" class="">update profile</a></li>
+                            <li><a href="<c:url value="/order/createad.do"/>">create car</a></li>
+                            <li><a href="<c:url value="/order/postedad.do"/>">posted car</a></li>
+                                <c:if test="${User.userRole == 2 || User.userRole == 1}">
+                                <li><a href="<c:url value="/order/ordermanager.do"/>">Order Manager</a></li>
+                                </c:if>
+                                <c:if test="${ User.userRole == 1}">
+                                <li><a href="<c:url value="/admin/userlist.do"/>" class="active">User List</a></li>
+                                </c:if>
+                            <li><a href="<c:url value="/order/favorite.do"/>">favorite</a></li>
+                            <li><a href="<c:url value="/cars/compare.do"/>">compares</a></li>
+                            <li><a href="setting.html">settings</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="mc-breadcrumb">
-        <div class="container">
-            <div class="mc-breadcrumb-group">
-                <h2 class="mc-breadcrumb-title">User List</h2>
-                <ul class="mc-breadcrumb-list">
-                        <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">home</a></li>
+<section class="mc-breadcrumb">
+    <div class="container">
+        <div class="mc-breadcrumb-group">
+            <h2 class="mc-breadcrumb-title">User List</h2>
+            <ul class="mc-breadcrumb-list">
+                <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">home</a></li>
                 <li class="mc-breadcrumb-item">User List  </li>
             </ul>
         </div>
@@ -128,13 +133,17 @@
                                     <td>${userli.userAddress}</td>
                                     <td>${userli.timeCreated}</td>
                                     <td>
-                                        <button> <a href="<c:url value="/admin/edit.do?userID=${userli.userID}"/>">Edit</a></button>
-                                        <button onclick="document.getElementById('modal').style.display = 'block'" > Delete</button>
+                                       <button> <a href="<c:url value="/admin/edit.do?userID=${userli.userID}"/>">Edit</a></button>
+                                        <button onclick="document.getElementById('modal').style.display = 'block'" style="color:royalblue">Delete</button>
                                         <div id="modal" class="modal">
                                             <div class="modal-content">
-                                                Are you sure you want to delete
-                                                <a href="<c:url value="/admin/delete.do?userID=${userli.userID}"/>">Yes</a>
-                                               <a href="<c:url value="/admin/userlist.do"/>">No</a>
+                                                <div style="margin-right: 20px">
+                                                Are you sure you want to delete?
+                                                <div class="col">
+                                                    <a class="btn btn-outline-danger btn-sm" href="<c:url value="/admin/delete.do?userID=${userli.userID}"/>">Yes</a>
+                                                    <a class="btn btn-outline-dark-blue btn-sm"href="<c:url value="/admin/userlist.do"/>">No</a>
+                                                </div>
+                                                </div
                                             </div>
                                         </div>
                                     </td>
