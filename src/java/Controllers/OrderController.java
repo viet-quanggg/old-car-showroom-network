@@ -9,15 +9,19 @@ import DB.PostFacade;
 import DB.PostFacade;
 import DB.UserFacade;
 import Models.Brand;
+import Models.Car;
 import Models.Color;
 import Models.Order;
 import Models.OrderList;
 import Models.PricingPlan;
 import Models.User;
+import Models.wishlist.Item;
+import Models.wishlist.Wishlist;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -46,7 +50,7 @@ public class OrderController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        
+
         response.setContentType("text/html;charset=UTF-8");
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
@@ -158,6 +162,20 @@ public class OrderController extends HttpServlet {
                 of.Delete(orderId5);
                 response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
                 break;
+            case "favorite": { //get duplicate
+                try {//try it
+                    getWishList(request, response);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+            break;
+            case "removeWish":
+                removeWish(request, response);
+                response.sendRedirect(request.getContextPath() + "/order/favorite.do");
+
+                break;
             default:
                 //Show error page
                 request.setAttribute("controller", "error");
@@ -165,6 +183,70 @@ public class OrderController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
         }
 
+    }
+
+    private void removeWish(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        Cookie arr[] = request.getCookies();
+        String txt = "";
+        if (arr != null) {
+            for (Cookie item : arr) {
+                if (item.getName().equals("wish")) {
+                    txt = txt + item.getValue();
+                    item.setMaxAge(0);
+                    response.addCookie(item);
+                }
+            }
+        }
+
+        CarFacade cf = new CarFacade();
+        List<Car> data = cf.getCar();
+
+        Wishlist wish = new Wishlist(txt, data);
+        String id_raw = request.getParameter("id");
+        int id = 0;
+        try {
+            id = Integer.parseInt(id_raw);
+
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
+
+        wish.removeItem(id);
+
+        List<Item> items = wish.getItems();
+        txt = "";
+
+        if (!items.isEmpty()) {
+            txt = items.get(0).getCar().getCarID() + "";
+            for (int i = 1; i < items.size(); i++) {
+                txt += "-" + items.get(i).getCar().getCarID();
+            }
+        }
+
+        Cookie c = new Cookie("wish", txt);
+        c.setPath(request.getContextPath());
+        c.setMaxAge(24 * 60 * 60);
+        response.addCookie(c);
+
+    }
+
+    private void getWishList(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        Cookie arr[] = request.getCookies();
+        String txt = "";
+        if (arr != null) {
+            for (Cookie item : arr) {
+                if (item.getName().equals("wish")) {
+                    txt = txt + item.getValue();
+                }
+            }
+        }
+
+        CarFacade cf = new CarFacade();
+        List<Car> data = cf.getCar();
+
+        Wishlist wish = new Wishlist(txt, data);
+
+        request.setAttribute("data", wish);
     }
 
     public void createad(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -125,11 +125,11 @@
                         <div class="product-grid-card">
                             <div class="product-grid-image"><img style="max-height: 200px; min-height: 200px"src="${pageContext.request.contextPath}${item.image.size() == 0 ? '' : item.image.get(0).url}" alt="feature">
                                 <div class="product-grid-badge"><span class="badge new">new</span></div>
-                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
-                                </div>
+<!--                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
+                                </div>-->
                                 <div class="product-grid-overlay">
                                     <div class="product-grid-vendor"><i class="material-icons">person</i><a
-                                            href="profile.html">by autoland</a></div>
+                                            href="profile.html">by FPTU</a></div>
                                     <div class="product-grid-rating"><i class="material-icons">star</i><a
                                             href="review.html">28 review</a></div>
                                 </div>
@@ -144,7 +144,7 @@
                                 <div class="product-grid-meta">
                                     <h4><a href="inventory-single.html">${item.carName}</a></h4>
                                     <ul>
-                                        <li>delpara, narayanganj</li>
+                                        <li>unknown</li>
                                         <li>${item.createDate}</li>
                                     </ul>
                                 </div>
@@ -155,9 +155,12 @@
                                 </ul>
                                 <div class="product-grid-btn"><a href="<c:url value="/cars/carsingle.do?carId=${item.carID}"/>"><i
                                             class="material-icons">visibility</i><span>details</span></a>
-                                    <a href="/OCSN/addToWish?id=${item.carID}" >
+                                    <a href="${pageContext.request.contextPath}/addToWish?id=${item.carID}" >
                                         <i class="material-icons">favorite</i><span>favorite</span>
                                     </a>
+                                    <a href="${pageContext.request.contextPath}/addToCompare?id=${item.carID}" >
+                                        <i class="material-icons">compare</i><span>compare</span>
+                                    </a> 
                                 </div>
                             </div>
                         </div>
@@ -239,8 +242,8 @@
                         <div class="product-grid-card">
                             <div class="product-grid-image"><img style="max-height:200px; min-height: 200px" src="${pageContext.request.contextPath}${item.image.size() == 0 ? '' : item.image.get(0).url}" alt="feature">
                                 <div class="product-grid-badge"><span class="badge new">new</span></div>
-<!--                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
-                                </div>-->
+                                <!--                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
+                                                                </div>-->
                                 <div class="product-grid-overlay">
                                     <div class="product-grid-vendor"><i class="material-icons">person</i><a
                                             href="profile.html">by autoland</a></div>
@@ -269,8 +272,12 @@
                                 </ul>
                                 <div class="product-grid-btn"><a href="<c:url value="/cars/carsingle.do?carId=${item.carID}"/>"><i
                                             class="material-icons">visibility</i><span>details</span></a>
-                                    <a href="/OCSN/addToWish?id=${item.carID}" class="nav-link"><i
-                                        class="material-icons">favorite</i><span>favorite</span></a>  
+                                    <a href="${pageContext.request.contextPath}/addToWish?id=${item.carID}" >
+                                        <i class="material-icons">favorite</i><span>favorite</span>
+                                    </a>
+                                    <a href="${pageContext.request.contextPath}/addToCompare?id=${item.carID}" >
+                                        <i class="material-icons">compare</i><span>compare</span>
+                                    </a>  
                                 </div>
                             </div>
                         </div>

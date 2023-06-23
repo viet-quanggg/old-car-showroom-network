@@ -21,6 +21,7 @@
             <h2 class="mc-breadcrumb-title">Wishlist</h2>
             <ul class="mc-breadcrumb-list">
                 <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">home</a></li>
+                <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/cars/carlist.do"/>">list cars</a></li>
                 <li class="mc-breadcrumb-item">Wishlist  </li>
             </ul>
         </div>
@@ -67,8 +68,12 @@
                                 <a href="#!" title="Cart" class="venobox" data-autoplay="true" data-vbtype="cart">
                                     <i class="material-icons">storefront</i>
                                 </a>
+                                <a href="${pageContext.request.contextPath}/addToCompare?id=${item.car.carID}" >
+                                                <i class="material-icons">compare</i>
+<!--                                                <span>compare</span>-- not use>-->
+                                </a>     
                             </div>
-                            <a href="#" class="favorite-close"><i class="material-icons">close</i></a>
+                            <a href="${pageContext.request.contextPath}/order/removeWish.do?id=${item.car.carID}" class="favorite-close"><i class="material-icons">close</i></a>
                         </li>
                     </c:forEach>
 

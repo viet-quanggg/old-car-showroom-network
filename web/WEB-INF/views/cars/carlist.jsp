@@ -75,10 +75,13 @@
                                         <div class="product-list-action">
                                             <a href="<c:url value="/cars/carsingle.do?carId=${item.carID}"/>"><i
                                                     class="material-icons">visibility</i><span>details</span></a>
-                                            <a href="<c:url value='/addToWish?id=${item.carID}' />">
+                                            <a href="${pageContext.request.contextPath}/addToWish?id=${item.carID}" >
                                                 <i class="material-icons">favorite</i><span>favorite</span>
                                             </a>
-                                            </a>
+                                            <a href="${pageContext.request.contextPath}/addToCompare?id=${item.carID}" >
+                                                <i class="material-icons">compare</i><span>compare</span>
+                                            </a> 
+                                                
                                         </div>
                                     </div>
                                 </div>

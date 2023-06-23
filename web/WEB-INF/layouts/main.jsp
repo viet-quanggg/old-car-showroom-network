@@ -60,7 +60,8 @@
                             <option value="4">camero</option>
                             <option value="5">elantra</option>
                         </select><button type="submit">search</button></div>
-                </form></div>
+                </form>
+            </div>
                                                          
             <div class="header-responsive">
                 <div class="header-user"> <img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png"
@@ -115,7 +116,7 @@
                             <li class="nav-item"><a href="<c:url value="/order/ordermanager.do"/>" class="nav-link"><i
                                         class="material-icons">favorite</i><span class="nav-text">Order_manager</span><span
                                         class="nav-count">0</span></a></li>
-                            <li class="nav-item"><a href="compare.html" class="nav-link"><i
+                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/addToCompare?id=${item.carID}" class="nav-link"><i
                                         class="material-icons">compare</i><span class="nav-text">compare</span><span
                                         class="nav-count">0</span></a></li>
                             <li class="nav-item"><a href="notify.html" class="nav-link"><i
@@ -219,7 +220,7 @@
                                         class="material-icons">note_add</i><span class="nav-text">create ads</span></a></li>
                             <li class="nav-item"><a href="posted-ads.html" class="nav-link"><i
                                         class="material-icons">apps</i><span class="nav-text">posted ads</span></a></li>
-                            <li class="nav-item"><a href="favorite.html" class="nav-link"><i
+                            <li class="nav-item"><a href="${pageContext.request.contextPath}/addToWish?id=${item.carID}" class="nav-link"><i
                                         class="material-icons">favorite</i><span class="nav-text">favorites</span></a></li>
                             <li class="nav-item"><a href="compare.html" class="nav-link"><i
                                         class="material-icons">compare</i><span class="nav-text">compares</span></a></li>

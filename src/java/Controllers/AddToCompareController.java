@@ -7,6 +7,7 @@ package Controllers;
 
 import DB.CarFacade;
 import Models.Car;
+import Models.Compare.Compare;
 import Models.wishlist.Wishlist;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,34 +25,12 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author ADMIN
+ * @author phanh
  */
-@WebServlet(name="AddToWishList", urlPatterns={"/addToWish"})
-public class AddToWishList extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddToWishList</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AddToWishList at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    } 
+@WebServlet(name="AddToCompareController", urlPatterns={"/addToCompare"})
+public class AddToCompareController extends HttpServlet {
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -68,7 +47,7 @@ public class AddToWishList extends HttpServlet {
         String txt = "";
         if (arr != null) {
             for (Cookie item : arr) {
-                if (item.getName().equals("wish")) {
+                if (item.getName().equals("compare")) {
                     txt += item.getValue();
                     item.setMaxAge(0);
                     response.addCookie(item);
@@ -78,30 +57,34 @@ public class AddToWishList extends HttpServlet {
 
         CarFacade cf = new CarFacade();
         List<Car> data = new ArrayList<>();
-        
         try {
             data = cf.getCar();
         } catch (SQLException ex) {
-            Logger.getLogger(AddToWishList.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddToWishListController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
 
         String xId = request.getParameter("id");
 
-        Wishlist wish = new Wishlist(txt, data);
+        Compare compare = new Compare(txt, data);
 
-        if (txt.isEmpty()) {
-            txt += xId + "";
-        } else {
-            txt += "-" + xId;
+        boolean check = compare.checkExist(xId);
+
+        if (!check) {
+            if (txt.isEmpty()) {
+                txt += xId + "";
+            } else {
+                txt += "-" + xId;
+            }
         }
 
-        Cookie c = new Cookie("wish", txt);
+        Cookie c = new Cookie("compare", txt);
+        c.setPath(request.getContextPath());
         c.setMaxAge(24 * 60 * 60);
         response.addCookie(c);
-        
-        request.setAttribute("data", wish);
-        request.getRequestDispatcher("/order/favorite.do").forward(request, response);
+
+        request.setAttribute("data", compare);
+
+        response.sendRedirect(request.getContextPath() +"/cars/compare.do");
     } 
 
     /** 
@@ -114,7 +97,7 @@ public class AddToWishList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+       
     }
 
     /** 
