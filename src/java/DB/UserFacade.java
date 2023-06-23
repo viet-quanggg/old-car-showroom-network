@@ -126,28 +126,28 @@ public class UserFacade {
         return user;
     }
 
-    public ArrayList<User> userList() throws SQLException {
-        User user = null;
-        ArrayList<User> list = new ArrayList<>();
-        Connection con = DBContext.getConnection();
-        PreparedStatement stm = con.prepareStatement("select * from [User]");
-        ResultSet rs = stm.executeQuery();
-        if (rs.next()) {
-            user = new User();
-            user.setUserID(rs.getInt("userId"));
-            user.setUserEmail(rs.getString("userEmail"));
-            user.setUserPass(rs.getString("userPass"));
-            user.setUserName(rs.getString("userName"));
-            user.setUserPhone(rs.getString("userPhone"));
-            user.setUserAddress(rs.getString("userAddress"));
-            user.setTimeCreated(rs.getDate("timeCreated"));
-            user.setUserRole(rs.getInt("userRole"));
-            user.setUserImage(rs.getString("userImage"));
-            list.add(user);
-        }
-        con.close();
-        return list;
-    }
+//    public ArrayList<User> userList() throws SQLException {
+//        User user = null;
+//        ArrayList<User> list = new ArrayList<>();
+//        Connection con = DBContext.getConnection();
+//        PreparedStatement stm = con.prepareStatement("select * from [User]");
+//        ResultSet rs = stm.executeQuery();
+//        if (rs.next()) {
+//            user = new User();
+//            user.setUserID(rs.getInt("userId"));
+//            user.setUserEmail(rs.getString("userEmail"));
+//            user.setUserPass(rs.getString("userPass"));
+//            user.setUserName(rs.getString("userName"));
+//            user.setUserPhone(rs.getString("userPhone"));
+//            user.setUserAddress(rs.getString("userAddress"));
+//            user.setTimeCreated(rs.getDate("timeCreated"));
+//            user.setUserRole(rs.getInt("userRole"));
+//            user.setUserImage(rs.getString("userImage"));
+//            list.add(user);
+//        }
+//        con.close();
+//        return list;
+//    }
     
     public ArrayList<User> userListId(String id) throws SQLException {
         User user = null;
@@ -172,7 +172,50 @@ public class UserFacade {
         con.close();
         return list;
     }
-
+    
+    public User getUser(int userID) throws SQLException {
+        User user = null;
+        Connection con = DBContext.getConnection();
+        PreparedStatement stm = con.prepareStatement("select * from [User] where userID= ?");
+        stm.setInt(1, userID);
+        ResultSet rs = stm.executeQuery();
+        if (rs.next()) {
+            user = new User();
+            user.setUserID(rs.getInt("userId"));
+            user.setUserEmail(rs.getString("userEmail"));
+            user.setUserPass(rs.getString("userPass"));
+            user.setUserName(rs.getString("userName"));
+            user.setUserPhone(rs.getString("userPhone"));
+            user.setUserAddress(rs.getString("userAddress"));
+            user.setTimeCreated(rs.getDate("timeCreated"));
+            user.setUserRole(rs.getInt("userRole"));
+            user.setUserImage(rs.getString("userImage"));
+        }
+        con.close();
+        return user;
+    }
+    public ArrayList<User> userList() throws SQLException {
+        User user = null;
+        ArrayList<User> list = new ArrayList<>();
+        Connection con = DBContext.getConnection();
+        PreparedStatement stm = con.prepareStatement("select * from [User] where userRole=0");
+        ResultSet rs = stm.executeQuery();
+        while (rs.next()) {
+            user = new User();
+            user.setUserID(rs.getInt("userId"));
+            user.setUserEmail(rs.getString("userEmail"));
+            user.setUserPass(rs.getString("userPass"));
+            user.setUserName(rs.getString("userName"));
+            user.setUserPhone(rs.getString("userPhone"));
+            user.setUserAddress(rs.getString("userAddress"));
+            user.setTimeCreated(rs.getDate("timeCreated"));
+            user.setUserRole(rs.getInt("userRole"));
+            user.setUserImage(rs.getString("userImage"));
+            list.add(user);
+        }
+        con.close();
+        return list;
+    }
     public User checkEmail(String userEmail) throws SQLException {
         User user = null;
         Connection con = DBContext.getConnection();

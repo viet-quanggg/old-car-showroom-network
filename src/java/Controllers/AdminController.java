@@ -46,8 +46,71 @@ public class AdminController extends HttpServlet {
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
         AdminPageFacade apf = new AdminPageFacade();
+        UserFacade uf = new UserFacade();
         User user = null;
         switch (action) {
+            case "userlist":
+                ArrayList<User> userl = uf.userList();
+                for (int i = 0; i < userl.size(); i++) {
+                    if (userl.get(i).getUserEmail().contains("?")) {
+                        userl.remove(i);
+                        i--;
+                    }
+                }
+                request.setAttribute("UserL", userl);
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+                break;
+            case "edit":
+                String xID = request.getParameter("userID");
+
+                int id = 0;
+                try {
+                    id = Integer.parseInt(xID);
+                } catch (NumberFormatException e) {
+                    System.err.println("Parse User ID !" + e);
+                }
+
+                user = uf.getUser(id);
+                request.setAttribute("userData", user);
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                break;
+            case "edit_handler":
+                int userid = Integer.parseInt(request.getParameter("userId"));
+                String username = request.getParameter("userName");
+                String userphone = request.getParameter("userPhone");
+                String useraddress = request.getParameter("userAddress");
+                //                }
+                if (username.isEmpty()) {
+                    request.setAttribute("errorN", "please fill in your User name!");
+                }
+                if (userphone.isEmpty()) {
+                    request.setAttribute("errorPh", "please fill in your phone!");
+                }
+                if (useraddress.isEmpty()) {
+                    request.setAttribute("errorA", "please fill in your address!");
+                }
+
+                if (username.isEmpty() || userphone.isEmpty() || useraddress.isEmpty()) {
+                    request.getRequestDispatcher("/admin/edit.do?userID=" + userid).forward(request, response);
+                } else {
+                    user = uf.getUser(userid);
+                    user.setUserName(username);
+                    user.setUserPhone(userphone);
+                    user.setUserAddress(useraddress);
+                    uf.update(user);
+                    request.setAttribute("messageEU", "The update is a success.");
+                    request.getRequestDispatcher("/admin/userlist.do").forward(request, response);
+
+                }
+                break;
+
+             case "delete":
+                int deleteid = Integer.parseInt(request.getParameter("userID"));
+                user = uf.getUser(deleteid);
+                user.setUserEmail(user.getUserEmail().replace("@", "?"));
+                uf.update(user);
+                request.getRequestDispatcher("/admin/userlist.do").forward(request, response);
+                break;
             case "dashboard":
                 try {
                 //count user in the system
@@ -172,7 +235,7 @@ public class AdminController extends HttpServlet {
             case "delete_handler":
                 try {
                 String userId = request.getParameter("id");
-                UserFacade uf = new UserFacade();
+//                UserFacade uf = new UserFacade();
                 uf.deleteUser(userId);
                 response.sendRedirect(request.getContextPath() + "/admin/create.do");
                 break;
@@ -184,7 +247,7 @@ public class AdminController extends HttpServlet {
             case "updatestaff":
                 try {
                 String userId = request.getParameter("uid");
-                UserFacade uf = new UserFacade();
+//                UserFacade uf = new UserFacade();
                 List<User> uUser = uf.userListId(userId);
                 request.setAttribute("uUser", uUser);
                 request.getRequestDispatcher("/WEB-INF/views/admin/updatestaff.jsp").forward(request, response); //Hien trang thong bao loi
