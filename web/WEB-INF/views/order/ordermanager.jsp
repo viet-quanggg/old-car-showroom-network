@@ -74,80 +74,104 @@
         <div class="row">
             <div class="col-xl-12">
                 <h1>Order Manager</h1>
-                <form action="<c:url value="/order/ordermanager.do"/>" method="POST">
-                    <table class="table">
-                        <thead>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>User Name</th>
+                            <th>Order ID</th>
+                            <th>Car Name</th>
+                            <th>Status</th>
+                            <th>Car Price</th>
+                            <th>Order Date</th>
+                            <th>Edit</th>
+                            <th>Submit</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <c:forEach var="orderlist" items="${orders}">
+
                             <tr>
-                                <th>User ID</th>
-                                <th>User Name</th>
-                                <th>Order ID</th>
-                                <th>Car Name</th>
-                                <th>Status</th>
-                                <th>Car Price</th>
-                                <th>Order Date</th>
-                                <th>Edit</th>
-                                <th></th>
-                            </tr>
-                        </thead>
+                        <form action="<c:url value="/order/ordermanager.do"/>" method="GET">
+                            <input type="hidden" name="orderId" id="orderId" value="${orderlist.orderId}">
+                            <td>${orderlist.userId}</td>
+                            <td>${orderlist.userName}</td>
+                            <td>${orderlist.orderId}</td>
+                            <td>${orderlist.carName}</td>
+                            <td>${orderlist.orderStatus}</td>
+                            <td>${orderlist.carPrice}</td>
+                            <td>${orderlist.createdDate}</td> 
 
-                        <tbody>
+                            <td >
+                                <input type="hidden" name="orderId" value="${orderlist.orderId}">
+                                <select class="form-select" name="op">
+                                    <option selected>Select</option>
+                                    <option class="form-check-label" value="denied" >Cancelled</option>
+                                    <option class="form-check-label" value="pending">Pending</option>
+                                    <option class="form-check-label" value="success">Completed</option>
+                                    <option class="form-check-label" value="inprocess">Processing</option>
+                                    <!--                                    <option class="form-check-label" value="delete">DELETE</option>-->
 
-                            <c:forEach var="orderlist" items="${orders}">
+                                </select>
+                                <input type="hidden" name="orderId" value="${orderlist.orderId}">
+                            </td>
+                            <td >
+                                <input type="hidden" name="orderId" id="orderId" value="${orderlist.orderId}">
+                                <div class="row">
+                                    <div class="col">
+                                        <button class="form-btn" type="submit"><span>SUBMIT</span></button>
+                                    </div>
+                                    <div class="col">
+                                        <a class="form-btn" href="<c:url value="/order/delete.do?id=${orderlist.orderId}"/>"><span>DELETE</span></a>
+                                    </div>
+                                </div>
+                                <!--                                <button A href="<c:url value="/order/${op}.do?id=${orderlist.orderId}"/>">SUBMIT</button>-->
 
-                                <tr>
-                                    <td>${orderlist.userId}</td>
-                                    <td>${orderlist.userName}</td>
-                                    <td>${orderlist.orderId}</td>
-                                    <td>${orderlist.carName}</td>
-                                    <td>${orderlist.orderStatus}</td>
-                                    <td>${orderlist.carPrice}</td>
-                                    <td>${orderlist.createdDate}</td> 
-                                    <input type="hidden" name="orderId" value="${orderlist.orderId}">
-<!--                                    <td>
-                                        <select class="form-select" name="op">
-                                            <option selected>--SELECT--</option>
-                                            <option class="form-check-label" value="denied">CANCEL</option>
-                                            <option class="form-check-label" value="pending">PENDING</option>
-                                            <option class="form-check-label" value="success">COMPLETE</option>
-                                            <option class="form-check-label" value="inprocess">IN PROCESS</option>
-                                                                                        <option class="form-check-label" value="delete">DELETE</option>
+                                <script>
+                                    const selectElement = document.querySelector('.form-select');
+                                    const submitLink = document.querySelector('.form-btn');
 
-                                        </select>
-                                        <input type="hidden" name="orderId" value="${orderlist.orderId}">
-                                    </td>
-                                    <td>
-                                        <input type="hidden" name="orderId" value="${orderlist.orderId}">
-                                        <a class="form-btn" href="<c:url value="/order/delete.do?id=${orderlist.orderId}"/>">DELETE</a>                                      
-                                                                                <button class="form-btn" type="submit">SUBMIT</button>
-                                        <button class="form-btn" href="<c:url value="/order/${op}.do?id=${orderlist.orderId}"/>">SUBMIT</button>>
+                                    selectElement.addEventListener('change', (event) => {
+                                        const opValue = event.target.value;
+                                        const currentHref = submitLink.getAttribute('href');
+                                        const newHref = currentHref.replace('${op}', opValue);
+                                        submitLink.setAttribute('href', newHref);
+                                    });
+                                </script>
+                            </td>
+                            <!--                            <td class="product-list-action">
+                                                            <a  href="<c:url value="/order/denied.do?id=${orderlist.orderId}"/>"><span>CANCEL</span></a>
+                                                            <a href="<c:url value="/order/pending.do?id=${orderlist.orderId}"/>"><span>PENDING</span></a>
+                                                            <a href="<c:url value="/order/success.do?id=${orderlist.orderId}"/>"><span>COMPLETE</span></a>
+                            
+                                                        </td>
+                                                        <td class="product-list-action">
+                                                            <a  href="<c:url value="/order/inprocess.do?id=${orderlist.orderId}"/>"><span>IN PROCESS</span></a>
+                                                            <a  href="<c:url value="/order/delete.do?id=${orderlist.orderId}"/>"><span>CANCEL</span></a>
+                                                        </td>-->
+                            <!--                            <td>
+                                                            <form action="<c:url value="/order/ordermanager.do"/>" method="POST">
+                                                                <select class="form-select" name="op_${order.orderId}">
+                                                                    <option value="denied" ${order.orderStatus == 'denied' ? 'selected' : ''}>CANCEL</option>
+                                                                    <option value="pending" ${order.orderStatus == 'pending' ? 'selected' : ''}>PENDING</option>
+                                                                    <option value="success" ${order.orderStatus == 'success' ? 'selected' : ''}>COMPLETE</option>
+                                                                    <option value="inprocess" ${order.orderStatus == 'inprocess' ? 'selected' : ''}>IN PROCESS</option>
+                                                                    <option value="delete">DELETE</option>
+                                                                </select>
+                                                                <input type="hidden" name="orderId" value="${order.orderId}">
+                                                                <button class="form-btn" type="submit">SUBMIT</button>
+                                                            </form>
+                                                        </td>-->
+                        </form>
+                        </tr>
 
-                                        <script>
-                                            const selectElement = document.querySelector('.form-select');
-                                            const submitLink = document.querySelector('.form-btn');
+                    </c:forEach>
+                    </tbody>
+                </table>
 
-                                            selectElement.addEventListener('change', (event) => {
-                                                const opValue = event.target.value;
-                                                const currentHref = submitLink.getAttribute('href');
-                                                const newHref = currentHref.replace('${op}', opValue);
-                                                submitLink.setAttribute('href', newHref);
-                                            });
-                                        </script>
-                                    </td>-->
-                                <td>
-                                    <a class="form-btn" href="<c:url value="/order/denied.do?id=${orderlist.orderId}"/>">CANCEL</a>
-                                    <a class="form-btn" href="<c:url value="/order/pending.do?id=${orderlist.orderId}"/>">PENDING</a>
-                                    <a class="form-btn" href="<c:url value="/order/success.do?id=${orderlist.orderId}"/>">COMPLETE</a>
-                                    
-                                </td>
-                                <td>
-                                    <a class="form-btn" href="<c:url value="/order/inprocess.do?id=${orderlist.orderId}"/>">IN PROCESS</a>
-                                    <a class="form-btn" href="<c:url value="/order/delete.do?id=${orderlist.orderId}"/>">DELETE</a>
-                                </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </form>
             </div>
         </div>
     </div>
