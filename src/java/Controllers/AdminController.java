@@ -167,6 +167,7 @@ public class AdminController extends HttpServlet {
             case "register_handler":
                 register_handler(request, response);
 
+                
                 break;
             case "delete_handler":
                 try {
