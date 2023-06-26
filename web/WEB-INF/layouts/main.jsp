@@ -73,8 +73,8 @@
                             <a href="<c:url value="/login/register.do"/>" style="color:whitesmoke;display: inline-block" alt="user"><span>    Register </span></a>
                         </c:if>
                         <c:if test="${User!=null}">
-                            <a href="<c:url value="/login/profile.do"/>" style="color:whitesmoke" class="header-user" alt="user">${User.userName} |</a>
-                            <a href="<c:url value="/login/logout.do"/>" style="color:whitesmoke" class="header-user" alt="user">Log Out</a>
+                            <a href="<c:url value="/login/profile.do"/>" style="color:whitesmoke" class="header-user" alt="user"><span>${User.userName} |</span></a>
+                            <a href="<c:url value="/login/logout.do"/>" style="color:whitesmoke" class="header-user" alt="user"><span>Log Out</span></a>
                         </c:if>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                     </div>
                     <div class="sidebar-group">
                         <h5 class="sidebar-title">user action</h5>
-                        <ul class="nav-list">                            <c:if test="${User.userRole == 2||User.userRole ==1}">
+                        <ul class="nav-list"><c:if test="${User.userRole == 2||User.userRole ==1}">
                             <li class="nav-item"><a href="<c:url value="/order/ordermanager.do"/>" class="nav-link"><i
                                         class="material-icons">favorite</i><span class="nav-text">Order Manager</span></a></li></c:if>
                                         <li class="nav-item"><a href="${pageContext.request.contextPath}/addToCompare?id=${item.carID}" class="nav-link"><i

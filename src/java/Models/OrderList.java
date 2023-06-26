@@ -4,7 +4,9 @@
  */
 package Models;
 
+import java.text.NumberFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  *
@@ -94,5 +96,9 @@ public class OrderList {
         return "OrderList{" + "orderId=" + orderId + ", carName=" + carName + ", userId=" + userId + ", carPrice=" + carPrice + ", orderStatus=" + orderStatus + ", userName=" + userName + '}';
     }
     
-    
+    public String getFormatPrice() {
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat vn = NumberFormat.getInstance(localeVN);
+        return vn.format(this.carPrice);
+    }
 }

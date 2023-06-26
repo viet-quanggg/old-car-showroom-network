@@ -499,7 +499,7 @@
                                             <tr>
                                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Order ID</th>
                                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Car Name</th>
-                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">User ID|User Name</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">User ID | User Name</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Order Price</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Order Status</th>
                                             </tr>
@@ -524,7 +524,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm"  ><a href="#">${list.userId}|${list.userName}</a></h6>
+                                                        <h6 class="mb-0 text-sm"  ><a href="#">${list.userId} | ${list.userName}</a></h6>
                                                         </div>
                                                 </td>
                                                 <td>
@@ -770,14 +770,14 @@
                                             <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">22 DEC 7:20 PM</p>
                                         </div>
                                     </div>-->                           
-                                    <c:forEach items="${weekOrder}" var="weekOrder">
+                                    <c:forEach items="${weekOrder}" var="wok">
                                     <div class="timeline-block mb-3">
                                         <span class="timeline-step">
                                             <i class="material-icons text-danger text-gradient">code</i>
                                         </span>
                                         <div class="timeline-content">
-                                            <h6 class="text-dark text-sm font-weight-bold mb-0">New order #${weekOrder.orderId}</h6>
-                                            <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">${weekOrder.createdDate}</p>
+                                            <h6 class="text-dark text-sm font-weight-bold mb-0">New order #${wok.orderId}</h6>
+                                            <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">${wok.createdDate}</p>
                                         </div>
                                     </div>
                                      </c:forEach>

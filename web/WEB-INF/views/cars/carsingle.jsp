@@ -53,6 +53,16 @@
                     </div>
                 </div>
             </div>
+                    
+            <c:if test="${User.userRole == 0}">      
+                <div class="col-xl-5">
+                    <div class="common-card" >
+                        <button class="col-xl-12 form-btn"  onclick="window.location.href='<c:url value="/order/ordercar.do?postId=${pdata.postId}"/>'">Order</button>
+                    </div>
+                </div>
+
+
+            </c:if> 
             <c:if test="${User.userRole == 2}">      
                 <div class="col-xl-5">
                     <div class="common-card" id="information">

@@ -123,7 +123,7 @@ public class AdminPageFacade {
         try {
             List<OrderList> list = new ArrayList<>();
             con = DBContext.getConnection();
-            ps = con.prepareStatement("select o.orderId,c.carName, o.userId, c.carPrice, o.orderStatus, u.userName from [Post] p join [Order] o on p.postId = o.orderId left join [car] c  on p.postId = c.carId left join [User] u on o.userId =u.userId");
+            ps = con.prepareStatement("select o.orderId,c.carName, o.userId, c.carPrice, o.orderStatus, u.userName from [Post] p join [Order] o on p.postId = o.postId left join [car] c  on p.carId = c.carId left join [User] u on o.userId =u.userId");
             rs = ps.executeQuery();
             while (rs.next()) {
                 OrderList listOrder = new OrderList();
@@ -149,8 +149,7 @@ public class AdminPageFacade {
             con = DBContext.getConnection();
             ps = con.prepareStatement("SELECT o.orderId, o.orderDate\n"
                     + "FROM [Order] o join [Post] p on o.postId = p.postId\n"
-                    + "WHERE MONTH(o.orderDate) = MONTH(DATEADD(month, -1, GETDATE())) \n"
-                    + "AND YEAR(o.orderDate) = YEAR(DATEADD(month, -1, GETDATE()))");
+                    + "WHERE o.orderDate BETWEEN DATEADD(MONTH, -1, GETDATE()) AND GETDATE()");
             rs = ps.executeQuery();
             while (rs.next()) {
                 OrderList listOrder = new OrderList();

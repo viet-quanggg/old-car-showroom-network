@@ -43,7 +43,70 @@ public class OrderFacade {
         con.close();
         return list;
     }
+    
+    public void addOrder(int postId, int userId) throws SQLException {
+        Connection con = DBContext.getConnection();
+        PreparedStatement stm = null;
+        try {
+            stm = con.prepareStatement("INSERT INTO [Order] (postId, orderStatus, orderDate, userId)" 
+                    + "VALUES (?,'Pending',CURRENT_TIMESTAMP,?)");
+            stm.setInt(1, postId);
+            stm.setInt(2, userId);
+            int count = stm.executeUpdate();
+            
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        con.close();
+    }
+    public OrderList getOrderByPost(int postId) throws SQLException {
+        OrderList orderlist = null;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
+        try {
+            con = DBContext.getConnection();
+            String sql = "SELECT o.orderId, o.postId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId where o.postId = " + postId;
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                orderlist = new OrderList();
+                orderlist.setOrderId(rs.getInt("orderId"));
+                orderlist.setCreatedDate(rs.getDate("orderDate"));
+                orderlist.setOrderStatus(rs.getString("orderStatus"));
+                orderlist.setCarPrice(rs.getDouble("carPrice"));
+                orderlist.setUserId(rs.getInt("userId"));
+                orderlist.setUserName(rs.getString("userName"));
+                orderlist.setCarName(rs.getString("carName"));
+            }
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return orderlist;
+    }
     public List<OrderList> getAllOrders() throws SQLException {
 
         List<OrderList> orders = new ArrayList<>();
@@ -66,6 +129,86 @@ public class OrderFacade {
                 orderlist.setUserId(rs.getInt("userId"));
                 orderlist.setUserName(rs.getString("userName"));
                 orderlist.setCarName(rs.getString("carName"));
+                orders.add(orderlist);
+            }
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return orders;
+    }
+    
+    public List<Order> listOrders() throws SQLException {
+        List<Order> orders = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        CarFacade cf = new CarFacade();
+        try {
+            con = DBContext.getConnection();
+            String sql = "SELECT o.orderId, o.postId, c.carId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId";
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Order orderlist = new Order();
+                orderlist.setOrderId(rs.getInt("orderId"));
+                orderlist.setPostId(rs.getInt("postId"));
+                orderlist.setCreatedDate(rs.getDate("orderDate"));
+                orderlist.setOrderStatus(rs.getString("orderStatus"));
+                orderlist.setCar(cf.getDetails(rs.getInt("carId")));
+                orderlist.setUserId(rs.getInt("userId"));
+                orderlist.setUserName(rs.getString("userName"));
+                orders.add(orderlist);
+            }
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return orders;
+    }
+    
+    public List<Order> listUserOrders(int userId) throws SQLException {
+        List<Order> orders = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        CarFacade cf = new CarFacade();
+        try {
+            con = DBContext.getConnection();
+            String sql = "SELECT o.orderId, o.postId, c.carId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId where o.userId = " + userId;
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Order orderlist = new Order();
+                orderlist.setOrderId(rs.getInt("orderId"));
+                orderlist.setPostId(rs.getInt("postId"));
+                orderlist.setCreatedDate(rs.getDate("orderDate"));
+                orderlist.setOrderStatus(rs.getString("orderStatus"));
+                orderlist.setCar(cf.getDetails(rs.getInt("carId")));
+                orderlist.setUserId(rs.getInt("userId"));
+                orderlist.setUserName(rs.getString("userName"));
                 orders.add(orderlist);
             }
         } catch (SQLException e) {
@@ -122,7 +265,7 @@ public class OrderFacade {
 //    }
     public void Delete(int orderId) throws SQLException{
         con = DBContext.getConnection();
-        ps = con.prepareStatement("DELETE FROM [Order] WHERE orderId=?");
+        ps = con.prepareStatement("DELETE FROM [Order] WHERE orderId = ?");
         ps.setInt(1, orderId);
         ps.executeUpdate();
         con.close();

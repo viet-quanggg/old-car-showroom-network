@@ -1,6 +1,10 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<%-- 
+    Document   : profile
+    Created on : May 28, 2023, 10:01:16 AM
+    Author     : _viet.quangg
+--%>
+<%@taglib prefix="c" uri="jakarta.tags.core"%>
+
 <section class="section-gap-75">
     <div style="background: url(${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/banner/single/02.jpg) no-repeat center / cover;">
         <div class="user-banner">
@@ -28,7 +32,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-xl-4">
+<!--                    <div class="col-lg-5 col-xl-4">
                         <ul class="user-banner-data">
                             <li class="ads"><i class="material-icons">note</i>
                                 <h3>${Post.count}0</h3>
@@ -39,7 +43,7 @@
                                 <p>total car buy</p>
                             </li>
                         </ul>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="row">
                     <div class="col-xl-12">
@@ -55,11 +59,12 @@
                                 <li><a href="<c:url value="/order/ordermanager.do"/>">Order Manager</a></li>
                                 </c:if>
                                 <c:if test="${ User.userRole == 1}">
-                                <li><a href="<c:url value="/admin/userlist.do"/>" class="active">User List</a></li>
+                                <li><a href="<c:url value="/admin/userlist.do"/>">User List</a></li>
                                 </c:if>
-                            <li><a href="<c:url value="/order/favorite.do"/>">favorite</a></li>
+                            <li><a href="<c:url value="/order/favorite.do"/>"class="active">favorite</a></li>
                             <li><a href="<c:url value="/cars/compare.do"/>">compares</a></li>
                             <li><a href="setting.html">settings</a></li>
+
                         </ul>
                     </div>
                 </div>
@@ -67,109 +72,35 @@
         </div>
     </div>
 </section>
-
 <section class="mc-breadcrumb">
     <div class="container">
         <div class="mc-breadcrumb-group">
-            <h2 class="mc-breadcrumb-title">User List</h2>
+            <h2 class="mc-breadcrumb-title">Order</h2>
             <ul class="mc-breadcrumb-list">
                 <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">home</a></li>
-                <li class="mc-breadcrumb-item">User List  </li>
+                <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/cars/carlist.do"/>">list cars</a></li>
+                <li class="mc-breadcrumb-item">Order  </li>
             </ul>
         </div>
     </div>
 </section>
-<style>
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.4);
-    }
-
-    .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-    }
-    
-    .dell-btn{
-        color:#0d6efd
-    }
-    
-    .dell-btn:hover{
-        color:#0a58ca
-    }
-</style>
+                
 <section class="section-gap-100">
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
-
-                <table class="table">
-
-                    <thead> 
-                    <div class="favorite-title">
-                        <tr>        
-                            <th>No</th>
-                            <th>User Id </th>
-                            <th>Email</th>
-                            <th>Name</th>
-                            <th>Phone</th>
-                            <th>Address</th>
-                            <th>Time Created</th>
-                            <th>Actions</th>
-                        </tr>
-                    </div>
-                    </thead>
-                    <div class="favorite-list">
-                        <tbody>
-                            <c:forEach var="userli" items="${UserL}" varStatus="status">
-                                <tr>
-                                    <td>${status.count}</td>
-                                    <td>${userli.userID}</td>
-                                    <td>${userli.userEmail}</td>
-                                    <td>${userli.userName}</td>
-                                    <td>${userli.userPhone}</td>
-                                    <td>${userli.userAddress}</td>
-                                    <td>${userli.timeCreated}</td>
-                                    <td>
-                                       <button> <a href="<c:url value="/admin/edit.do?userID=${userli.userID}"/>">Edit</a></button>
-                                        <button id="dell-btn" class="dell-btn" onclick="document.getElementById('modal').style.display = 'block'" >Delete</button>
-                                        <div id="modal" class="modal">
-                                            <div class="modal-content">
-                                                <div style="margin-right: 20px">
-                                                Are you sure you want to delete?
-                                                <div class="col">
-                                                    <a class="btn btn-outline-danger btn-sm" href="<c:url value="/admin/delete.do?userID=${userli.userID}"/>">Yes</a>
-                                                    <a class="btn btn-outline-dark-blue btn-sm"href="<c:url value="/admin/userlist.do"/>">No</a>
-                                                </div>
-                                                </div
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </div>
-                </table>
-
-
-
+                <div class="favorite-title">
+                    <h6>date</h6>
+                    <h6>information</h6>
+                    <h6>status</h6>
+                    <h6>action</h6>
+                </div>
+                
                 <ul class="favorite-list">
-                    <c:forEach items="${data.items}" var="item">
+                    <c:forEach items="${orders}" var="item">
                         <li class="favorite-item">
-                            <div class="favorite-media"><img style="min-height: 200px; max-height: 200px;" src="${pageContext.request.contextPath}${item.car.image.size() > 0 ? item.car.image.get(0).url : ''}" alt="product">
-                                <div class="favorite-badge"><label class="badge new">new</label></div>
-    <!--                                <div class="favorite-hints"><i class="material-icons">collections</i><span>${item.car.image.size()}</span>
-                                </div>-->
+                            <div class="favorite-media">
+                                ${item.createdDate}
                             </div>
                             <div class="favorite-info">
                                 <h3><a href="<c:url value="/cars/carsingle.do?carId=${item.car.carID}"/>">${item.car.carName}</a></h3>
@@ -183,17 +114,9 @@
                                 <h5>${item.car.formatPrice}</h5>
                             </div>
                             <div class="favorite-widget">
-                                <a href="<c:url value="/cars/carsingle.do?carId=${item.car.carID}"/>" title="Details">
-                                    <i class="material-icons">visibility</i>
-                                </a>
-                                <a href="#!" title="Video" class="venobox" data-autoplay="true" data-vbtype="video">
-                                    <i class="material-icons">videocam</i>
-                                </a>
-                                <a href="#!" title="Cart" class="venobox" data-autoplay="true" data-vbtype="cart">
-                                    <i class="material-icons">storefront</i>
-                                </a>
+                                ${item.orderStatus}
                             </div>
-                            <a href="#" class="favorite-close"><i class="material-icons">close</i></a>
+                            <a href="${pageContext.request.contextPath}/order/removeorder.do?orderId=${item.orderId}" class="favorite-close"><i class="material-icons">close</i></a>
                         </li>
                     </c:forEach>
 
@@ -201,6 +124,6 @@
                 </ul>
             </div>
         </div>
-
+        
     </div>
 </section>

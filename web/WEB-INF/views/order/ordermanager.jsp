@@ -105,7 +105,7 @@
                             <td>${orderlist.orderId}</td>
                             <td>${orderlist.carName}</td>
                             <td>${orderlist.orderStatus}</td>
-                            <td>${orderlist.carPrice}</td>
+                            <td>${orderlist.getFormatPrice()}</td>
                             <td>${orderlist.createdDate}</td> 
 
                             <td >
@@ -114,7 +114,7 @@
                                     <option selected>Select</option>
                                     <option class="form-check-label" value="denied" >Cancelled</option>
                                     <option class="form-check-label" value="pending">Pending</option>
-                                    <option class="form-check-label" value="success">Completed</option>
+                                    <option class="form-check-label" value="success">Complete</option>
                                     <option class="form-check-label" value="inprocess">Processing</option>
                                     <!--                                    <option class="form-check-label" value="delete">DELETE</option>-->
 

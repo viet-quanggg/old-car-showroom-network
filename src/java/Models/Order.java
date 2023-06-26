@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Models;
 
 import java.util.Date;
@@ -11,40 +8,42 @@ import java.util.Date;
  * @author _viet.quangg
  */
 public class Order {
-    private int orderID;
-    private float orderTotal;
-    private boolean orderStatus;
-    private Date orderDate;
+    
+    private int orderId;
+    private Car car;
     private int userId;
     private int postId;
-    private String orderStatuss;
+    private String orderStatus;
+    private String userName;
+    private Date createdDate;
     
     public Order() {
     }
 
-    public Order(int orderID, float orderTotal, boolean orderStatus, Date orderDate) {
-        this.orderID = orderID;
-        this.orderTotal = orderTotal;
-        this.orderStatus = orderStatus;
-        this.orderDate = orderDate;
-    }
-
-   
-
-    public String getOrderStatuss() {
-        return orderStatuss;
-    }
-
-    public void setOrderStatuss(String orderStatuss) {
-        this.orderStatuss = orderStatuss;
-    }
-
-    public int getPostId() {
-        return postId;
-    }
-
-    public void setPostId(int postId) {
+    public Order(int orderId, Car car, int userId, int postId, String orderStatus, String userName, Date createdDate) {
+        this.orderId = orderId;
+        this.car = car;
+        this.userId = userId;
         this.postId = postId;
+        this.orderStatus = orderStatus;
+        this.userName = userName;
+        this.createdDate = createdDate;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     public int getUserId() {
@@ -55,36 +54,36 @@ public class Order {
         this.userId = userId;
     }
 
-    public int getOrderID() {
-        return orderID;
+    public int getPostId() {
+        return postId;
     }
 
-    public void setOrderID(int orderID) {
-        this.orderID = orderID;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
-    public float getOrderTotal() {
-        return orderTotal;
-    }
-
-    public void setOrderTotal(float orderTotal) {
-        this.orderTotal = orderTotal;
-    }
-
-    public boolean isOrderStatus() {
+    public String getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(boolean orderStatus) {
+    public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
     }
 
-    public Date getOrderDate() {
-        return orderDate;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
     
     

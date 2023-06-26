@@ -86,6 +86,34 @@ public class OrderController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
                 break;
+            case "ordercar":
+                if (user.getUserRole()  != 0) {
+                    response.sendRedirect(request.getContextPath() + "/cars/carlist.do");
+                    return;
+                }
+                String pid = request.getParameter("postId").trim();
+                if (pid != null && !pid.isEmpty() && pid.matches("^[1-9]\\d*$")) {
+                    int id = Integer.parseInt(pid);
+                    OrderList ol = of.getOrderByPost(id);
+                    if (ol == null) {
+                        of.addOrder(id, user.getUserID());
+                        response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
+                        return;
+                    }
+                }
+                response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
+                break;
+            case "orderlist":
+                List<Order> orderl = of.listOrders();
+                request.setAttribute("orders", orderl);
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                break;
+            case "removeorder":
+                String oid = request.getParameter("orderId");
+                if (oid != null && !oid.isEmpty() && oid.matches("^[1-9]\\d*$"))
+                    of.Delete(Integer.parseInt(oid));
+                response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
+                break;
             case "ordermanager":
 //                OrderFacade orderFacade = new OrderFacade();
                 List<OrderList> orders = of.getAllOrders();
@@ -104,22 +132,22 @@ public class OrderController extends HttpServlet {
 //                }
                     case "denied":
                         int orderId1 = Integer.parseInt(request.getParameter("orderId"));
-                        of.updateOrderStatus(orderId1, "CANCEL");
+                        of.updateOrderStatus(orderId1, "Cancelled");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
                         break;
                     case "success":
                         int orderId2 = Integer.parseInt(request.getParameter("orderId"));
-                        of.updateOrderStatus(orderId2, "SUCCESS");
+                        of.updateOrderStatus(orderId2, "Complete");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
                         break;
                     case "pending":
                         int orderId3 = Integer.parseInt(request.getParameter("orderId"));
-                        of.updateOrderStatus(orderId3, "PENDING");
+                        of.updateOrderStatus(orderId3, "Pending");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
                         break;
                     case "inprocess":
                         int orderId4 = Integer.parseInt(request.getParameter("orderId"));
-                        of.updateOrderStatus(orderId4, "IN PROCESS");
+                        of.updateOrderStatus(orderId4, "Processing");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
                         break;
 //                    case "delete":
@@ -139,22 +167,22 @@ public class OrderController extends HttpServlet {
                 break;
             case "denied":
                 int orderId1 = Integer.parseInt(request.getParameter("id"));
-                of.updateOrderStatus(orderId1, "CANCEL");
+                of.updateOrderStatus(orderId1, "Cancelled");
                 response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
                 break;
             case "success":
                 int orderId2 = Integer.parseInt(request.getParameter("id"));
-                of.updateOrderStatus(orderId2, "SUCCESS");
+                of.updateOrderStatus(orderId2, "Complete");
                 response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
                 break;
             case "pending":
                 int orderId3 = Integer.parseInt(request.getParameter("id"));
-                of.updateOrderStatus(orderId3, "PENDING");
+                of.updateOrderStatus(orderId3, "Pending");
                 response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
                 break;
             case "inprocess":
                 int orderId4 = Integer.parseInt(request.getParameter("id"));
-                of.updateOrderStatus(orderId4, "IN PROCESS");
+                of.updateOrderStatus(orderId4, "Processing");
                 response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
                 break;
             case "delete":
