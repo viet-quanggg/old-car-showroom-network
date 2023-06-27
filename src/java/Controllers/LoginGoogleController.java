@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.http.client.ClientProtocolException;
@@ -49,6 +50,8 @@ public class LoginGoogleController extends HttpServlet {
         // Create a new User object
         // Create a new User object
         User user = new User();
+        Date date = new Date();
+        user.setTimeCreated(date);
 
 // Set the name and email values from userGoogleDto to user's username and userEmail fields respectively
         user.setUserName(userGoogleDto.getName());
