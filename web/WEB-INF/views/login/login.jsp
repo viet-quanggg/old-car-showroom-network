@@ -13,7 +13,7 @@
     <meta name="title" content="Ghurnek - Automotive Car Dealer HTML Template">
     <meta name="keywords"
           content="automotive, car, dealer, dealership, car dealership, html, template, auto, directory, inventory, listing, vehicle, inventory managment, bootstrap, classified ads">
-    <title>Register | Ghurnek</title>
+    <title>Login | Ghurnek</title>
     <link rel="icon" href="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/favicon.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/fonts/typography/jost.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/fonts/icofont/icofont.css">

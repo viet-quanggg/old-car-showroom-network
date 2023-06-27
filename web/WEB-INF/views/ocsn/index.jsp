@@ -1611,21 +1611,28 @@
         </div>
     </div>
 </section>
+                        <c:if test="${blist != null && !blist.isEmpty()}">
 <section class="section-gap-95">
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
                 <div class="section-head">
                     <div class="section-text">
-                        <h2>browse by top brands</h2>
-                        <p>Find your want-to-buy car based on brands</p>
+                        <h2>browse by brands</h2>
+<!--                        <p>Find your want-to-buy car based on brands</p>-->
                     </div><a href="<c:url value="/cars/carlist.do"/>" class="btn btn-inline"><i
                             class="material-icons">travel_explore</i><span>browse all</span></a>
                 </div>
             </div>
         </div>
         <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-5">
-            <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/01.png"
+            <c:forEach items="${blist}" var="branditem">
+                                <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do?bid=${branditem.id}"/>">
+                                    <h6>(${branditem.count}) ${branditem.name}</h6>
+
+                                    </a></div>
+            </c:forEach>
+<!--            <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/01.png"
                                                                                                  alt="brand">
                     <h6>tesla</h6>
                     <p>(24) vehicles</p>
@@ -1674,10 +1681,11 @@
                                                                                                  alt="brand">
                     <h6>porsche</h6>
                     <p>(24) vehicles</p>
-                </a></div>
+                </a></div>-->
         </div>
     </div>
 </section>
+                        </c:if>
 <section class="section-gap-95">
     <div class="container">
         <div class="row">

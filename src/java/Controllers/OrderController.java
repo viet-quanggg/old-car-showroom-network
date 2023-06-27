@@ -104,8 +104,15 @@ public class OrderController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
                 break;
             case "orderlist":
-                List<Order> orderl = of.listOrders();
-                request.setAttribute("orders", orderl);
+                 List<Order> orderl = null;
+                if (user.getUserRole() != 0) 
+                    orderl = of.listOrders();
+                else 
+                    orderl = of.listUserOrders(user.getUserID());
+                if (orderl != null)
+                    request.setAttribute("orders", orderl);
+                else
+                    request.setAttribute("action", "");
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
             case "removeorder":

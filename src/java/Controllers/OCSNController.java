@@ -5,8 +5,11 @@
 package Controllers;
 
 import DB.BlogFacade;
+import DB.BrandFacade;
+import DB.CarFacade;
 import DB.OrderFacade;
 import Models.Blog;
+import Models.Brand;
 import Models.PricingPlan;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,6 +58,9 @@ public class OCSNController extends HttpServlet {
                 Blog b = bf.listBlogId(bid);
                 request.setAttribute("bid", b);
                 plan = of.listPlan();
+                CarFacade cf = new CarFacade();
+                List<Brand> bli = cf.getAllBrand();
+                request.setAttribute("blist", bli);
                 request.setAttribute("plan", plan);
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
