@@ -81,7 +81,7 @@ public class OrderController extends HttpServlet {
                 //in thong bao loi chi tiet cho developer
                 break;
             case "pricingplan":
-                plan = of.listPlan();
+                plan = of.listPlanActive();
                 request.setAttribute("plan", plan);
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer

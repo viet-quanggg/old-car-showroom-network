@@ -57,7 +57,7 @@ public class OCSNController extends HttpServlet {
                 request.setAttribute("blog", blog);
                 Blog b = bf.listBlogId(bid);
                 request.setAttribute("bid", b);
-                plan = of.listPlan();
+                plan = of.listPlanActive();
                 CarFacade cf = new CarFacade();
                 List<Brand> bli = cf.getAllBrand();
                 request.setAttribute("blist", bli);

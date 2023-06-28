@@ -158,6 +158,7 @@
                             <span class="nav-link-text ms-1">Billing</span>
                         </a>
                     </li>
+
                     <li class="nav-item mt-3">
                         <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
                     </li>
@@ -206,62 +207,72 @@
                         <div class="card my-4">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">Staff table</h6>
-                                    <a href = "<c:url value="/admin/create.do"/>" class="text-white text-capitalize ps-3">Create new Staff Account</a>
+                                    <h6 class="text-white text-capitalize ps-3">Create New Pricing Plan Page</h6>
+                                    <div class="ps-3 text-dark" >${message}</div>
                                 </div>
                             </div>
                             <div class="card-body px-0 pb-2">
                                 <div class="table-responsive p-0">
-                                    <table class="table align-items-center mb-0">
+                                   <table class="table align-items-center mb-0">
                                         <thead>
                                             <tr>
-
-                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID | Staff Name</th>
-                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone Number</th>
-                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Function</th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Plan Name</th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Plan Duration</th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Post Per Plan</th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Status</th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Price</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${staffList}" var="staffList">
+                                        <form action="<c:url value="/admin/create_plan.do"/>" method="POST">
                                                 <tr>
                                                     <td>
                                                         <div class="d-flex px-2 py-1">
-                                                            <div class="d-flex px-2 py-1">
-    <!--                                                            <img src="${pageContext.request.contextPath}/material-dashboard/demos.creative-tim.com/material-dashboard/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">-->
-                                                                <h6 class="mb-0 text-sm">${staffList.userID} | </h6>
-                                                            </div>
-                                                            <div class="d-flex flex-column justify-content-center">
-                                                                <h6 class="mb-0 text-sm"> ${staffList.userName}</h6>
-                                                                <p class="text-xs text-secondary mb-0"><a class="__cf_email__"">${staffList.userEmail}</a></p>
-                                                            </div>
+                                                            <input type="text" id="pName" name="pName" >
+                                                           
                                                         </div>
+                                                        <div class="d-flex px-2 py-1" style="color: red">${errorN}</div>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex px-2 py-1">
-                                                            <p class="text-xs font-weight-bold mb-0">${staffList.userPhone}</p>
-                                                            <div/>
+                                                            <input type="number" step="1" min="0"  name="pTime" id="pTime">
+                                                        </div>
+                                                        <div class="d-flex px-2 py-1" style="color: red">${errorT}</div>
                                                     </td>
-                                                    <td class="align-middle text-center text-sm">
+                                                    <td >
                                                         <div class="d-flex px-2 py-1">
-                                                            <p class="text-xs font-weight-bold mb-0">${staffList.userAddress}</p>
-                                                            <div/>
+                                                            <input type="number" step="1" min="0"  name="pLimit" id="pLimit">
+                                                        </div>
+                                                        <div class="d-flex px-2 py-1" style="color: red">${errorL}</div>
                                                     </td>
-                                                    <td class="align-middle text-center">
+                                                    <td >
+                                                        <div class="d-flex px-2 py-1">
+                                                            <select  name="pStatus">
+                                                                <option selected>Select</option>
+                                                                <option class="form-check-label" value="active" >Active</option>
+                                                                <option class="form-check-label" value="deactivate">Deactivate</option>
+                                                                <!--                                    <option class="form-check-label" value="delete">DELETE</option>-->
 
-                                                        <span class="text-secondary text-xs font-weight-bold">${staffList.timeCreated}</span>
+                                                            </select>
+<!--                                                            <input type="number" step="1" min="0" value="${uPlan.planStatus}" name="pStatus" id="pStatus">-->
+                                                            
+                                                        </div>
+                                                        <div class="d-flex px-2 py-1" style="color: red">${errorS}</div>
+                                                    </td>
+
+                                                    <td >
+                                                        <div class="d-flex px-2 py-1">
+                                                            <input type="number" min="0" id="pPrice" step="0.01" name="pPrice" >
+                                                        </div>
+                                                        <div class="d-flex px-2 py-1" style="color: red">${errorP}</div></div>
                                                     </td>
                                                     <td class="align-middle text-center">
-                                                        <a href="<c:url value="/admin/updatestaff.do?uid=${staffList.userID}"/>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                            Edit | 
-                                                        </a>
-                                                        <a href="<c:url value="/admin/delete_handler.do?id=${staffList.userID}"/>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Remove user">
-                                                            Remove
-                                                        </a>
+                                                        <button type="submit" name="op" value="create" class="form-btn">Create</button>
                                                     </td>
                                                 </tr>
-                                            </c:forEach>
+                                            
+                                        </form>
                                         </tbody>
                                     </table>
                                 </div>
@@ -274,14 +285,12 @@
                         <div class="card my-4">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">Pricing Plan table</h6>
-                                    <a href = "<c:url value="/admin/createplan.do"/>" class="text-white text-capitalize ps-3">Create new Staff Account</a>
-
+                                    <h6 class="text-white text-capitalize ps-3">Staff table</h6>
                                 </div>
                             </div>
                             <div class="card-body px-0 pb-2">
                                 <div class="table-responsive p-0">
-                                    <table class="table align-items-center justify-content-center mb-0">
+                                     <table class="table align-items-center justify-content-center mb-0">
                                         <thead>
                                             <tr>
                                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Plan ID</th>

@@ -26,10 +26,10 @@ public class OrderFacade {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public List<PricingPlan> listPlan() throws SQLException {
+    public List<PricingPlan> listPlanActive() throws SQLException {
         List<PricingPlan> list = new ArrayList<>();
         con = DBContext.getConnection();
-        ps = con.prepareStatement("select * from [Plan]");
+        ps = con.prepareStatement("select * from [Plan] where [planStatus] = 'Active'");
         rs = ps.executeQuery();
         while (rs.next()) {
             PricingPlan plan = new PricingPlan();
@@ -37,23 +37,125 @@ public class OrderFacade {
             plan.setPlanName(rs.getString(2));
             plan.setPlanTime(rs.getInt(3));
             plan.setPlanLimit(rs.getInt(4));
-            plan.setPlanPrice(rs.getDouble(5));
+            plan.setPlanStatus(rs.getString(5));
+            plan.setPlanPrice(rs.getDouble(6));
             list.add(plan);
         }
         con.close();
         return list;
     }
-    
+
+    public List<PricingPlan> listAllPlan() throws SQLException {
+        List<PricingPlan> list = new ArrayList<>();
+        con = DBContext.getConnection();
+        ps = con.prepareStatement("select * from [Plan] ");
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            PricingPlan plan = new PricingPlan();
+            plan.setPlanId(rs.getInt(1));
+            plan.setPlanName(rs.getString(2));
+            plan.setPlanTime(rs.getInt(3));
+            plan.setPlanLimit(rs.getInt(4));
+            plan.setPlanStatus(rs.getString(5));
+            plan.setPlanPrice(rs.getDouble(6));
+            list.add(plan);
+        }
+        con.close();
+        return list;
+    }
+
+    public List<PricingPlan> listPlanId(String id) throws SQLException {
+        List<PricingPlan> list = new ArrayList<>();
+        con = DBContext.getConnection();
+        ps = con.prepareStatement("select * from [Plan] where planId = ? ");
+        ps.setString(1, id);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            PricingPlan plan = new PricingPlan();
+            plan.setPlanId(rs.getInt(1));
+            plan.setPlanName(rs.getString(2));
+            plan.setPlanTime(rs.getInt(3));
+            plan.setPlanLimit(rs.getInt(4));
+            plan.setPlanStatus(rs.getString(5));
+            plan.setPlanPrice(rs.getDouble(6));
+            list.add(plan);
+        }
+        con.close();
+        return list;
+    }
+
+    public void deletePlan(String id) throws SQLException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            //Tạo connection để kết nối vào DBMS
+            con = DBContext.getConnection();
+            //Tạo đối tượng PreparedStatement
+            PreparedStatement stm = con.prepareStatement("delete from [Plan] where planId = ?");
+            stm.setString(1, id);
+            //Thực thi lệnh sql
+            int count = stm.executeUpdate();
+            con.close();
+        } catch (SQLException ex) {
+
+        }
+    }
+
+    public void addPlan(String planName, int planTime, int planLimit, String planStatus, double planPrice) throws SQLException {
+        Connection con = DBContext.getConnection();
+        PreparedStatement stm = null;
+        try {
+            stm = con.prepareStatement("INSERT INTO [dbo].[Plan] ( [planName],[planTime],[planLimit],[planStatus],[planPrice])\n"
+                    + "values\n"
+                    + "(?,?,?,?,?)");
+            stm.setString(1, planName);
+            stm.setInt(2, planTime);
+            stm.setInt(3, planLimit);
+            stm.setString(4, planStatus);
+            stm.setDouble(5, planPrice);
+            int count = stm.executeUpdate();
+
+        } catch (SQLException e) {
+            throw e;
+        } 
+        con.close();
+    }
+
+//    public PricingPlan createPlan(String planName, int planTime, int planLimit, String planStatus, double planPrice) throws SQLException {
+//        PricingPlan plan = new PricingPlan();
+//        Connection con = DBContext.getConnection();
+//        PreparedStatement stm = con.prepareStatement("INSERT INTO [dbo].[Plan] ( [planName],[planTime],[planLimit],[planStatus],[planPrice])\n"
+//                + "values\n"
+//                + "(?,?,?,?,?)");
+//        stm.setString(1, planName);
+//        stm.setInt(2, planTime);
+//        stm.setInt(3, planLimit);
+//        stm.setString(4, planStatus);
+//        stm.setDouble(5, planPrice);
+//        int count = stm.executeUpdate();
+//        ResultSet rs = stm.executeQuery();
+//        if (rs.next()) {
+//            plan.setPlanName(rs.getString("planName"));
+//            plan.setPlanTime(rs.getInt("planTime"));
+//            plan.setPlanLimit(rs.getInt("planLimit"));
+//            plan.setPlanStatus(rs.getString("planStatus"));
+//            plan.setPlanPrice(rs.getDouble("planPrice"));
+//        }
+//        con.close();
+//        return plan;
+//    }
+
     public void addOrder(int postId, int userId) throws SQLException {
         Connection con = DBContext.getConnection();
         PreparedStatement stm = null;
         try {
-            stm = con.prepareStatement("INSERT INTO [Order] (postId, orderStatus, orderDate, userId)" 
+            stm = con.prepareStatement("INSERT INTO [Order] (postId, orderStatus, orderDate, userId)"
                     + "VALUES (?,'Pending',CURRENT_TIMESTAMP,?)");
             stm.setInt(1, postId);
             stm.setInt(2, userId);
             int count = stm.executeUpdate();
-            
+
         } catch (SQLException e) {
             throw e;
         } finally {
@@ -69,6 +171,7 @@ public class OrderFacade {
         }
         con.close();
     }
+
     public OrderList getOrderByPost(int postId) throws SQLException {
         OrderList orderlist = null;
         Connection con = null;
@@ -107,6 +210,7 @@ public class OrderFacade {
 
         return orderlist;
     }
+
     public List<OrderList> getAllOrders() throws SQLException {
 
         List<OrderList> orders = new ArrayList<>();
@@ -147,7 +251,7 @@ public class OrderFacade {
 
         return orders;
     }
-    
+
     public List<Order> listOrders() throws SQLException {
         List<Order> orders = new ArrayList<>();
         Connection con = null;
@@ -187,7 +291,7 @@ public class OrderFacade {
 
         return orders;
     }
-    
+
     public List<Order> listUserOrders(int userId) throws SQLException {
         List<Order> orders = new ArrayList<>();
         Connection con = null;
@@ -263,7 +367,7 @@ public class OrderFacade {
 //        ps.executeUpdate();
 //        con.close();
 //    }
-    public void Delete(int orderId) throws SQLException{
+    public void Delete(int orderId) throws SQLException {
         con = DBContext.getConnection();
         ps = con.prepareStatement("DELETE FROM [Order] WHERE orderId = ?");
         ps.setInt(1, orderId);
@@ -278,5 +382,11 @@ public class OrderFacade {
         ps.setInt(2, orderId);
         ps.executeUpdate();
         con.close();
+    }
+    
+    public static void main(String[] args) throws SQLException {
+        OrderFacade of = new OrderFacade();
+//        PricingPlan newPlan = of.createPlan("Gold Package", 3, 15, "Active", 35);
+        of.addPlan("Gold Package", 3, 15, "Active", 35);
     }
 }

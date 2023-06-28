@@ -5,8 +5,10 @@
 package Controllers;
 
 import DB.AdminPageFacade;
+import DB.OrderFacade;
 import DB.UserFacade;
 import Models.OrderList;
+import Models.PricingPlan;
 import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,6 +48,7 @@ public class AdminController extends HttpServlet {
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
         AdminPageFacade apf = new AdminPageFacade();
+        OrderFacade of = new OrderFacade();
         UserFacade uf = new UserFacade();
         User user = null;
         switch (action) {
@@ -104,7 +107,7 @@ public class AdminController extends HttpServlet {
                 }
                 break;
 
-             case "delete":
+            case "delete":
                 int deleteid = Integer.parseInt(request.getParameter("userID"));
                 user = uf.getUser(deleteid);
                 user.setUserEmail(user.getUserEmail().replace("@", "?"));
@@ -207,6 +210,8 @@ public class AdminController extends HttpServlet {
             case "table":
                 try {
                 List<User> staffList = apf.listallStaff();
+                List<PricingPlan> planList = of.listAllPlan();
+                request.setAttribute("planList", planList);
                 request.setAttribute("staffList", staffList);
                 request.getRequestDispatcher("/WEB-INF/views/admin/table.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
@@ -227,10 +232,21 @@ public class AdminController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
             }
             break;
+            case "createplan":
+                try {
+                List<PricingPlan> planList = of.listAllPlan();
+                request.setAttribute("planList", planList);
+                request.getRequestDispatcher("/WEB-INF/views/admin/createplan.jsp").forward(request, response); //Hien trang thong bao loi
+            } catch (Exception e) {
+                request.setAttribute("controller", "error");
+                request.setAttribute("action", "error");
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+            }
+            break;
+
             case "register_handler":
                 register_handler(request, response);
 
-                
                 break;
             case "delete_handler":
                 try {
@@ -240,6 +256,28 @@ public class AdminController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/admin/create.do");
                 break;
 
+            } catch (Exception ex) {
+
+            }
+            break;
+            case "delete_plan":
+                try {
+                String planId = request.getParameter("pid");
+//                UserFacade uf = new UserFacade();
+                of.deletePlan(planId);
+                response.sendRedirect(request.getContextPath() + "/admin/table.do");
+                break;
+
+            } catch (Exception ex) {
+
+            }
+            break;
+            case "updateplan":
+                try {
+                String planId = request.getParameter("pid");
+                List<PricingPlan> uPlan = of.listPlanId(planId);
+                request.setAttribute("uPlan", uPlan);
+                request.getRequestDispatcher("/WEB-INF/views/admin/updateplan.jsp").forward(request, response); //Hien trang thong bao loi
             } catch (Exception ex) {
 
             }
@@ -258,6 +296,12 @@ public class AdminController extends HttpServlet {
             case "update_handler":
                 update_handler(request, response);
                 break;
+            case "update_plan":
+                update_plan(request, response);
+                break;
+            case "create_plan":
+                create_plan(request, response);
+                break;
             default:
                 //Show error page
                 request.setAttribute("controller", "error");
@@ -265,6 +309,134 @@ public class AdminController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
 
         }
+    }
+
+    private void create_plan(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        String op = request.getParameter("op");
+        switch (op) {
+            case "create":
+            try {
+                int id = Integer.parseInt(request.getParameter("pId"));
+                String pName = request.getParameter("pName");
+                int pTime = Integer.parseInt(request.getParameter("pTime"));
+                int pLimit = Integer.parseInt(request.getParameter("pLimit"));
+                String pStatus = null;
+                String temp = request.getParameter("pStatus");
+                switch (temp) {
+                    case "active":
+                        pStatus = "Active";
+                        break;
+                    case "deactivate":
+                        pStatus = "Deactivate";
+                        break;
+                    default:
+                        break;
+                }
+                double pPrice = Double.parseDouble(request.getParameter("pPrice"));
+//                PricingPlan uPlan = new PricingPlan(pName, pTime, pLimit, pStatus, pPrice, id);
+                request.setAttribute("pName", pName);
+                request.setAttribute("pTime", pTime);
+                request.setAttribute("pLimit", pLimit);
+                request.setAttribute("pStatus", pStatus);
+                request.setAttribute("pPrice", pPrice);
+                if (pName.isEmpty()) {
+                    request.setAttribute("errorN", "please fill in the Plan Name");
+                    //  request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (pTime < 0) {
+                    request.setAttribute("errorT", "The Plan Duration must greater than 0!");
+                    // request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (pLimit < 0) {
+                    request.setAttribute("errorL", "The Limit Post must greater than 0!");
+                    //  request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (pStatus.isEmpty()) {
+                    request.setAttribute("errorS", "The Status of the plan can not be empty");
+                    //    request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (pPrice < 0) {
+                    request.setAttribute("errorP", "The Plan Price must greater than 0!");
+                }
+                if (pName.isEmpty() || pTime < 0 || pLimit < 0 || pStatus.isEmpty() || pPrice < 0) {
+                    request.getRequestDispatcher("/admin/createplan.do").forward(request, response);
+
+                } else {
+                    OrderFacade of = new OrderFacade();
+                    of.addPlan(pName, pTime, pLimit, pStatus, pPrice);
+                    request.setAttribute("message", "Create Successfully!");
+                    request.getRequestDispatcher("/admin/createplan.do").forward(request, response);
+                }
+            } catch (Exception e) {
+                request.setAttribute("error", e.toString());
+                request.getRequestDispatcher("/admin/createplan.do").forward(request, response);
+            }
+            break;
+
+        }
+
+    }
+
+    private void update_plan(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        String op = request.getParameter("op");
+        switch (op) {
+            case "update":
+            try {
+                int id = Integer.parseInt(request.getParameter("pId"));
+                String pName = request.getParameter("pName");
+                int pTime = Integer.parseInt(request.getParameter("pTime"));
+                int pLimit = Integer.parseInt(request.getParameter("pLimit"));
+                String pStatus = null;
+                String temp = request.getParameter("pStatus");
+                switch (temp) {
+                    case "active":
+                        pStatus = "Active";
+                        break;
+                    case "deactivate":
+                        pStatus = "Deactivate";
+                        break;
+//                    default:
+                }
+                double pPrice = Double.parseDouble(request.getParameter("pPrice"));
+                PricingPlan uPlan = new PricingPlan(pName, pTime, pLimit, pStatus, pPrice, id);
+                if (pName.isEmpty()) {
+                    request.setAttribute("errorN", "please fill in the Plan Name");
+                    //  request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (pTime < 0) {
+                    request.setAttribute("errorT", "The Plan Duration must greater than 0!");
+                    // request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (pLimit < 0) {
+                    request.setAttribute("errorL", "The Limit Post must greater than 0!");
+                    //  request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (pStatus.isEmpty()) {
+                    request.setAttribute("errorS", "The Status of the plan can not be empty");
+                    //    request.getRequestDispatcher("/login/register.do").forward(request, response);
+                }
+                if (pPrice < 0) {
+                    request.setAttribute("errorP", "The Plan Price must greater than 0!");
+                }
+                if (pName.isEmpty() || pTime < 0 || pLimit < 0 || pStatus.isEmpty() || pPrice < 0) {
+                    request.getRequestDispatcher("/admin/updateplan.do").forward(request, response);
+
+                } else {
+                    AdminPageFacade apf = new AdminPageFacade();
+                    apf.updatePlan(uPlan);
+                    request.setAttribute("message", "Update Successfully!");
+                    request.getRequestDispatcher("/admin/updateplan.do").forward(request, response);
+                }
+            } catch (Exception e) {
+                request.setAttribute("error", e.toString());
+                request.getRequestDispatcher("/admin/updateplan.do").forward(request, response);
+            }
+            break;
+
+        }
+
     }
 
     private void update_handler(HttpServletRequest request, HttpServletResponse response)
@@ -281,7 +453,7 @@ public class AdminController extends HttpServlet {
                 String username = request.getParameter("userName");
                 String userphone = request.getParameter("userPhone");
                 String useraddress = request.getParameter("userAddress");
-                User uUser = new User( useremail, userpass, username, userphone, useraddress,id);
+                User uUser = new User(useremail, userpass, username, userphone, useraddress, id);
                 UserFacade uf = new UserFacade();
 //                uUser = uf.checkEmail(useremail);
                 if (useremail.isEmpty()) {
@@ -393,8 +565,8 @@ public class AdminController extends HttpServlet {
                         } else {
                             Date date = new Date();
                             User newUser = uf.registerStaff(useremail, userpass, username, userphone, useraddress, date);
-                            HttpSession session = request.getSession();
-                            session.setAttribute("User", newUser);
+//                            HttpSession session = request.getSession();
+//                            session.setAttribute("User", newUser);
                             request.setAttribute("message", "Create Successfully!");
                             request.getRequestDispatcher("/admin/create.do").forward(request, response);
                         }

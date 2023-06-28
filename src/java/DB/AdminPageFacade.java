@@ -9,6 +9,7 @@ package DB;
  * @author _viet.quangg
  */
 import Models.OrderList;
+import Models.PricingPlan;
 import Models.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,6 +24,26 @@ public class AdminPageFacade {
     Connection con = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
+    
+    public void updatePlan(PricingPlan plan) throws SQLException {
+        //Tạo connection để kết nối vào DBMS
+        Connection con = DBContext.getConnection();
+        //Tạo đối tượng PreparedStatement
+        PreparedStatement stm = con.prepareStatement("UPDATE [Plan] set planName = ?, planTime = ?, planLimit = ?, planStatus = ?, planPrice = ? WHERE planId = ?");
+        stm.setString(1, plan.getPlanName());
+        stm.setInt(2, plan.getPlanTime());
+        stm.setInt(3, plan.getPlanLimit());
+        stm.setString(4, plan.getPlanStatus());
+        stm.setDouble(5, plan.getPlanPrice());
+        stm.setInt(6, plan.getPlanId());
+        //Thực thi lệnh sql
+        int count = stm.executeUpdate();
+        //Đóng kết nối
+        
+        con.close();
+    }
+    
+    
 
     public int countUser() throws SQLException {
         try {
@@ -306,6 +327,9 @@ public class AdminPageFacade {
         }
         return null;
     }
+    
+    
+    
 
     public static void main(String[] args) throws SQLException {
         AdminPageFacade test = new AdminPageFacade();
@@ -314,6 +338,8 @@ public class AdminPageFacade {
         List<OrderList> order = test.listallOrder();
         int c = test.countUserthisMonth();
         int d = test.countUserlastMonth();
+//        PricingPlan u = new PricingPlan("Wood", 2,4,"Active",12,2);
+//        test.updatePlan(u);
         int percent1;
         if (d == 0) {
             percent1 = c == 0 ? 0 : 100;

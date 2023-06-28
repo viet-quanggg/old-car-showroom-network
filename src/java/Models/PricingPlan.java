@@ -13,18 +13,29 @@ public class PricingPlan {
     private String planName;
     private int planTime;
     private int planLimit;
+    private String planStatus;
     private double planPrice;
 
     public PricingPlan() {
     }
 
+    public PricingPlan(String planName, int planTime, int planLimit, String planStatus, double planPrice, int planId) {
+        this.planName = planName;
+        this.planTime = planTime;
+        this.planLimit = planLimit;
+        this.planStatus = planStatus;
+        this.planPrice = planPrice;
+        this.planId = planId;
+    }
     
     
-    public PricingPlan(int planId, String planName, int planTime, int planLimit, double planPrice) {
+    
+    public PricingPlan(int planId, String planName, int planTime, int planLimit, String planStatus, double planPrice) {
         this.planId = planId;
         this.planName = planName;
         this.planTime = planTime;
         this.planLimit = planLimit;
+        this.planStatus = planStatus;
         this.planPrice = planPrice;
     }
 
@@ -68,6 +79,15 @@ public class PricingPlan {
         this.planPrice = planPrice;
     }
 
+    public String getPlanStatus() {
+        return planStatus;
+    }
+
+    public void setPlanStatus(String planStatus) {
+        this.planStatus = planStatus;
+    }
+    
+    
     @Override
     public String toString() {
         return "PricingPlan{" + "planId=" + planId + ", planName=" + planName + ", planTime=" + planTime + ", planLimit=" + planLimit + ", planPrice=" + planPrice + '}';

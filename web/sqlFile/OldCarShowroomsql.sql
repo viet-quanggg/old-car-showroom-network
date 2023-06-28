@@ -50,6 +50,7 @@ create table  [Plan]
 planName nvarchar(30) not null,
 planTime int not null,
 planLimit int,
+planStatus nvarchar(50),
 planPrice money NOT NULL,
 )
 
@@ -124,6 +125,7 @@ create table  [Order]
 postId int not null,
 orderStatus nvarchar(50) NOT NULL, 
 orderDate Date NOT NULL,
+orderApp DATETIME,
 userId int NOT NULL,
 foreign key (userId) references [User] (userId),
 foreign key(postId) references [Post] (postId)
@@ -252,11 +254,11 @@ VALUES
 
 
 GO
-INSERT INTO [dbo].[Plan] ( [planName],[planTime],[planLimit],[planPrice])
+INSERT INTO [dbo].[Plan] ( [planName],[planTime],[planLimit],[planStatus],[planPrice])
 values
-('Silver Package',1,3,15),
-('Gold Package',3,10,30),
-('Platinum Package',6, null,60)
+('Silver Package',1,3,'Active',15),
+('Gold Package',3,10,'Active',30),
+('Platinum Package',6, null,'Active',60)
 
 INSERT INTO [dbo].[Car_Image]	([url],[createDate],[updateDate],[carID])
 VALUES	
