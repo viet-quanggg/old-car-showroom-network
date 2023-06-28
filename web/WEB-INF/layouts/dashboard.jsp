@@ -142,38 +142,6 @@
                             <span class="nav-link-text ms-1">Tables</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white " href="billing.html">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">receipt_long</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Billing</span>
-                        </a>
-                    </li>
-<!--                    <li class="nav-item">
-                        <a class="nav-link text-white " href="virtual-reality.html">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">view_in_ar</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Virtual Reality</span>
-                        </a>
-                    </li>-->
-<!--                    <li class="nav-item">
-                        <a class="nav-link text-white " href="rtl.html">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
-                            </div>
-                            <span class="nav-link-text ms-1">RTL</span>
-                        </a>
-                    </li>-->
-<!--                    <li class="nav-item">
-                        <a class="nav-link text-white " href="notifications.html">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">notifications</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Notifications</span>
-                        </a>
-                    </li>-->
                     <li class="nav-item mt-3">
                         <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
                     </li>
@@ -193,14 +161,6 @@
                             <span class="nav-link-text ms-1">Sign In</span>
                         </a>
                     </li>
-<!--                    <li class="nav-item">
-                        <a class="nav-link text-white " href="sign-up.html">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">assignment</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Sign Up</span>
-                        </a>
-                    </li>-->
                 </ul>
             </div>
             <div class="sidenav-footer position-absolute w-100 bottom-0 ">
@@ -221,115 +181,6 @@
                         </ol>
                         <h6 class="font-weight-bolder mb-0">Dashboard</h6>
                     </nav>
-<!--                    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                            <div class="input-group input-group-outline">
-                                <label class="form-label">Type here...</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                        <ul class="navbar-nav  justify-content-end">
-                            <li class="nav-item d-flex align-items-center">
-                                <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank" href="https://www.creative-tim.com/builder?ref=navbar-material-dashboard">Online Builder</a>
-                            </li>
-                            <li class="mt-2">
-                                <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/material-dashboard on GitHub">Star</a>
-                            </li>
-                            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                                <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
-                                    <div class="sidenav-toggler-inner">
-                                        <i class="sidenav-toggler-line"></i>
-                                        <i class="sidenav-toggler-line"></i>
-                                        <i class="sidenav-toggler-line"></i>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item px-3 d-flex align-items-center">
-                                <a href="javascript:;" class="nav-link text-body p-0">
-                                    <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown pe-2 d-flex align-items-center">
-                                <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-bell cursor-pointer"></i>
-                                </a>
-                                <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                                    <li class="mb-2">
-                                        <a class="dropdown-item border-radius-md" href="javascript:;">
-                                            <div class="d-flex py-1">
-                                                <div class="my-auto">
-                                                    <img src="${pageContext.request.contextPath}/material-dashboard/demos.creative-tim.com/material-dashboard/assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="text-sm font-weight-normal mb-1">
-                                                        <span class="font-weight-bold">New message</span> from Laur
-                                                    </h6>
-                                                    <p class="text-xs text-secondary mb-0">
-                                                        <i class="fa fa-clock me-1"></i>
-                                                        13 minutes ago
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="mb-2">
-                                        <a class="dropdown-item border-radius-md" href="javascript:;">
-                                            <div class="d-flex py-1">
-                                                <div class="my-auto">
-                                                    <img src="${pageContext.request.contextPath}/material-dashboard/demos.creative-tim.com/material-dashboard/assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="text-sm font-weight-normal mb-1">
-                                                        <span class="font-weight-bold">New album</span> by Travis Scott
-                                                    </h6>
-                                                    <p class="text-xs text-secondary mb-0">
-                                                        <i class="fa fa-clock me-1"></i>
-                                                        1 day
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item border-radius-md" href="javascript:;">
-                                            <div class="d-flex py-1">
-                                                <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
-                                                    <svg width="12px" height="12px" viewbox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                    <title>credit-card</title>
-                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                                    <g transform="translate(1716.000000, 291.000000)">
-                                                    <g transform="translate(453.000000, 454.000000)">
-                                                    <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
-                                                    <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
-                                                    </g>
-                                                    </g>
-                                                    </g>
-                                                    </g>
-                                                    </svg>
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="text-sm font-weight-normal mb-1">
-                                                        Payment successfully completed
-                                                    </h6>
-                                                    <p class="text-xs text-secondary mb-0">
-                                                        <i class="fa fa-clock me-1"></i>
-                                                        2 days
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item d-flex align-items-center">
-                                <a href="sign-in.html" class="nav-link text-body font-weight-bold px-0">
-                                    <i class="fa fa-user me-sm-1"></i>
-                                    <span class="d-sm-inline d-none">Sign In</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>-->
                 </div>
             </nav>
 
@@ -509,9 +360,7 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
-<!--                                                        <div>
-                                                            <img src="${pageContext.request.contextPath}/material-dashboard/demos.creative-tim.com/material-dashboard/assets/img/small-logos/logo-xd.svg" class="avatar avatar-sm me-3" alt="xd">
-                                                        </div>-->
+
                                                         <div class="d-flex flex-column justify-content-center">
                                                             <h6 class="mb-0 text-sm">   ${list.orderId}</h6>
                                                         </div>
@@ -528,30 +377,16 @@
                                                         </div>
                                                 </td>
                                                 <td>
-<!--                                                    <div class="progress-wrapper w-75 mx-auto">-->
-<!--                                                        <div class="progress-info">
-                                                            <div class="progress-percentage">
-                                                                <span class="text-xs font-weight-bold"></span>
-                                                            </div>
-                                                        </div>-->
+
                                                        <div class="d-flex flex-column justify-content-center">
                                                             <h6 class="mb-0 text-sm-center">${list.carPrice}</h6>
                                                         </div>
-<!--                                                    </div>-->
+
                                                 </td>
                                                  <td class="align-middle">
                                                       <div class="d-flex flex-column justify-content-center">
                                                             <h6 class="mb-0 text-sm-center">${list.orderStatus}</h6>
                                                         </div>
-<!--                                                    <div class="progress-wrapper w-75 mx-auto">
-                                                        <div class="progress-info">
-                                                            <div class="progress-percentage">
-                                                                <span class="text-xs font-weight-bold">${list.orderStatus}</span>
-                                                            </div>
-                                                        </div>-->
-<!--                                                        <div class="progress">
-                                                            <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>-->
                                                     </div>
                                                 </td>
                                             </tr>
@@ -573,15 +408,7 @@
                             </div>
                             <div class="card-body p-3">
                                 <div class="timeline timeline-one-side">
-<!--                                    <div class="timeline-block mb-3">
-                                        <span class="timeline-step">
-                                            <i class="material-icons text-success text-gradient">notifications</i>
-                                        </span>
-                                        <div class="timeline-content">
-                                            <h6 class="text-dark text-sm font-weight-bold mb-0">$2400, Design changes</h6>
-                                            <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">22 DEC 7:20 PM</p>
-                                        </div>
-                                    </div>-->                           
+                         
                                     <c:forEach items="${weekOrder}" var="wok">
                                     <div class="timeline-block mb-3">
                                         <span class="timeline-step">
@@ -593,42 +420,6 @@
                                         </div>
                                     </div>
                                      </c:forEach>
-<!--                                    <div class="timeline-block mb-3">
-                                        <span class="timeline-step">
-                                            <i class="material-icons text-info text-gradient">shopping_cart</i>
-                                        </span>
-                                        <div class="timeline-content">
-                                            <h6 class="text-dark text-sm font-weight-bold mb-0">Server payments for April</h6>
-                                            <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 9:34 PM</p>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-block mb-3">
-                                        <span class="timeline-step">
-                                            <i class="material-icons text-warning text-gradient">credit_card</i>
-                                        </span>
-                                        <div class="timeline-content">
-                                            <h6 class="text-dark text-sm font-weight-bold mb-0">New card added for order #4395133</h6>
-                                            <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">20 DEC 2:20 AM</p>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-block mb-3">
-                                        <span class="timeline-step">
-                                            <i class="material-icons text-primary text-gradient">key</i>
-                                        </span>
-                                        <div class="timeline-content">
-                                            <h6 class="text-dark text-sm font-weight-bold mb-0">Unlock packages for development</h6>
-                                            <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">18 DEC 4:54 AM</p>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-block">
-                                        <span class="timeline-step">
-                                            <i class="material-icons text-dark text-gradient">payments</i>
-                                        </span>
-                                        <div class="timeline-content">
-                                            <h6 class="text-dark text-sm font-weight-bold mb-0">New order #9583120</h6>
-                                            <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">17 DEC</p>
-                                        </div>
-                                    </div>                      -->
                                 </div>
                             </div>
                         </div>

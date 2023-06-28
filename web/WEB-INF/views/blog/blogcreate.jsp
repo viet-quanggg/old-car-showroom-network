@@ -74,7 +74,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-xl-12">
-                <form method="get" action="<c:url value="/blog/create_blog_handler.do"/>" enctype="multipart/form-data">
+                <form method="post" action="<c:url value="/blog/create_blog_handler.do"/>" enctype="multipart/form-data">
                     <div class="common-card active">
                         <div class="common-card-header">
                             <h4 class="common-card-header-title">blog information</h4>

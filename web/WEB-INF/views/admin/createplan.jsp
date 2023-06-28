@@ -150,14 +150,6 @@
                             <span class="nav-link-text ms-1">Tables</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white " href="billing.html">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">receipt_long</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Billing</span>
-                        </a>
-                    </li>
 
                     <li class="nav-item mt-3">
                         <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
@@ -173,9 +165,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-white " href="sign-in.html">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">login</i>
+                                <i class="material-icons opacity-10">logout</i>
                             </div>
-                            <span class="nav-link-text ms-1">Sign In</span>
+                            <span class="nav-link-text ms-1">Log Out</span>
                         </a>
                     </li>
                 </ul>
@@ -230,7 +222,7 @@
                                                     <td>
                                                         <div class="d-flex px-2 py-1">
                                                             <input type="text" id="pName" name="pName" >
-                                                           
+                                                            
                                                         </div>
                                                         <div class="d-flex px-2 py-1" style="color: red">${errorN}</div>
                                                     </td>
@@ -268,7 +260,7 @@
                                                         <div class="d-flex px-2 py-1" style="color: red">${errorP}</div></div>
                                                     </td>
                                                     <td class="align-middle text-center">
-                                                        <button type="submit" name="op" value="create" class="form-btn">Create</button>
+                                                        <button type="submit" id="op" name="op" value="create" class="form-btn">Create</button>
                                                     </td>
                                                 </tr>
                                             

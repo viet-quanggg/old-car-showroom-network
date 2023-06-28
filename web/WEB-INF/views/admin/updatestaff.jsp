@@ -150,38 +150,6 @@
                             <span class="nav-link-text ms-1">Tables</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white " href="billing.html">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">receipt_long</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Billing</span>
-                        </a>
-                    </li>
-                    <!--                    <li class="nav-item">
-                                            <a class="nav-link text-white " href="virtual-reality.html">
-                                                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                                    <i class="material-icons opacity-10">view_in_ar</i>
-                                                </div>
-                                                <span class="nav-link-text ms-1">Virtual Reality</span>
-                                            </a>
-                                        </li>-->
-                    <!--                    <li class="nav-item">
-                                            <a class="nav-link text-white " href="rtl.html">
-                                                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                                    <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
-                                                </div>
-                                                <span class="nav-link-text ms-1">RTL</span>
-                                            </a>
-                                        </li>-->
-                    <!--                    <li class="nav-item">
-                                            <a class="nav-link text-white " href="notifications.html">
-                                                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                                    <i class="material-icons opacity-10">notifications</i>
-                                                </div>
-                                                <span class="nav-link-text ms-1">Notifications</span>
-                                            </a>
-                                        </li>-->
                     <li class="nav-item mt-3">
                         <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
                     </li>
@@ -201,14 +169,6 @@
                             <span class="nav-link-text ms-1">Sign In</span>
                         </a>
                     </li>
-                    <!--                    <li class="nav-item">
-                                            <a class="nav-link text-white " href="sign-up.html">
-                                                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                                    <i class="material-icons opacity-10">assignment</i>
-                                                </div>
-                                                <span class="nav-link-text ms-1">Sign Up</span>
-                                            </a>
-                                        </li>-->
                 </ul>
             </div>
             <div class="sidenav-footer position-absolute w-100 bottom-0 ">
@@ -331,7 +291,6 @@
                                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone Number</th>
                                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
-                                                <!--                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Function</th>-->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -340,7 +299,6 @@
                                                     <td>
                                                         <div class="d-flex px-2 py-1">
                                                             <div class="d-flex px-2 py-1">
-    <!--                                                            <img src="${pageContext.request.contextPath}/material-dashboard/demos.creative-tim.com/material-dashboard/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">-->
                                                                 <h6 class="mb-0 text-sm">${uUser.userID} | </h6>
                                                             </div>
                                                             <div class="d-flex flex-column justify-content-center">
@@ -363,14 +321,6 @@
 
                                                         <span class="text-secondary text-xs font-weight-bold">${uUser.timeCreated}</span>
                                                     </td>
-                                                    <!--                                                    <td class="align-middle text-center">
-                                                                                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                                                                                Edit | 
-                                                                                                            </a>
-                                                                                                            <a href="<c:url value="/admin/delete_handler.do?id=${uUser.userID}"/>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Remove user">
-                                                                                                                Remove
-                                                                                                            </a>
-                                                                                                        </td>-->
                                                 </tr>
                                             </c:forEach>
                                         </tbody>

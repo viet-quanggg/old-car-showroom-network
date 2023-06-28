@@ -150,14 +150,7 @@
                             <span class="nav-link-text ms-1">Tables</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white " href="billing.html">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">receipt_long</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Billing</span>
-                        </a>
-                    </li>
+
                     <li class="nav-item mt-3">
                         <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
                     </li>
@@ -206,7 +199,7 @@
                         <div class="card my-4">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">Staff table</h6>
+                                    <h6 class="text-white text-capitalize ps-3 text-2xl">Staff table</h6>
                                     <a href = "<c:url value="/admin/create.do"/>" class="text-white text-capitalize ps-3">Create new Staff Account</a>
                                 </div>
                             </div>
@@ -274,8 +267,8 @@
                         <div class="card my-4">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">Pricing Plan table</h6>
-                                    <a href = "<c:url value="/admin/createplan.do"/>" class="text-white text-capitalize ps-3">Create new Staff Account</a>
+                                    <h6 class="text-white text-capitalize ps-3 text-2xl">Pricing Plan table</h6>
+                                    <a href = "<c:url value="/admin/createplan.do"/>" class="text-white text-capitalize ps-3">Create new Pricing Plan</a>
 
                                 </div>
                             </div>

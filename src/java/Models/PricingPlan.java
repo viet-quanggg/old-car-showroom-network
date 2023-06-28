@@ -28,6 +28,14 @@ public class PricingPlan {
         this.planId = planId;
     }
     
+        public PricingPlan(String planName, int planTime, int planLimit, String planStatus, double planPrice) {
+        this.planName = planName;
+        this.planTime = planTime;
+        this.planLimit = planLimit;
+        this.planStatus = planStatus;
+        this.planPrice = planPrice;
+    }
+    
     
     
     public PricingPlan(int planId, String planName, int planTime, int planLimit, String planStatus, double planPrice) {

@@ -317,7 +317,6 @@ public class AdminController extends HttpServlet {
         switch (op) {
             case "create":
             try {
-                int id = Integer.parseInt(request.getParameter("pId"));
                 String pName = request.getParameter("pName");
                 int pTime = Integer.parseInt(request.getParameter("pTime"));
                 int pLimit = Integer.parseInt(request.getParameter("pLimit"));
@@ -334,13 +333,8 @@ public class AdminController extends HttpServlet {
                         break;
                 }
                 double pPrice = Double.parseDouble(request.getParameter("pPrice"));
-//                PricingPlan uPlan = new PricingPlan(pName, pTime, pLimit, pStatus, pPrice, id);
-                request.setAttribute("pName", pName);
-                request.setAttribute("pTime", pTime);
-                request.setAttribute("pLimit", pLimit);
-                request.setAttribute("pStatus", pStatus);
-                request.setAttribute("pPrice", pPrice);
-                if (pName.isEmpty()) {
+                PricingPlan newPlan = new PricingPlan(pName, pTime, pLimit, pStatus, pPrice);
+                if (pName.isEmpty() || pName == null) {
                     request.setAttribute("errorN", "please fill in the Plan Name");
                     //  request.getRequestDispatcher("/login/register.do").forward(request, response);
                 }
@@ -352,19 +346,19 @@ public class AdminController extends HttpServlet {
                     request.setAttribute("errorL", "The Limit Post must greater than 0!");
                     //  request.getRequestDispatcher("/login/register.do").forward(request, response);
                 }
-                if (pStatus.isEmpty()) {
+                if (pStatus.isEmpty() || pStatus == null) {
                     request.setAttribute("errorS", "The Status of the plan can not be empty");
                     //    request.getRequestDispatcher("/login/register.do").forward(request, response);
                 }
                 if (pPrice < 0) {
                     request.setAttribute("errorP", "The Plan Price must greater than 0!");
                 }
-                if (pName.isEmpty() || pTime < 0 || pLimit < 0 || pStatus.isEmpty() || pPrice < 0) {
+                if (pName.isEmpty() || pName == null || pTime < 0 || pLimit < 0 || pStatus.isEmpty() || pStatus == null || pPrice < 0) {
                     request.getRequestDispatcher("/admin/createplan.do").forward(request, response);
 
                 } else {
                     OrderFacade of = new OrderFacade();
-                    of.addPlan(pName, pTime, pLimit, pStatus, pPrice);
+                    of.addPlan(newPlan);
                     request.setAttribute("message", "Create Successfully!");
                     request.getRequestDispatcher("/admin/createplan.do").forward(request, response);
                 }
@@ -384,6 +378,7 @@ public class AdminController extends HttpServlet {
         switch (op) {
             case "update":
             try {
+                AdminPageFacade apf = new AdminPageFacade();
                 int id = Integer.parseInt(request.getParameter("pId"));
                 String pName = request.getParameter("pName");
                 int pTime = Integer.parseInt(request.getParameter("pTime"));
@@ -397,7 +392,8 @@ public class AdminController extends HttpServlet {
                     case "deactivate":
                         pStatus = "Deactivate";
                         break;
-//                    default:
+                    default:
+                        break;
                 }
                 double pPrice = Double.parseDouble(request.getParameter("pPrice"));
                 PricingPlan uPlan = new PricingPlan(pName, pTime, pLimit, pStatus, pPrice, id);
@@ -424,7 +420,6 @@ public class AdminController extends HttpServlet {
                     request.getRequestDispatcher("/admin/updateplan.do").forward(request, response);
 
                 } else {
-                    AdminPageFacade apf = new AdminPageFacade();
                     apf.updatePlan(uPlan);
                     request.setAttribute("message", "Update Successfully!");
                     request.getRequestDispatcher("/admin/updateplan.do").forward(request, response);

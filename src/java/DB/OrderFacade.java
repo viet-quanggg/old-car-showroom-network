@@ -102,24 +102,24 @@ public class OrderFacade {
         }
     }
 
-    public void addPlan(String planName, int planTime, int planLimit, String planStatus, double planPrice) throws SQLException {
-        Connection con = DBContext.getConnection();
-        PreparedStatement stm = null;
+    public void addPlan(PricingPlan plan) throws SQLException {
         try {
+            Connection con = DBContext.getConnection();
+            PreparedStatement stm = null;
             stm = con.prepareStatement("INSERT INTO [dbo].[Plan] ( [planName],[planTime],[planLimit],[planStatus],[planPrice])\n"
                     + "values\n"
                     + "(?,?,?,?,?)");
-            stm.setString(1, planName);
-            stm.setInt(2, planTime);
-            stm.setInt(3, planLimit);
-            stm.setString(4, planStatus);
-            stm.setDouble(5, planPrice);
+            stm.setString(1, plan.getPlanName());
+            stm.setInt(2, plan.getPlanLimit());
+            stm.setInt(3, plan.getPlanLimit());
+            stm.setString(4, plan.getPlanStatus());
+            stm.setDouble(5, plan.getPlanPrice());
             int count = stm.executeUpdate();
-
+            con.close();
         } catch (SQLException e) {
             throw e;
-        } 
-        con.close();
+        }
+
     }
 
 //    public PricingPlan createPlan(String planName, int planTime, int planLimit, String planStatus, double planPrice) throws SQLException {
@@ -145,7 +145,6 @@ public class OrderFacade {
 //        con.close();
 //        return plan;
 //    }
-
     public void addOrder(int postId, int userId) throws SQLException {
         Connection con = DBContext.getConnection();
         PreparedStatement stm = null;
@@ -383,10 +382,10 @@ public class OrderFacade {
         ps.executeUpdate();
         con.close();
     }
-    
+
     public static void main(String[] args) throws SQLException {
         OrderFacade of = new OrderFacade();
 //        PricingPlan newPlan = of.createPlan("Gold Package", 3, 15, "Active", 35);
-        of.addPlan("Gold Package", 3, 15, "Active", 35);
+//        of.addPlan("Gold Package", 3, 15, "Active", 35);
     }
 }

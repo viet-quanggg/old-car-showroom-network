@@ -236,9 +236,9 @@
                                                 </td>
                                                 <td>
                                                     <div>
-                                                        <input type="password" class="form-text" value="" name="userPass" id="userPassword">
+                                                        <input type="password" class="form-text" value="" name="userPass" id="userPassword" placeholder="Enter password">
                                                         <div style="color: red">${errorPa}</div><br/>
-                                                        <input type="password" class="form-text" value="" name="re_pass" id="userPassword"><br/>
+                                                        <input type="password" class="form-text" value="" name="re_pass" id="userPassword" placeholder="Re enter password"><br/>
                                                         <div style="color: red">${errorR}</div>
                                                         <div/>
                                                 </td>
@@ -305,7 +305,6 @@
                                                     <td>
                                                         <div class="d-flex px-2 py-1">
                                                             <div class="d-flex px-2 py-1">
-    <!--                                                            <img src="${pageContext.request.contextPath}/material-dashboard/demos.creative-tim.com/material-dashboard/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">-->
                                                                 <h6 class="mb-0 text-sm">${staffList.userID} | </h6>
                                                             </div>
                                                             <div class="d-flex flex-column justify-content-center">
