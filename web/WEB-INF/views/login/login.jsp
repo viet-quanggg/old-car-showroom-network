@@ -83,7 +83,7 @@
                 <ul class="auth-form-continue">
                     <p class="auth-form-text"> Don't have any account? <a href="<c:url value="/login/register.do"/>">Register here</a></p>
                     <h4 style="color: greenyellow">${message}</h4>
-                    <h4 style="color: red">${error}</h4>
+                    <h4 style="color: red">${errorLogin}</h4>
                 </ul>
             </div>
         </form>

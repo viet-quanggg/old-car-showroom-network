@@ -44,7 +44,7 @@ public class UserController extends HttpServlet {
         }
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
-        
+
         switch (action) {
             case "dashboard":
                 request.getRequestDispatcher("/WEB-INF/layouts/dashboard.jsp").forward(request, response); //Hien trang thong bao loi
@@ -99,18 +99,21 @@ public class UserController extends HttpServlet {
                 if (userpass.isEmpty() || newpass.isEmpty() || re_pass.isEmpty()) {
                     request.getRequestDispatcher("/login/update_profile.do").forward(request, response);
                 } else {
-                    
+
                     if (!userpass.equals(user.getUserPass())) {
                         request.setAttribute("ePa", "The Password is incorrect!");
-                        request.getRequestDispatcher("/login/register.do").forward(request, response);
-                    }else if (userpass.equals(newpass)) {
-                        request.setAttribute("errorNP", "The New Password is the same!");
-                        request.getRequestDispatcher("/login/register.do").forward(request, response);
+                        request.getRequestDispatcher("/login/update_profile.do").forward(request, response);
+
+                    } else if (userpass.equals(newpass)) {
+                        request.setAttribute("errorNP", "New password cannot be the same as the old password!");
+                        request.getRequestDispatcher("/login/update_profile.do").forward(request, response);
+
                     } else if (!newpass.equals(re_pass)) {
                         request.setAttribute("eR", "New Password and Re-password do not match!");
-                        request.getRequestDispatcher("/login/register.do").forward(request, response);
+                        request.getRequestDispatcher("/login/update_profile.do").forward(request, response);
+
                     } else {
-                        
+
                         user.setUserPass(newpass);
                         uf.update(user);
                         session.setAttribute("User", user);
@@ -120,7 +123,7 @@ public class UserController extends HttpServlet {
                     }
                 }
             } catch (Exception e) {
-                request.setAttribute("error", e.toString());
+                request.setAttribute("errorCP", e.toString());
                 request.getRequestDispatcher("/login/update_profile.do").forward(request, response);
             }
             break;
