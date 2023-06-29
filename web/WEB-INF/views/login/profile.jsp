@@ -53,17 +53,25 @@
                                 </c:if>
                             <li><a href="<c:url value="/login/profile.do"/>" class="active">profile</a></li>
                             <li><a href="<c:url value="/login/update_profile.do"/>" class="inactive">update profile</a></li>
-                            <li><a href="<c:url value="/order/createad.do"/>">create car</a></li>
-                            <li><a href="<c:url value="/order/postedad.do"/>">posted car</a></li>
+                                <c:if test="${User.userRole == 0 || User.userRole == 1}">
+                                <li><a href="<c:url value="/order/createad.do"/>">create car</a></li>
+                                </c:if>
+                                <c:if test="${User.userRole == 0 || User.userRole == 1}">
+                                <li><a href="<c:url value="/order/postedad.do"/>">posted car</a></li>
+                                </c:if>
                                 <c:if test="${User.userRole == 2 || User.userRole == 1}">
                                 <li><a href="<c:url value="/order/ordermanager.do"/>">Order Manager</a></li>
                                 </c:if>
                                 <c:if test="${ User.userRole == 1}">
                                 <li><a href="<c:url value="/admin/userlist.do"/>">User List</a></li>
                                 </c:if>
-                            <li><a href="<c:url value="/order/favorite.do"/>">favorite</a></li>
-                            <li><a href="<c:url value="/cars/compare.do"/>">compares</a></li>
-                            <li><a href="setting.html">settings</a></li>
+                                <c:if test="${ User.userRole == 0}">
+                                <li><a href="<c:url value="/order/orderlist.do"/>">Order List</a></li>
+                                </c:if>
+                                <c:if test="${ User.userRole == 0}">
+                                <li><a href="<c:url value="/order/favorite.do"/>">favorite</a></li>
+                                <li><a href="<c:url value="/cars/compare.do"/>">compares</a></li>
+                                </c:if>
                         </ul>
                     </div>
                 </div>
@@ -116,23 +124,15 @@
             <div class="col-lg-5 col-xl-4">
                 <div class="common-card">
                     <div class="common-card-header">
-                        <h4 class="common-card-header-title">email this vendor</h4>
+                        <h4 class="common-card-header-title">Your Plan Package</h4>
                     </div>
                     <form>
-                        <div class="row">
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12">
-                                <div class="form-group"><input type="text" class="form-control"
-                                                               placeholder="enter your name"></div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12">
-                                <div class="form-group"><input type="email" class="form-control"
-                                                               placeholder="enter your email"></div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <div class="form-group"><textarea class="form-control"
-                                                                  placeholder="describe your message"></textarea></div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><button class="form-btn" type="submit">send email</button></div>
+                        <div class="common-card-body ">
+                            <ul class="profile-specify-list">
+                                <li><span>Package</span><span>${User.timeCreated}</span></li>
+                                <li><span>Expired Date:</span><span>${User.userName}</span></li>
+                                <li><span>Post available:</span><span><c:if test="${User.userRole == 2}">Admin</c:if> <c:if test="${User.userRole == 1}">Employee</c:if> <c:if test="${User.userRole == 0}">Customer</c:if></span></li>
+                            </ul>
                         </div>
                     </form>
                 </div>

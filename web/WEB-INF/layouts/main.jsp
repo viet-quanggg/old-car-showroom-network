@@ -62,24 +62,24 @@
                         </select><button type="submit">search</button></div>
                 </form>
             </div>
-                                                         
+
             <div class="header-responsive">
                 <div class="header-user"> <img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png"
-                                                                                      alt="user"><span></span> 
-                    
+                                               alt="user"><span></span> 
 
-                        <c:if test="${User==null}">
-                            <a href="<c:url value="/login/login.do"/>" style="color:whitesmoke;display: inline-block"  alt="user"><span>Log In |</span></a> 
-                            <a href="<c:url value="/login/register.do"/>" style="color:whitesmoke;display: inline-block" alt="user"><span>    Register </span></a>
-                        </c:if>
-                        <c:if test="${User!=null}">
-                            <a href="<c:url value="/login/profile.do"/>" style="color:whitesmoke" class="header-user" alt="user"><span>${User.userName} |</span></a>
-                            <a href="<c:url value="/login/logout.do"/>" style="color:whitesmoke" class="header-user" alt="user"><span>Log Out</span></a>
-                        </c:if>
-                    </div>
+
+                    <c:if test="${User==null}">
+                        <a href="<c:url value="/login/login.do"/>" style="color:whitesmoke;display: inline-block"  alt="user"><span>Log In |</span></a> 
+                        <a href="<c:url value="/login/register.do"/>" style="color:whitesmoke;display: inline-block" alt="user"><span>    Register </span></a>
+                    </c:if>
+                    <c:if test="${User!=null}">
+                        <a href="<c:url value="/login/profile.do"/>" style="color:whitesmoke" class="header-user" alt="user"><span>${User.userName} |</span></a>
+                        <a href="<c:url value="/login/logout.do"/>" style="color:whitesmoke" class="header-user" alt="user"><span>Log Out</span></a>
+                    </c:if>
                 </div>
-                <a href="<c:url value="/order/createad.do"/>" class="btn header-btn"><i
-                        class="material-icons">storefront</i><span>sell vehicles</span></a>
+            </div>
+            <a href="<c:url value="/order/createad.do"/>" class="btn header-btn"><i
+                    class="material-icons">storefront</i><span>sell vehicles</span></a>
         </header>
 
         <div class="row">
@@ -112,11 +112,18 @@
                     </div>
                     <div class="sidebar-group">
                         <h5 class="sidebar-title">user action</h5>
-                        <ul class="nav-list"><c:if test="${User.userRole == 2||User.userRole ==1}">
-                            <li class="nav-item"><a href="<c:url value="/order/ordermanager.do"/>" class="nav-link"><i
-                                        class="material-icons">favorite</i><span class="nav-text">Order Manager</span></a></li></c:if>
-                                        <li class="nav-item"><a href="${pageContext.request.contextPath}/addToCompare?id=${item.carID}" class="nav-link"><i
-                                        class="material-icons">compare</i><span class="nav-text">compare</span></a></li>
+                        <ul class="nav-list">
+                            <c:if test="${User.userRole == 2}">
+                                <li class="nav-item"><a href="<c:url value="/admin/dashboard.do"/>" class="nav-link"><i
+                                            class="material-icons">view_compact_alt</i><span class="nav-text">DashBoard</span></a></li></c:if>
+                                    <c:if test="${User.userRole == 2||User.userRole ==1}">
+                                <li class="nav-item"><a href="<c:url value="/order/ordermanager.do"/>" class="nav-link"><i
+                                            class="material-icons">favorite</i><span class="nav-text">Order Manager</span></a></li></c:if>
+                                                                                <c:if test="${User.userRole == 0||User.userRole ==1}">
+                            <li class="nav-item"><a href="${pageContext.request.contextPath}/addToWish?id=${item.carID}" class="nav-link"><i
+                                        class="material-icons">favorite</i><span class="nav-text">favorites</span></a></li>
+                            <li class="nav-item"><a href="${pageContext.request.contextPath}/addToCompare?id=${item.carID}" class="nav-link"><i
+                                        class="material-icons">compare</i><span class="nav-text">compare</span></a></li></c:if>
                             <li class="nav-item"><a href="notify.html" class="nav-link"><i
                                         class="material-icons">notifications</i><span
                                         class="nav-text">notification</span></a></li>
@@ -217,11 +224,7 @@
                             <li class="nav-item"><a href="<c:url value="/order/createad.do"/>" class="nav-link"><i
                                         class="material-icons">note_add</i><span class="nav-text">create ads</span></a></li>
                             <li class="nav-item"><a href="posted-ads.html" class="nav-link"><i
-                                        class="material-icons">apps</i><span class="nav-text">posted ads</span></a></li>
-                            <li class="nav-item"><a href="${pageContext.request.contextPath}/addToWish?id=${item.carID}" class="nav-link"><i
-                                        class="material-icons">favorite</i><span class="nav-text">favorites</span></a></li>
-                            <li class="nav-item"><a href="compare.html" class="nav-link"><i
-                                        class="material-icons">compare</i><span class="nav-text">compares</span></a></li>
+                                        class="material-icons">apps</i><span class="nav-text">posted ads</span></a></li>                          
                             <li class="nav-item"><a href="<c:url value="/views/login/login.do"/>" class="nav-link"><i
                                         class="material-icons">logout</i><span class="nav-text">logout</span></a></li> 
                         </ul>
@@ -229,20 +232,22 @@
                 </nav>
             </div>
         </aside>
-        <div class="float-menu"><button type="button" class="float-widget badge-hover"><i
-                    class="material-icons">widgets</i><span class="badge arrow-right">widgets</span><sup>9</sup></button>
-            <ul class="float-list">
-                <li class="float-item"><a href="compare.html" class="badge-hover"><i
-                            class="purple material-icons">compare</i><span
-                            class="badge arrow-right">compare</span><sup>2</sup></a></li>
-                <li class="float-item"><a href="favorite.html" class="badge-hover"><i
-                            class="red material-icons">favorite</i><span
-                            class="badge arrow-right">favorite</span><sup>4</sup></a></li>
-                <li class="float-item"><a href="notify.html" class="badge-hover"><i
-                            class="orange material-icons">notifications</i><span
-                            class="badge arrow-right">notify</span><sup>3</sup></a></li>
-            </ul>
-        </div>
+        <c:if test="${User.userRole == 0}">
+            <div class="float-menu"><button type="button" class="float-widget badge-hover"><i
+                        class="material-icons">widgets</i><span class="badge arrow-right">widgets</span><sup>9</sup></button>
+                <ul class="float-list">
+                    <li class="float-item"><a href="<c:url value="/cars/compare.do"/>" class="badge-hover"><i
+                                class="purple material-icons">compare</i><span
+                                class="badge arrow-right">compare</span><sup>2</sup></a></li>
+                    <li class="float-item"><a href="<c:url value="/order/favorite.do"/>" class="badge-hover"><i
+                                class="red material-icons">favorite</i><span
+                                class="badge arrow-right">favorite</span><sup>4</sup></a></li>
+                    <li class="float-item"><a href="notify.html" class="badge-hover"><i
+                                class="orange material-icons">notifications</i><span
+                                class="badge arrow-right">notify</span><sup>3</sup></a></li>
+                </ul>
+            </div>
+        </c:if>
         <div class="mobile-menu"><a href="<c:url value="/views/login/register.do"/>"><i class="material-icons">person</i><span>account</span></a><a
                 href="notify.html"><i class="material-icons">notifications</i><span>notify</span><sup>9</sup></a><a
                 href="<c:url value="/order/createad.do"/>" title="sell vehicless"><i class="material-icons">storefront</i></a><a

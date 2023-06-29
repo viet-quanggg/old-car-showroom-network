@@ -57,6 +57,7 @@ public class UserFacade {
             user.setTimeCreated(rs.getDate("timeCreated"));
             user.setUserRole(rs.getInt("userRole"));
             user.setUserImage(rs.getString("userImage"));
+            
         }
         con.close();
         return user;
@@ -121,6 +122,7 @@ public class UserFacade {
             user.setTimeCreated(rs.getDate("timeCreated"));
             user.setUserRole(rs.getInt("userRole"));
             user.setUserImage("");
+            
         }
         con.close();
         return user;
@@ -148,7 +150,6 @@ public class UserFacade {
 //        con.close();
 //        return list;
 //    }
-    
     public ArrayList<User> userListId(String id) throws SQLException {
         User user = null;
         ArrayList<User> list = new ArrayList<>();
@@ -167,16 +168,22 @@ public class UserFacade {
             user.setTimeCreated(rs.getDate("timeCreated"));
             user.setUserRole(rs.getInt("userRole"));
             user.setUserImage(rs.getString("userImage"));
+            if (rs.getObject("planId") != null) {
+                user.setPlanId(rs.getInt("planId"));
+            }
+            if (rs.getObject("planStart") != null) {
+                user.setPlanStart(rs.getDate("planStart"));
+            }
             list.add(user);
         }
         con.close();
         return list;
     }
-    
+
     public User getUser(int userID) throws SQLException {
         User user = null;
         Connection con = DBContext.getConnection();
-        PreparedStatement stm = con.prepareStatement("select * from [User] where userID= ?");
+        PreparedStatement stm = con.prepareStatement("select * from [User] where userID = ?");
         stm.setInt(1, userID);
         ResultSet rs = stm.executeQuery();
         if (rs.next()) {
@@ -190,10 +197,17 @@ public class UserFacade {
             user.setTimeCreated(rs.getDate("timeCreated"));
             user.setUserRole(rs.getInt("userRole"));
             user.setUserImage(rs.getString("userImage"));
+            if (rs.getObject("planId") != null) {
+                user.setPlanId(rs.getInt("planId"));
+            }
+            if (rs.getObject("planStart") != null) {
+                user.setPlanStart(rs.getDate("planStart"));
+            }
         }
         con.close();
         return user;
     }
+
     public ArrayList<User> userList() throws SQLException {
         User user = null;
         ArrayList<User> list = new ArrayList<>();
@@ -211,11 +225,18 @@ public class UserFacade {
             user.setTimeCreated(rs.getDate("timeCreated"));
             user.setUserRole(rs.getInt("userRole"));
             user.setUserImage(rs.getString("userImage"));
+            if (rs.getObject("planId") != null) {
+                user.setPlanId(rs.getInt("planId"));
+            }
+            if (rs.getObject("planStart") != null) {
+                user.setPlanStart(rs.getDate("planStart"));
+            }
             list.add(user);
         }
         con.close();
         return list;
     }
+
     public User checkEmail(String userEmail) throws SQLException {
         User user = null;
         Connection con = DBContext.getConnection();
@@ -237,8 +258,6 @@ public class UserFacade {
         con.close();
         return user;
     }
-  
-
 
     public User forgetpass(String email, String accountPhone) throws SQLException {
         User user = null;
@@ -257,6 +276,7 @@ public class UserFacade {
             user.setUserAddress(rs.getString("userAddress"));
             user.setUserRole(rs.getInt("userRole"));
             user.setUserImage(rs.getString("userImage"));
+
         }
         con.close();
         return user;
@@ -268,6 +288,16 @@ public class UserFacade {
         PreparedStatement stm = con.prepareStatement("UPDATE [User] set userPass =? where userEmail = ?");
         stm.setString(1, accountpass);
         stm.setString(2, email);
+        con.close();
+        return user;
+    }
+
+    public User updatePlan(User user) throws SQLException {
+        Connection con = DBContext.getConnection();
+        PreparedStatement stm = con.prepareStatement("UPDATE [User] set planId =? , planStart = CURRENT_TIMESTAMP where userId=?");
+        stm.setInt(1,user.getPlanId());
+        stm.setInt(2, user.getUserID());
+        int count = stm.executeUpdate();
         con.close();
         return user;
     }
@@ -288,7 +318,6 @@ public class UserFacade {
         //Đóng kết nối
         con.close();
     }
-    
 
     public boolean addUser(User user) {
 
@@ -338,7 +367,7 @@ public class UserFacade {
         ResultSet rs = null;
         try {
             //Tạo connection để kết nối vào DBMS
-             con = DBContext.getConnection();
+            con = DBContext.getConnection();
             //Tạo đối tượng PreparedStatement
             PreparedStatement stm = con.prepareStatement("delete from [User] where userId = ?");
             stm.setString(1, id);

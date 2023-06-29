@@ -19,6 +19,8 @@ import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -82,7 +84,7 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
                     return;
                 }
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); 
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
                 break;
@@ -115,8 +117,49 @@ public class LoginController extends HttpServlet {
         String op = request.getParameter("op");
         switch (op) {
             case "login":
-                doPost(request, response);
-                break;
+                try {
+                String useremail = request.getParameter("userEmail");
+                String userpass = request.getParameter("userPass");
+                request.setAttribute("userEmail", useremail);
+
+                //    String remember = request.getParameter("remember");
+                UserFacade uf = new UserFacade();
+                User user = uf.login(useremail, userpass);
+                // String remember = request.getParameter("remember");
+                if (user != null) {
+                    //Neu login thanh cong:
+                    //Luu user vao session
+                    if (request.getParameter("remember") != null && request.getParameter("remember").equals("on")) {
+                        String remember = request.getParameter("remember");
+                        System.out.println("remember : " + remember);
+                        Cookie cUserName = new Cookie("cookuser", useremail.trim());
+                        Cookie cPassword = new Cookie("cookpass", userpass.trim());
+                        Cookie cRemember = new Cookie("cookrem", remember.trim());
+                        cUserName.setMaxAge(60 * 60 * 24 * 15);// 15 days
+                        cPassword.setMaxAge(60 * 60 * 24 * 15);
+                        cRemember.setMaxAge(60 * 60 * 24 * 15);
+                        response.addCookie(cUserName);
+                        response.addCookie(cPassword);
+                        response.addCookie(cRemember);
+
+                    }
+                    HttpSession httpSession = request.getSession();
+                    httpSession.setAttribute("User", user);
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
+                    requestDispatcher.forward(request, response);
+
+                } else {
+                    request.setAttribute("errorLogin", "Email or password is wrong, please enter again!");
+                request.getRequestDispatcher("/login/login.do").forward(request, response);
+                }
+            } 
+            catch (Exception ex) {
+                //Cho hien lai login form
+                request.setAttribute("error", ex.toString());
+                request.getRequestDispatcher("/login/login.do").forward(request, response);
+            }
+
+            break;
             case "cancel":
                 //quay ve home page
                 response.sendRedirect(request.getContextPath() + "/ocsn/index.do");
@@ -219,22 +262,57 @@ public class LoginController extends HttpServlet {
             String op = request.getParameter("op");
             UserFacade uf = new UserFacade();
             User user = new User();
-            HttpSession session = request.getSession();
             switch (op) {
                 case "forgetpass":
                     try {
-                    String email = request.getParameter("email");
-                    String phone = request.getParameter("userPhone");
-                    //    user = uf.forgotpass(email, phone);
-                    if (user != null) {
-                        session.setAttribute("User1", user);
-                        request.setAttribute("message2", user.getUserName());
-                        request.getRequestDispatcher("/user/forgetpass.do").forward(request, response);
-                    } else {
-                        //Cho hien lai login form
-                        request.setAttribute("message1", "Email or Phone Number is not match! Please try again!");
-                        request.getRequestDispatcher("/user/forgetpass.do").forward(request, response);
-                    }
+//                    String useremail = request.getParameter("userEmail");
+//                    user = uf.checkEmail(useremail);
+//                    if (user != null) {
+//                        RequestDispatcher dispatcher = null;
+//                        int otpvalue = 0;
+//                        HttpSession mySession = request.getSession();
+//
+//                        if (useremail != null || !useremail.equals("")) {
+//                            // sending otp
+//                            Random rand = new Random();
+//                            otpvalue = rand.nextInt(1255650);
+//
+//                            String to = useremail;// change accordingly
+//                            // Get the session object
+//                            Properties props = new Properties();
+//                            props.put("mail.smtp.host", "smtp.gmail.com");
+//                            props.put("mail.smtp.socketFactory.port", "465");
+//                            props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+//                            props.put("mail.smtp.auth", "true");
+//                            props.put("mail.smtp.port", "465");
+//                            Session session = Session.getDefaultInstance(props, new jakarta.mail.Authenticator() {
+//                                protected PasswordAuthentication getPasswordAuthentication() {
+//                                    return new PasswordAuthentication("mphamtran8@gmail.com", "vtdoarnanxzhpaon");
+//                                }
+//                            });
+//                            // compose message
+//                            try {
+//                                MimeMessage message = new MimeMessage(session);
+//                                message.setFrom(new InternetAddress(useremail));// change accordingly
+//                                message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+//                                message.setSubject("Hello");
+//                                message.setText("your OTP is: " + otpvalue);
+//                                // send message
+//                                Transport.send(message);
+//                                System.out.println("message sent successfully");
+//                            } catch (MessagingException e) {
+//                                throw new RuntimeException(e);
+//                            }
+//                            dispatcher = request.getRequestDispatcher("EnterOtp.jsp");
+//                            request.setAttribute("message", "OTP is sent to your email id");
+//                            //request.setAttribute("connection", con);
+//                            mySession.setAttribute("otp", otpvalue);
+//                            mySession.setAttribute("userEmail", useremail);
+//                            dispatcher.forward(request, response);
+//                            //request.setAttribute("status", "success");
+//                        }
+//
+//                    }
                 } catch (Exception e) {
                     request.setAttribute("message1", e.toString());
                     request.getRequestDispatcher("/user/forgetpass.do").forward(request, response);
@@ -243,6 +321,7 @@ public class LoginController extends HttpServlet {
                 break;
                 case "changepassword":
                     try {
+                    HttpSession session = request.getSession();
                     user = (User) session.getAttribute("User1");
                     String userpass = request.getParameter("userPass");
                     String re_pass = request.getParameter("re_pass");
@@ -295,46 +374,9 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String useremail = request.getParameter("userEmail");
-            String userpass = request.getParameter("userPass");
-            request.setAttribute("userEmail", useremail);
-
-            //    String remember = request.getParameter("remember");
-            UserFacade uf = new UserFacade();
-            User user = uf.login(useremail, userpass);
-            // String remember = request.getParameter("remember");
-            if (user != null) {
-                //Neu login thanh cong:
-                //Luu user vao session
-                if (request.getParameter("remember") != null && request.getParameter("remember").equals("on")) {
-                    String remember = request.getParameter("remember");
-                    System.out.println("remember : " + remember);
-                    Cookie cUserName = new Cookie("cookuser", useremail.trim());
-                    Cookie cPassword = new Cookie("cookpass", userpass.trim());
-                    Cookie cRemember = new Cookie("cookrem", remember.trim());
-                    cUserName.setMaxAge(60 * 60 * 24 * 15);// 15 days
-                    cPassword.setMaxAge(60 * 60 * 24 * 15);
-                    cRemember.setMaxAge(60 * 60 * 24 * 15);
-                    response.addCookie(cUserName);
-                    response.addCookie(cPassword);
-                    response.addCookie(cRemember);
-
-                }
-                HttpSession httpSession = request.getSession();
-                httpSession.setAttribute("User", user);
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
-                requestDispatcher.forward(request, response);
-
-            } else {
-                //Cho hien lai login form
-                request.setAttribute("error", "Email or password is wrong, please enter again!");
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-            }
-        } //   if (!check.isEmpty()) {}
-        catch (Exception ex) {
-            //Cho hien lai login form
-            request.setAttribute("error", ex.toString());
-            request.getRequestDispatcher("/login/login.do").forward(request, response);
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

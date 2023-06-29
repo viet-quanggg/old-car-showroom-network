@@ -31,7 +31,7 @@
                         <li class="price-item"><span>Plan Period: ${plan.planTime} months</span></li>
                         <li class="price-item"><del>Third Parties Ads</del></li>
                         <li class="price-item"><del>Surcharge</del></li>
-                        <li class="price-item"><span>Post Limit: ${plan.planLimit} Posts</span></li>
+                        <li class="price-item"><span>Post Limit: ${(plan.planLimit != 0) ? plan.planLimit : "infinite"} Posts</span></li>
                         <li class="price-item"><span>Full Support From OCSN</span></li>
                     </ul>
                     <h4 class="price-amount">$${plan.planPrice}/-</h4>
