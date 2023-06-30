@@ -154,14 +154,13 @@ public class BlogController extends HttpServlet {
                         String blogDetail = request.getParameter("blogdetail");
                         int userId = Integer.parseInt(request.getParameter("userId"));
                         String blogImage = request.getParameter("blogimage");
-//                            Part filePart = request.getPart("blogimage");
-//
+
                         if (blogTitle == null || blogTitle.isEmpty()
                                 || blogDetail == null || blogDetail.isEmpty()
                                 || blogImage == null) {
                             throw new IllegalArgumentException("Missing or invalid input field(s)");
                         }
-// Save the uploaded file to disk
+                        // Save the uploaded file to disk
                         String fileName = UUID.randomUUID().toString() + ".jpg";
                         String uploadsDirPath = getServletContext().getRealPath("/uploads/");
                         File uploadsDir = new File(uploadsDirPath);
@@ -173,9 +172,8 @@ public class BlogController extends HttpServlet {
 //                                IOUtils.copy(fileContent, out);
 //                            }
 
-// Store the file path in the database using BlogFacade
-                        String imagePath = "D:\\SWP391\\old-car-showroom-network1\\old-car-showroom-network\\web\\mironmahmud.com\\ghurnek\\assets\\images\\blogImage" + fileName;
-//                            BlogFacade bf = new BlogFacade();
+                           // Store the file path in the database using BlogFacade
+                        String imagePath = "D:\\SWP391\\old-car-showroom-network1\\old-car-showroom-network\\web\\mironmahmud.com\\ghurnek\\assets\\images\\upload\\" + fileName;
                         Blog newBlog = new Blog(blogTitle, blogDetail, imagePath, userId);
                         bf.create(newBlog);
                         request.setAttribute("message", "Create successfully");

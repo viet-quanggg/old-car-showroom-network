@@ -5,6 +5,7 @@
 package DB;
 
 import Models.Blog;
+import jakarta.servlet.http.Part;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -78,7 +79,7 @@ public class BlogFacade {
 
     public static void main(String[] args) throws SQLException {
         BlogFacade bf = new BlogFacade();
-        List<Blog> blog = bf.blogPerPage(1,8);
+        List<Blog> blog = bf.blogPerPage(1, 8);
         for (Blog o : blog) {
             System.out.println(o);
         }
@@ -136,18 +137,18 @@ public class BlogFacade {
     }
 
     public void create(Blog blog) throws SQLException {
-        try {
-            con = DBContext.getConnection();
-            ps = con.prepareStatement("INSERT [dbo].[Blog](blogTitle,blogDetail,blogImage,userId ,blogDate) \n"
-                    + "values(?,?,?,?,CURRENT_TIMESTAMP)");
+        try (Connection con = DBContext.getConnection(); 
+            PreparedStatement ps = con.prepareStatement("SET IDENTITY_INSERT [dbo].[Blog] ON;" +
+                                             "INSERT INTO [dbo].[Blog](blogId, blogTitle, blogDetail, blogImage, userId, blogDate) VALUES ((SELECT MAX(blogId) FROM [dbo].[Blog]) + 1, ?, ?, ?, ?, CURRENT_TIMESTAMP);" +
+                                             "SET IDENTITY_INSERT [dbo].[Blog] OFF;"))
+ {
             ps.setString(1, blog.getBlogTitle());
             ps.setString(2, blog.getBlogDetail());
             ps.setString(3, blog.getBlogImage());
             ps.setInt(4, blog.getUserId());
             int count = ps.executeUpdate();
-            con.close();
         } catch (Exception e) {
-
+            // Handle the exception here
         }
     }
 
@@ -213,7 +214,7 @@ public class BlogFacade {
         }
         return null;
     }
-    
+
     public List<Blog> blogPerPage(int index, int num) throws SQLException {
         List<Blog> list = new ArrayList<>();
         try {
@@ -245,4 +246,5 @@ public class BlogFacade {
         }
         return null;
     }
+
 }

@@ -87,7 +87,7 @@ public class OrderController extends HttpServlet {
                 //in thong bao loi chi tiet cho developer
                 break;
             case "ordercar":
-                if (user.getUserRole()  != 0) {
+                if (user.getUserRole() != 0) {
                     response.sendRedirect(request.getContextPath() + "/cars/carlist.do");
                     return;
                 }
@@ -104,21 +104,24 @@ public class OrderController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
                 break;
             case "orderlist":
-                 List<Order> orderl = null;
-                if (user.getUserRole() != 0) 
+                List<Order> orderl = null;
+                if (user.getUserRole() != 0) {
                     orderl = of.listOrders();
-                else 
+                } else {
                     orderl = of.listUserOrders(user.getUserID());
-                if (orderl != null)
+                }
+                if (orderl != null) {
                     request.setAttribute("orders", orderl);
-                else
+                } else {
                     request.setAttribute("action", "");
+                }
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
             case "removeorder":
                 String oid = request.getParameter("orderId");
-                if (oid != null && !oid.isEmpty() && oid.matches("^[1-9]\\d*$"))
+                if (oid != null && !oid.isEmpty() && oid.matches("^[1-9]\\d*$")) {
                     of.Delete(Integer.parseInt(oid));
+                }
                 response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
                 break;
             case "ordermanager":
@@ -137,6 +140,7 @@ public class OrderController extends HttpServlet {
 //                        request.setAttribute("action", "error");
 //                        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
 //                }
+
                     case "denied":
                         int orderId1 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId1, "Cancelled");
@@ -162,6 +166,20 @@ public class OrderController extends HttpServlet {
 //                        of.Delete(orderId5);
 //                        response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
 //                        break;
+                    case "search":
+                        String searchQuery = request.getParameter("search").trim();
+
+                        if (searchQuery == null || searchQuery.isEmpty()) {
+                            List<OrderList> ship = of.getAllOrders();
+                            request.setAttribute("orders", ship);
+                        }else{
+                        // Perform search logic and retrieve matching orders from the database
+                        List<OrderList> search = of.search(searchQuery);
+                        
+                        request.setAttribute("orders", search);
+                        }
+                        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                        break;
                     default:
                         request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                         break;
@@ -197,6 +215,22 @@ public class OrderController extends HttpServlet {
                 of.Delete(orderId5);
                 response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
                 break;
+//            case "search":
+//                String searchQuery = request.getParameter("search");
+//                if(searchQuery != null)
+//                {
+//                // Perform search logic and retrieve matching orders from the database
+//                List<OrderList> search = of.search(searchQuery);
+//
+//                request.setAttribute("orders", search);
+//                }else{
+//                
+//                List<OrderList> search = of.getAllOrders();
+//                request.setAttribute("orders", search);
+//                }
+//                response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+//                break;
+
             case "favorite": { //get duplicate
                 try {//try it
                     getWishList(request, response);

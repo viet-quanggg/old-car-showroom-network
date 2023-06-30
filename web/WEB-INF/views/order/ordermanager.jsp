@@ -49,39 +49,62 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <ul class="user-banner-menu-list">
-                             <c:if test="${User.userRole == 2}">
+                            <c:if test="${User.userRole == 2}">
                                 <li><a href="<c:url value="/admin/dashboard.do"/>">dashboard</a></li>   
                                 </c:if>
-                            <li><a href="<c:url value="/login/profile.do"/>" class="">profile</a></li>
-                            <li><a href="<c:url value="/login/update_profile.do"/>" class="inactive">update profile</a></li>
-                                <c:if test="${User.userRole == 0 || User.userRole == 1}">
-                                <li><a href="<c:url value="/order/createad.do"/>">create car</a></li>
-                                </c:if>
-                                <c:if test="${User.userRole == 0 || User.userRole == 1}">
-                                <li><a href="<c:url value="/order/postedad.do"/>">posted car</a></li>
-                                </c:if>
+                            <li><a href="<c:url value="/login/profile.do"/>">profile</a></li>
+                            <li><a href="<c:url value="/login/update_profile.do"/>" class="">update profile</a></li>
+                            <li><a href="<c:url value="/order/createad.do"/>">create car</a></li>
+                            <li><a href="<c:url value="/order/postedad.do"/>">posted car</a></li>
                                 <c:if test="${User.userRole == 2 || User.userRole == 1}">
                                 <li><a href="<c:url value="/order/ordermanager.do"/>"class="active">Order Manager</a></li>
                                 </c:if>
                                 <c:if test="${ User.userRole == 1}">
-                                <li><a href="<c:url value="/admin/userlist.do"/>">User List</a></li>
+                                <li><a href="<c:url value="/admin/userlist.do"/>" class="">User List</a></li>
                                 </c:if>
-                                <c:if test="${ User.userRole == 0}">
-                                <li><a href="<c:url value="/order/orderlist.do"/>"class="">Order List</a></li>
-                                <li><a href="<c:url value="/order/favorite.do"/>">favorite</a></li>
-                                <li><a href="<c:url value="/cars/compare.do"/>">compares</a></li>
-                                </c:if>
+                            <li><a href="<c:url value="/order/favorite.do"/>">favorite</a></li>
+                            <li><a href="<c:url value="/cars/compare.do"/>">compares</a></li>
+                            <li><a href="setting.html">settings</a></li>                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
+<section class="mc-breadcrumb">
+    <section class="section-gap-75">
+        <div class="container">
+            <div class="mc-breadcrumb-group">
+                <h2 class="mc-breadcrumb-title">Order Manager</h2>
+                <ul class="mc-breadcrumb-list">
+                    <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">home</a></li>
+                    <li class="mc-breadcrumb-item">Order Manager  </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="form-group mb-0">
+                    <div class="input-group">
+                        <form action="<c:url value="/order/ordermanager.do"/>" method="post">
+                            <input id="search" name="search" class="form-control form-control-lg" type="text" placeholder="Search">
+                            <button class="form-btn" type="submit" name="op" value="search"><span>Search</span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 
 <section class="section-gap-100">
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
-                <h1>Order Manager</h1>
 
                 <table class="table">
                     <thead>
@@ -103,7 +126,7 @@
                         <c:forEach var="orderlist" items="${orders}">
 
                             <tr>
-                        <form action="<c:url value="/order/ordermanager.do"/>" method="GET">
+                        <form action="<c:url value="/order/ordermanager.do"/>" method="post">
                             <input type="hidden" name="orderId" id="orderId" value="${orderlist.orderId}">
                             <td>${orderlist.userId}</td>
                             <td>${orderlist.userName}</td>

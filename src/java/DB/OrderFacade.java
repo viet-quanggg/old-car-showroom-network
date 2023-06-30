@@ -102,7 +102,7 @@ public class OrderFacade {
         }
     }
 
-    public void addPlan(PricingPlan plan) throws SQLException {
+   public void addPlan(PricingPlan plan) throws SQLException {
         try {
             Connection con = DBContext.getConnection();
             PreparedStatement stm = null;
@@ -121,6 +121,7 @@ public class OrderFacade {
         }
 
     }
+
 
 //    public PricingPlan createPlan(String planName, int planTime, int planLimit, String planStatus, double planPrice) throws SQLException {
 //        PricingPlan plan = new PricingPlan();
@@ -386,6 +387,48 @@ public class OrderFacade {
     public static void main(String[] args) throws SQLException {
         OrderFacade of = new OrderFacade();
 //        PricingPlan newPlan = of.createPlan("Gold Package", 3, 15, "Active", 35);
-//        of.addPlan("Gold Package", 3, 15, "Active", 35);
+        //of.addPlan("Gold Package", 3, 15, "Active", 35);
     }
+
+    public List<OrderList> search(String searchQuery) throws SQLException {
+       List<OrderList> orders = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            con = DBContext.getConnection();
+            String sql = "SELECT o.orderId, c.carName, o.userId, c.carPrice, o.orderStatus, u.userName, o.orderDate FROM [Order] o JOIN [car] c ON o.postId = c.carId LEFT JOIN [User] u ON o.userId = u.userId WHERE c.carName=?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, searchQuery);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                OrderList orderlist = new OrderList();
+                orderlist.setOrderId(rs.getInt("orderId"));
+                orderlist.setCreatedDate(rs.getDate("orderDate"));
+                orderlist.setOrderStatus(rs.getString("orderStatus"));
+                orderlist.setCarPrice(rs.getDouble("carPrice"));
+                orderlist.setUserId(rs.getInt("userId"));
+                orderlist.setUserName(rs.getString("userName"));
+                orderlist.setCarName(rs.getString("carName"));
+                orders.add(orderlist);
+            }
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return orders;
+
+}
 }

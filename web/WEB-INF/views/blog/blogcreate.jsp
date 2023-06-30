@@ -5,7 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%--<%@ taglib prefix="c" uri="jakarta.tags.core" %>--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--   <style>
       /* Style the body */
       body {
@@ -74,7 +75,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-xl-12">
-                <form method="post" action="<c:url value="/blog/create_blog_handler.do"/>" enctype="multipart/form-data">
+                <form method="get" enctype="multipart/form-data" action="<c:url value='/blog/create_blog_handler.do' />" >
                     <div class="common-card active">
                         <div class="common-card-header">
                             <h4 class="common-card-header-title">blog information</h4>
@@ -90,17 +91,19 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-6">
                                 <div class="form-group"><label class="form-label" >User ID
-                                        <span>*</span></label><input type="text" id="userId" name="userId" class="form-control" value="${User.userID}" disabled="true"></div>
+                                        <span>*</span></label><input type="text" class="form-control" value="${User.userID}" disabled="true">
+                                    <input type="hidden" id="userId" name="userId" class="form-control" value="${User.userID}" ></div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group mb-0"><label class="form-label" for="blogdetail">blog details
                                         <span>*</span></label><textarea id="blogdetail" name="blogdetail" rows="4" cols="50" required="" class="form-control"></textarea></div>
                             </div>
                             <div class="col-12">
-                                <div class="form-group mb-0"><label class="form-label" for="blogimage" >blog images
-                                    </label>
-                                    <input type="file" accept="image/*" id="blogimage" name="blogimage"><br/>
+                                <div class="form-group mb-0">
+                                    <label class="form-label" for="blogimage" >blog images</label>
+                                    <input type="file" id="blogimage" name="blogimage"><br/>
                                 </div>
+                               
 
                             </div>
                             <br>
