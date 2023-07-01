@@ -5,6 +5,7 @@
 package Controllers;
 
 import DB.UserFacade;
+import static Hash.Hashing.hash;
 import Models.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -84,6 +85,9 @@ public class UserController extends HttpServlet {
                 String userpass = request.getParameter("userPass");
                 String newpass = request.getParameter("newPass");
                 String re_pass = request.getParameter("re_pass");
+                String hashedpass = hash(userpass);
+                String hashednewpass = hash(newpass);
+                String hashedrepass = hash(re_pass);
                 UserFacade uf = new UserFacade();
                 User user = (User) session.getAttribute("User");
                 if (userpass.isEmpty()) {
@@ -100,20 +104,19 @@ public class UserController extends HttpServlet {
                     request.getRequestDispatcher("/login/update_profile.do").forward(request, response);
                 } else {
 
-                    if (!userpass.equals(user.getUserPass())) {
+                    if (!hashedpass.equals(user.getUserPass())) {
                         request.setAttribute("ePa", "The Password is incorrect!");
                         request.getRequestDispatcher("/login/update_profile.do").forward(request, response);
 
-                    } else if (userpass.equals(newpass)) {
+                    } else if (hashedpass.equals(hashednewpass)) {
                         request.setAttribute("errorNP", "New password cannot be the same as the old password!");
                         request.getRequestDispatcher("/login/update_profile.do").forward(request, response);
 
-                    } else if (!newpass.equals(re_pass)) {
+                    } else if (!hashednewpass.equals(hashedrepass)) {
                         request.setAttribute("eR", "New Password and Re-password do not match!");
                         request.getRequestDispatcher("/login/update_profile.do").forward(request, response);
 
                     } else {
-
                         user.setUserPass(newpass);
                         uf.update(user);
                         session.setAttribute("User", user);
