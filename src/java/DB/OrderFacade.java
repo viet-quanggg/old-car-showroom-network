@@ -388,6 +388,8 @@ public class OrderFacade {
         OrderFacade of = new OrderFacade();
 //        PricingPlan newPlan = of.createPlan("Gold Package", 3, 15, "Active", 35);
         //of.addPlan("Gold Package", 3, 15, "Active", 35);
+        List<OrderList> list = of.search("ma");
+        System.out.println(list);
     }
 
     public List<OrderList> search(String searchQuery) throws SQLException {
@@ -398,9 +400,9 @@ public class OrderFacade {
 
         try {
             con = DBContext.getConnection();
-            String sql = "SELECT o.orderId, c.carName, o.userId, c.carPrice, o.orderStatus, u.userName, o.orderDate FROM [Order] o JOIN [car] c ON o.postId = c.carId LEFT JOIN [User] u ON o.userId = u.userId WHERE c.carName=?";
+            String sql = "SELECT o.orderId, c.carName, o.userId, c.carPrice, o.orderStatus, u.userName, o.orderDate FROM [Order] o JOIN [car] c ON o.postId = c.carId LEFT JOIN [User] u ON o.userId = u.userId WHERE c.carName like ?";
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, searchQuery);
+            stmt.setString(1, "%" + searchQuery + "%");
             rs = stmt.executeQuery();
             
             while (rs.next()) {
