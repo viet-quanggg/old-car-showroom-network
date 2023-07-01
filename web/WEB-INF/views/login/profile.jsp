@@ -127,11 +127,11 @@
                         <h4 class="common-card-header-title">Your Plan Package</h4>
                     </div>
                     <form>
-                        <div class="common-card-body ">
+                        <div class="common-card-body "> 
                             <ul class="profile-specify-list">
-                                <li><span>Package</span><span>${User.timeCreated}</span></li>
-                                <li><span>Expired Date:</span><span>${User.userName}</span></li>
-                                <li><span>Post available:</span><span><c:if test="${User.userRole == 2}">Admin</c:if> <c:if test="${User.userRole == 1}">Employee</c:if> <c:if test="${User.userRole == 0}">Customer</c:if></span></li>
+                                <li><span>Package</span><span>${UserPlan.planName}</span></li>
+                                <li><span>Expired Date:</span><span>${ExpDate}</span></li>
+                                <li><span>Post available:</span><span>${(UserPlan.planLimit != 0) ? UserPlan.planLimit : "infinite"}</span></li>
                             </ul>
                         </div>
                     </form>

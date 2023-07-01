@@ -23,55 +23,61 @@
     <div class="container">
         <div class="row price-slider slider-arrow">
             <c:forEach items="${plan}" var="plan">           
-            <div class="col">
-                <div class="price-card"><i class="price-icon material-icons">task_alt</i>
-                    <h3 class="price-title">${plan.planName}</h3>
-                    <p class="price-subtitle">Choose what most suitable for your need</p>
-                    <ul class="price-list">
-                        <li class="price-item"><span>Plan Period: ${plan.planTime} months</span></li>
-                        <li class="price-item"><del>Third Parties Ads</del></li>
-                        <li class="price-item"><del>Surcharge</del></li>
-                        <li class="price-item"><span>Post Limit: ${(plan.planLimit != 0) ? plan.planLimit : "infinite"} Posts</span></li>
-                        <li class="price-item"><span>Full Support From OCSN</span></li>
-                    </ul>
-                    <h4 class="price-amount">$${plan.planPrice}/-</h4>
-                    <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/login/register.do"/>">get
-                        register</a>
+                <div class="col">
+                    <div class="price-card"><i class="price-icon material-icons">task_alt</i>
+                        <h3 class="price-title">${plan.planName}</h3>
+                        <p class="price-subtitle">Choose what most suitable for your need</p>
+                        <ul class="price-list">
+                            <li class="price-item"><span>Plan Period: ${plan.planTime} months</span></li>
+                            <li class="price-item"><del>Third Parties Ads</del></li>
+                            <li class="price-item"><del>Surcharge</del></li>
+                            <li class="price-item"><span>Post Limit: ${(plan.planLimit != 0) ? plan.planLimit : "infinite"} Posts</span></li>
+                            <li class="price-item"><span>Full Support From OCSN</span></li>
+                        </ul>
+                        <h4 class="price-amount">$${plan.planPrice}/-</h4>
+                        <c:if test="${User == null}">
+                        <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/login/register.do"/>">get
+                            register</a>
+                        </c:if>
+                        <c:if test="${User == null}">
+                        <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/login/register.do"/>">get
+                            register</a>
+                        </c:if>    
+                    </div>
                 </div>
-            </div>
             </c:forEach>            
-<!--            <div class="col">
-                <div class="price-card active"><i class="price-icon material-icons">task_alt</i>
-                    <h3 class="price-title">business plan</h3>
-                    <p class="price-subtitle">Perfect for growing ads</p>
-                    <ul class="price-list">
-                        <li class="price-item"><span>first pricing feature type</span></li>
-                        <li class="price-item"><del>second pricing feature type</del></li>
-                        <li class="price-item"><span>third pricing feature type</span></li>
-                        <li class="price-item"><span>four pricing feature type</span></li>
-                        <li class="price-item"><span>five pricing feature type</span></li>
-                    </ul>
-                    <h4 class="price-amount">$49/-</h4>
-                    <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/login/register.do"/>">get
-                        register</a><small class="price-demand">most popular</small>
-                </div>
-            </div>
-            <div class="col">
-                <div class="price-card"><i class="price-icon material-icons">task_alt</i>
-                    <h3 class="price-title">premium plan</h3>
-                    <p class="price-subtitle">Perfect for quick sales</p>
-                    <ul class="price-list">
-                        <li class="price-item"><span>first pricing feature type</span></li>
-                        <li class="price-item"><span>second pricing feature type</span></li>
-                        <li class="price-item"><span>third pricing feature type</span></li>
-                        <li class="price-item"><span>four pricing feature type</span></li>
-                        <li class="price-item"><span>five pricing feature type</span></li>
-                    </ul>
-                    <h4 class="price-amount">$68/-</h4>
-                    <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/login/register.do"/>">get
-                        register</a>
-                </div>
-            </div>-->
+            <!--            <div class="col">
+                            <div class="price-card active"><i class="price-icon material-icons">task_alt</i>
+                                <h3 class="price-title">business plan</h3>
+                                <p class="price-subtitle">Perfect for growing ads</p>
+                                <ul class="price-list">
+                                    <li class="price-item"><span>first pricing feature type</span></li>
+                                    <li class="price-item"><del>second pricing feature type</del></li>
+                                    <li class="price-item"><span>third pricing feature type</span></li>
+                                    <li class="price-item"><span>four pricing feature type</span></li>
+                                    <li class="price-item"><span>five pricing feature type</span></li>
+                                </ul>
+                                <h4 class="price-amount">$49/-</h4>
+                                <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/login/register.do"/>">get
+                                    register</a><small class="price-demand">most popular</small>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="price-card"><i class="price-icon material-icons">task_alt</i>
+                                <h3 class="price-title">premium plan</h3>
+                                <p class="price-subtitle">Perfect for quick sales</p>
+                                <ul class="price-list">
+                                    <li class="price-item"><span>first pricing feature type</span></li>
+                                    <li class="price-item"><span>second pricing feature type</span></li>
+                                    <li class="price-item"><span>third pricing feature type</span></li>
+                                    <li class="price-item"><span>four pricing feature type</span></li>
+                                    <li class="price-item"><span>five pricing feature type</span></li>
+                                </ul>
+                                <h4 class="price-amount">$68/-</h4>
+                                <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/login/register.do"/>">get
+                                    register</a>
+                            </div>
+                        </div>-->
         </div>
     </div>
 </section>

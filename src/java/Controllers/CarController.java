@@ -142,6 +142,7 @@ public class CarController extends HttpServlet {
     }
     private void compare(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         Cookie arr[] = request.getCookies();
+        int count=0;
         String txt = "";
         if (arr != null) {
             for (Cookie item : arr) {
@@ -154,8 +155,7 @@ public class CarController extends HttpServlet {
         CarFacade cf = new CarFacade();
         List<Car> data = cf.getCar();
 
-        Compare compare = new Compare(txt, data);
-
+      Compare compare = new Compare(txt, data);
         request.setAttribute("data", compare);
     }
     protected void getListing(HttpServletRequest request, HttpServletResponse response)

@@ -238,7 +238,7 @@
                 <ul class="float-list">
                     <li class="float-item"><a href="<c:url value="/cars/compare.do"/>" class="badge-hover"><i
                                 class="purple material-icons">compare</i><span
-                                class="badge arrow-right">compare</span><sup>2</sup></a></li>
+                                    class="badge arrow-right">compare</span><sup>${requestScope.comparecount}</sup></a></li>
                     <li class="float-item"><a href="<c:url value="/order/favorite.do"/>" class="badge-hover"><i
                                 class="red material-icons">favorite</i><span
                                 class="badge arrow-right">favorite</span><sup>4</sup></a></li>

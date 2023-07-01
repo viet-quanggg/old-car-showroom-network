@@ -48,22 +48,28 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <ul class="user-banner-menu-list">
-                            <c:if test="${User.userRole == 2}">
+                           <c:if test="${User.userRole == 2}">
                                 <li><a href="<c:url value="/admin/dashboard.do"/>">dashboard</a></li>   
                                 </c:if>
-                            <li><a href="<c:url value="/login/profile.do"/>">profile</a></li>
-                            <li><a href="<c:url value="/login/update_profile.do"/>" class="">update profile</a></li>
-                            <li><a href="<c:url value="/order/createad.do"/>">create car</a></li>
-                            <li><a href="<c:url value="/order/postedad.do"/>">posted car</a></li>
+                            <li><a href="<c:url value="/login/profile.do"/>" class="">profile</a></li>
+                            <li><a href="<c:url value="/login/update_profile.do"/>" class="inactive">update profile</a></li>
+                                <c:if test="${User.userRole == 0 || User.userRole == 1}">
+                                <li><a href="<c:url value="/order/createad.do"/>">create car</a></li>
+                                </c:if>
+                                <c:if test="${User.userRole == 0 || User.userRole == 1}">
+                                <li><a href="<c:url value="/order/postedad.do"/>">posted car</a></li>
+                                </c:if>
                                 <c:if test="${User.userRole == 2 || User.userRole == 1}">
                                 <li><a href="<c:url value="/order/ordermanager.do"/>">Order Manager</a></li>
                                 </c:if>
                                 <c:if test="${ User.userRole == 1}">
                                 <li><a href="<c:url value="/admin/userlist.do"/>">User List</a></li>
                                 </c:if>
-                            <li><a href="<c:url value="/order/favorite.do"/>"class="active">favorite</a></li>
-                            <li><a href="<c:url value="/cars/compare.do"/>">compares</a></li>
-                            <li><a href="setting.html">settings</a></li>
+                                <c:if test="${ User.userRole == 0}">
+                                <li><a href="<c:url value="/order/orderlist.do"/>"class="active">Order List</a></li>
+                                <li><a href="<c:url value="/order/favorite.do"/>">favorite</a></li>
+                                <li><a href="<c:url value="/cars/compare.do"/>">compares</a></li>
+                                </c:if>
 
                         </ul>
                     </div>

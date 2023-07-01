@@ -1,6 +1,9 @@
 package Controllers;
 
 import DB.PlanFacade;
+import DB.UserFacade;
+import Models.Plan;
+import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -8,7 +11,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,11 +37,40 @@ public class PlanController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
+        PlanFacade pf = new PlanFacade();
+                            Plan plan = new Plan();
+
 
         switch (action) {
             case "planlist":
-                PlanFacade pf = new PlanFacade();
                 request.setAttribute("PlanList", pf.getPlanList());
+                break;
+            case "buyplan":
+                String pID = request.getParameter("planId");
+                HttpSession session = request.getSession();
+                User user = (User) session.getAttribute("User");
+                int id = 0;
+                try {
+                    if (!pID.isBlank() && user != null) {
+                        id = Integer.parseInt(pID);
+                    }
+                    user.setPlanId(id);
+                    UserFacade uf = new UserFacade();
+                    uf.updatePlan(user);
+                    plan =pf.getUserPlan(user);
+                    session.setAttribute("User", user);
+                    session.setAttribute("UserPlan", plan);
+                } catch (NumberFormatException e) {
+                    System.err.println("Parse plan ID !" + e);
+                }
+                Date date = user.getPlanStart();
+                LocalDate expDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                expDate = expDate.plusMonths(plan.getPlanLimit());
+                request.setAttribute("ExpDate", expDate);
+
+                response.sendRedirect(request.getContextPath() + "/ocsn/index.do");
+
+                break;
             default:
                 //Show error page
                 request.setAttribute("controller", "error");
