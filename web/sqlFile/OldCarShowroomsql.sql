@@ -3,7 +3,7 @@ go
 /*******************************************************************************
    Drop database if it exists
 ********************************************************************************/
-IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'OldCarShowroom')
+IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'OldCarShowroom2')
 BEGIN
 	ALTER DATABASE [OldCarShowroom2] SET OFFLINE WITH ROLLBACK IMMEDIATE;
 	ALTER DATABASE [OldCarShowroom2] SET ONLINE;
@@ -59,7 +59,7 @@ GO
 create table [User] 
 (userId int identity (1,1) PRIMARY KEY,
 userEmail varchar(1000) NOT NULL, 
-userPass varchar(16) NOT NULL,
+userPass varchar(1000) NOT NULL,
 userName nvarchar(1000) NOT NULL,
 userPhone varchar(11) NOT NULL,
 userAddress varchar(50) NOT NULL,

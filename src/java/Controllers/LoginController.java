@@ -4,8 +4,12 @@
  */
 package Controllers;
 
+import DB.PlanFacade;
 import Models.User;
 import DB.UserFacade;
+import Hash.Hashing;
+import static Hash.Hashing.hash;
+import Models.Plan;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -115,17 +119,18 @@ public class LoginController extends HttpServlet {
     protected void login_handler(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String op = request.getParameter("op");
+        HttpSession session = request.getSession();
+
         switch (op) {
             case "login":
                 try {
                 String useremail = request.getParameter("userEmail");
                 String userpass = request.getParameter("userPass");
                 request.setAttribute("userEmail", useremail);
-
+                String hashedpass = hash(userpass);
                 //    String remember = request.getParameter("remember");
                 UserFacade uf = new UserFacade();
-                User user = uf.login(useremail, userpass);
-                // String remember = request.getParameter("remember");
+                User user = uf.login(useremail, hashedpass);
                 if (user != null) {
                     //Neu login thanh cong:
                     //Luu user vao session
@@ -143,17 +148,18 @@ public class LoginController extends HttpServlet {
                         response.addCookie(cRemember);
 
                     }
-                    HttpSession httpSession = request.getSession();
-                    httpSession.setAttribute("User", user);
+                    session.setAttribute("User", user);
+                    PlanFacade pf = new PlanFacade();
+                    Plan plan = pf.getUserPlan(user);      
+                    session.setAttribute("UserPlan", plan);
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
                     requestDispatcher.forward(request, response);
 
                 } else {
                     request.setAttribute("errorLogin", "Email or password is wrong, please enter again!");
-                request.getRequestDispatcher("/login/login.do").forward(request, response);
+                    request.getRequestDispatcher("/login/login.do").forward(request, response);
                 }
-            } 
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 //Cho hien lai login form
                 request.setAttribute("error", ex.toString());
                 request.getRequestDispatcher("/login/login.do").forward(request, response);
@@ -228,10 +234,10 @@ public class LoginController extends HttpServlet {
                         } else if (agree == null || !agree.equals("agree")) {
                             request.setAttribute("errorT", "Agree to Terms and Privacy Policy to continue!");
                             request.getRequestDispatcher("/login/register.do").forward(request, response);
-
                         } else {
+                            String hashedpass = hash(userpass);
                             Date date = new Date();
-                            User newUser = uf.register(useremail, userpass, username, userphone, useraddress, date);
+                            User newUser = uf.register(useremail, hashedpass, username, userphone, useraddress, date);
                             HttpSession session = request.getSession();
                             session.setAttribute("User", newUser);
                             request.setAttribute("message", "Sign up success, please login to continue.");

@@ -131,7 +131,7 @@
                             <ul class="profile-specify-list">
                                 <li><span>Package</span><span>${UserPlan.planName}</span></li>
                                 <li><span>Expired Date:</span><span>${ExpDate}</span></li>
-                                <li><span>Post available:</span><span>${(UserPlan.planLimit != 0) ? UserPlan.planLimit : "infinite"}</span></li>
+                                <li><span>Post available:</span><span>${(UserPlan.planLimit != 0) ? sessionScope.UserPlan.planLimit : "infinite"}</span></li>
                             </ul>
                         </div>
                     </form>

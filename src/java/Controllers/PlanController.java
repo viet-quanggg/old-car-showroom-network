@@ -38,16 +38,14 @@ public class PlanController extends HttpServlet {
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
         PlanFacade pf = new PlanFacade();
-                            Plan plan = new Plan();
-
-
+        Plan plan = new Plan();
+        HttpSession session = request.getSession();
         switch (action) {
             case "planlist":
                 request.setAttribute("PlanList", pf.getPlanList());
                 break;
             case "buyplan":
                 String pID = request.getParameter("planId");
-                HttpSession session = request.getSession();
                 User user = (User) session.getAttribute("User");
                 int id = 0;
                 try {
@@ -57,20 +55,18 @@ public class PlanController extends HttpServlet {
                     user.setPlanId(id);
                     UserFacade uf = new UserFacade();
                     uf.updatePlan(user);
-                    plan =pf.getUserPlan(user);
+                    plan = pf.getUserPlan(user);
                     session.setAttribute("User", user);
                     session.setAttribute("UserPlan", plan);
                 } catch (NumberFormatException e) {
                     System.err.println("Parse plan ID !" + e);
                 }
-                Date date = user.getPlanStart();
-                LocalDate expDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                expDate = expDate.plusMonths(plan.getPlanLimit());
-                request.setAttribute("ExpDate", expDate);
-
                 response.sendRedirect(request.getContextPath() + "/ocsn/index.do");
 
                 break;
+            case "getplan":
+                Plan userplan = (Plan)session.getAttribute("UserPlan");
+                request.setAttribute("UserPlan", userplan);
             default:
                 //Show error page
                 request.setAttribute("controller", "error");
