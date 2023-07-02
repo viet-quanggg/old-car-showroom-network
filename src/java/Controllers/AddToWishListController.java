@@ -64,7 +64,6 @@ public class AddToWishListController extends HttpServlet {
         String xId = request.getParameter("id");
 
         Wishlist wish = new Wishlist(txt, data);
-
         boolean check = wish.checkExist(xId);
 
         if (!check) {
@@ -81,7 +80,7 @@ public class AddToWishListController extends HttpServlet {
         response.addCookie(c);
 
         request.setAttribute("data", wish);
-
+        
         response.sendRedirect(request.getContextPath() +"/order/favorite.do");
     }
 

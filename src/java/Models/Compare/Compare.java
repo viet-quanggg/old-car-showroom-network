@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Compare {
-    
+    int count=0;
     List<Line> items;
     
      public List<Line> getItems() {
@@ -47,12 +47,14 @@ public class Compare {
     public void addItem(Line item) {
         if (getItemByCarId(item.getCar().getCarID()) == null) {
             items.add(item);
+            count=count+1;
         }
     }
 
     public void removeItem(int productID) {
         if (getItemByCarId(productID) != null) {
             items.remove(getItemByCarId(productID));
+            count=count-1;
         }
     }
 
@@ -81,6 +83,7 @@ public class Compare {
                     Line newItem = new Line(car);
 
                     items.add(newItem);
+
                 }
 
             }

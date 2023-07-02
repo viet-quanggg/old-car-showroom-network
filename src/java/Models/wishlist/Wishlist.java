@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Wishlist {
-
+    int count=0;
     List<Item> items;
 
     public List<Item> getItems() {

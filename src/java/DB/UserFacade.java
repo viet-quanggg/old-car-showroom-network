@@ -57,7 +57,7 @@ public class UserFacade {
             user.setTimeCreated(rs.getDate("timeCreated"));
             user.setUserRole(rs.getInt("userRole"));
             user.setUserImage(rs.getString("userImage"));
-            
+
         }
         con.close();
         return user;
@@ -122,7 +122,7 @@ public class UserFacade {
             user.setTimeCreated(rs.getDate("timeCreated"));
             user.setUserRole(rs.getInt("userRole"));
             user.setUserImage("");
-            
+
         }
         con.close();
         return user;
@@ -237,6 +237,36 @@ public class UserFacade {
         return list;
     }
 
+    public ArrayList<User> SearchUser(String searchQuery) throws SQLException {
+        User user = null;
+        ArrayList<User> list = new ArrayList<>();
+        Connection con = DBContext.getConnection();
+        PreparedStatement stm = con.prepareStatement("select * from [User] where userRole=0 and userName like ?");
+        stm.setString(1, "%"+ searchQuery + "%");
+        ResultSet rs = stm.executeQuery();
+        while (rs.next()) {
+            user = new User();
+            user.setUserID(rs.getInt("userId"));
+            user.setUserEmail(rs.getString("userEmail"));
+            user.setUserPass(rs.getString("userPass"));
+            user.setUserName(rs.getString("userName"));
+            user.setUserPhone(rs.getString("userPhone"));
+            user.setUserAddress(rs.getString("userAddress"));
+            user.setTimeCreated(rs.getDate("timeCreated"));
+            user.setUserRole(rs.getInt("userRole"));
+            user.setUserImage(rs.getString("userImage"));
+            if (rs.getObject("planId") != null) {
+                user.setPlanId(rs.getInt("planId"));
+            }
+            if (rs.getObject("planStart") != null) {
+                user.setPlanStart(rs.getDate("planStart"));
+            }
+            list.add(user);
+        }
+        con.close();
+        return list;
+    }
+
     public User checkEmail(String userEmail) throws SQLException {
         User user = null;
         Connection con = DBContext.getConnection();
@@ -295,7 +325,7 @@ public class UserFacade {
     public User updatePlan(User user) throws SQLException {
         Connection con = DBContext.getConnection();
         PreparedStatement stm = con.prepareStatement("UPDATE [User] set planId =? , planStart = CURRENT_TIMESTAMP where userId=?");
-        stm.setInt(1,user.getPlanId());
+        stm.setInt(1, user.getPlanId());
         stm.setInt(2, user.getUserID());
         int count = stm.executeUpdate();
         con.close();

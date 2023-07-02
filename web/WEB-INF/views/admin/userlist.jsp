@@ -107,15 +107,29 @@
         border: 1px solid #888;
         width: 80%;
     }
-    
+
     .dell-btn{
         color:#0d6efd
     }
-    
+
     .dell-btn:hover{
         color:#0a58ca
     }
 </style>
+<div class="container">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="form-group mb-0">
+                <div class="input-group">
+                    <form action="<c:url value="/admin/searchuser.do"/>" method="post">
+                        <span>  <input id="search" name="search" class="form-control form-control-lg" type="text" placeholder="Search Name"></span>
+                        <span> <button class="form-btn" type="submit" value="searchuser"><span>Search</span></button></span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <section class="section-gap-100">
     <div class="container">
         <div class="row">
@@ -141,31 +155,33 @@
                         <tbody>
                             <c:forEach var="userli" items="${UserL}" varStatus="status">
                                 <tr>
-                                    <td>${status.count}</td>
-                                    <td>${userli.userID}</td>
-                                    <td>${userli.userEmail}</td>
-                                    <td>${userli.userName}</td>
-                                    <td>${userli.userPhone}</td>
-                                    <td>${userli.userAddress}</td>
-                                    <td>${userli.timeCreated}</td>
-                                    <td>
-                                       <button> <a href="<c:url value="/admin/edit.do?userID=${userli.userID}"/>">Edit</a></button>
-                                        <button id="dell-btn" class="dell-btn" onclick="document.getElementById('modal').style.display = 'block'" >Delete</button>
-                                        <div id="modal" class="modal">
-                                            <div class="modal-content">
-                                                <div style="margin-right: 20px">
+                            <form action="<c:url value="/admin/searchuser.do"/>" method="post">
+                                <td>${status.count}</td>
+                                <td>${userli.userID}</td>
+                                <td>${userli.userEmail}</td>
+                                <td>${userli.userName}</td>
+                                <td>${userli.userPhone}</td>
+                                <td>${userli.userAddress}</td>
+                                <td>${userli.timeCreated}</td>
+                                <td>
+                                    <button> <a href="<c:url value="/admin/edit.do?userID=${userli.userID}"/>">Edit</a></button>
+                                    <button id="dell-btn" class="dell-btn" onclick="document.getElementById('modal').style.display = 'block'" >Delete</button>
+                                    <div id="modal" class="modal">
+                                        <div class="modal-content">
+                                            <div style="margin-right: 20px">
                                                 Are you sure you want to delete?
                                                 <div class="col">
                                                     <a class="btn btn-outline-danger btn-sm" href="<c:url value="/admin/delete.do?userID=${userli.userID}"/>">Yes</a>
                                                     <a class="btn btn-outline-dark-blue btn-sm"href="<c:url value="/admin/userlist.do"/>">No</a>
                                                 </div>
-                                                </div
-                                            </div>
+                                            </div
                                         </div>
-                                    </td>
+                                    </div>
+                                </td>
+                            </form>
                                 </tr>
                             </c:forEach>
-                        </tbody>
+                            </tbody>
                     </div>
                 </table>
 

@@ -61,8 +61,23 @@ public class AdminController extends HttpServlet {
                     }
                 }
                 request.setAttribute("UserL", userl);
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
+            case "searchuser":
+                String searchQuery = request.getParameter("search").trim();
+
+                if (searchQuery == null || searchQuery.isEmpty()) {
+                    ArrayList<User> listuser = uf.userList();
+                    request.setAttribute("UserL", listuser);
+                } else {
+                    // Perform search logic and retrieve matching orders from the database
+                    ArrayList<User> search = uf.SearchUser(searchQuery);
+                    request.setAttribute("UserL", search);
+                }
+                    request.getRequestDispatcher("/admin/userlist.do").forward(request, response);
+                break;
+//Hien trang thong bao loi               
+            //
             case "edit":
                 String xID = request.getParameter("userID");
 

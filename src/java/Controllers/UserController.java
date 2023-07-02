@@ -117,7 +117,7 @@ public class UserController extends HttpServlet {
                         request.getRequestDispatcher("/login/update_profile.do").forward(request, response);
 
                     } else {
-                        user.setUserPass(newpass);
+                        user.setUserPass(hashednewpass);
                         uf.update(user);
                         session.setAttribute("User", user);
                         request.setAttribute("messageC", "The update is a success.");
