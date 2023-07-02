@@ -40,7 +40,7 @@ public class BlogController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
@@ -139,6 +139,52 @@ public class BlogController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
             }
             break;
+            case "blogedit":
+                String blogId = request.getParameter("blid");
+                
+                // Call the method to fetch the blog details based on blogId
+                try{
+                var blogs = bf.listBlogId(blogId);
+                    // Set the blog object as an attribute in the request
+                request.setAttribute("blog", blogs);
+                    // Forward the request to the JSP file for rendering
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+                }catch (ServletException | IOException | SQLException e) {
+                request.setAttribute("controller", "error");
+                request.setAttribute("action", "error");
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+            }
+                //request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+                //in thong bao loi chi tiet cho developer
+                break;
+
+            case "edit_blog_handler":
+                String opp = request.getParameter("op");
+                switch (opp) {
+                    case "edit_blog":
+                        String blogTitle = request.getParameter("blogtitle");
+                        String blogDetail = request.getParameter("blogdetail");
+                        int userId = Integer.parseInt(request.getParameter("userId"));
+                        String blogId1 = request.getParameter("blogid");
+                        //String blogImage = request.getParameter("blogimage");
+                        // Handle other form data as needed
+
+                        // Call the facade to update the blog
+                        //String imagePath = "D:\\SWP391\\old-car-showroom-network1\\old-car-showroom-network\\web\\mironmahmud.com\\ghurnek\\assets\\images\\upload\\" ;
+                        //Blog newBlog = new Blog(blogTitle, blogDetail, imagePath, userId);
+                        
+                        bf.updateBlog(blogTitle, blogDetail, userId, blogId1);
+                        request.setAttribute("message", "Create successfully");
+                        request.getRequestDispatcher("/blog/bloglist.do").forward(request, response);
+                        
+                        break;
+                    default:
+                        // Handle unexpected values of op here
+                        Logger.getLogger(BlogController.class.getName()).warning("Unexpected value of 'op' parameter: " + opp);
+                        response.sendRedirect(request.getContextPath() + "/error.jsp");
+                        break;
+                }
+                break;
             case "blogcreate":
 
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
@@ -172,7 +218,7 @@ public class BlogController extends HttpServlet {
 //                                IOUtils.copy(fileContent, out);
 //                            }
 
-                           // Store the file path in the database using BlogFacade
+                        // Store the file path in the database using BlogFacade
                         String imagePath = "D:\\SWP391\\old-car-showroom-network1\\old-car-showroom-network\\web\\mironmahmud.com\\ghurnek\\assets\\images\\upload\\" + fileName;
                         Blog newBlog = new Blog(blogTitle, blogDetail, imagePath, userId);
                         bf.create(newBlog);
@@ -214,7 +260,11 @@ public class BlogController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -228,7 +278,11 @@ public class BlogController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

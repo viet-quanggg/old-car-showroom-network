@@ -408,5 +408,32 @@ public class UserFacade {
 
         }
     }
-
+ public ArrayList<User> getAll() throws SQLException {
+        User user = null;
+        ArrayList<User> list = new ArrayList<>();
+        Connection con = DBContext.getConnection();
+        PreparedStatement stm = con.prepareStatement("select * from [User]");
+        ResultSet rs = stm.executeQuery();
+        while (rs.next()) {
+            user = new User();
+            user.setUserID(rs.getInt("userId"));
+            user.setUserEmail(rs.getString("userEmail"));
+            user.setUserPass(rs.getString("userPass"));
+            user.setUserName(rs.getString("userName"));
+            user.setUserPhone(rs.getString("userPhone"));
+            user.setUserAddress(rs.getString("userAddress"));
+            user.setTimeCreated(rs.getDate("timeCreated"));
+            user.setUserRole(rs.getInt("userRole"));
+            user.setUserImage(rs.getString("userImage"));
+            if (rs.getObject("planId") != null) {
+                user.setPlanId(rs.getInt("planId"));
+            }
+            if (rs.getObject("planStart") != null) {
+                user.setPlanStart(rs.getDate("planStart"));
+            }
+            list.add(user);
+        }
+        con.close();
+        return list;
+    }
 }

@@ -36,7 +36,7 @@
                         <p class="blog-single-para">${bid.blogDetail}</span></p>
                         <blockquote class="blog-single-quote"><i class="material-icons">format_quote</i>
                             <p>${bid.blogTitle}</p>
-                            <h5>${bid.userId}</h5>
+                            <h5>${bid.userId}</h5>                         
                         </blockquote>
 
                         <div class="blog-single-widget">
@@ -58,6 +58,7 @@
                                 <div class="blog-author-info"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="author">
                                     <h4><a href="blog-author.html">${bid.userName}</a></h4>
                                     <h6><a href="#">www.mironmahmud.com</a></h6>
+                                    <a href="<c:url value="/blog/blogedit.do?blid=${bid.blogId}"/>">Edit</a>
                                 </div>
                                 <div class="blog-author-content">
                                     <ul>
@@ -77,6 +78,7 @@
                                 <li><i class="material-icons">feed</i><span>Total Blog (25)</span></li>
                                 <li><i class="material-icons">forum</i><span>Total Comment (130)</span></li>
                                 <li><i class="material-icons">public</i><span>Total Share (45)</span></li>
+                                
                             </ul>
                         </div>
                         <div class="blog-single-suggest">
@@ -95,8 +97,10 @@
                                             <li><i class="material-icons">event</i><span>${latest.blogDate}</span></li>
                                         </ul>
                                         <h3 class="blog-grid-name"><a href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>">${latest.blogTitle}</a></h3>
-                                        <p class="blog-grid-descrip">${latest.blogDetail}<a
-                                                href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>">read more</a></p>
+                                        <p class="blog-grid-descrip">${latest.blogDetail}
+                                            <a href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>">read more</a>
+                                            
+                                        </p>
                                     </div>
                                 </div>
                             </c:forEach>

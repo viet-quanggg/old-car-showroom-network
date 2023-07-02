@@ -400,9 +400,10 @@ public class OrderFacade {
 
         try {
             con = DBContext.getConnection();
-            String sql = "SELECT o.orderId, c.carName, o.userId, c.carPrice, o.orderStatus, u.userName, o.orderDate FROM [Order] o JOIN [car] c ON o.postId = c.carId LEFT JOIN [User] u ON o.userId = u.userId WHERE c.carName like ?";
+            String sql = "SELECT o.orderId, c.carName, o.userId, c.carPrice, o.orderStatus, u.userName, o.orderDate FROM [Order] o JOIN [car] c ON o.postId = c.carId LEFT JOIN [User] u ON o.userId = u.userId WHERE c.carName LIKE '%"+searchQuery+"%'";
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, "%" + searchQuery + "%");
+            //stmt.setString(1, searchQuery);
+
             rs = stmt.executeQuery();
             
             while (rs.next()) {

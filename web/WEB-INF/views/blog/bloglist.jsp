@@ -119,6 +119,7 @@
                                     </h3>
                                     <p class="blog-list-descrip" id="blog-detail-${blog.blogId}">${blog.blogDetail}<a href="blog-single.html">read more</a></p>
                                     <a href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">read more</a>
+                                    <a href="<c:url value="/blog/blogedit.do?blid=${blog.blogId}"/>">Edit</a>
                                 </div>
                             </div>
                         </div>

@@ -247,4 +247,29 @@ public class BlogFacade {
         return null;
     }
 
+    public void updateBlog(String blogTitle, String blogDetail, int userId, String blogId1) {
+         try (Connection con = DBContext.getConnection();
+             PreparedStatement ps = con.prepareStatement("UPDATE [dbo].[Blog] SET blogTitle = ?, blogDetail = ?, blogImage = 1, userId = ?, blogDate = CURRENT_TIMESTAMP WHERE blogId = ?;")) {
+            ps.setString(1, blogTitle);
+            ps.setString(2, blogDetail);
+            ps.setInt(3,userId );
+            ps.setString(4, blogId1);
+
+            int count = ps.executeUpdate();
+
+            if (count > 0) {
+                // Blog updated successfully
+                System.out.println("Blog updated successfully.");
+                con.close();
+            } else {
+                // Blog update failed or no matching row found
+                System.out.println("Failed to update the blog or no matching row found.");
+            }
+        } catch (Exception e) {
+            // Handle the exception here
+            e.printStackTrace();
+        }
+         
+    }
+
 }
