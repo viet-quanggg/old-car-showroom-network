@@ -59,7 +59,7 @@ public class GmailController {
 
     private static Credential getCredentials(final NetHttpTransport httpTransport, GsonFactory jsonFactory)
             throws IOException {
-        Reader clientSecretReader = new InputStreamReader(new FileInputStream("/Users/_viet.quangg/Downloads/GoogleAPILibraries/Json File/client_secret_978807172034-4mlljef17cjtkjqj4lkq291ukice8rpa.apps.googleusercontent.com.json"));
+        Reader clientSecretReader = new InputStreamReader(new FileInputStream("F:\\NeededToAdd\\Json File\\client_secret_978807172034-4mlljef17cjtkjqj4lkq291ukice8rpa.apps.googleusercontent.com.json"));
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, clientSecretReader);
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 httpTransport, jsonFactory, clientSecrets, Set.of(GmailScopes.GMAIL_SEND))

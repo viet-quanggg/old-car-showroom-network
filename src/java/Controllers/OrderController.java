@@ -52,7 +52,7 @@ public class OrderController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, Exception {
 
         response.setContentType("text/html;charset=UTF-8");
         String controller = (String) request.getAttribute("controller");
@@ -176,27 +176,54 @@ public class OrderController extends HttpServlet {
                         int orderId1 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId1, "Cancelled");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                        new GmailController().sendMail("notification", """
+                                                    Dear User,
+                                                        
+                                                       Your Order was Cancelled !
+                                                        
+                                                    Best regards,
+                                                    OCSN
+                                                        ""","nguyenvietquang099@gmail.com");
                         break;
-                    case "success":
+                    case "complete":
                         int orderId2 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId2, "Complete");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                        new GmailController().sendMail("notification", """
+                                                    Dear User,
+                                                        
+                                                       Your Order was Complete !
+                                                        
+                                                    Best regards,
+                                                    OCSN
+                                                        ""","nguyenvietquang099@gmail.com");
                         break;
                     case "pending":
                         int orderId3 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId3, "Pending");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                        new GmailController().sendMail("notification", """
+                                                    Dear User,
+                                                        
+                                                       Your Order was Pending !
+                                                        
+                                                    Best regards,
+                                                    OCSN
+                                                        ""","nguyenvietquang099@gmail.com");
                         break;
                     case "inprocess":
                         int orderId4 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId4, "Processing");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                        new GmailController().sendMail("notification", """
+                                                    Dear User,
+                                                        
+                                                       Your Order was In Process !
+                                                        
+                                                    Best regards,
+                                                    OCSN
+                                                        ""","nguyenvietquang099@gmail.com");
                         break;
-//                    case "delete":
-//                        int orderId5 = Integer.parseInt(request.getParameter("orderId"));
-//                        of.Delete(orderId5);
-//                        response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-//                        break;
                     case "search":
                         String searchQuery = request.getParameter("search").trim();
 
@@ -221,47 +248,6 @@ public class OrderController extends HttpServlet {
             case "create_handler":
                 create_handler(request, response);
                 break;
-            case "denied":
-                int orderId1 = Integer.parseInt(request.getParameter("id"));
-                of.updateOrderStatus(orderId1, "Cancelled");
-                response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-                break;
-            case "success":
-                int orderId2 = Integer.parseInt(request.getParameter("id"));
-                of.updateOrderStatus(orderId2, "Complete");
-                response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-                break;
-            case "pending":
-                int orderId3 = Integer.parseInt(request.getParameter("id"));
-                of.updateOrderStatus(orderId3, "Pending");
-                response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-                break;
-            case "inprocess":
-                int orderId4 = Integer.parseInt(request.getParameter("id"));
-                of.updateOrderStatus(orderId4, "Processing");
-                response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-                break;
-            case "delete":
-                int orderId5 = Integer.parseInt(request.getParameter("id"));
-                of.Delete(orderId5);
-                response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-                break;
-//            case "search":
-//                String searchQuery = request.getParameter("search");
-//                if(searchQuery != null)
-//                {
-//                // Perform search logic and retrieve matching orders from the database
-//                List<OrderList> search = of.search(searchQuery);
-//
-//                request.setAttribute("orders", search);
-//                }else{
-//                
-//                List<OrderList> search = of.getAllOrders();
-//                request.setAttribute("orders", search);
-//                }
-//                response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-//                break;
-
             case "favorite": { //get duplicate
                 try {//try it
                     getWishList(request, response);
@@ -455,6 +441,8 @@ public class OrderController extends HttpServlet {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -472,6 +460,8 @@ public class OrderController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
+            Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
