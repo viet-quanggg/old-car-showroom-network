@@ -36,7 +36,7 @@ public class SendEmailController extends HttpServlet {
 		int otpvalue = 0;
 		HttpSession mySession = request.getSession();
 		
-		if(email!=null || !email.equals("")) {
+		if(email!=null || !email.equals("F:\\NeededToAdd\\Json File\\client_secret_978807172034-4mlljef17cjtkjqj4lkq291ukice8rpa.apps.googleusercontent.com.json")) {
 			// sending otp
 			Random rand = new Random();
 			otpvalue = rand.nextInt(1255650);
