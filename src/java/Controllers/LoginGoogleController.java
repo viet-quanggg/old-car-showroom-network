@@ -18,7 +18,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +41,7 @@ public class LoginGoogleController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, Exception {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         String code = request.getParameter("code");
         String accessToken = getToken(code);
@@ -75,23 +74,11 @@ public class LoginGoogleController extends HttpServlet {
                 httpSession.setAttribute("User", user);
                 // Redirect to index page
                 request.getRequestDispatcher("/ocsn/index.do").forward(request, response);
-                //send email
-                 new GmailController().sendMail("Confirm Login",
-                         "Dear user,\n\n"
-                                 + "Your account has been created!    \n\n"
-                                 + "Your Username is:   " + user.getUserName() + "    \n\n"
-                                         + "Your Email to login is:   " + user.getUserEmail()+ "    \n\n"
-                                                 + "Your Password (default) is:   123    \n\n"
-                                                         + "Best regards,\n"
-                                                         + "OCSN"
-                         ,"nguyenvietquang099@gmail.com");
-            }
-            else {
+            } else {
                 // Forward to login page with an error message
                 request.setAttribute("error", "Login fail.");
                 request.getRequestDispatcher("/login/login.do").forward(request, response);
             }
-            
         }
 
         //}
@@ -136,8 +123,6 @@ public class LoginGoogleController extends HttpServlet {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(LoginGoogleController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(LoginGoogleController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -155,8 +140,6 @@ public class LoginGoogleController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(LoginGoogleController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
             Logger.getLogger(LoginGoogleController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

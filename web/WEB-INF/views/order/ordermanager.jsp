@@ -151,7 +151,7 @@
                                     <option selected>Select</option>
                                     <option class="form-check-label" value="denied" >Cancelled</option>
                                     <option class="form-check-label" value="pending">Pending</option>
-                                    <option class="form-check-label" value="complete">Complete</option>
+                                    <option class="form-check-label" value="success">Complete</option>
                                     <option class="form-check-label" value="inprocess">Processing</option>
                                     <!--                                    <option class="form-check-label" value="delete">DELETE</option>-->
 
