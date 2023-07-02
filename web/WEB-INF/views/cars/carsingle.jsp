@@ -1,4 +1,4 @@
-<%-- 
+ <%-- 
     Document   : carsingle
     Created on : May 28, 2023, 11:06:12 AM
     Author     : _viet.quangg
@@ -140,6 +140,8 @@
 
                         <c:if test="${blist != null && !blist.isEmpty()}"> <c:forEach items="${blist}" var="branditem">
                                 <a class="brand-card" href="<c:url value="/cars/carlist.do?bid=${branditem.id}"/>">
+                                    <img
+                            src="https://www.carlogos.org/car-logos/${branditem.name.toLowerCase()}-logo.png"  onerror="this.src='https://www.supercars.net/blog/wp-content/uploads/2019/12/${branditem.name}-Logo.png'" alt="${branditem.name}">
                                     <h6>${branditem.name}</h6>
 
                                 </a>

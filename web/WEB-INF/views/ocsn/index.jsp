@@ -1628,6 +1628,9 @@
         <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-5">
             <c:forEach items="${blist}" var="branditem">
                                 <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do?bid=${branditem.id}"/>">
+                                        <img src="https://www.carlogos.org/car-logos/${branditem.name.toLowerCase()}-logo.png"  onerror="this.src='https://www.supercars.net/blog/wp-content/uploads/2019/12/${branditem.name}-Logo.png'" alt="${branditem.name}">
+                                    <h6>${branditem.name}</h6>
+
                                     <h6>(${branditem.count}) ${branditem.name}</h6>
 
                                     </a></div>

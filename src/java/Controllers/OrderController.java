@@ -27,6 +27,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -86,6 +89,7 @@ public class OrderController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
                 break;
+
             case "ordercar":
                 if (user.getUserRole() != 0) {
                     response.sendRedirect(request.getContextPath() + "/cars/carlist.do");
@@ -103,6 +107,7 @@ public class OrderController extends HttpServlet {
                 }
                 response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
                 break;
+
             case "orderlist":
                 List<Order> orderl = null;
                 if (user.getUserRole() != 0) {
@@ -117,10 +122,36 @@ public class OrderController extends HttpServlet {
                 }
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
+
             case "removeorder":
                 String oid = request.getParameter("orderId");
                 if (oid != null && !oid.isEmpty() && oid.matches("^[1-9]\\d*$")) {
                     of.Delete(Integer.parseInt(oid));
+                }
+                response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
+                break;
+            case "orderappoint":
+                String appo = request.getParameter("appo");
+                String orid = request.getParameter("orderId");
+                try {
+                    if (appo != null && !appo.isBlank() && appo.matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}") && orid != null && !orid.isBlank() && orid.matches("^[1-9]\\d*$")) {
+
+                        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+                        LocalDateTime ldt = LocalDateTime.parse(appo, formatter);
+                        LocalDateTime minDateTime = ldt.withHour(8).withMinute(0);
+                        LocalDateTime maxDateTime = ldt.withHour(18).withMinute(0);
+                        if (ldt.isAfter(minDateTime) && ldt.isBefore(maxDateTime) && ldt.isBefore(LocalDateTime.now())) {
+                            of.updateApp(ldt, Integer.parseInt(orid));
+                            of.updateOrderStatus(Integer.parseInt(orid), "Cancelled");
+                        }
+                            
+                    }
+                    /*
+                else of.updateApp(null, Integer.parseInt((orid)));
+                     */
+
+                } catch (Exception e) {
+
                 }
                 response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
                 break;

@@ -1,6 +1,7 @@
 
 package Models;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -16,6 +17,7 @@ public class Order {
     private String orderStatus;
     private String userName;
     private Date createdDate;
+    private LocalDateTime orderApp = null;
     
     public Order() {
     }
@@ -85,6 +87,15 @@ public class Order {
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
-    
+
+    public LocalDateTime getOrderApp() {
+        return orderApp;
+    }
+
+    public void setOrderApp(LocalDateTime orderApp) {
+        this.orderApp = orderApp;
+    }
+
+   
     
 }

@@ -32,18 +32,18 @@
                             </div>
                         </div>
                     </div>
-<!--                    <div class="col-lg-5 col-xl-4">
-                        <ul class="user-banner-data">
-                            <li class="ads"><i class="material-icons">note</i>
-                                <h3>${Post.count}0</h3>
-                                <p>total post</p>
-                            </li>
-                            <li class="star"><i class="material-icons">car</i>
-                                <h3>${order.count}0</h3>
-                                <p>total car buy</p>
-                            </li>
-                        </ul>
-                    </div>-->
+                    <!--                    <div class="col-lg-5 col-xl-4">
+                                            <ul class="user-banner-data">
+                                                <li class="ads"><i class="material-icons">note</i>
+                                                    <h3>${Post.count}0</h3>
+                                                    <p>total post</p>
+                                                </li>
+                                                <li class="star"><i class="material-icons">car</i>
+                                                    <h3>${order.count}0</h3>
+                                                    <p>total car buy</p>
+                                                </li>
+                                            </ul>
+                                        </div>-->
                 </div>
                 <div class="row">
                     <div class="col-xl-12">
@@ -90,38 +90,50 @@
         </div>
     </div>
 </section>
-                
+
 <section class="section-gap-100">
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
                 <div class="favorite-title">
-                    <h6>date</h6>
+                    <h6>appointment</h6>
                     <h6>information</h6>
                     <h6>status</h6>
                     <h6>action</h6>
                 </div>
-                
+
                 <ul class="favorite-list">
                     <c:forEach items="${orders}" var="item">
                         <li class="favorite-item">
                             <div class="favorite-media">
-                                ${item.createdDate}
-                            </div>
-                            <div class="favorite-info">
-                                <h3><a href="<c:url value="/cars/carsingle.do?carId=${item.car.carID}"/>">${item.car.carName}</a></h3>
-                                <ul>
-                                    <li><i class="material-icons">store</i><a href="profile.html">by autoland</a></li>
-                                    <li><i class="material-icons">watch_later</i><span>posted 25m ago</span></li>
-                                    <li><i class="material-icons">bookmark_add</i><span>individual</span></li>
-                                    <li><i class="material-icons">fmd_good</i><span>delpara, narayanganj</span></li>
-                                    <li><i class="material-icons">stars</i><a href="#!"> Brand: ${item.car.brand.name}</a></li>
-                                </ul>
-                                <h5>${item.car.formatPrice}</h5>
+                                <form method="post" action="<c:url value="/order/orderappoint.do"/>">
+                                    <input type="hidden" name="orderId" id="orderId" value="${item.orderId}">
+                                    <c:if test="${item.orderApp != null}">  <input type="datetime-local" name="appo" id="appo" value="${item.orderApp}"></c:if>
+                                    <c:if test="${item.orderApp == null}">  <input type="datetime-local" name="appo" id="appo"></c:if>
+                                        <button type="submit">Submit</button>
+                                    </form>
+                                </div>
+                                <div class="favorite-info product-list-card" style="background-color: #ffffff; border:none; outline:none; pointer-events: none;">
+
+                                    <div><img style="max-height: 110px; min-height: 110px; max-width: 155px;min-width: 155px" src="${pageContext.request.contextPath}${item.car.image.size() == 0 ? '' : item.car.image.get(0).url}" alt="product"></div>
+                                <div class="product-list-content" >
+                                    <h3><a href="<c:url value="/cars/carsingle.do?carId=${item.car.carID}"/>">${item.car.carName}</a></h3>
+
+                                    <ul>
+                                        <!--                                    <li><i class="material-icons">store</i><a href="profile.html">by autoland</a></li>-->
+                                        <li><i class="material-icons">watch_later</i><span>Create Date: ${item.car.createDate}</span></li>
+                                        <li><i class="material-icons">color_lens</i><span>Color: ${item.car.color.color}</span></li>
+                                        <!--                                    <li><i class="material-icons">fmd_good</i><span>delpara, narayanganj</span></li>-->
+                                        <li><i class="material-icons">stars</i> <span>Brand: <a href="<c:url value="/cars/carlist.do?bid=${item.car.brand.id}"/>">${item.car.brand.name}</a></span></li>
+                                    </ul>
+                                    <h5>${item.car.formatPrice}</h5>
+                                </div>
+
                             </div>
                             <div class="favorite-widget">
                                 ${item.orderStatus}
                             </div>
+
                             <a href="${pageContext.request.contextPath}/order/removeorder.do?orderId=${item.orderId}" class="favorite-close"><i class="material-icons">close</i></a>
                         </li>
                     </c:forEach>
@@ -130,6 +142,6 @@
                 </ul>
             </div>
         </div>
-        
+
     </div>
 </section>

@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -260,12 +261,13 @@ public class OrderFacade {
         CarFacade cf = new CarFacade();
         try {
             con = DBContext.getConnection();
-            String sql = "SELECT o.orderId, o.postId, c.carId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId";
+            String sql = "SELECT o.orderId, o.orderApp, o.postId, c.carId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Order orderlist = new Order();
+                if (rs.getObject("orderApp") != null) orderlist.setOrderApp(rs.getObject("orderApp", LocalDateTime.class));
                 orderlist.setOrderId(rs.getInt("orderId"));
                 orderlist.setPostId(rs.getInt("postId"));
                 orderlist.setCreatedDate(rs.getDate("orderDate"));
@@ -300,12 +302,13 @@ public class OrderFacade {
         CarFacade cf = new CarFacade();
         try {
             con = DBContext.getConnection();
-            String sql = "SELECT o.orderId, o.postId, c.carId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId where o.userId = " + userId;
+            String sql = "SELECT o.orderId, o.orderApp, o.postId, c.carId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId where o.userId = " + userId;
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Order orderlist = new Order();
+                if (rs.getObject("orderApp") != null) orderlist.setOrderApp(rs.getObject("orderApp", LocalDateTime.class));
                 orderlist.setOrderId(rs.getInt("orderId"));
                 orderlist.setPostId(rs.getInt("postId"));
                 orderlist.setCreatedDate(rs.getDate("orderDate"));
@@ -330,6 +333,15 @@ public class OrderFacade {
         }
 
         return orders;
+    }
+    
+    public void updateApp(LocalDateTime orderApp, int orderId) throws SQLException {
+        con = DBContext.getConnection();
+        ps = con.prepareStatement("UPDATE [Order] SET orderApp=? WHERE orderId=?");
+        ps.setObject(1, orderApp);
+        ps.setInt(2, orderId);
+        ps.executeUpdate();
+        con.close();
     }
 
 //    public void deny(int orderId) throws SQLException {
