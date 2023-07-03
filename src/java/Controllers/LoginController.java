@@ -241,6 +241,17 @@ public class LoginController extends HttpServlet {
                             HttpSession session = request.getSession();
                             session.setAttribute("User", newUser);
                             request.setAttribute("message", "Sign up success, please login to continue.");
+                            new GmailController().sendMail("A new message", """
+                                                    Dear  """+ newUser.getUserName() + """                                                              
+                                                      
+                                                        Your account has been successfully created,please login to continue
+                                                        http://localhost:8080/OldCarShowroom/login/login.do
+                                                        Thanks for using our service!
+                                                        
+                                                    Best regards,
+                                                    OCSN
+                                                        """, newUser.getUserEmail());
+
                             request.getRequestDispatcher("/login/login.do").forward(request, response);
                         }
                     }

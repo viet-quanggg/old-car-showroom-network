@@ -358,11 +358,11 @@ public class UserFacade {
             con = DBContext.getConnection();
 
             // Prepare the SQL statement for inserting a new user record
-            String sql = "INSERT INTO [User] ([userName], [userEmail],[userPass],[userPhone], [userAddress],[timeCreated],[userRole],[userImage]) VALUES (?,?,1,1,0,CURRENT_TIMESTAMP,0,?)";
+            String sql = "INSERT INTO [User] ([userName], [userEmail],[userPass],[userPhone], [userAddress],[timeCreated],[userRole]) VALUES (?,?,'6B86B273FF34FCE19D6B804EFF5A3F5747ADA4EAA22F1D49C01E52DDB7875B4B',1,0,CURRENT_TIMESTAMP,0)";
             ps = con.prepareStatement(sql);
             ps.setString(1, user.getUserName());
             ps.setString(2, user.getUserEmail());
-            ps.setString(3, user.getUserImage());
+         //   ps.setString(3, user.getUserImage());
             // Execute the SQL statement
             int rowsInserted = ps.executeUpdate();
 
