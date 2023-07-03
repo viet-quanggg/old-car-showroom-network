@@ -73,7 +73,11 @@
                             class="form-check-label" type="checkbox" name="remember" value="1"
                         <%= "1".equals(rememberVal.trim()) ? "checked=\"checked\"" : "" %> for="checkAgree">Remember me.</label></div><a class="auth-forgot"
                                                                                            href="<c:url value="/login/forgotpassword.do"/>">forgot password?</a>
-                </div><button type="submit" name="op" value="login" class="form-btn">login</button>
+                </div>
+                <div>
+                    <a style="color: greenyellow" >${message1}</a>
+                </div>
+                <button type="submit" name="op" value="login" class="form-btn">login</button>
                 <div class="auth-form-or"><span>or</span></div>
                 <ul class="auth-form-continue">
                     <p class="auth-form-text"><a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/OldCarShowroom/LoginGoogleController&response_type=code

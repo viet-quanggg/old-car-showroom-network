@@ -51,6 +51,76 @@ public class LoginController extends HttpServlet {
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
         switch (action) {
+            case "resetpassword_handler":
+                try {
+                String op = request.getParameter("op");
+                switch (op) {
+                    case "reset":
+                        String email = request.getParameter("uEmail");
+                        UserFacade uf = new UserFacade();
+                        User check = uf.checkEmail(email);
+                        if (check != null) {
+                            GmailController resetEmail = new GmailController();
+                            resetEmail.sendMail("Reset Password",
+                                    "Dear, \n"
+                                    + "Click on this link to reset your account's password: \n"
+                                    + "http://localhost:8080/OldCarShowroom/login/resetpassword.do?email=" + email + "\n"
+                                    + "Best Regards, \n"
+                                    + "OCSN",
+                                    email);
+                            String message = "Reset link sent! Please check your inbox to reset password.";
+                            request.setAttribute("message", message);
+                            request.getRequestDispatcher("/WEB-INF/views/login/forgotpassword.jsp").forward(request, response); //Hien trang thong bao loi
+                        } else {
+                            String error = "The account is not exist! Please register a new account.";
+                            request.setAttribute("error", error);
+                            request.getRequestDispatcher("/WEB-INF/views/login/forgotpassword.jsp").forward(request, response); //Hien trang thong bao loi
+
+                        }
+                        break;
+
+                }
+
+            } catch (Exception ex) {
+
+            }
+                break;
+            case "resetpassword":
+                String uEmail = request.getParameter("email");
+                request.setAttribute("uEmail", uEmail);
+                request.getRequestDispatcher("/WEB-INF/views/login/resetpassword.jsp").forward(request, response); //Hien trang thong bao loi
+                break;
+            case "resetpassword_process":
+                String email = request.getParameter("email");
+                String uPass = request.getParameter("uPass");
+                String re_uPass = request.getParameter("re_uPass");
+                try {
+                    String op = request.getParameter("op");
+                    switch (op) {
+                        case "save":
+                            try {
+                            if (!uPass.isEmpty() && uPass.matches(re_uPass)) {
+                                UserFacade uf = new UserFacade();
+                                String hashedpass = hash(uPass);
+                                uf.resetPassword(hashedpass, email);
+                                String message = "The password has been reset! Sign in to continue";
+                                request.setAttribute("message1", message);
+//                                response.sendRedirect(request.getContextPath() + "/login/login.do");
+                                request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response); //Hien trang thong bao loi
+                            } else {
+                                String announce = "The password is not match. Please try again!";
+                                request.setAttribute("announce", announce);
+                            }
+                            break;
+                        } catch (Exception e) {
+
+                        }
+                    }
+                    request.getRequestDispatcher("/WEB-INF/views/login/resetpassword.jsp").forward(request, response); //Hien trang thong bao loi
+                } catch (Exception ex) {
+
+                }
+                break;
             case "login":
                 //Hien login form
                 //Forward request & response to the main layout
@@ -155,7 +225,7 @@ public class LoginController extends HttpServlet {
                     }
                     session.setAttribute("User", user);
                     PlanFacade pf = new PlanFacade();
-                    Plan plan = pf.getUserPlan(user);      
+                    Plan plan = pf.getUserPlan(user);
                     session.setAttribute("UserPlan", plan);
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
                     requestDispatcher.forward(request, response);
@@ -247,7 +317,7 @@ public class LoginController extends HttpServlet {
                             session.setAttribute("User", newUser);
                             request.setAttribute("message", "Sign up success, please login to continue.");
                             new GmailController().sendMail("A new message", """
-                                                    Dear  """+ newUser.getUserName() + """                                                              
+                                                    Dear  """ + newUser.getUserName() + """                                                              
                                                       
                                                         Your account has been successfully created,please login to continue
                                                         http://localhost:8080/OldCarShowroom/login/login.do

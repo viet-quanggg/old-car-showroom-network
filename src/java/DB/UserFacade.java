@@ -326,6 +326,15 @@ public class UserFacade {
         con.close();
         return user;
     }
+    
+        public void resetPassword(String pass, String email) throws SQLException {
+        Connection con = DBContext.getConnection();
+        PreparedStatement stm = con.prepareStatement("UPDATE [User] set userPass =? where userEmail = ?");
+        stm.setString(1, pass);
+        stm.setString(2, email);
+        int count = stm.executeUpdate();
+        con.close();
+    }
 
     public User updatePlan(User user) throws SQLException {
         Connection con = DBContext.getConnection();

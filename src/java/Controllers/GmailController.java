@@ -59,7 +59,7 @@ public class GmailController {
 
     private static Credential getCredentials(final NetHttpTransport httpTransport, GsonFactory jsonFactory) 
             throws IOException {
-        Reader clientSecretReader = new InputStreamReader(new FileInputStream("NeededToAdd/Json File/client_secret_978807172034-4mlljef17cjtkjqj4lkq291ukice8rpa.apps.googleusercontent.com.json"));
+        Reader clientSecretReader = new InputStreamReader(new FileInputStream("/Users/_viet.quangg/Downloads/client_secret_2_978807172034-4mlljef17cjtkjqj4lkq291ukice8rpa.apps.googleusercontent.com.json"));
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, clientSecretReader);
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 httpTransport, jsonFactory, clientSecrets, Set.of(GmailScopes.GMAIL_SEND))
@@ -115,9 +115,9 @@ public class GmailController {
         new GmailController().sendMail("A new message", """
                                                     Dear reader,
                                                         
-                                                        This is a test message from the staff of the old car showroom
-                                                        http://localhost:8080/OldCarShowroom/ocsn/index.do
-                                                        Thanks for using our service!
+                                                    This is a test message from the staff of the old car showroom
+                                                    http://localhost:8080/OldCarShowroom/ocsn/index.do
+                                                    Thanks for using our service!
                                                         
                                                     Best regards,
                                                     OCSN
