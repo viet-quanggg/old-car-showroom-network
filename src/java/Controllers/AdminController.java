@@ -46,7 +46,7 @@ public class AdminController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         String controller = (String) request.getAttribute("controller");
-        String action = (String) request.getAttribute("action");
+        String action = (String) request.getAttribute("action"); 
         AdminPageFacade apf = new AdminPageFacade();
         OrderFacade of = new OrderFacade();
         UserFacade uf = new UserFacade();
@@ -58,23 +58,33 @@ public class AdminController extends HttpServlet {
                     if (userl.get(i).getUserEmail().contains("?")) {
                         userl.remove(i);
                         i--;
-                    }
+                    } 
                 }
                 request.setAttribute("UserL", userl);
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
             case "searchuser":
                 String searchQuery = request.getParameter("search").trim();
-
+                
                 if (searchQuery == null || searchQuery.isEmpty()) {
-                    ArrayList<User> listuser = uf.userList();
-                    request.setAttribute("UserL", listuser);
+                    response.sendRedirect(request.getContextPath() + "/admin/userlist.do");
+//                    ArrayList<User> listuser = uf.userList();
+//                    request.setAttribute("UserL", listuser);
                 } else {
                     // Perform search logic and retrieve matching orders from the database
                     ArrayList<User> search = uf.SearchUser(searchQuery);
+                    if (search.size() > 0) {
+                        for (int i = 0; i < search.size(); i++) {
+                            if (search.get(i).getUserEmail().contains("?")) {
+                                search.remove(i);
+                                i--;
+                            }
+                        } 
+                    }
                     request.setAttribute("UserL", search);
                 }
-                    request.getRequestDispatcher("/admin/userlist.do").forward(request, response);
+                request.setAttribute("action", "userlist");
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
 //Hien trang thong bao loi               
             //

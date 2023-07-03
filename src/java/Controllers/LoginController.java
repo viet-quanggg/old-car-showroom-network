@@ -84,9 +84,14 @@ public class LoginController extends HttpServlet {
             }
             case "profile":
                 session = request.getSession();
-                if (session.getAttribute("User") == null) {
+                User user = (User) session.getAttribute("User");
+                if (user == null) {
                     request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
                     return;
+                }
+                if (user.getPlanId() != 0) {
+                    PlanFacade pf = new PlanFacade();
+                    request.setAttribute("UserPlan", pf.getUserPlan(user));
                 }
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 //Hien trang thong bao loi

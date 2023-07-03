@@ -122,8 +122,8 @@
             <div class="form-group mb-0">
                 <div class="input-group">
                     <form action="<c:url value="/admin/searchuser.do"/>" method="post">
-                        <span>  <input id="search" name="search" class="form-control form-control-lg" type="text" placeholder="Search Name"></span>
-                        <span> <button class="form-btn" type="submit" value="searchuser"><span>Search</span></button></span>
+                        <div> <input id="search" name="search" class="form-control form-control-lg" type="text" placeholder="Search Name"></span> </div>
+                        <div><button class="form-btn" type="submit"><span>Search</span></button> </div>
                     </form>
                 </div>
             </div>
@@ -155,7 +155,7 @@
                         <tbody>
                             <c:forEach var="userli" items="${UserL}" varStatus="status">
                                 <tr>
-                            <form action="<c:url value="/admin/searchuser.do"/>" method="post">
+   
                                 <td>${status.count}</td>
                                 <td>${userli.userID}</td>
                                 <td>${userli.userEmail}</td>
@@ -178,7 +178,7 @@
                                         </div>
                                     </div>
                                 </td>
-                            </form>
+                            
                                 </tr>
                             </c:forEach>
                             </tbody>

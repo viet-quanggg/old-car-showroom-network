@@ -57,7 +57,12 @@ public class UserFacade {
             user.setTimeCreated(rs.getDate("timeCreated"));
             user.setUserRole(rs.getInt("userRole"));
             user.setUserImage(rs.getString("userImage"));
-
+            if (rs.getObject("planId") != null) {
+                user.setPlanId(rs.getInt("planId"));
+            }
+            if (rs.getObject("planStart") != null) {
+                user.setPlanStart(rs.getDate("planStart"));
+            }
         }
         con.close();
         return user;
@@ -324,7 +329,7 @@ public class UserFacade {
 
     public User updatePlan(User user) throws SQLException {
         Connection con = DBContext.getConnection();
-        PreparedStatement stm = con.prepareStatement("UPDATE [User] set planId =? , planStart = CURRENT_TIMESTAMP where userId=?");
+        PreparedStatement stm = con.prepareStatement("UPDATE [User] set planId = ?, planStart = CURRENT_TIMESTAMP where userId = ?");
         stm.setInt(1, user.getPlanId());
         stm.setInt(2, user.getUserID());
         int count = stm.executeUpdate();
