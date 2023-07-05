@@ -125,14 +125,14 @@
                         <div class="product-grid-card">
                             <div class="product-grid-image"><img style="max-height: 200px; min-height: 200px"src="${pageContext.request.contextPath}${item.image.size() == 0 ? '' : item.image.get(0).url}" alt="feature">
                                 <div class="product-grid-badge"><span class="badge new">new</span></div>
-<!--                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
-                                </div>-->
-                                <div class="product-grid-overlay">
+                                <!--                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
+                                                                </div>-->
+<!--                                <div class="product-grid-overlay">
                                     <div class="product-grid-vendor"><i class="material-icons">person</i><a
                                             href="profile.html">by FPTU</a></div>
                                     <div class="product-grid-rating"><i class="material-icons">star</i><a
                                             href="review.html">28 review</a></div>
-                                </div>
+                                </div>-->
                             </div>
                             <div class="product-grid-content">
                                 <div class="product-grid-group">
@@ -144,14 +144,14 @@
                                 <div class="product-grid-meta">
                                     <h4><a href="inventory-single.html">${item.carName}</a></h4>
                                     <ul>
-                                        <li>unknown</li>
+                                        <li><span>${item.car_seat}</span></li>
                                         <li>${item.createDate}</li>
                                     </ul>
                                 </div>
                                 <ul class="product-grid-extra">
-                                    <li><i class="material-icons">construction</i><span>manual</span></li>
-                                    <li><i class="material-icons">settings</i><span>2000 km</span></li>
-                                    <li><i class="material-icons">local_gas_station</i><span>diesel</span></li>
+                                    
+                                    <li><i class="material-icons">settings</i><span>${item.odo} km</span></li>
+                                    <li><i class="material-icons">local_gas_station</i><span>${item.engine}</span></li>
                                 </ul>
                                 <div class="product-grid-btn"><a href="<c:url value="/cars/carsingle.do?carId=${item.carID}"/>"><i
                                             class="material-icons">visibility</i><span>details</span></a>
@@ -213,14 +213,14 @@
             <div class="col-xl-12">
                 <div class="section-head">
                     <div class="section-text">
-                        <h2>browse our top listing</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
+                        <h2>Variety of car models listed</h2>
+                        <p>Dreams here</p>
                     </div><a href="<c:url value="/cars/carlist.do"/>" class="btn btn-inline"><i
                             class="material-icons">travel_explore</i><span>browse all</span></a>
                 </div>
             </div>
         </div>
-        <div class="row">
+<!--        <div class="row">
             <div class="col-xl-12">
                 <div class="nav nav-pills browse-nav"><button type="button" data-bs-toggle="pill"
                                                               data-bs-target="#vendor" class="nav-link active"><i
@@ -234,7 +234,7 @@
                                                                                             data-bs-toggle="pill" data-bs-target="#views" class="nav-link"><i
                             class="material-icons">visibility</i><span>top views</span></button></div>
             </div>
-        </div>
+        </div>-->
         <div class="tab-pane fade show active" id="vendor">
             <div class="row row-cols-xl-4">
                 <c:forEach begin="1" end="8" items="${carDAO.car}" var="item">
@@ -244,12 +244,12 @@
                                 <div class="product-grid-badge"><span class="badge new">new</span></div>
                                 <!--                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
                                                                 </div>-->
-                                <div class="product-grid-overlay">
+<!--                                <div class="product-grid-overlay">
                                     <div class="product-grid-vendor"><i class="material-icons">person</i><a
                                             href="profile.html">by autoland</a></div>
                                     <div class="product-grid-rating"><i class="material-icons">star</i><a
                                             href="review.html">28 review</a></div>
-                                </div>
+                                </div>-->
                             </div>
                             <div class="product-grid-content">
                                 <div class="product-grid-group">
@@ -259,16 +259,16 @@
                                                                              title="Favorite" class="favorite material-icons">favorite</button></div>
                                 </div>
                                 <div class="product-grid-meta">
-                                    <h4><a href="inventory-single.html">${item.carName}</a></h4>
+                                    <h4><a href="<c:url value="/cars/carsingle.do?carId=${item.carID}"/>">${item.carName}</a></h4>
                                     <ul>
-                                        <li>delpara, narayanganj</li>
+                                        <li><span>${item.car_seat}</span></li>
                                         <li>${item.createDate}</li>
                                     </ul>
                                 </div>
                                 <ul class="product-grid-extra">
-                                    <li><i class="material-icons">construction</i><span>manual</span></li>
-                                    <li><i class="material-icons">settings</i><span>2000 km</span></li>
-                                    <li><i class="material-icons">local_gas_station</i><span>diesel</span></li>
+                                    
+                                    <li><i class="material-icons">settings</i><span>${item.odo} km</span></li>
+                                    <li><i class="material-icons">local_gas_station</i><span>${item.engine}</span></li>
                                 </ul>
                                 <div class="product-grid-btn"><a href="<c:url value="/cars/carsingle.do?carId=${item.carID}"/>"><i
                                             class="material-icons">visibility</i><span>details</span></a>
@@ -433,7 +433,7 @@
                             <div class="product-grid-meta">
                                 <h4><a href="inventory-single.html">Mercedez benz super mclaren</a></h4>
                                 <ul>
-                                    <li>delpara, narayanganj</li>
+                                    <li><span>${item.car_seat}</span></li>
                                     <li>23h ago!</li>
                                 </ul>
                             </div>
@@ -1611,84 +1611,84 @@
         </div>
     </div>
 </section>
-                        <c:if test="${blist != null && !blist.isEmpty()}">
-<section class="section-gap-95">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="section-head">
-                    <div class="section-text">
-                        <h2>browse by brands</h2>
-<!--                        <p>Find your want-to-buy car based on brands</p>-->
-                    </div><a href="<c:url value="/cars/carlist.do"/>" class="btn btn-inline"><i
-                            class="material-icons">travel_explore</i><span>browse all</span></a>
+<c:if test="${blist != null && !blist.isEmpty()}">
+    <section class="section-gap-95">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="section-head">
+                        <div class="section-text">
+                            <h2>browse by brands</h2>
+                            <!--                        <p>Find your want-to-buy car based on brands</p>-->
+                        </div><a href="<c:url value="/cars/carlist.do"/>" class="btn btn-inline"><i
+                                class="material-icons">travel_explore</i><span>browse all</span></a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-5">
-            <c:forEach items="${blist}" var="branditem">
-                                <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do?bid=${branditem.id}"/>">
-                                        <img src="https://www.carlogos.org/car-logos/${branditem.name.toLowerCase()}-logo.png"  onerror="this.src='https://www.supercars.net/blog/wp-content/uploads/2019/12/${branditem.name}-Logo.png'" alt="${branditem.name}">
-                                    <h6>${branditem.name}</h6>
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-5">
+                <c:forEach items="${blist}" var="branditem">
+                    <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do?bid=${branditem.id}"/>">
+                            <img src="https://www.carlogos.org/car-logos/${branditem.name.toLowerCase()}-logo.png"  onerror="this.src='https://www.supercars.net/blog/wp-content/uploads/2019/12/${branditem.name}-Logo.png'" alt="${branditem.name}">
+                            <h6>${branditem.name}</h6>
 
-                                    <h6>(${branditem.count}) ${branditem.name}</h6>
+                            <h6>(${branditem.count}) ${branditem.name}</h6>
 
-                                    </a></div>
-            </c:forEach>
-<!--            <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/01.png"
-                                                                                                 alt="brand">
-                    <h6>tesla</h6>
-                    <p>(24) vehicles</p>
-                </a></div>
-            <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/02.png"
-                                                                                                 alt="brand">
-                    <h6>nissan</h6>
-                    <p>(24) vehicles</p>
-                </a></div>
-            <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/03.png"
-                                                                                                 alt="brand">
-                    <h6>mercedes</h6>
-                    <p>(24) vehicles</p>
-                </a></div>
-            <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/04.png"
-                                                                                                 alt="brand">
-                    <h6>toyota</h6>
-                    <p>(24) vehicles</p>
-                </a></div>
-            <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/05.png"
-                                                                                                 alt="brand">
-                    <h6>audi</h6>
-                    <p>(24) vehicles</p>
-                </a></div>
-            <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/06.png"
-                                                                                                 alt="brand">
-                    <h6>lamborghini</h6>
-                    <p>(24) vehicles</p>
-                </a></div>
-            <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/07.png"
-                                                                                                 alt="brand">
-                    <h6>bugatti</h6>
-                    <p>(24) vehicles</p>
-                </a></div>
-            <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/08.png"
-                                                                                                 alt="brand">
-                    <h6>ferrari</h6>
-                    <p>(24) vehicles</p>
-                </a></div>
-            <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/09.png"
-                                                                                                 alt="brand">
-                    <h6>bmw</h6>
-                    <p>(24) vehicles</p>
-                </a></div>
-            <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/10.png"
-                                                                                                 alt="brand">
-                    <h6>porsche</h6>
-                    <p>(24) vehicles</p>
-                </a></div>-->
+                        </a></div>
+                    </c:forEach>
+        <!--            <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/01.png"
+                                                                                                         alt="brand">
+                            <h6>tesla</h6>
+                            <p>(24) vehicles</p>
+                        </a></div>
+                    <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/02.png"
+                                                                                                         alt="brand">
+                            <h6>nissan</h6>
+                            <p>(24) vehicles</p>
+                        </a></div>
+                    <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/03.png"
+                                                                                                         alt="brand">
+                            <h6>mercedes</h6>
+                            <p>(24) vehicles</p>
+                        </a></div>
+                    <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/04.png"
+                                                                                                         alt="brand">
+                            <h6>toyota</h6>
+                            <p>(24) vehicles</p>
+                        </a></div>
+                    <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/05.png"
+                                                                                                         alt="brand">
+                            <h6>audi</h6>
+                            <p>(24) vehicles</p>
+                        </a></div>
+                    <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/06.png"
+                                                                                                         alt="brand">
+                            <h6>lamborghini</h6>
+                            <p>(24) vehicles</p>
+                        </a></div>
+                    <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/07.png"
+                                                                                                         alt="brand">
+                            <h6>bugatti</h6>
+                            <p>(24) vehicles</p>
+                        </a></div>
+                    <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/08.png"
+                                                                                                         alt="brand">
+                            <h6>ferrari</h6>
+                            <p>(24) vehicles</p>
+                        </a></div>
+                    <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/09.png"
+                                                                                                         alt="brand">
+                            <h6>bmw</h6>
+                            <p>(24) vehicles</p>
+                        </a></div>
+                    <div class="col"><a class="brand-card" href="<c:url value="/cars/carlist.do"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/brand/10.png"
+                                                                                                         alt="brand">
+                            <h6>porsche</h6>
+                            <p>(24) vehicles</p>
+                        </a></div>-->
+            </div>
         </div>
-    </div>
-</section>
-                        </c:if>
+    </section>
+</c:if>
 <section class="section-gap-95">
     <div class="container">
         <div class="row">
@@ -1857,13 +1857,13 @@
                         </ul>
                         <h4 class="price-amount">$${plan.planPrice}</h4>
                         <c:if test="${User == null}">
-                        <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/login/register.do"/>">get
-                            register</a>
-                        </c:if>
-                        <c:if test="${User != null}">
-                        <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/plan/buyplan.do?planId=${plan.planId}"/>">get
-                            register</a>
-                        </c:if> 
+                            <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/login/register.do"/>">get
+                                register</a>
+                            </c:if>
+                            <c:if test="${User != null}">
+                            <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/plan/buyplan.do?planId=${plan.planId}"/>">get
+                                register</a>
+                            </c:if> 
                     </div>
                 </div>
             </c:forEach>         

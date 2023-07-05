@@ -113,10 +113,9 @@
                             <div class="favorite-info">
                                 <h3><a href="<c:url value="/cars/carsingle.do?carId=${item.car.carID}"/>">${item.car.carName}</a></h3>
                                 <ul>
-                                    <li><i class="material-icons">store</i><a href="profile.html">by autoland</a></li>
-                                    <li><i class="material-icons">watch_later</i><span>posted 25m ago</span></li>
-                                    <li><i class="material-icons">bookmark_add</i><span>individual</span></li>
-                                    <li><i class="material-icons">fmd_good</i><span>delpara, narayanganj</span></li>
+                                    <li><span>Seat: </span><span>${item.car.car_seat}</span></li>
+                                    <li><span>Odo: </span><span> ${item.car.odo} km</span></li>
+                                    <li><span>Engine: </span><span>${item.car.engine}</span></li>
                                     <li><i class="material-icons">stars</i><a href="#!"> Brand: ${item.car.brand.name}</a></li>
                                 </ul>
                                 <h5>${item.car.formatPrice}</h5>

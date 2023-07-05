@@ -68,6 +68,9 @@
                                             <li><span>Year:</span><span>${item.carYear}</span></li>
                                             <li><span>Brand:</span><span>${item.brand.name}</span></li>
                                             <li><span>Condition:</span><span style="color: ${item.carCondition ? 'red' : 'green'}">${item.carCondition ? 'Sold' : 'Available'}</span></li>
+                                            <li><span>Seat</span><span>${item.car_seat}</span></li>
+                                            <li><span>Odo</span><span>${item.odo} km</span></li>
+                                            <li><span>Engine</span><span>${item.engine}</span></li>
                                             <li><span>Description:</span><span class="hidden-text">${item.carDescription}</span></li>
 
 
@@ -81,7 +84,7 @@
                                             <a href="${pageContext.request.contextPath}/addToCompare?id=${item.carID}" >
                                                 <i class="material-icons">compare</i><span>compare</span>
                                             </a> 
-                                                
+
                                         </div>
                                     </div>
                                 </div>

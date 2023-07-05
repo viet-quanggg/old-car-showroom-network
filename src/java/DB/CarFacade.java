@@ -78,6 +78,9 @@ public class CarFacade {
                     + "      ,c.[carCondition]\n"
                     + "      ,c.[createDate]\n"
                     + "      ,c.[updateDate]\n"
+                    + "      ,c.[car_seat]\n"
+                    + "      ,c.[engine]\n"
+                    + "      ,c.[odo]\n"
                     + "      ,c.[brandID]\n"
                     + "      ,c.[colorID]\n"
                     + "      ,b.[name]\n"
@@ -117,7 +120,9 @@ public class CarFacade {
                 Car car = new Car(rs.getInt("carID"), rs.getInt("ownerId"), rs.getString("carShowroom"),
                         rs.getDouble("carPrice"), rs.getString("carName"), rs.getInt("carYear"),
                         rs.getString("carDescription"), rs.getBoolean("carCondition"),
-                        rs.getDate("createDate"), rs.getDate("updateDate"), brand, image, color);
+                        rs.getDate("createDate"), rs.getDate("updateDate"),
+                        rs.getString("car_seat"), rs.getString("engine"), rs.getFloat("odo"), 
+                        brand, image, color);
 
                 list.add(car);
             }
@@ -209,6 +214,9 @@ public class CarFacade {
                     + "      ,c.[carCondition]\n"
                     + "      ,c.[createDate]\n"
                     + "      ,c.[updateDate]\n"
+                    + "      ,c.[car_seat]\n"
+                    + "      ,c.[engine]\n"
+                    + "      ,c.[odo]\n"
                     + "      ,c.[brandID]\n"
                     + "      ,c.[colorID]\n"
                     + "      ,b.[name]\n"
@@ -256,7 +264,9 @@ public class CarFacade {
                 Car car = new Car(rs.getInt("carID"), rs.getInt("ownerId"), rs.getString("carShowroom"),
                         rs.getDouble("carPrice"), rs.getString("carName"), rs.getInt("carYear"),
                         rs.getString("carDescription"), rs.getBoolean("carCondition"),
-                        rs.getDate("createDate"), rs.getDate("updateDate"), brand, image, color);
+                        rs.getDate("createDate"), rs.getDate("updateDate"),
+                        rs.getString("car_seat"), rs.getString("engine"), rs.getFloat("odo"),
+                        brand, image, color);
 
                 list.add(car);
             }
@@ -284,6 +294,9 @@ public class CarFacade {
                     + "      ,c.[carCondition]\n"
                     + "      ,c.[createDate]\n"
                     + "      ,c.[updateDate]\n"
+                    + "      ,c.[car_seat]\n"
+                    + "      ,c.[engine]\n"
+                    + "      ,c.[odo]\n"
                     + "      ,c.[brandID]\n"
                     + "      ,c.[colorID]\n"
                     + "      ,b.[name]\n"
@@ -325,7 +338,7 @@ public class CarFacade {
                 Car car = new Car(rs.getInt("carID"), rs.getInt("ownerId"), rs.getString("carShowroom"),
                         rs.getDouble("carPrice"), rs.getString("carName"), rs.getInt("carYear"),
                         rs.getString("carDescription"), rs.getBoolean("carCondition"),
-                        rs.getDate("createDate"), rs.getDate("updateDate"), brand, image, color);
+                        rs.getDate("createDate"), rs.getDate("updateDate"),rs.getString("car_seat"), rs.getString("engine"), rs.getFloat("odo"), brand, image, color);
 
                 return car;
 
@@ -384,6 +397,9 @@ public class CarFacade {
                     + "      ,c.[carCondition]\n"
                     + "      ,c.[createDate]\n"
                     + "      ,c.[updateDate]\n"
+                    + "      ,c.[car_seat]\n"
+                    + "      ,c.[engine]\n"
+                    + "      ,c.[odo]\n"
                     + "      ,c.[brandID]\n"
                     + "      ,c.[colorID]\n"
                     + "      ,b.[name]\n"
@@ -426,7 +442,7 @@ public class CarFacade {
                 Car car = new Car(rs.getInt("carID"), rs.getInt("ownerId"), rs.getString("carShowroom"),
                         rs.getDouble("carPrice"), rs.getString("carName"), rs.getInt("carYear"),
                         rs.getString("carDescription"), rs.getBoolean("carCondition"),
-                        rs.getDate("createDate"), rs.getDate("updateDate"), brand, image, color);
+                        rs.getDate("createDate"), rs.getDate("updateDate"),rs.getString("car_seat"), rs.getString("engine"), rs.getFloat("odo"), brand, image, color);
 
                 list.add(car);
             }

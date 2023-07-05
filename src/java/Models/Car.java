@@ -15,7 +15,8 @@ import java.util.Locale;
  * @author Admin
  */
 public class Car {
-   private int carID;
+
+    private int carID;
     private int ownerID;
     private String carShowroom;
     private double carPrice;
@@ -26,7 +27,9 @@ public class Car {
     private boolean carCondition;
     private Date createDate;
     private Date updateDate;
-
+    private String car_seat;
+    private String engine;
+    private float odo;
     private Brand brand;
 
     private List<Image> image;
@@ -35,7 +38,7 @@ public class Car {
     public Car() {
     }
 
-    public Car(int carID, int ownerID, String carShowroom, double carPrice, String carName, int carYear, String carDescription, boolean carCondition, Date createDate, Date updateDate, Brand brand, List<Image> image, Color color) {
+    public Car(int carID, int ownerID, String carShowroom, double carPrice, String carName, int carYear, String carDescription, boolean carCondition, Date createDate, Date updateDate, String car_seat, String engine, float odo, Brand brand, List<Image> image, Color color) {
         this.carID = carID;
         this.ownerID = ownerID;
         this.carShowroom = carShowroom;
@@ -46,14 +49,13 @@ public class Car {
         this.carCondition = carCondition;
         this.createDate = createDate;
         this.updateDate = updateDate;
+        this.car_seat = car_seat;
+        this.engine = engine;
+        this.odo = odo;
         this.brand = brand;
         this.image = image;
         this.color = color;
     }
-
-    
-
-    
 
     public int getCarID() {
         return carID;
@@ -159,12 +161,34 @@ public class Car {
         this.color = color;
     }
 
+    public String getCar_seat() {
+        return car_seat;
+    }
+
+    public void setCar_seat(String car_seat) {
+        this.car_seat = car_seat;
+    }
+
+    public String getEngine() {
+        return engine;
+    }
+
+    public void setEngine(String engine) {
+        this.engine = engine;
+    }
+
     public String getFormatPrice() {
         Locale localeVN = new Locale("vi", "VN");
         NumberFormat vn = NumberFormat.getInstance(localeVN);
         return vn.format(this.carPrice);
     }
 
-    
-    
+    public float getOdo() {
+        return odo;
+    }
+
+    public void setOdo(float odo) {
+        this.odo = odo;
+    }
+
 }

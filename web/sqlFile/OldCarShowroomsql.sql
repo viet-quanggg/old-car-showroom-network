@@ -74,7 +74,7 @@ GO
 
 CREATE TABLE [Car] (
 	carId int identity (1,1) PRIMARY KEY,
-	ownerId int,
+	ownerId int not null,
 	carShowroom varchar(30) NOT NULL, /** car dang o showroom nao **/
 	carPrice money NOT NULL,
 	carName nvarchar(150) NOT NULL,
@@ -83,12 +83,17 @@ CREATE TABLE [Car] (
 	carCondition bit NOT NULL,
 	createDate date not null,
 	updateDate date not null,
-
+	car_seat nvarchar(256),
+	engine nvarchar(256), 
+	odo float,
 	brandID int not null,
 	colorID int not null,
 	
 ) 
 GO
+alter table Car
+add CONSTRAINT fk_car_user FOREIGN KEY (ownerId) references [User](userId)
+go
 
 CREATE TABLE Brand (
 	id int identity(1, 1) not null,
@@ -208,48 +213,90 @@ VALUES
 		(N'Cream', GETDATE())	/*11*/
 GO
 
-INSERT INTO [dbo].[Car] ([ownerId], [carShowroom], [carPrice], [carName], [carYear], [carDescription], [carCondition], [createDate], [updateDate], [brandID], [colorID])
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'admin@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Admin',132465,N'SaiGon',CURRENT_TIMESTAMP,2,'D:\CN5\FolderUser')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'staff1@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Staff1',242425,N'SaiGon',CURRENT_TIMESTAMP,1,'D:\CN5\FolderUser')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'staff2@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Staff2',31313,N'SaiGon',CURRENT_TIMESTAMP,1,'D:\CN5\FolderUser')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'john@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'John Wick',75743,N'SaiGon',CURRENT_TIMESTAMP,0,'D:\CN5\FolderUser')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'trump@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Trump',5267457,N'SaiGon',CURRENT_TIMESTAMP,0,'D:\CN5\FolderUser')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'trong@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Nguyen Phu Trong',3635,N'SAigon',CURRENT_TIMESTAMP,0,'D:\CN5\FolderUser')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('jim.jones@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Jim Jones', '5555555555', '101 Main Street, Anytown USA', '2023-06-07T04:25:28.633Z', 0, null)
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('mary.johnson@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Mary Ann Johnson', '5555555555', '111 Main Street, Anytown USA', '2023-06-07T04:30:28.633Z', 0, 'https://example.com/user-images/mary-johnson.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('john.doe@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'John Doe', '5555555555', '456 Main Street, Anytown USA', '2023-06-07T04:15:28.633Z', 0, 'https://example.com/user-images/john-doe.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('sarah.green@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Sarah Green', '0919473970', '333 Main Street, Anytown USA', '2023-06-07T04:40:28.633Z', 0, 'https://example.com/user-images/sarah-green.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('jane.doe@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Jane Smith', '5555555555', '444 Main Street, Anytown USA', '2023-06-07T04:50:28.633Z', 0, 'https://example.com/user-images/jane-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('bob.johnson@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Bob Johnson', '5555555555', '555 Main Street, Anytown USA', '2023-06-07T04:55:28.633Z', 0, 'https://example.com/user-images/bob-johnson.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('tim.white@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Tim White', '5555555555', '', '2023-06-07T04:45:28.633Z', 0, 'https://example.com/user-images/tim-white.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('susan.smith@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Susan Smith', '5555555555', '789 Main Street, Anytown USA', '2023-06-07T04:20:28.633Z', 0, 'https://example.com/user-images/susan-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('tester1@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Tester Smith', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 0, 'https://example.com/user-images/susan-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('tester23@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Test Smith', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 0, 'https://example.com/user-images/susan-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('tester231@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Test Smith2', '5555555555', '789 Main Street, Anytown USA', '2023-05-05', 0, 'https://example.com/user-images/susan-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('tester@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Staff Test', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 1, 'https://example.com/user-images/susan-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('tester69@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Testing Zone', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 1, 'https://example.com/user-images/susan-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('staff23@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'John Dope', '5555555555', '789 Main Street, Anytown USA', '2023-05-19', 1, 'https://example.com/user-images/susan-smith.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values ('staff54@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Test Smith2', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 1, 'https://example.com/user-images/susan-smith.jpg')
+INSERT INTO [dbo].[Car] ([ownerId], [carShowroom], [carPrice], [carName], [carYear], [carDescription], [carCondition], [createDate], [updateDate], [car_seat], [engine], [odo] ,[brandID], [colorID])
 VALUES
-		(-1, '', 665000000, N'Mazda 6 Premium 2.0', 2019, N'Bán Mazda 6 2.0 Premium Sx 2019 sedan hạng B option cao cấp ODO 4v Km biển Hà Nội tên cá nhân.Cam kết chất lượng xe đẹp không đâm đụng.Hỗ trợ bank thủ tục nhanh LH để biết thông tin về chiếc xe này.Cảm ơn đã đọc tin.', 0, GETDATE(), GETDATE(), 6, 4),
-		(-1, '', 499000000, N'Mazda 3 1.5 AT', 2018, N'Phiên bản 1.5 FL tiết kiệm xăng nhất phân khúc C, xe đã đc trang bị, ghế da, khoá stat/stop, đèn nét, cân bằng điện tử, cửa nóc, màn hình', 0, GETDATE(), GETDATE(), 6, 1),
-		(-1, '', 1200000000, N'Audi A6 1.8 TFSI', 2017, N'Có option: hệ thống giải trí hỗ trợ CD/MP3 và thẻ nhớ định dạng WMA/AAC. giao diện smartphone Apple CarPlay, hệ thống kết nối Android Auto cùng sạc điện thoại không dây và 02 màn hình giải trí cho ghế sau. Giao diện âm nhạc riêng của Audi, kết nối Bluetooth..', 0, GETDATE(), GETDATE(), 10, 2),
-		(-1, '', 500000000, N'Honda CRV 2.4 AT', 2014, N' Với tầm giá loanh quanh 500tr thì làm con suv đi thì qá hợp lý cả nhà ơi. Xe trang bị đầy đủ các tiện ích của dòng. Cam kết xe cực chất lượng. Liên hệ ngay để xem xe', 0, GETDATE(), GETDATE(), 5, 1),
-		(-1, '', 585000000, N'Kia Sedona 3.3L GATH', 2017, N'Xe được trang bị giàn âm thanh infinity , sấy sưởi ghế, giàn điều hòa 2 vùng độc lập, smart key, cruie control , 2 cửa nóc, cửa lùa 2 cánh bằng điện, cốp điện, khoang cốp cực rộng , gương kính chỉnh điện gập điện,màn hình cảm ứng , cảm biến trước sau. Nay mình đổi đời mới nên cần bán', 0, GETDATE(), GETDATE(), 16, 2),
-		(-1, '', 2800000000, N'Porsche Panamera Turbo', 2009, N'Odo: 40.000km.Màu xanh và nội thất kem.Chế độ bô có tắt/mở. Dẫn động 4 bánh.(AWD)Mâm 20 với thắng gốm Ceramic.2 chế độ nâng hạ gầm.2 ghế cá nhân hàng sau với tùy chọn tiện nghiHệ thống sưởi, hệ thống làm mát.Hệ thống điều hoà 4 vùng lập.2 chế độ bật Sport/ Sport Plus.Loa Burmester', 0, GETDATE(), GETDATE(), 17, 4),
-		(-1, '', 575000000, N'Mitsubishi Xpander Cross 1.5 AT', 2020, N' Xe zin nguyên bản chỉ mới bọc trần thôi ạ, chất xe từ trong ra ngoài cực kì đẹp, đảm bảo Anh Chị Em nhìn chỉ có mê thôi. Xe có giá nóc thể thao trông cao và mạnh mẽ hơn. Em chào bán với giá 575tr rất hợp lý trong thời điểm hiện tại.', 0, GETDATE(), GETDATE(), 8, 8),
-		(-1, '', 1739000000, N'Volvo S90 Inscription T6', 2020, N'Mẫu xe sang mạnh nhất và nhiều tính năng an toàn nhất phân khúc so E Class, BMW 5 series, Audi...Động cơ 320HP và hệ dẫn động AWD mang đến khả năng vận hành vượt trội', 0, GETDATE(), GETDATE(), 18, 1),
-		(-1, '', 1890000000, N'Lexus ES 250', 2019, N'Lexus ES250 sx 2019 mới lăn bánh 21.919km thì có mới quá ko ạh, quan trọng là em bán rẻ lắm', 0, GETDATE(), GETDATE(), 12, 3),
-		(-1, '', 579000000, N'Nissan 2.5 SV 4WD PREMIUM', 2017, N'Xe không đâm đụng, Không ngập nước, Bán xe có bảo hành, Hỗ trợ mua xe trả góp, Bao test hãng', 0, GETDATE(), GETDATE(), 13, 1),
-		(-1, '', 1198000000, N'Mercedes Benz C180 AMG', 2021, N'C180 AMG 1 chiếc xe cực kỳ linh hoạt chạy phố nhẹ nhàng, êm ái, mượt mà, gọn gàng. Kiểu dáng AMG thể thao đẹp mắt, trẻ trung', 0, GETDATE(), GETDATE(), 2, 1),
-		(-1, '', 835000000, N'Ford Everest AT', 2019, N'Gia đình tôi lên đời xe dư dùng bán lại Xe Everest model 2020 nhập Thái Lan, máy dầu còn rất mới đi ~50.000km, 7 chổ số tự dộng , máy dầu, trang bị nút Star/Stop màn hình giải trí, Điều khiển giọng nói SYNC 3, Cruise Control,đồng hồ điện tử, Hệ thống chống ồn chủ động, Hệ thống Cân bằng điện tử, 7 túi khí,..v.v.. gầm cao 7 chỗ tiết kiệm nhiên liệu, xe đã đăng kiểm mới mua về chỉ việc chạy. giá có thương lượng', 0, GETDATE(), GETDATE(), 7, 8),
-		(-1, '', 1299000000, N'Kia Carnival Premium 2.2D', 2022, N'Xe phiên bản 7 chổ, rộng rãi, thoáng mát, nhiều option nhất phân khúc MPV, là lựa chọn tuyệt vời cho mọi khách hàng.', 0, GETDATE(), GETDATE(), 16, 4),
-		(-1, '', 860000000, N'Audi A4 2.0 TFSI', 2016, N'Audi A4 sx 2016 mua mới và bảo dưỡng chính hãng bao test', 0, GETDATE(), GETDATE(), 10, 2),
-		(-1, '', 4900000000, N'Toyota Land Cruiser 5.7 V8', 2016, N'Trang bị: Loa JBL, DVD sau, phanh khoảng cách, cảnh báo lệch làn, điều hoà độc lập 4 vùng, vô-lăng tích hợp các phím chức năng, sấy và làm mát ghế....', 0, GETDATE(), GETDATE(), 1, 1),
-		(-1, '', 550000000, N'VinFast Lux A 2.0', 2020, N'Bao test hãng', 0, GETDATE(), GETDATE(), 9, 2),
-		(-1, '', 400000000, N'BMW 320i', 2011, N'1 chủ từ đầu zin', 0, GETDATE(), GETDATE(), 3, 2),
-		(-1, '', 479000000, N'BMW 320i', 2013, N'mâm vosen, Xe 1 chủ đập thùng, ghế chỉnh điện nhớ vị trí ghế, Đèn Pha Chiếu sáng HID có Led ban ngày, điều hoà 2 vùng độc lập, màn hình giải trí 6,5inch, kết nối Bluetooth, usb', 0, GETDATE(), GETDATE(), 3, 2),
-		(-1, '', 895000000, N'Toyota Camry 2.5Q', 2019, N'Camry 2.5Q 2019 chính chủ Trang bị 3 màn hình cam 360 full đồ chơi', 0, GETDATE(), GETDATE(), 1, 2),
-		(-1, '', 595000000, N'Honda Civic', 2021, N'Bao bao bao bao bao', 0, GETDATE(), GETDATE(), 5, 2),
-		(-1, '', 725000000, N'Mazda CX5 2.5 AT 2WD', 2019, N'BẢO DƯỠNG FULL HÃNG', 0, GETDATE(), GETDATE(), 6, 1),
-		(-1, '', 1050000000, N'Ford Titanium 2x4', 2022, N'Xe lướt ', 0, GETDATE(), GETDATE(), 7, 2),
-		(-1, '', 8000000000, N'Lexus 570', 2020, N' Hud kính , âm thanh vòm 19 loa Mark Levinson , cửa sổ trời , sấy và làm mát ghế , tủ lạnh', 0, GETDATE(), GETDATE(), 12, 2),
-		(-1, '', 600000000, N'Kia Seltos Luxury 1.4 AT', 2021, N'Xe tên cá nhân chính chủ sử dụng từ mới, full lich sử bảo dưỡng hãng....hồ sơ xe cầm tay sang tên chính chủ trong ngày', 0, GETDATE(), GETDATE(), 16, 2),
-		(-1, '', 568000000, N'Porsche Cayenne S', 2021, N'Bao bao bao bao bao', 0, GETDATE(), GETDATE(), 17, 2),
-		(-1, '', 51000000, N'Toyota Innova 2.0E', 2019, N'thay cả giàn dày cộp, tình trạng xe chủ đi giữ gìn nội ngoại thất còn rất mới, bao check thoải mái, giá còn thương lượng khi thiện trí xem xe', 0, GETDATE(), GETDATE(), 1, 3),
-		(-1, '', 1890000000, N'Mercedes Benz GLC 300 4Matic', 2021, N' cửa sổ trời, đèn multibeam, loa bum, led nội thất, cốp điện', 0, GETDATE(), GETDATE(), 2, 1),
-		(-1, '', 1705000000, N'Audi A4', 2021, N'Audi A4 2021 mẫu xe được mệnh danh là công nghệ dẫn lối với hàng loạt tiện ích hiện đại được trang bị. Thay đổi lớn nhất phải kể đến đó là Audi A4 2021 sử dụng hệ thống MMI Radio với màn hình cảm ứng 10.1 inch thay thế cho màn hình kích thước 7 inch cũ cùng với đó là hệ thống âm thanh tiêu chuẩn Audi Sound System, giao diện Bluetooth', 0, GETDATE(), GETDATE(), 10, 1),
-		(-1, '', 1020000000, N'Mercedes Benz C200', 2019, N'đèn full led, rèm điện, apple carplay, sạc k dây, điều hoà 2 vùng độc lập', 0, GETDATE(), GETDATE(), 2, 2),
-		(-1, '', 1015000000, N'Kia Sedona 2.2Luxury', 2019, N'Bao bao bao bao bao', 0, GETDATE(), GETDATE(), 16, 2),
-		(-1, '', 500000000, N'Mitsubishi Xpander 1.5 MT', 2021, N'Bao bao bao bao', 0, GETDATE(), GETDATE(), 8, 2),
-		(-1, '', 300000000, N'Honda Accord 2.0 AT', 2011, N'màn hình 9" Android, camera lùi, Cảm biến quanh xe, ghế da.', 0, GETDATE(), GETDATE(), 5, 3),
-		(-1, '', 500000000, N'Toyota Corolla altis 2.0V AT', 2017, N'Xe trang bị dán kính trải sand màn hình cảm biến lùi camera lùi dàn lốp mit mới ....', 0, GETDATE(), GETDATE(), 1, 2),
-		(-1, '', 320000000, N'Kia Soluto 1.4 MT Deluxe', 2019, N'bao test hãng toàn quốc đã vào màn androi thay lốp đăng kiểm mới có hỗ trợ ngân hàng cho quý khách', 0, GETDATE(), GETDATE(), 16, 1),
-		(-1, '', 300000000, N'Mitsubishi Attrage 1.2', 2018, N'Chạy bao đảk', 0, GETDATE(), GETDATE(), 8, 1),
-		(-1, '', 800000000, N'Mitsubishi Pajero Sport 4x2 AT', 2020, N'1 Cầu số tự động , xe đẹp không lỗi nhỏ , 1 chủ chạy chuẩn 6 vạn km siêu mới , lốp theo xe cả dàn , nội thất mới , máy móc khung gầm nguyên bản , xe đẹp zin đét từ trong ra ngoài', 0, GETDATE(), GETDATE(), 8, 1),
-		(-1, '', 750000000, N'Toyota Fortuner 2.7V 4x2 AT', 2021, N'ngọt hơn nước cất', 0, GETDATE(), GETDATE(), 1, 2),
-		(-1, '', 3900000000, N'BMW i8 1.5L Hybrid', 2015, N'Widebody EVO của hãng Energy motorsport đến Từ Nhật Bản khoảng 230 triệu khiến ngoại thất giống 1 siêu xe thực thụ và hầm hố', 0, GETDATE(), GETDATE(), 3, 1),
-		(-1, '', 489000000, N'Ford Ranger XLS 2.2L 4x2 MT', 2020, N'Xe được trang bị sẵn nhiều Options cần thiết: New Sync, phim cách nhiệt, cam hành trình, cam de,…', 0, GETDATE(), GETDATE(), 7, 2),
-		(-1, '', 2550000000, N'Porsche Panamera 3.6 V6', 2014, N'dễ vào việc lắm', 0, GETDATE(), GETDATE(), 17, 11)
+		(5, N'FPTU', 665000000, N'Mazda 6 Premium 2.0', 2019, N'Bán Mazda 6 2.0 Premium Sx 2019 sedan hạng B option cao cấp ODO 4v Km biển Hà Nội tên cá nhân.Cam kết chất lượng xe đẹp không đâm đụng.Hỗ trợ bank thủ tục nhanh LH để biết thông tin về chiếc xe này.Cảm ơn đã đọc tin.', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 30000 , 6, 4),
+		(6, N'FPTU', 499000000, N'Mazda 3 1.5 AT', 2018, N'Phiên bản 1.5 FL tiết kiệm xăng nhất phân khúc C, xe đã đc trang bị, ghế da, khoá stat/stop, đèn nét, cân bằng điện tử, cửa nóc, màn hình', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 23000 , 6, 1),
+		(8, N'FPTU', 1200000000, N'Audi A6 1.8 TFSI', 2017, N'Có option: hệ thống giải trí hỗ trợ CD/MP3 và thẻ nhớ định dạng WMA/AAC. giao diện smartphone Apple CarPlay, hệ thống kết nối Android Auto cùng sạc điện thoại không dây và 02 màn hình giải trí cho ghế sau. Giao diện âm nhạc riêng của Audi, kết nối Bluetooth..', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 24000 , 10, 2),
+		(5, N'FPTU', 500000000, N'Honda CRV 2.4 AT', 2014, N' Với tầm giá loanh quanh 500tr thì làm con suv đi thì qá hợp lý cả nhà ơi. Xe trang bị đầy đủ các tiện ích của dòng. Cam kết xe cực chất lượng. Liên hệ ngay để xem xe', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 22000 , 5, 1),
+		(9, N'FPTU', 585000000, N'Kia Sedona 3.3L GATH', 2017, N'Xe được trang bị giàn âm thanh infinity , sấy sưởi ghế, giàn điều hòa 2 vùng độc lập, smart key, cruie control , 2 cửa nóc, cửa lùa 2 cánh bằng điện, cốp điện, khoang cốp cực rộng , gương kính chỉnh điện gập điện,màn hình cảm ứng , cảm biến trước sau. Nay mình đổi đời mới nên cần bán', 0, GETDATE(), GETDATE(),N'7 seat', N'Gasoline', 56000 , 15, 2),
+		(10, N'FPTU', 2800000000, N'Porsche Panamera Turbo', 2009, N'Odo: 40.000km.Màu xanh và nội thất kem.Chế độ bô có tắt/mở. Dẫn động 4 bánh.(AWD)Mâm 20 với thắng gốm Ceramic.2 chế độ nâng hạ gầm.2 ghế cá nhân hàng sau với tùy chọn tiện nghiHệ thống sưởi, hệ thống làm mát.Hệ thống điều hoà 4 vùng lập.2 chế độ bật Sport/ Sport Plus.Loa Burmester', 0, GETDATE(), GETDATE(),N'4 seat', N'Gasoline', 25000 ,  16, 4),
+		(12, N'FPTU', 575000000, N'Mitsubishi Xpander Cross 1.5 AT', 2020, N' Xe zin nguyên bản chỉ mới bọc trần thôi ạ, chất xe từ trong ra ngoài cực kì đẹp, đảm bảo Anh Chị Em nhìn chỉ có mê thôi. Xe có giá nóc thể thao trông cao và mạnh mẽ hơn. Em chào bán với giá 575tr rất hợp lý trong thời điểm hiện tại.', 0, GETDATE(), GETDATE(),N'7 seat', N'Gasoline', 50000 ,  8, 8),
+		(10, N'FPTU', 1739000000, N'Volvo S90 Inscription T6', 2020, N'Mẫu xe sang mạnh nhất và nhiều tính năng an toàn nhất phân khúc so E Class, BMW 5 series, Audi...Động cơ 320HP và hệ dẫn động AWD mang đến khả năng vận hành vượt trội', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 35000 ,  17, 1),
+		(13, N'FPTU', 1890000000, N'Lexus ES 250', 2019, N'Lexus ES250 sx 2019 mới lăn bánh 21.919km thì có mới quá ko ạh, quan trọng là em bán rẻ lắm', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 34000 ,  11, 3),
+		(12, N'FPTU', 579000000, N'Nissan 2.5 SV 4WD PREMIUM', 2017, N'Xe không đâm đụng, Không ngập nước, Bán xe có bảo hành, Hỗ trợ mua xe trả góp, Bao test hãng', 0, GETDATE(), GETDATE(),N'5 seat', N'Diesel', 40000 ,  12, 1),
+		(11, N'FPTU', 1198000000, N'Mercedes Benz C180 AMG', 2021, N'C180 AMG 1 chiếc xe cực kỳ linh hoạt chạy phố nhẹ nhàng, êm ái, mượt mà, gọn gàng. Kiểu dáng AMG thể thao đẹp mắt, trẻ trung', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 23000 ,  2, 1),
+		(15, N'FPTU', 835000000, N'Ford Everest AT', 2019, N'Gia đình tôi lên đời xe dư dùng bán lại Xe Everest model 2020 nhập Thái Lan, máy dầu còn rất mới đi ~50.000km, 7 chổ số tự dộng , máy dầu, trang bị nút Star/Stop màn hình giải trí, Điều khiển giọng nói SYNC 3, Cruise Control,đồng hồ điện tử, Hệ thống chống ồn chủ động, Hệ thống Cân bằng điện tử, 7 túi khí,..v.v.. gầm cao 7 chỗ tiết kiệm nhiên liệu, xe đã đăng kiểm mới mua về chỉ việc chạy. giá có thương lượng', 0, GETDATE(), GETDATE(),N'7 seat', N'Diesel', 56000 ,  7, 8),
+		(11, N'FPTU', 1299000000, N'Kia Carnival Premium 2.2D', 2022, N'Xe phiên bản 7 chổ, rộng rãi, thoáng mát, nhiều option nhất phân khúc MPV, là lựa chọn tuyệt vời cho mọi khách hàng.', 0, GETDATE(), GETDATE(),N'7 seat', N'Diesel',54000  ,  15, 4),
+		(13, N'FPTU', 860000000, N'Audi A4 2.0 TFSI', 2016, N'Audi A4 sx 2016 mua mới và bảo dưỡng chính hãng bao test', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 26000 ,  10, 2),
+		(7, N'FPTU', 4900000000, N'Toyota Land Cruiser 5.7 V8', 2016, N'Trang bị: Loa JBL, DVD sau, phanh khoảng cách, cảnh báo lệch làn, điều hoà độc lập 4 vùng, vô-lăng tích hợp các phím chức năng, sấy và làm mát ghế....', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 40000 ,  1, 1),
+		(5, N'FPTU', 550000000, N'VinFast Lux A 2.0', 2020, N'Bao test hãng', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 29000,  9, 2),
+		(6, N'FPTU', 400000000, N'BMW 320i', 2011, N'1 chủ từ đầu zin', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 60000 ,  3, 2),
+		(5, N'FPTU', 479000000, N'BMW 320i', 2013, N'mâm vosen, Xe 1 chủ đập thùng, ghế chỉnh điện nhớ vị trí ghế, Đèn Pha Chiếu sáng HID có Led ban ngày, điều hoà 2 vùng độc lập, màn hình giải trí 6,5inch, kết nối Bluetooth, usb', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 23000 ,  3, 2),
+		(10, N'FPTU', 895000000, N'Toyota Camry 2.5Q', 2019, N'Camry 2.5Q 2019 chính chủ Trang bị 3 màn hình cam 360 full đồ chơi', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 28000 ,  1, 2),
+		(9, N'FPTU', 595000000, N'Honda Civic', 2021, N'Bao bao bao bao bao', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 23000 ,  5, 2),
+		(6, N'FPTU', 725000000, N'Mazda CX5 2.5 AT 2WD', 2019, N'BẢO DƯỠNG FULL HÃNG', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 23000 ,  6, 1),
+		(9, N'FPTU', 1050000000, N'Ford Titanium 2x4', 2022, N'Xe lướt ', 0, GETDATE(), GETDATE(),N'7 seat', N'Gasoline', 10000 ,  7, 2),
+		(12, N'FPTU', 8000000000, N'Lexus 570', 2020, N' Hud kính , âm thanh vòm 19 loa Mark Levinson , cửa sổ trời , sấy và làm mát ghế , tủ lạnh', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 30000,  11, 2),
+		(8, N'FPTU', 600000000, N'Honda HR-V G 2022', 2021, N'Xe tên cá nhân chính chủ sử dụng từ mới, full lich sử bảo dưỡng hãng....hồ sơ xe cầm tay sang tên chính chủ trong ngày', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 36000 ,  5, 1),
+		(16, N'FPTU', 568000000, N'Porsche Cayenne S', 2021, N'Bao bao bao bao bao', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 30000, 16, 2),
+		(12, N'FPTU', 51000000, N'Toyota Innova 2.0E', 2019, N'thay cả giàn dày cộp, tình trạng xe chủ đi giữ gìn nội ngoại thất còn rất mới, bao check thoải mái, giá còn thương lượng khi thiện trí xem xe', 0, GETDATE(), GETDATE(),N'7 seat', N'Gasoline', 56000, 1, 3),
+		(8, N'FPTU', 1890000000, N'Mercedes Benz GLC 300 4Matic', 2021, N' cửa sổ trời, đèn multibeam, loa bum, led nội thất, cốp điện', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 25000, 2, 1),
+		(5, N'FPTU', 1705000000, N'Audi A4', 2021, N'Audi A4 2021 mẫu xe được mệnh danh là công nghệ dẫn lối với hàng loạt tiện ích hiện đại được trang bị. Thay đổi lớn nhất phải kể đến đó là Audi A4 2021 sử dụng hệ thống MMI Radio với màn hình cảm ứng 10.1 inch thay thế cho màn hình kích thước 7 inch cũ cùng với đó là hệ thống âm thanh tiêu chuẩn Audi Sound System, giao diện Bluetooth', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 36000, 10, 1),
+		(12, N'FPTU', 1020000000, N'Mercedes Benz C200', 2019, N'đèn full led, rèm điện, apple carplay, sạc k dây, điều hoà 2 vùng độc lập', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 30000, 2, 2),
+		(11, N'FPTU', 1015000000, N'Kia Sedona 2.2Luxury', 2019, N'Bao bao bao bao bao', 0, GETDATE(), GETDATE(),N'7 seat', N'Gasoline', 78000, 15, 2),
+		(13, N'FPTU', 500000000, N'Mitsubishi Xpander 1.5 MT', 2021, N'Bao bao bao bao', 0, GETDATE(), GETDATE(),N'7 seat', N'Gasoline', 54000, 8, 2),
+		(10, N'FPTU', 300000000, N'Honda Accord 2.0 AT', 2011, N'màn hình 9" Android, camera lùi, Cảm biến quanh xe, ghế da.', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 25000, 5, 3),
+		(8, N'FPTU', 500000000, N'Toyota Corolla altis 2.0V AT', 2017, N'Xe trang bị dán kính trải sand màn hình cảm biến lùi camera lùi dàn lốp mit mới ....', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 68000, 1, 2),
+		(16, N'FPTU', 320000000, N'Kia Soluto 1.4 MT Deluxe', 2019, N'bao test hãng toàn quốc đã vào màn androi thay lốp đăng kiểm mới có hỗ trợ ngân hàng cho quý khách', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 36000, 15, 1),
+		(16, N'FPTU', 300000000, N'Mitsubishi Attrage 1.2', 2018, N'Chạy bao đảk', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 56000, 8, 1),
+		(7, N'FPTU', 800000000, N'Mitsubishi Pajero Sport 4x2 AT', 2020, N'1 Cầu số tự động , xe đẹp không lỗi nhỏ , 1 chủ chạy chuẩn 6 vạn km siêu mới , lốp theo xe cả dàn , nội thất mới , máy móc khung gầm nguyên bản , xe đẹp zin đét từ trong ra ngoài', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 50000, 8, 1),
+		(6, N'FPTU', 750000000, N'Toyota Fortuner 2.7V 4x2 AT', 2021, N'ngọt hơn nước cất', 0, GETDATE(), GETDATE(),N'7 seat', N'Diesel', 54300, 1, 2),
+		(5, N'FPTU', 3900000000, N'BMW i8 1.5L Hybrid', 2015, N'Widebody EVO của hãng Energy motorsport đến Từ Nhật Bản khoảng 230 triệu khiến ngoại thất giống 1 siêu xe thực thụ và hầm hố', 0, GETDATE(), GETDATE(),N'2 seat', N'Gasoline', 24000, 3, 1),
+		(7, N'FPTU', 489000000, N'Ford Ranger XLS 2.2L 4x2 MT', 2020, N'Xe được trang bị sẵn nhiều Options cần thiết: New Sync, phim cách nhiệt, cam hành trình, cam de,…', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 32300, 7, 2),
+		(6, N'FPTU', 2550000000, N'Porsche Panamera 3.6 V6', 2014, N'dễ vào việc lắm', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 16000, 16, 11)
 		
 
 
@@ -377,11 +424,11 @@ VALUES
 		('/mironmahmud.com/ghurnek/assets/images/product/Lexus/Lexus5702020/3.jpg', GETDATE(), GETDATE(), 23),
 		('/mironmahmud.com/ghurnek/assets/images/product/Lexus/Lexus5702020/4.jpg', GETDATE(), GETDATE(), 23),
 		('/mironmahmud.com/ghurnek/assets/images/product/Lexus/Lexus5702020/5.jpg', GETDATE(), GETDATE(), 23),
-		('/mironmahmud.com/ghurnek/assets/images/product/Kia/KiaSeltosLuxury14AT/1.jpg', GETDATE(), GETDATE(), 24),
-		('/mironmahmud.com/ghurnek/assets/images/product/Kia/KiaSeltosLuxury14AT/2.jpg', GETDATE(), GETDATE(), 24),
-		('/mironmahmud.com/ghurnek/assets/images/product/Kia/KiaSeltosLuxury14AT/3.jpg', GETDATE(), GETDATE(), 24),
-		('/mironmahmud.com/ghurnek/assets/images/product/Kia/KiaSeltosLuxury14AT/4.jpg', GETDATE(), GETDATE(), 24),
-		('/mironmahmud.com/ghurnek/assets/images/product/Kia/KiaSeltosLuxury14AT/5.jpg', GETDATE(), GETDATE(), 24),
+		('/mironmahmud.com/ghurnek/assets/images/product/Honda/HondaHRV/1.jpg', GETDATE(), GETDATE(), 24),
+		('/mironmahmud.com/ghurnek/assets/images/product/Honda/HondaHRV/2.jpg', GETDATE(), GETDATE(), 24),
+		('/mironmahmud.com/ghurnek/assets/images/product/Honda/HondaHRV/3.jpg', GETDATE(), GETDATE(), 24),
+		('/mironmahmud.com/ghurnek/assets/images/product/Honda/HondaHRV/4.jpg', GETDATE(), GETDATE(), 24),
+		('/mironmahmud.com/ghurnek/assets/images/product/Honda/HondaHRV/5.jpg', GETDATE(), GETDATE(), 24),
 		('/mironmahmud.com/ghurnek/assets/images/product/Porsche/PorscheCayenneS/1.jpg', GETDATE(), GETDATE(), 25),
 		('/mironmahmud.com/ghurnek/assets/images/product/Porsche/PorscheCayenneS/2.jpg', GETDATE(), GETDATE(), 25),
 		('/mironmahmud.com/ghurnek/assets/images/product/Porsche/PorscheCayenneS/3.jpg', GETDATE(), GETDATE(), 25),
@@ -464,48 +511,7 @@ VALUES
 		('/mironmahmud.com/ghurnek/assets/images/product/Porsche/PorschePanamera36V6/5.jpg', GETDATE(), GETDATE(), 40)
 
 
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values(N'admin@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Admin',132465,N'SaiGon',CURRENT_TIMESTAMP,2,'D:\CN5\FolderUser')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values(N'staff1@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Staff1',242425,N'SaiGon',CURRENT_TIMESTAMP,1,'D:\CN5\FolderUser')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values(N'staff2@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Staff2',31313,N'SaiGon',CURRENT_TIMESTAMP,1,'D:\CN5\FolderUser')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values(N'john@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'John Wick',75743,N'SaiGon',CURRENT_TIMESTAMP,0,'D:\CN5\FolderUser')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values(N'trump@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Trump',5267457,N'SaiGon',CURRENT_TIMESTAMP,0,'D:\CN5\FolderUser')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values(N'trong@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Nguyen Phu Trong',3635,N'SAigon',CURRENT_TIMESTAMP,0,'D:\CN5\FolderUser')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values ('jim.jones@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Jim Jones', '5555555555', '101 Main Street, Anytown USA', '2023-06-07T04:25:28.633Z', 0, null)
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values ('mary.johnson@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Mary Ann Johnson', '5555555555', '111 Main Street, Anytown USA', '2023-06-07T04:30:28.633Z', 0, 'https://example.com/user-images/mary-johnson.jpg')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values ('john.doe@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'John Doe', '5555555555', '456 Main Street, Anytown USA', '2023-06-07T04:15:28.633Z', 0, 'https://example.com/user-images/john-doe.jpg')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values ('sarah.green@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Sarah Green', '0919473970', '333 Main Street, Anytown USA', '2023-06-07T04:40:28.633Z', 0, 'https://example.com/user-images/sarah-green.jpg')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values ('jane.doe@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Jane Smith', '5555555555', '444 Main Street, Anytown USA', '2023-06-07T04:50:28.633Z', 0, 'https://example.com/user-images/jane-smith.jpg')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values ('bob.johnson@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Bob Johnson', '5555555555', '555 Main Street, Anytown USA', '2023-06-07T04:55:28.633Z', 0, 'https://example.com/user-images/bob-johnson.jpg')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values ('tim.white@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Tim White', '5555555555', '', '2023-06-07T04:45:28.633Z', 0, 'https://example.com/user-images/tim-white.jpg')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values ('susan.smith@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Susan Smith', '5555555555', '789 Main Street, Anytown USA', '2023-06-07T04:20:28.633Z', 0, 'https://example.com/user-images/susan-smith.jpg')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values ('tester1@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Tester Smith', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 0, 'https://example.com/user-images/susan-smith.jpg')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values ('tester23@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Test Smith', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 0, 'https://example.com/user-images/susan-smith.jpg')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values ('tester231@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Test Smith2', '5555555555', '789 Main Street, Anytown USA', '2023-05-05', 0, 'https://example.com/user-images/susan-smith.jpg')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values ('tester@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Staff Test', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 1, 'https://example.com/user-images/susan-smith.jpg')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values ('tester69@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Testing Zone', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 1, 'https://example.com/user-images/susan-smith.jpg')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values ('staff23@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'John Dope', '5555555555', '789 Main Street, Anytown USA', '2023-05-19', 1, 'https://example.com/user-images/susan-smith.jpg')
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
-				values ('staff54@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Test Smith2', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 1, 'https://example.com/user-images/susan-smith.jpg')
+
 
 
 

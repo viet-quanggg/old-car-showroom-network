@@ -35,31 +35,13 @@
                                                                                  class="responsive-logo"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/logo.png" alt="logo"></a><button type="button"
                                                                                                                                                                 class="header-widget responsive-srch"><i
                             class="material-icons">search</i><span>search</span></button></div>
-                <form class="header-form">
+                <form class="header-form" action="<c:url value="/cars/carlist.do"/>" method="get">
                     <div class="header-search"><button type="submit" title="Search Submit"
                                                        class="material-icons">search</button><input type="text"
-                                                       placeholder="Search, your Dreaming Car"><select class="form-select">
-                            <option value="all" selected>all type</option>
-                            <option value="new">new type</option>
-                            <option value="used">used type</option>
-                        </select><button type="button" title="Search Option"
-                                         class="advance-search material-icons">tune</button></div>
-                    <div class="header-option"><input type="text" placeholder="Max Price"><input type="text"
-                                                                                                 placeholder="Min Price"><select class="form-select">
-                            <option selected>makes</option> 
-                            <option value="1">all makes</option>
-                            <option value="2">chevrolet</option>
-                            <option value="3">bentley</option>
-                            <option value="4">nissan</option>
-                            <option value="5">honda</option>
-                        </select><select class="form-select">
-                            <option selected>models</option>
-                            <option value="1">all models</option>
-                            <option value="2">2 series</option>
-                            <option value="3">4 runner</option>
-                            <option value="4">camero</option>
-                            <option value="5">elantra</option>
-                        </select><button type="submit">search</button></div>
+                                                       placeholder="Search, your Dreaming Car" name="search">
+
+                    </div>
+
                 </form>
             </div>
 
@@ -119,11 +101,12 @@
                                     <c:if test="${User.userRole == 2||User.userRole ==1}">
                                 <li class="nav-item"><a href="<c:url value="/order/ordermanager.do"/>" class="nav-link"><i
                                             class="material-icons">favorite</i><span class="nav-text">Order Manager</span></a></li></c:if>
-                                                                                <c:if test="${User.userRole == 0||User.userRole ==1}">
-                            <li class="nav-item"><a href="${pageContext.request.contextPath}/addToWish?id=${item.carID}" class="nav-link"><i
-                                        class="material-icons">favorite</i><span class="nav-text">favorites</span></a></li>
-                            <li class="nav-item"><a href="${pageContext.request.contextPath}/addToCompare?id=${item.carID}" class="nav-link"><i
-                                        class="material-icons">compare</i><span class="nav-text">compare</span></a></li></c:if>
+                                    <c:if test="${User.userRole == 0||User.userRole ==1}">
+                                <li class="nav-item"><a href="${pageContext.request.contextPath}/addToWish?id=${item.carID}" class="nav-link"><i
+                                            class="material-icons">favorite</i><span class="nav-text">favorites</span></a></li>
+                                <li class="nav-item"><a href="${pageContext.request.contextPath}/addToCompare?id=${item.carID}" class="nav-link"><i
+                                            class="material-icons">compare</i><span class="nav-text">compare</span></a></li>
+                                    </c:if>
                             <li class="nav-item"><a href="notify.html" class="nav-link"><i
                                         class="material-icons">notifications</i><span
                                         class="nav-text">notification</span></a></li>
@@ -238,7 +221,7 @@
                 <ul class="float-list">
                     <li class="float-item"><a href="<c:url value="/cars/compare.do"/>" class="badge-hover"><i
                                 class="purple material-icons">compare</i><span
-                                    class="badge arrow-right">compare</span><sup>${requestScope.comparecount}</sup></a></li>
+                                class="badge arrow-right">compare</span><sup>${requestScope.comparecount}</sup></a></li>
                     <li class="float-item"><a href="<c:url value="/order/favorite.do"/>" class="badge-hover"><i
                                 class="red material-icons">favorite</i><span
                                 class="badge arrow-right">favorite</span><sup>4</sup></a></li>

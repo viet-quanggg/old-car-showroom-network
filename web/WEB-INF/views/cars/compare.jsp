@@ -46,7 +46,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <ul class="user-banner-menu-list">
-                           <c:if test="${User.userRole == 2}">
+                            <c:if test="${User.userRole == 2}">
                                 <li><a href="<c:url value="/admin/dashboard.do"/>">dashboard</a></li>   
                                 </c:if>
                             <li><a href="<c:url value="/login/profile.do"/>" class="">profile</a></li>
@@ -135,14 +135,34 @@
 
                                 </c:forEach>
                             </tr>
-                            
+
                             <tr>
                                 <th>Year Release</th>                                                                    
                                     <c:forEach items="${data.items}" var="item">
                                     <td><span class="compare-table-text">${item.car.carYear}</span></td>
                                     </c:forEach>
                             </tr>
+                            <tr>
+                                <th>Seating</th>
+                                    <c:forEach items="${data.items}" var="item">
+                                    <td><span class="compare-table-text">${item.car.car_seat}</span></td>
+                                    </c:forEach>
 
+                            </tr>
+                            <tr>
+                                <th>Odo</th>
+                                    <c:forEach items="${data.items}" var="item">
+                                    <td><span class="compare-table-text">${item.car.odo} km</span></td>
+                                </c:forEach>
+
+                            </tr>
+                            <tr>
+                                <th>Engine</th>
+                                    <c:forEach items="${data.items}" var="item">
+                                    <td><span class="compare-table-text">${item.car.engine}</span></td>
+                                    </c:forEach>
+
+                            </tr>
 
                             <tr>
                                 <th>Price</th>                                                                    

@@ -55,10 +55,11 @@
 
                                             </ul>
                                         </div>
+
                                         <ul class="product-grid-extra">
-                                            <li><i class="material-icons">construction</i><span>manual</span></li>
-                                            <li><i class="material-icons">settings</i><span>2000 km</span></li>
-                                            <li><i class="material-icons">local_gas_station</i><span>diesel</span></li>
+                                            <li><span>${item.car_seat}</span></li>
+                                            <li><i class="material-icons">settings</i><span>${item.odo} km</span></li>
+                                            <li><i class="material-icons">local_gas_station</i><span>${item.engine}</span></li>
                                         </ul>
                                         <div class="product-grid-btn">
                                             <a href="<c:url value="/cars/carsingle.do?carId=${item.carID}"/>">
