@@ -205,7 +205,7 @@
                             </div>
                             <div class="card-body px-0 pb-2">
                                 <div class="table-responsive p-0">
-                                   <table class="table align-items-center mb-0">
+                                    <table class="table align-items-center mb-0">
                                         <thead>
                                             <tr>
                                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Plan Name</th>
@@ -218,52 +218,47 @@
                                         </thead>
                                         <tbody>
                                         <form action="<c:url value="/admin/create_plan.do"/>" method="POST">
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex px-2 py-1">
-                                                            <input type="text" id="pName" name="pName" >
-                                                            
-                                                        </div>
-                                                        <div class="d-flex px-2 py-1" style="color: red">${errorN}</div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex px-2 py-1">
-                                                            <input type="number" step="1" min="0"  name="pTime" id="pTime">
-                                                        </div>
-                                                        <div class="d-flex px-2 py-1" style="color: red">${errorT}</div>
-                                                    </td>
-                                                    <td >
-                                                        <div class="d-flex px-2 py-1">
-                                                            <input type="number" step="1" min="0"  name="pLimit" id="pLimit">
-                                                        </div>
-                                                        <div class="d-flex px-2 py-1" style="color: red">${errorL}</div>
-                                                    </td>
-                                                    <td >
-                                                        <div class="d-flex px-2 py-1">
-                                                            <select  name="pStatus">
-                                                                <option selected>Select</option>
-                                                                <option class="form-check-label" value="active" >Active</option>
-                                                                <option class="form-check-label" value="deactivate">Deactivate</option>
-                                                                <!--                                    <option class="form-check-label" value="delete">DELETE</option>-->
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex px-2 py-1">
+                                                        <input type="text" id="pName" name="pName" >
 
-                                                            </select>
-<!--                                                            <input type="number" step="1" min="0" value="${uPlan.planStatus}" name="pStatus" id="pStatus">-->
-                                                            
-                                                        </div>
-                                                        <div class="d-flex px-2 py-1" style="color: red">${errorS}</div>
-                                                    </td>
+                                                    </div>
+                                                    <div class="d-flex px-2 py-1" style="color: red">${errorN}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex px-2 py-1">
+                                                        <input type="number" step="1" min="0"  name="pTime" id="pTime">
+                                                    </div>
+                                                    <div class="d-flex px-2 py-1" style="color: red">${errorT}</div>
+                                                </td>
+                                                <td >
+                                                    <div class="d-flex px-2 py-1">
+                                                        <input type="number" step="1" min="0"  name="pLimit" id="pLimit">
+                                                    </div>
+                                                    <div class="d-flex px-2 py-1" style="color: red">${errorL}</div>
+                                                </td>
+                                                <td >
+                                                    <div class="d-flex px-2 py-1">
+                                                        <select  name="pStatus">
+                                                            <option selected>Select</option>
+                                                            <option class="form-check-label" value="active" >Active</option>
+                                                            <option class="form-check-label" value="deactivate">Deactivate</option>
 
-                                                    <td >
-                                                        <div class="d-flex px-2 py-1">
-                                                            <input type="number" min="0" id="pPrice" step="0.01" name="pPrice" >
-                                                        </div>
-                                                        <div class="d-flex px-2 py-1" style="color: red">${errorP}</div></div>
-                                                    </td>
-                                                    <td class="align-middle text-center">
-                                                        <button type="submit" id="op" name="op" value="create" class="form-btn">Create</button>
-                                                    </td>
-                                                </tr>
-                                            
+                                                    </div>
+                                                    <div class="d-flex px-2 py-1" style="color: red">${errorS}</div>
+                                                </td>
+
+                                                <td >
+                                                    <div class="d-flex px-2 py-1">
+                                                        <input type="number" min="0" id="pPrice" step="0.01" name="pPrice" >
+                                                    </div>
+                                                    <div class="d-flex px-2 py-1" style="color: red">${errorP}</div></div>
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    <button type="submit" id="op" name="op" value="create" class="form-btn">Create</button>
+                                                </td>
+                                            </tr>
                                         </form>
                                         </tbody>
                                     </table>
@@ -277,12 +272,12 @@
                         <div class="card my-4">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">Staff table</h6>
+                                    <h6 class="text-white text-capitalize ps-3">Plan table</h6>
                                 </div>
                             </div>
                             <div class="card-body px-0 pb-2">
                                 <div class="table-responsive p-0">
-                                     <table class="table align-items-center justify-content-center mb-0">
+                                    <table class="table align-items-center justify-content-center mb-0">
                                         <thead>
                                             <tr>
                                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Plan ID</th>

@@ -121,7 +121,7 @@ public class GmailController {
                                                         
                                                     Best regards,
                                                     OCSN
-                                                        ""","nguyenvietquang099@gmail.com");
+                                                        ""","quangnvse172928@fpt.edu.vn");
 
     }
 }

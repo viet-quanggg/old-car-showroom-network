@@ -3,17 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package Models.wishlist;
+package Models;
 
 import Models.Car;
+import java.sql.Date;
 
-public class Item {
+public class Line {
     private Car car;
 
-    public Item() {
+    public Line() {
     }
 
-    public Item(Car car) {
+    public Line(Car car) {
         this.car = car;
     }
 
@@ -25,8 +26,5 @@ public class Item {
         this.car = car;
     }
 
-    
-    
 
-    
 }

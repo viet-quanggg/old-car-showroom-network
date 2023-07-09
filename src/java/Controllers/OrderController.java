@@ -1,6 +1,6 @@
 package Controllers;
 
-import Common.Common;
+import Utilities.Common;
 import DB.CarFacade;
 import DB.CarFacade;
 import DB.OrderFacade;
@@ -15,8 +15,8 @@ import Models.Order;
 import Models.OrderList;
 import Models.PricingPlan;
 import Models.User;
-import Models.wishlist.Item;
-import Models.wishlist.Wishlist;
+import Models.Item;
+import Models.Wishlist;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;

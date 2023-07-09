@@ -6,7 +6,7 @@ package Controllers;
 
 import DB.CarFacade;
 import Models.Car;
-import Models.wishlist.Wishlist;
+import Models.Wishlist;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;

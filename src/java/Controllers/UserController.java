@@ -5,7 +5,7 @@
 package Controllers;
 
 import DB.UserFacade;
-import static Hash.Hashing.hash;
+import static Utilities.Hashing.hash;
 import Models.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

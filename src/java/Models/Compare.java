@@ -1,22 +1,28 @@
-package Models.wishlist;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
+package Models;
 
 import Models.Car;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Wishlist {
+public class Compare {
     int count=0;
-    List<Item> items;
-
-    public List<Item> getItems() {
+    List<Line> items;
+    
+     public List<Line> getItems() {
         return items;
     }
+
     public boolean checkExist(String xId) {
         try {
             
             int id = Integer.parseInt(xId);
             
-            for (Item item : items) {
+            for (Line item : items) {
                 if(item.getCar().getCarID() == id){
                     return true;
                 }
@@ -27,10 +33,9 @@ public class Wishlist {
         }
         return false;
     }
-    
 
-    public Item getItemByCarId(int cid) {
-        for (Item item : items) {
+    public Line getItemByCarId(int cid) {
+        for (Line item : items) {
             if (item.getCar().getCarID() == cid) {
                 return item;
             }
@@ -38,15 +43,17 @@ public class Wishlist {
         return null;
     }
 
-    public void addItem(Item item) {
+    public void addItem(Line item) {
         if (getItemByCarId(item.getCar().getCarID()) == null) {
             items.add(item);
+            count=count+1;
         }
     }
 
     public void removeItem(int productID) {
         if (getItemByCarId(productID) != null) {
             items.remove(getItemByCarId(productID));
+            count=count-1;
         }
     }
 
@@ -59,7 +66,7 @@ public class Wishlist {
         return null;
     }
 
-    public Wishlist(String txt, List<Car> list) {
+    public Compare(String txt, List<Car> list) {
         items = new ArrayList<>();
         try {
 
@@ -72,7 +79,7 @@ public class Wishlist {
 
                     Car car = getCarByCarId(id, list);
 
-                    Item newItem = new Item(car);
+                    Line newItem = new Line(car);
 
                     items.add(newItem);
 

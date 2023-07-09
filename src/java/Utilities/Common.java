@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package Common;
+package Utilities;
 
 import java.sql.Date;
 import java.text.DecimalFormat;

@@ -46,7 +46,7 @@ public class AdminController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         String controller = (String) request.getAttribute("controller");
-        String action = (String) request.getAttribute("action"); 
+        String action = (String) request.getAttribute("action");
         AdminPageFacade apf = new AdminPageFacade();
         OrderFacade of = new OrderFacade();
         UserFacade uf = new UserFacade();
@@ -58,14 +58,14 @@ public class AdminController extends HttpServlet {
                     if (userl.get(i).getUserEmail().contains("?")) {
                         userl.remove(i);
                         i--;
-                    } 
+                    }
                 }
                 request.setAttribute("UserL", userl);
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
             case "searchuser":
                 String searchQuery = request.getParameter("search").trim();
-                
+
                 if (searchQuery == null || searchQuery.isEmpty()) {
                     response.sendRedirect(request.getContextPath() + "/admin/userlist.do");
 //                    ArrayList<User> listuser = uf.userList();
@@ -79,7 +79,7 @@ public class AdminController extends HttpServlet {
                                 search.remove(i);
                                 i--;
                             }
-                        } 
+                        }
                     }
                     request.setAttribute("UserL", search);
                 }
@@ -310,7 +310,6 @@ public class AdminController extends HttpServlet {
             case "updatestaff":
                 try {
                 String userId = request.getParameter("uid");
-//                UserFacade uf = new UserFacade();
                 List<User> uUser = uf.userListId(userId);
                 request.setAttribute("uUser", uUser);
                 request.getRequestDispatcher("/WEB-INF/views/admin/updatestaff.jsp").forward(request, response); //Hien trang thong bao loi
@@ -358,7 +357,6 @@ public class AdminController extends HttpServlet {
                         break;
                 }
                 double pPrice = Double.parseDouble(request.getParameter("pPrice"));
-                PricingPlan newPlan = new PricingPlan(pName, pTime, pLimit, pStatus, pPrice);
                 if (pName.isEmpty() || pName == null) {
                     request.setAttribute("errorN", "please fill in the Plan Name");
                     //  request.getRequestDispatcher("/login/register.do").forward(request, response);
@@ -382,6 +380,7 @@ public class AdminController extends HttpServlet {
                     request.getRequestDispatcher("/admin/createplan.do").forward(request, response);
 
                 } else {
+                    PricingPlan newPlan = new PricingPlan(pName, pTime, pLimit, pStatus, pPrice);
                     OrderFacade of = new OrderFacade();
                     of.addPlan(newPlan);
                     request.setAttribute("message", "Create Successfully!");
@@ -421,7 +420,6 @@ public class AdminController extends HttpServlet {
                         break;
                 }
                 double pPrice = Double.parseDouble(request.getParameter("pPrice"));
-                PricingPlan uPlan = new PricingPlan(pName, pTime, pLimit, pStatus, pPrice, id);
                 if (pName.isEmpty()) {
                     request.setAttribute("errorN", "please fill in the Plan Name");
                     //  request.getRequestDispatcher("/login/register.do").forward(request, response);
@@ -445,6 +443,7 @@ public class AdminController extends HttpServlet {
                     request.getRequestDispatcher("/admin/updateplan.do").forward(request, response);
 
                 } else {
+                    PricingPlan uPlan = new PricingPlan(pName, pTime, pLimit, pStatus, pPrice, id);
                     apf.updatePlan(uPlan);
                     request.setAttribute("message", "Update Successfully!");
                     request.getRequestDispatcher("/admin/updateplan.do").forward(request, response);

@@ -3,18 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package Models.Compare;
+package Models;
 
 import Models.Car;
-import java.sql.Date;
 
-public class Line {
+public class Item {
     private Car car;
 
-    public Line() {
+    public Item() {
     }
 
-    public Line(Car car) {
+    public Item(Car car) {
         this.car = car;
     }
 
@@ -26,5 +25,8 @@ public class Line {
         this.car = car;
     }
 
+    
+    
 
+    
 }
