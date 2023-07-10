@@ -49,8 +49,8 @@ public class CarController extends HttpServlet {
         CarFacade cf = new CarFacade();
         PostFacade pf = new PostFacade();
         Car car = cf.getDetails(id);
-        Post post = pf.checkCarId(id);
         List<Brand> bl = cf.getAllBrand();
+        Post post = pf.checkCarId(id);
         request.setAttribute("data", car);
         request.setAttribute("pdata", post);
         request.setAttribute("blist", bl);

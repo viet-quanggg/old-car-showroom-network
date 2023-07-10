@@ -13,23 +13,24 @@ import java.util.Date;
 public class Post {
     private int postId;
     private int userId;
-    private int carId;
     private String postTitle = "";
     private String postDescript = "";
     private Date postDate;
     private String postStatus;
+    private Car car;
 
     public Post() {
     }
 
-    public Post(int postId, int userId, int carId, Date postDate, String postStatus) {
+    public Post(int postId, int userId, Date postDate, String postStatus, Car car) {
         this.postId = postId;
         this.userId = userId;
-        this.carId = carId;
         this.postDate = postDate;
         this.postStatus = postStatus;
+        this.car = car;
     }
-
+    
+    
     public int getPostId() {
         return postId;
     }
@@ -44,14 +45,6 @@ public class Post {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public int getCarId() {
-        return carId;
-    }
-
-    public void setCarId(int carId) {
-        this.carId = carId;
     }
 
     public String getPostTitle() {
@@ -84,6 +77,14 @@ public class Post {
 
     public void setPostStatus(String postStatus) {
         this.postStatus = postStatus;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
     
     

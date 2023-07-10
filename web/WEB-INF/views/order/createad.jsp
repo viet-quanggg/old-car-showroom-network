@@ -123,7 +123,7 @@
                                                                                                                                    type="text" class="form-control" value="${title}"></div>
                                 <div style="color: red">${errorVT}</div>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-6">
+                            <div class="col-12 ">
                                 <div class="form-group"><label class="form-label" for ="carname">Vehicle Name
                                         <span>*</span></label><input name = "carname" id="carname" type="text" class="form-control" value="${carname}"></div>
                                 <div style="color: red">${errorVN}</div>
@@ -132,6 +132,12 @@
                                 <div class="form-group"><label class="form-label" for="carprice">Price
                                         <span>*</span></label><input name="carprice" id="carprice" type="text" class="form-control" value="${carprice}"></div>
                                 <div style="color: red">${errorVP}</div>
+                            </div>
+                            
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-6">
+                                <div class="form-group"><label class="form-label" for="odo">Mileage
+                                        <span>*</span></label><input name="odo" id="odo" type="text" class="form-control" value="${odo}"></div>
+                                <div style="color: red">${errorVOD}</div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-6">
@@ -183,6 +189,31 @@
                                     </select>
                                 </div>
                                 <div style="color: red">${errorVY}</div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-4">
+                                <div class="form-group"><label class="form-label" for="car_seat">Seat 
+                                        <span>*</span></label><select id="car_seat" name="car_seat" class="form-select">
+                                        <option value="" disabled selected>Select a number</option>
+
+                                        <c:forEach begin="3" end="8" var="seatnumbers">
+                                            <option value="${seatnumbers}" ${car_seat == seatnumbers ? 'selected' : ''}>${seatnumbers}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div style="color: red">${errorVCS}</div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-4">
+                                <div class="form-group"><label class="form-label" for="engine">Fuel Type 
+                                        <span>*</span></label><select id="engine" name="engine" class="form-select">
+                                        <option value="" disabled selected>Select a fuel type</option>
+                                        <option value="Gasoline" ${engine == "Gasoline" ? 'selected' : ''}>Gasoline</option>
+                                        <option value="Diesel" ${engine == "Diesel" ? 'selected' : ''}>Diesel</option>
+                                        <option value="Ethanol" ${engine == "Ethanol" ? 'selected' : ''}>Ethanol</option>
+                                        <option value="Biodiesel" ${engine == "Biodiesel" ? 'selected' : ''}>Biodiesel</option>
+                                        <option value="Hydrogen" ${engine == "Hydrogen" ? 'selected' : ''}>Hydrogen</option>
+                                    </select>
+                                </div>
+                                <div style="color: red">${errorVE}</div>
                             </div>
                             <!--                                <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-4">
                                                                 <div class="form-group"><label class="form-label">colour
@@ -246,7 +277,7 @@
                                                                 </div>
                                                             </div>
                             -->   
-                            
+
                             <div class="col-12">
                                 <div class="form-group mb-0"><label class="form-label" for="description">vehicle description
                                         <span>*</span></label><textarea id="description" name="description" class="form-control" value="${description}">${description}</textarea></div>
@@ -254,8 +285,8 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group mb-0"><label class="form-label" for="description">other information
-                                        </label><textarea id="ohterin" name="otherin" class="form-control" value="${otherin}">${otherin}</textarea></div>
-               
+                                    </label><textarea id="otherin" name="otherin" class="form-control" value="${otherin}">${otherin}</textarea></div>
+
                             </div>
                             <br>
                             <div style="margin-top: 10px;">

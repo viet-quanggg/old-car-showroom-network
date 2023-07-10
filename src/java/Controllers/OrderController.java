@@ -2,7 +2,6 @@ package Controllers;
 
 import Utilities.Common;
 import DB.CarFacade;
-import DB.CarFacade;
 import DB.OrderFacade;
 import DB.OrderFacade;
 import DB.PostFacade;
@@ -13,6 +12,7 @@ import Models.Car;
 import Models.Color;
 import Models.Order;
 import Models.OrderList;
+import Models.Post;
 import Models.PricingPlan;
 import Models.User;
 import Models.Item;
@@ -30,7 +30,9 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,14 +77,21 @@ public class OrderController extends HttpServlet {
                 //in thong bao loi chi tiet cho developer
                 break;
             case "postedad":
-//                User user = (User) session.getAttribute("User");
-//                if (user == null) {
-//                    request.setAttribute("controller", "login");
-//                    request.setAttribute("action", "login.do");
-//                }
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
-                //in thong bao loi chi tiet cho developer
-                break;
+                try {
+                PostFacade pf = new PostFacade();
+                List<Post> pdata = null;
+                if (user.getUserRole() == 0) {
+                    pdata = pf.listByUser(user.getUserID());
+                }
+                if (user.getUserRole() == 1 || user.getUserRole() == 2) {
+                    pdata = pf.getPostList();
+                }
+                request.setAttribute("pdata", pdata);
+            } catch (Exception e) {
+            }
+            request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+            //in thong bao loi chi tiet cho developer
+            break;
             case "pricingplan":
                 plan = of.listPlanActive();
                 request.setAttribute("plan", plan);
@@ -100,9 +109,15 @@ public class OrderController extends HttpServlet {
                     int id = Integer.parseInt(pid);
                     OrderList ol = of.getOrderByPost(id);
                     if (ol == null) {
-                        of.addOrder(id, user.getUserID());
-                        response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
-                        return;
+                        PostFacade pf = new PostFacade();
+                        Post post = pf.getDetails(id);
+                        if (post != null) {
+                            of.addOrder(id, user.getUserID());
+                            CarFacade cf = new CarFacade();
+                            cf.updateCarCondition(true, post.getCar().getCarID());
+                            response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
+                            return;
+                        }
                     }
                 }
                 response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
@@ -131,6 +146,7 @@ public class OrderController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
                 break;
             case "orderappoint":
+
                 String appo = request.getParameter("appo");
                 String orid = request.getParameter("orderId");
                 try {
@@ -144,7 +160,7 @@ public class OrderController extends HttpServlet {
                             of.updateApp(ldt, Integer.parseInt(orid));
                             of.updateOrderStatus(Integer.parseInt(orid), "Cancelled");
                         }
-                            
+
                     }
                     /*
                 else of.updateApp(null, Integer.parseInt((orid)));
@@ -156,6 +172,12 @@ public class OrderController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
                 break;
             case "ordermanager":
+                if (user.getUserRole() == 0) {
+                    request.setAttribute("controller", "login");
+                    request.setAttribute("action", "profile");
+                    request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
+                    return;
+                }
 //                OrderFacade orderFacade = new OrderFacade();
                 List<OrderList> orders = of.getAllOrders();
                 request.setAttribute("orders", orders);
@@ -176,21 +198,53 @@ public class OrderController extends HttpServlet {
                         int orderId1 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId1, "Cancelled");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                        new GmailController().sendMail("notification", """
+                                                    Dear User,
+                                                        
+                                                       Your Order was Cancelled !
+                                                        
+                                                    Best regards,
+                                                    OCSN
+                                                        """, "nguyenvietquang099@gmail.com");
                         break;
                     case "success":
                         int orderId2 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId2, "Complete");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                        new GmailController().sendMail("notification", """
+                                                    Dear User,
+                                                        
+                                                       Your Order was Complete !
+                                                        
+                                                    Best regards,
+                                                    OCSN
+                                                        """, "nguyenvietquang099@gmail.com");
                         break;
                     case "pending":
                         int orderId3 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId3, "Pending");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                        new GmailController().sendMail("notification", """
+                                                    Dear User,
+                                                        
+                                                       Your Order was Pending !
+                                                        
+                                                    Best regards,
+                                                    OCSN
+                                                        """, "nguyenvietquang099@gmail.com");
                         break;
                     case "inprocess":
                         int orderId4 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId4, "Processing");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
+                        new GmailController().sendMail("notification", """
+                                                    Dear User,
+                                                        
+                                                       Your Order was In Process !
+                                                        
+                                                    Best regards,
+                                                    OCSN
+                                                        """, "nguyenvietquang099@gmail.com");
                         break;
 //                    case "delete":
 //                        int orderId5 = Integer.parseInt(request.getParameter("orderId"));
@@ -203,11 +257,11 @@ public class OrderController extends HttpServlet {
                         if (searchQuery == null || searchQuery.isEmpty()) {
                             List<OrderList> ship = of.getAllOrders();
                             request.setAttribute("orders", ship);
-                        }else{
-                        // Perform search logic and retrieve matching orders from the database
-                        List<OrderList> search = of.search(searchQuery);
-                        
-                        request.setAttribute("orders", search);
+                        } else {
+                            // Perform search logic and retrieve matching orders from the database
+                            List<OrderList> search = of.search(searchQuery);
+
+                            request.setAttribute("orders", search);
                         }
                         request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                         break;
@@ -276,6 +330,21 @@ public class OrderController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/order/favorite.do");
 
                 break;
+            case "status_handler":
+                if (user.getUserRole() == 0) {
+                    request.setAttribute("controller", "login");
+                    request.setAttribute("action", "profile");
+                    request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
+                    return;
+                }
+                status_handler(request, response);
+                break;
+            case "postmanager":
+                postmanager(request, response);
+                break;
+            case "update_handler":
+                update_handler(request, response);
+                break;
             default:
                 //Show error page
                 request.setAttribute("controller", "error");
@@ -283,6 +352,82 @@ public class OrderController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
         }
 
+    }
+
+    public void postmanager(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("User");
+        if (user != null) {
+            CarFacade cf = new CarFacade();
+            List<Color> clist = cf.getAllColor();
+            List<Brand> blist = cf.getAllBrand();
+            String pid = request.getParameter("postId");
+
+            try {
+                //Neu khong lay duoc Post thi khong duoc vao postmanager
+                if (pid != null && !pid.isBlank() && pid.matches("^\\d+$")) {
+                    PostFacade pf = new PostFacade();
+                    Post post = pf.getDetails(Integer.parseInt(pid));
+                    if (post != null) {
+                        //Neu User la Customer thi khong chinh sua duoc Post khong phai cua minh
+                        if (!(user.getUserRole() == 0 && post.getUserId() != user.getUserID())) {
+                            request.setAttribute("postId", post.getPostId());
+                            request.setAttribute("carId", post.getCar().getCarID());
+                            request.setAttribute("carShowroom", post.getCar().getCarShowroom());
+                            request.setAttribute("carCondition", post.getCar().isCarCondition());
+                            request.setAttribute("title", post.getPostTitle());
+                            request.setAttribute("carname", post.getCar().getCarName());
+                            request.setAttribute("carprice", post.getCar().getFormatPrice().toString().replaceAll("[^\\d]", ""));
+                            request.setAttribute("caryear", post.getCar().getCarYear());
+                            request.setAttribute("brandid", post.getCar().getBrand().getId());
+                            request.setAttribute("colorid", post.getCar().getColor().getId());
+                            request.setAttribute("description", post.getCar().getCarDescription());
+                            request.setAttribute("engine", post.getCar().getEngine());
+                            request.setAttribute("odo", post.getCar().getOdo());
+                            String car_seat = post.getCar().getCar_seat().trim();
+                            if (!car_seat.isBlank()) {
+                                String cs = car_seat.substring(0, car_seat.indexOf(" "));
+                                if (!cs.isBlank() && cs.matches("^\\d+$")) {
+                                    request.setAttribute("car_seat", Integer.parseInt(cs));
+                                }
+                            }
+                            request.setAttribute("otherin", post.getPostDescript());
+                            request.setAttribute("clist", clist);
+                            request.setAttribute("blist", blist);
+                            request.setAttribute("controller", "order");
+                            request.setAttribute("action", "postmanager");
+                            request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                            return;
+                        }
+                    }
+                }
+
+            } catch (Exception e) {
+                request.setAttribute("controller", "error");
+                request.setAttribute("action", "error");
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                return;
+            }
+            response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
+            return;
+        }
+        response.sendRedirect(request.getContextPath() + "/login/login_handler.do");
+    }
+
+    private void status_handler(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+        String postStatus = request.getParameter("postStatus");
+        String pid = request.getParameter("postId");
+        try {
+            if (postStatus != null && !postStatus.isBlank() && pid != null && !pid.isBlank() && pid.matches("^\\d+$")) {
+                PostFacade pf = new PostFacade();
+                pf.updatePostStatus(Integer.parseInt(pid), postStatus);
+            }
+
+        } catch (Exception e) {
+
+        }
+        response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
     }
 
     private void removeWish(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -379,6 +524,9 @@ public class OrderController extends HttpServlet {
                     String description = request.getParameter("description");
                     String otherin = request.getParameter("otherin");
                     String caryear = request.getParameter("caryear");
+                    String engine = request.getParameter("engine");
+                    String car_seat = request.getParameter("car_seat");
+                    String odo = request.getParameter("odo");
                     request.setAttribute("title", title);
                     request.setAttribute("carname", carname);
                     request.setAttribute("carprice", carprice);
@@ -386,7 +534,11 @@ public class OrderController extends HttpServlet {
                     request.setAttribute("brandid", brandid);
                     request.setAttribute("colorid", colorid);
                     request.setAttribute("description", description);
+                    request.setAttribute("engine", engine);
+                    request.setAttribute("odo", odo);
+                    request.setAttribute("car_seat", car_seat);
                     request.setAttribute("otherin", otherin);
+
                     if (title.isEmpty()) {
                         request.setAttribute("errorVT", "Please add a title!");
                     }
@@ -397,8 +549,20 @@ public class OrderController extends HttpServlet {
                         request.setAttribute("errorVP", "Please enter a valid price!");
                     }
 
+                    if (odo.isEmpty() || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$")) {
+                        request.setAttribute("errorVOD", "Please enter a valid mileage value!");
+                    }
+
                     if (caryear == null || caryear.isEmpty() || !caryear.matches("^[0-9]+$")) {
                         request.setAttribute("errorVY", "Please choose a year!");
+                    }
+
+                    if (car_seat == null || car_seat.isEmpty() || !car_seat.matches("^[0-9]+$")) {
+                        request.setAttribute("errorVCS", "Please specify the number of seats!");
+                    }
+
+                    if (engine == null || engine.isEmpty() || engine.equals("")) {
+                        request.setAttribute("errorVE", "Please choose a fuel type!");
                     }
 
                     if (brandid == null || brandid.isEmpty() || brandid.equals("")) {
@@ -413,18 +577,18 @@ public class OrderController extends HttpServlet {
                     if (otherin.isEmpty()) {
                         otherin = "";
                     }
-                    if (title.isEmpty() || carname.isEmpty() || carprice.isEmpty() || brandid.isEmpty() || colorid.isEmpty() || !colorid.matches("-?\\d+(\\.\\d+)?") || description.isEmpty()) {
+                    if (title.isBlank() || carname.isBlank() || carprice.isBlank() || odo.isBlank() || brandid.isBlank() || colorid.isBlank() || !carprice.matches("-?\\d+(\\.\\d+)?") || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$") || description.isBlank() || brandid.equals("") || colorid.equals("") || car_seat.isBlank() || engine.isBlank()) {
                         createad(request, response);
                         return;
                     } else {
 
                         CarFacade cf = new CarFacade();
-                        int carId = cf.addCar(user.getUserID(), Double.valueOf(carprice), Common.getFormatString(carname), Integer.parseInt(caryear), description, Integer.parseInt(brandid), Integer.parseInt(colorid));
+                        int carId = cf.addCar(user.getUserID(), Double.valueOf(carprice), Common.getFormatString(carname), Integer.parseInt(caryear), Common.getFormatString(description), Integer.parseInt(brandid), Integer.parseInt(colorid), Integer.parseInt(car_seat), Common.getFormatString(engine), Float.parseFloat(odo));
                         if (carId == -1) {
                             break;
                         }
                         PostFacade pf = new PostFacade();
-                        pf.addPost(user.getUserID(), carId, title, otherin);
+                        pf.addPost(user.getUserID(), carId, Common.getFormatString(title), Common.getFormatString(otherin));
                     }
                 } catch (ServletException | IOException | NumberFormatException | SQLException e) {
                     request.setAttribute("error", e.toString());
@@ -437,6 +601,147 @@ public class OrderController extends HttpServlet {
             }
         }
         createad(request, response);
+    }
+
+    private void update_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException, Exception {
+        String op = request.getParameter("op");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("User");
+        if (user != null) {
+            switch (op) {
+                case "update":
+                try {
+                    request.setAttribute("postId", null);
+                    request.setAttribute("carId", null);
+                    request.setAttribute("carShowroom", null);
+                    request.setAttribute("carCondition", null);
+                    String postId = request.getParameter("postId");
+                    String carId = request.getParameter("carId");
+                    String carShowroom = request.getParameter("carShowroom");
+                    String carCondition = request.getParameter("carCondition");
+                    if (postId.isBlank() || carId.isBlank() || carShowroom.isBlank() || carCondition.isBlank() || !postId.matches("^\\d+$") || !carId.matches("^\\d+$")) {
+                        response.sendRedirect(request.getContextPath() + "/order/postedad.do");
+
+                    }
+                    String title = request.getParameter("title");
+                    String carname = request.getParameter("carname");
+                    String carprice = request.getParameter("carprice");
+                    String brandid = request.getParameter("brandid");
+                    String colorid = request.getParameter("colorid");
+                    String description = request.getParameter("description");
+                    String otherin = request.getParameter("otherin");
+                    String caryear = request.getParameter("caryear");
+                    String engine = request.getParameter("engine");
+                    String car_seat = request.getParameter("car_seat");
+                    String odo = request.getParameter("odo");
+                    request.setAttribute("postId", postId);
+                    request.setAttribute("carId", carId);
+                    request.setAttribute("carShowroom", carShowroom);
+                    request.setAttribute("carCondition", carCondition);
+                    request.setAttribute("title", title);
+                    request.setAttribute("carname", carname);
+                    request.setAttribute("carprice", carprice);
+                    request.setAttribute("caryear", caryear);
+                    request.setAttribute("brandid", brandid);
+                    request.setAttribute("colorid", colorid);
+                    request.setAttribute("description", description);
+                    request.setAttribute("engine", engine);
+                    request.setAttribute("odo", odo);
+                    request.setAttribute("car_seat", car_seat);
+                    request.setAttribute("otherin", otherin);
+
+                    if (title.isEmpty()) {
+                        request.setAttribute("errorVT", "Please add a title!");
+                    }
+                    if (carname.isEmpty()) {
+                        request.setAttribute("errorVN", "Please enter a name for the car!");
+                    }
+                    if (carprice.isEmpty() || !carprice.matches("^0*[1-9]\\d*(\\.\\d+)?$")) {
+                        request.setAttribute("errorVP", "Please enter a valid price!");
+                    }
+
+                    if (odo.isEmpty() || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$")) {
+                        request.setAttribute("errorVOD", "Please enter a valid mileage value!");
+                    }
+
+                    if (caryear == null || caryear.isEmpty() || !caryear.matches("^[0-9]+$")) {
+                        request.setAttribute("errorVY", "Please choose a year!");
+                    }
+
+                    if (car_seat == null || car_seat.isEmpty() || !car_seat.matches("^[0-9]+$")) {
+                        request.setAttribute("errorVCS", "Please specify the number of seats!");
+                    }
+
+                    if (engine == null || engine.isEmpty() || engine.equals("")) {
+                        request.setAttribute("errorVE", "Please choose a fuel type!");
+                    }
+
+                    if (brandid == null || brandid.isEmpty() || brandid.equals("")) {
+                        request.setAttribute("errorVB", "Please choose a brand!");
+                    }
+                    if (colorid == null || colorid.isEmpty() || colorid.equals("")) {
+                        request.setAttribute("errorVC", "Please choose a color!");
+                    }
+                    if (description.isEmpty()) {
+                        request.setAttribute("errorVD", "Please add a description!");
+                    }
+                    if (otherin.isBlank()) {
+                        otherin = "";
+                    }
+                    if (title.isBlank() || carname.isBlank() || carprice.isBlank() || odo.isBlank() || brandid.isBlank() || colorid.isBlank() || !carprice.matches("^0*[1-9]\\d*(\\.\\d+)?$") || description.isBlank() || brandid.equals("") || colorid.equals("") || car_seat.isBlank() || engine.isBlank() || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$")) {
+                        CarFacade cf = new CarFacade();
+                        List<Color> clist = cf.getAllColor();
+                        List<Brand> blist = cf.getAllBrand();
+                        request.setAttribute("clist", clist);
+                        request.setAttribute("blist", blist);
+                        request.setAttribute("controller", "order");
+                        request.setAttribute("action", "postmanager");
+                        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                        return;
+                    } else {
+                        CarFacade cf = new CarFacade();
+//                        Enumeration<String> headerNames = request.getHeaderNames();
+//                        if (headerNames != null) {
+//                            while (headerNames.hasMoreElements()) {
+//                                String headerName = headerNames.nextElement();
+//                                if (headerName.startsWith("Content-Disposition")) {
+//                                    List<String> imageUrls = Common.saveImage(request, response, "Car");
+//                                    if (imageUrls != null && imageUrls.size() > 0) {
+//                                        for (String url : imageUrls) {
+//                                            cf.addCar_Image(Integer.parseInt(carId), url);
+//                                        }
+//                                    }
+//                                    break;
+//                                }
+//                            }
+//                        }
+                        cf.updateCar(Integer.parseInt(carId), carShowroom, Double.parseDouble(carprice.replaceAll("[^\\d.]", "")), carname, Boolean.parseBoolean(carCondition), Integer.parseInt(caryear), Common.getFormatString(description), Integer.parseInt(brandid), Integer.parseInt(colorid), Integer.parseInt(car_seat), engine, Float.parseFloat(odo));
+                        PostFacade pf = new PostFacade();
+                        pf.updatePost(Integer.parseInt(postId), title, otherin);
+                    }
+                } catch (IOException | NumberFormatException | SQLException e) {
+                    request.setAttribute("error", e.toString());
+                    request.setAttribute("controller", "error");
+                    request.setAttribute("action", "error");
+                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                    return;
+                }
+                break;
+            }
+            CarFacade cf = new CarFacade();
+            List<Color> clist = cf.getAllColor();
+            List<Brand> blist = cf.getAllBrand();
+            request.setAttribute("clist", clist);
+            request.setAttribute("blist", blist);
+            request.setAttribute("controller", "order");
+            request.setAttribute("action", "postmanager");
+            request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+            return;
+        }
+
+        response.sendRedirect(request.getContextPath() + "/login/login_handler.do");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -453,8 +758,14 @@ public class OrderController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrderController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
+        } catch (Exception ex) {
+            Logger.getLogger(OrderController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -471,8 +782,14 @@ public class OrderController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrderController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
+        } catch (Exception ex) {
+            Logger.getLogger(OrderController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 

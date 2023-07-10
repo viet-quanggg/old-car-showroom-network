@@ -23,7 +23,94 @@ import java.util.Set;
  */
 public class CarFacade {
 
-    public int addCar(int ownerID, Double carPrice, String carName, int carYear, String carDescription, int brandID, int colorID) throws SQLException {
+    public void addCar_Image(int carId, String url) throws SQLException {
+        Connection con = DBContext.getConnection();
+        try {
+            PreparedStatement stm = con.prepareStatement("Select * from [Car_Image] where [url] = " + url);
+            ResultSet rs = stm.executeQuery();
+            if (!rs.next()) {
+                stm = con.prepareStatement("INSERT INTO [Car_Image] ([url], createDate, updateDate, carID)"
+                        + "VALUES (?, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP, ?)");
+                stm.setString(1, url);
+                stm.setInt(2, carId);
+                int count = stm.executeUpdate();
+
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        } catch (Exception e) {
+        }
+        con.close();
+
+    }
+
+    public void updateCarCondition(boolean carCondition, int carId) throws SQLException {
+        Connection con = DBContext.getConnection();
+
+        try {
+            String sql = "UPDATE [Car] Set carCondition = ? where carId = ?";
+
+            PreparedStatement stm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            stm.setBoolean(1, carCondition);
+            stm.setInt(2, carId);
+
+            if (stm != null) {
+                stm.close();
+            }
+            int count = stm.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateCar(int carId, String carShowroom, Double carPrice, String carName, boolean carCondition, int carYear, String carDescription, int brandID, int colorID, int car_seat, String engine, float odo) throws SQLException {
+        Connection con = DBContext.getConnection();
+
+        try {
+            String sql = "UPDATE [Car] Set "
+                    + "carShowroom = ?, "
+                    + "carPrice = ?, "
+                    + "carName = ?, "
+                    + "carYear = ?, "
+                    + "carDescription = ?, "
+                    + "carCondition = ?, "
+                    + "updateDate = CURRENT_TIMESTAMP, "
+                    + "car_seat = ?, "
+                    + "engine = ?, "
+                    + "odo = ? "
+                    + "brandID = ?, "
+                    + "colorID = ? where carId = ?";
+
+            PreparedStatement stm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stm.setString(1, carShowroom);
+            stm.setDouble(2, carPrice);
+            stm.setString(3, carName);
+            stm.setInt(4, carYear);
+            stm.setString(5, carDescription);
+            stm.setBoolean(6, carCondition);
+            stm.setString(7, car_seat + " seat");
+            stm.setString(8, engine);
+            stm.setFloat(9, odo);
+            stm.setInt(10, brandID);
+            stm.setInt(11, colorID);
+            stm.setInt(11, carId);
+
+            if (stm != null) {
+                stm.close();
+            }
+            int count = stm.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+    public int addCar(int ownerID, Double carPrice, String carName, int carYear, String carDescription, int brandID, int colorID, int car_seat, String engine, float odo) throws SQLException {
         Connection con = DBContext.getConnection();
         int id = -1;
         try {
@@ -38,7 +125,11 @@ public class CarFacade {
                     + "[createDate], "
                     + "[updateDate], "
                     + "[brandID], "
-                    + "[colorID]) VALUES (?,'',?,?,?,?,0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?)";
+                    + "[colorID],"
+                    + "[car_seat],"
+                    + "[engine],"
+                    + "[odo],"
+                    + "[carShowroom]) VALUES (?,'',?,?,?,?,0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?, ?, ?, ?, 'FPTU')";
             PreparedStatement stm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stm.setInt(1, ownerID);
             stm.setDouble(2, carPrice);
@@ -47,6 +138,9 @@ public class CarFacade {
             stm.setString(5, carDescription);
             stm.setInt(6, brandID);
             stm.setInt(7, colorID);
+            stm.setString(8, car_seat + " seat");
+            stm.setString(9, engine);
+            stm.setFloat(10, odo);
             int count = stm.executeUpdate();
             if (count > 0) {
                 ResultSet rs = stm.getGeneratedKeys();
@@ -121,7 +215,7 @@ public class CarFacade {
                         rs.getDouble("carPrice"), rs.getString("carName"), rs.getInt("carYear"),
                         rs.getString("carDescription"), rs.getBoolean("carCondition"),
                         rs.getDate("createDate"), rs.getDate("updateDate"),
-                        rs.getString("car_seat"), rs.getString("engine"), rs.getFloat("odo"), 
+                        rs.getString("car_seat"), rs.getString("engine"), rs.getFloat("odo"),
                         brand, image, color);
 
                 list.add(car);
@@ -338,7 +432,7 @@ public class CarFacade {
                 Car car = new Car(rs.getInt("carID"), rs.getInt("ownerId"), rs.getString("carShowroom"),
                         rs.getDouble("carPrice"), rs.getString("carName"), rs.getInt("carYear"),
                         rs.getString("carDescription"), rs.getBoolean("carCondition"),
-                        rs.getDate("createDate"), rs.getDate("updateDate"),rs.getString("car_seat"), rs.getString("engine"), rs.getFloat("odo"), brand, image, color);
+                        rs.getDate("createDate"), rs.getDate("updateDate"), rs.getString("car_seat"), rs.getString("engine"), rs.getFloat("odo"), brand, image, color);
 
                 return car;
 
@@ -442,7 +536,7 @@ public class CarFacade {
                 Car car = new Car(rs.getInt("carID"), rs.getInt("ownerId"), rs.getString("carShowroom"),
                         rs.getDouble("carPrice"), rs.getString("carName"), rs.getInt("carYear"),
                         rs.getString("carDescription"), rs.getBoolean("carCondition"),
-                        rs.getDate("createDate"), rs.getDate("updateDate"),rs.getString("car_seat"), rs.getString("engine"), rs.getFloat("odo"), brand, image, color);
+                        rs.getDate("createDate"), rs.getDate("updateDate"), rs.getString("car_seat"), rs.getString("engine"), rs.getFloat("odo"), brand, image, color);
 
                 list.add(car);
             }

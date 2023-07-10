@@ -101,9 +101,9 @@
                     <h4 class="common-card-header-title">vehicle media</h4>
                 </div>
                 <div class="common-card-body"><div><c:forEach items="${data.image}" var="i">
-                            <img src="${pageContext.request.contextPath}${i.url}"/>
+                            <img src="${pageContext.request.contextPath}${i.url}" style="max-width: 100%; display:block; margin: 5px"/>
                         </c:forEach></div>
-                </div>
+                </div> 
             </div>
         </div>
         <div class ="row">
@@ -116,11 +116,15 @@
                         <ul class="product-single-feature-list">
                             <li><span>condition:</span><span style="color: ${data.carCondition ? 'red' : 'green'}">${data.carCondition ? 'Sold' : 'Available'}</span></li>
                             <li><span>name:</span><span>${data.carName}</span></li>
+                            <li><span>price:</span><span>${data.getFormatPrice()}</span></li>
                             <li><span>year:</span><span>${data.carYear}</span></li>
-                            <li><span>showroom:</span><span>${data.carCondition}</span></li>
+                            <li><span>showroom:</span><span>${data.carShowroom}</span></li>
+                            <li><span>condition:</span><span>${data.carCondition}</span></li>
                             <li><span>brand name:</span><span>${data.brand.name}</span></li>
                             <li><span>colour:</span><span>${data.color.color}</span></li>
-                            <li><span>price:</span><span>${data.getFormatPrice()}</span></li>
+                            <li><span>seat:</span><span>${data.car_seat}</span></li>
+                            <li><span>fuel type:</span><span>${data.engine}</span></li>
+                            <li><span>mileage:</span><span>${data.odo}</span></li>
                         </ul>
 
                     </div>
