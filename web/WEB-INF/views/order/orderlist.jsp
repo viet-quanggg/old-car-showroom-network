@@ -12,8 +12,16 @@
                 <div class="row">
                     <div class="col-lg-7 col-xl-8">
                         <div class="user-banner-profile">
-                            <div class="user-banner-profile-avatar"><a href="<c:url value="/views/login/profile.do"/>"><img
-                                        src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="avatar"></a></div>
+                            <c:if test="${User.userImage == null}">
+                                <div class="user-banner-profile-avatar">
+                                    <a><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png" alt="avatar"></a>
+                                </div>
+                            </c:if>
+                            <c:if test="${User.userImage != null}">
+                                <div class="user-banner-profile-avatar"><a>
+                                        <img src="${User.getUserImage()}" alt="avatar"></a>
+                                </div>
+                            </c:if> 
                             <div class="user-banner-profile-meta">
                                 <div class="user-banner-profile-name">
                                     <h3>${User.userName}</h3>
@@ -48,7 +56,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <ul class="user-banner-menu-list">
-                           <c:if test="${User.userRole == 2}">
+                            <c:if test="${User.userRole == 2}">
                                 <li><a href="<c:url value="/admin/dashboard.do"/>">dashboard</a></li>   
                                 </c:if>
                             <li><a href="<c:url value="/login/profile.do"/>" class="">profile</a></li>

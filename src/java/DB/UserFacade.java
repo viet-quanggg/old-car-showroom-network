@@ -422,6 +422,25 @@ public class UserFacade {
 
         }
     }
+    
+    public void updateUserImage(int userId, String url) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            //Tạo connection để kết nối vào DBMS
+            con = DBContext.getConnection();
+            //Tạo đối tượng PreparedStatement
+            PreparedStatement stm = con.prepareStatement("Update [User] set userImage = ? where userId = ?");
+            stm.setString(1, url);
+            stm.setInt(2, userId);
+            //Thực thi lệnh sql
+            int count = stm.executeUpdate();
+            con.close();
+        } catch (SQLException ex) {
+
+        }
+    }
  public ArrayList<User> getAll() throws SQLException {
         User user = null;
         ArrayList<User> list = new ArrayList<>();

@@ -8,12 +8,16 @@ import DB.UserFacade;
 import static Utilities.Hashing.hash;
 import Models.User;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Date;
 
@@ -21,6 +25,7 @@ import java.util.Date;
  *
  * @author _viet.quangg
  */
+@MultipartConfig
 @WebServlet(name = "UserController", urlPatterns = {"/user"})
 public class UserController extends HttpServlet {
 
@@ -37,10 +42,12 @@ public class UserController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        User user = new User();
         if (session.getAttribute("User") == null) {
             request.setAttribute("controller", "login");
             request.setAttribute("action", "login");
-            request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/layouts/m(session.getAttribute(\"User\") == null) {\n"
+                    + "            request.setAttribute(\"controller\", \"loginain.jsp").forward(request, response);
             return;
         }
         String controller = (String) request.getAttribute("controller");
@@ -60,6 +67,30 @@ public class UserController extends HttpServlet {
                 break;
             case "change":
                 changeUser_handler(request, response);
+                break;
+            case "changeimage":
+                Part file = request.getPart("userImage");
+                String userImage = file.getSubmittedFileName();
+                String uploadPath = "C:/Users/Dell/Downloads/ocsn-main/ocsn-main-main/old-car-showroom-network-6/old-car-showroom-network/web/image/" + userImage;
+                try {
+                    FileOutputStream fos = new FileOutputStream(uploadPath);
+                    InputStream is = file.getInputStream();
+                    byte[] data = new byte[is.available()];
+                    is.read(data);
+                    fos.write(data);
+                    fos.close();
+                    user = (User) session.getAttribute("User");
+                    if (user != null && user.getUserID() != 0) {
+                        user.setUserImage(request.getContextPath() + "/image/" + userImage);
+                        UserFacade uf = new UserFacade();
+                        uf.updateUserImage(user.getUserID(), request.getContextPath() + "/image/" + userImage);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                response.sendRedirect(request.getContextPath() + "/login/update_profile.do");
+
                 break;
             default:
                 //Show error page

@@ -10,6 +10,7 @@ import DB.UserFacade;
 import Models.OrderList;
 import Models.PricingPlan;
 import Models.User;
+import static Utilities.Hashing.hash;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -469,10 +470,11 @@ public class AdminController extends HttpServlet {
                 String useremail = request.getParameter("userEmail");
                 String userpass = request.getParameter("userPass");
                 String re_pass = request.getParameter("re_pass");
+                String hashedpass = hash(userpass);
                 String username = request.getParameter("userName");
                 String userphone = request.getParameter("userPhone");
                 String useraddress = request.getParameter("userAddress");
-                User uUser = new User(useremail, userpass, username, userphone, useraddress, id);
+                User uUser = new User(useremail, hashedpass, username, userphone, useraddress, id);
                 UserFacade uf = new UserFacade();
 //                uUser = uf.checkEmail(useremail);
                 if (useremail.isEmpty()) {

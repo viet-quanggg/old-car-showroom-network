@@ -12,8 +12,17 @@
                 <div class="row">
                     <div class="col-lg-7 col-xl-8">
                         <div class="user-banner-profile">
-                            <div class="user-banner-profile-avatar"><a href="<c:url value="/views/login/profile.do"/>"><img
-                                        src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="avatar"></a></div>
+                           <c:if test="${User.userImage == null}">
+                                <div class="user-banner-profile-avatar">
+                                    <a><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png" alt="avatar"></a>
+                                </div>
+                            </c:if>
+                            <c:if test="${User.userImage != null}">
+                                <div class="user-banner-profile-avatar"><a>
+                                        <img src="${User.getUserImage()}" alt="avatar"></a>
+                                </div>
+                            </c:if>
+
                             <div class="user-banner-profile-meta">
                                 <div class="user-banner-profile-name">
                                     <h3>${User.userName}</h3>
@@ -100,8 +109,21 @@
                     <div class="common-card-header">
                         <h4 class="common-card-header-title">update</h4>
                     </div>
-                    <form action="<c:url value="/user/update.do"/>" > 
-                        <div class="common-card-body ">
+                    <div class="common-card-body ">
+                        <form action="<c:url value="/user/changeimage.do"/>" method="post" enctype="multipart/form-data">
+ <c:if test="${User.userImage == null}">
+                                <div class="user-banner-profile-avatar">
+                                    <a><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png" alt="avatar"></a>
+                                </div>
+                            </c:if>
+                            <c:if test="${User.userImage != null}">
+                                <div class="user-banner-profile-avatar"><a>
+                                        <img src="${User.getUserImage()}" alt="avatar"></a>
+                                </div>
+                            </c:if>                            <h6>Update your image</h6>
+                            <span>  <input type="file" name="userImage"></span> <span><button type="submit" value="changeimage">Update Image</button></span>
+                        </form>
+                        <form action="<c:url value="/user/update.do"/>" > 
                             <ul class="profile-specify-list">
                                 <li><span>Name:</span><span><input class="form-control" type="text" name="userName" value="${User.userName}"></span></li>
                                 <div style="color: red">${errorN}</div>
@@ -110,13 +132,13 @@
                                 <li><span>Address:</span><span><input class="form-control" type="text" name="userAddress" value="${User.userAddress}"></span></li>
                                 <div style="color: red">${errorA}</div>
                             </ul>
-                        </div>
-                        <br>
-                        <div>
-                            <button type="submit" class="form-btn" name="op" value="update">Update</button>
-                            <div style="color: red">${error}</div>
-                            <div style="color: green">${messageU}</div>
-                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <button type="submit" class="form-btn" name="op" value="update">Update</button>
+                        <div style="color: red">${error}</div>
+                        <div style="color: green">${messageU}</div>
+                    </div>
                     </form>
                 </div>  
             </div>    

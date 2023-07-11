@@ -11,9 +11,16 @@
                 <div class="row">
                     <div class="col-lg-7 col-xl-8">
                         <div class="user-banner-profile">
-                            <div class="user-banner-profile-avatar"><a href="<c:url value="/views/login/profile.do"/>"><img
-                                        src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="avatar"></a></div>
-                            <div class="user-banner-profile-meta">
+                            <c:if test="${User.userImage == null}">
+                                <div class="user-banner-profile-avatar">
+                                    <a><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png" alt="avatar"></a>
+                                </div>
+                            </c:if>
+                            <c:if test="${User.userImage != null}">
+                                <div class="user-banner-profile-avatar"><a>
+                                        <img src="${User.getUserImage()}" alt="avatar"></a>
+                                </div>
+                            </c:if>                            <div class="user-banner-profile-meta">
                                 <div class="user-banner-profile-name">
                                     <h3>${User.userName}</h3>
                                     <span>
@@ -121,10 +128,10 @@
                                             <li><i class="material-icons">watch_later</i><span>Create Date: ${item.car.createDate}</span></li>
                                             <li><i class="material-icons">date_range</i><span>Year: ${item.car.carYear}</span></li>
                                             <li><i class="material-icons">watch_later</i><span>Update Date: ${item.car.updateDate}</span></li>
-                                             <li><i class="material-icons">local_gas_station</i><span>Fuel Type: ${item.car.engine}</span></li>
+                                            <li><i class="material-icons">local_gas_station</i><span>Fuel Type: ${item.car.engine}</span></li>
                                             <li><i class="material-icons">location_on</i><span>Showroom: ${item.car.carShowroom}</span></li>
                                             <li><i class="material-icons">directions_car</i><span>Mileage: ${item.car.odo}</span></li>
-                                           
+
                                             <li><i class="material-icons">airline_seat_recline_normal</i><span>Seat: ${item.car.car_seat}</span></li>
 
                                             <li><i class="material-icons">color_lens</i><span>Color: <a href="<c:url value="/cars/carlist.do?cid=${item.car.color.id}"/>">${item.car.color.color}</a></span></li>
@@ -155,29 +162,29 @@
                                 <div class="favorite-widget" style="display:flex;justify-content:center; align-items:center">
                                     <c:if test="${User.userRole == 1 || User.userRole == 2}">
                                         <form action="<c:url value="/order/status_handler.do"/>">
-                                        <input type="hidden" name="postId" id="postId" value="${item.postId}">
-                                        <select class="form-select" style=" width: auto;
-                                                max-width: 200%;
-                                                white-space: nowrap;
-                                                overflow: hidden;
-                                                text-overflow: ellipsis; " name="postStatus" id ="postStatus">
-                                            <option class="form-check-label" value="Inactive" ${item.postStatus == "Inactive" ? 'selected' : ''}>Inactive</option>
-                                            <option class="form-check-label" value="Active" ${item.postStatus == "Active" ? 'selected' : ''}>Active</option>
-                                        </select>
-                                        <span><button type="submit" style=" border: none;
-                                                      background: none;
-                                                      font-family: inherit;
-                                                      font-size: inherit;
-                                                      color: inherit;
-                                                      text-decoration: underline;
-                                                      cursor: pointer;
-                                                      text-decoration: none">Submit</button></span>
-                                    </form>
+                                            <input type="hidden" name="postId" id="postId" value="${item.postId}">
+                                            <select class="form-select" style=" width: auto;
+                                                    max-width: 200%;
+                                                    white-space: nowrap;
+                                                    overflow: hidden;
+                                                    text-overflow: ellipsis; " name="postStatus" id ="postStatus">
+                                                <option class="form-check-label" value="Inactive" ${item.postStatus == "Inactive" ? 'selected' : ''}>Inactive</option>
+                                                <option class="form-check-label" value="Active" ${item.postStatus == "Active" ? 'selected' : ''}>Active</option>
+                                            </select>
+                                            <span><button type="submit" style=" border: none;
+                                                          background: none;
+                                                          font-family: inherit;
+                                                          font-size: inherit;
+                                                          color: inherit;
+                                                          text-decoration: underline;
+                                                          cursor: pointer;
+                                                          text-decoration: none">Submit</button></span>
+                                        </form>
                                     </c:if>
                                     <c:if test="${User.userRole == 0}">
                                         <span>${item.postStatus}</span>
                                     </c:if>
-                                    
+
                                 </div>
 
                                 <a href="${pageContext.request.contextPath}/order/postmanager.do?postId=${item.postId}" class="favorite-close"><i class="material-icons">edit</i></a>

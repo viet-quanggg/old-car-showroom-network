@@ -12,9 +12,16 @@
                 <div class="row">
                     <div class="col-lg-7 col-xl-8">
                         <div class="user-banner-profile">
-                            <div class="user-banner-profile-avatar"><a href="<c:url value="/views/login/profile.do"/>"><img
-                                        src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="avatar"></a></div>
-                            <div class="user-banner-profile-meta">
+                            <c:if test="${User.userImage == null}">
+                                <div class="user-banner-profile-avatar">
+                                    <a><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png" alt="avatar"></a>
+                                </div>
+                            </c:if>
+                            <c:if test="${User.userImage != null}">
+                                <div class="user-banner-profile-avatar"><a>
+                                        <img src="${User.getUserImage()}" alt="avatar"></a>
+                                </div>
+                            </c:if>                            <div class="user-banner-profile-meta">
                                 <div class="user-banner-profile-name">
                                     <h3>${User.userName}</h3>
                                     <span>
@@ -48,7 +55,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <ul class="user-banner-menu-list">
-                           <c:if test="${User.userRole == 2}">
+                            <c:if test="${User.userRole == 2}">
                                 <li><a href="<c:url value="/admin/dashboard.do"/>">dashboard</a></li>   
                                 </c:if>
                             <li><a href="<c:url value="/login/profile.do"/>" class="">profile</a></li>
@@ -91,7 +98,7 @@
         </div>
     </div>
 </section>
-                
+
 <section class="section-gap-100">
     <div class="container">
         <div class="row">
@@ -102,7 +109,7 @@
                     <h6>widgets</h6>
                     <h6>action</h6>
                 </div>
-                
+
                 <ul class="favorite-list">
                     <c:forEach items="${data.items}" var="item">
                         <li class="favorite-item">
@@ -132,8 +139,8 @@
                                     <i class="material-icons">storefront</i>
                                 </a>
                                 <a href="${pageContext.request.contextPath}/addToCompare?id=${item.car.carID}" >
-                                                <i class="material-icons">compare</i>
-<!--                                                <span>compare</span>-- not use>-->
+                                    <i class="material-icons">compare</i>
+                                    <!--                                                <span>compare</span>-- not use>-->
                                 </a>     
                             </div>
                             <a href="${pageContext.request.contextPath}/order/removeWish.do?id=${item.car.carID}" class="favorite-close"><i class="material-icons">close</i></a>
@@ -144,6 +151,6 @@
                 </ul>
             </div>
         </div>
-        
+
     </div>
 </section>

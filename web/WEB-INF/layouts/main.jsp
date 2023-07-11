@@ -46,10 +46,16 @@
             </div>
 
             <div class="header-responsive">
+                                                                        <c:if test="${User.userImage == null}">
                 <div class="header-user"> <img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png"
                                                alt="user"><span></span> 
 
+                </c:if>
+                        <c:if test="${User.userImage != null}">
+                <div class="header-user"> <img src="${User.getUserImage()}"
+                                               alt="user"><span></span> 
 
+                </c:if>
                     <c:if test="${User==null}">
                         <a href="<c:url value="/login/login.do"/>" style="color:whitesmoke;display: inline-block"  alt="user"><span>Log In |</span></a> 
                         <a href="<c:url value="/login/register.do"/>" style="color:whitesmoke;display: inline-block" alt="user"><span>    Register </span></a>
@@ -92,6 +98,8 @@
                             </ul>
                         </div>
                     </div>
+                                                                                         <c:if test="${User != null}">
+
                     <div class="sidebar-group">
                         <h5 class="sidebar-title">user action</h5>
                         <ul class="nav-list">
@@ -111,7 +119,7 @@
                                         class="material-icons">notifications</i><span
                                         class="nav-text">notification</span></a></li>
                         </ul>
-                    </div>
+                    </div></c:if>
                     <div class="sidebar-group">
                         <h5 class="sidebar-title">main menu</h5>
                         <ul class="nav-list">

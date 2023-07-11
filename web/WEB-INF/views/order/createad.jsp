@@ -13,8 +13,17 @@
                 <div class="row">
                     <div class="col-lg-7 col-xl-8">
                         <div class="user-banner-profile">
-                            <div class="user-banner-profile-avatar"><a href="<c:url value="/views/login/profile.do"/>"><img
-                                        src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="avatar"></a></div>
+                            <c:if test="${User.userImage == null}">
+                                <div class="user-banner-profile-avatar">
+                                    <a><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png" alt="avatar"></a>
+                                </div>
+                            </c:if>
+                            <c:if test="${User.userImage != null}">
+                                <div class="user-banner-profile-avatar"><a>
+                                        <img src="${User.getUserImage()}" alt="avatar"></a>
+                                </div>
+                            </c:if>
+
                             <div class="user-banner-profile-meta">
                                 <div class="user-banner-profile-name">
                                     <h3>${User.userName}</h3>
@@ -133,7 +142,7 @@
                                         <span>*</span></label><input name="carprice" id="carprice" type="text" class="form-control" value="${carprice}"></div>
                                 <div style="color: red">${errorVP}</div>
                             </div>
-                            
+
                             <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-6">
                                 <div class="form-group"><label class="form-label" for="odo">Mileage
                                         <span>*</span></label><input name="odo" id="odo" type="text" class="form-control" value="${odo}"></div>
@@ -285,7 +294,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group mb-0"><label class="form-label" for="description">other information
-                                    </label><textarea id="otherin" name="otherin" class="form-control" value="${otherin}">${otherin}</textarea></div>
+                                    </label><textarea id="ohterin" name="otherin" class="form-control" value="${otherin}">${otherin}</textarea></div>
 
                             </div>
                             <br>
