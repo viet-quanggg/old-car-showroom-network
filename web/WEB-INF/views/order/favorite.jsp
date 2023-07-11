@@ -69,6 +69,7 @@
                                 <li><a href="<c:url value="/order/orderlist.do"/>"class="">Order List</a></li>
                                 <li><a href="<c:url value="/order/favorite.do"/>"class="active">favorite</a></li>
                                 <li><a href="<c:url value="/cars/compare.do"/>">compares</a></li>
+                                <li><a href="<c:url value="/blog/bloglistuser.do?uid=${User.userID}"/>">Your Blog</a></li> 
                                 </c:if>
 
                         </ul>

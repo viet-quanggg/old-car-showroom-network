@@ -228,6 +228,8 @@
                     <li class="float-item"><a href="notify.html" class="badge-hover"><i
                                 class="orange material-icons">notifications</i><span
                                 class="badge arrow-right">notify</span><sup>3</sup></a></li>
+                    <li class="nav-item"><a href="<c:url value="/blog/bloglistuser.do?bid=${User.userID}"/>" class="nav-link"><i
+                                class="material-icons">Your Blog</i><span class="nav-text">Your Blog</span></a></li> 
                 </ul>
             </div>
         </c:if>
