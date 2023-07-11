@@ -54,7 +54,7 @@ public class OrderController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, Exception {
 
         response.setContentType("text/html;charset=UTF-8");
         String controller = (String) request.getAttribute("controller");
