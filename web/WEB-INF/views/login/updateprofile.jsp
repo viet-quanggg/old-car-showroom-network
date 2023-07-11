@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-lg-7 col-xl-8">
                         <div class="user-banner-profile">
-                           <c:if test="${User.userImage == null}">
+                            <c:if test="${User.userImage == null}">
                                 <div class="user-banner-profile-avatar">
                                     <a><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png" alt="avatar"></a>
                                 </div>
@@ -110,66 +110,79 @@
                         <h4 class="common-card-header-title">update</h4>
                     </div>
                     <div class="common-card-body ">
-                        <form action="<c:url value="/user/changeimage.do"/>" method="post" enctype="multipart/form-data">
- <c:if test="${User.userImage == null}">
-                                <div class="user-banner-profile-avatar">
-                                    <a><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png" alt="avatar"></a>
-                                </div>
-                            </c:if>
-                            <c:if test="${User.userImage != null}">
-                                <div class="user-banner-profile-avatar"><a>
-                                        <img src="${User.getUserImage()}" alt="avatar"></a>
-                                </div>
-                            </c:if>                            <h6>Update your image</h6>
-                            <span>  <input type="file" name="userImage"></span> <span><button type="submit" value="changeimage">Update Image</button></span>
-                        </form>
-                        <form action="<c:url value="/user/update.do"/>" > 
-                            <ul class="profile-specify-list">
+                        <ul class="profile-specify-list">
+                            <li style="display: flex;justify-content: center;border-bottom: none;">
+                                <form action="<c:url value="/user/update.do"/>" method="post" enctype="multipart/form-data">
+                                    <c:if test="${User.userImage == null}">
+                                        <div class="user-banner-profile-avatar" style="display: flex;justify-content: center" >
+                                            <a><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png" alt="avatar"></a>
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${User.userImage != null}">
+                                        <div class="user-banner-profile-avatar" style="display: flex;justify-content: center"><a>
+                                                <img src="${User.getUserImage()}" alt="avatar"></a>
+                                        </div>
+                                </c:if>  </li>   
+                            <li style="margin-bottom: 15px"> <span style="white-space: nowrap;" ><input style="font-size: 14px;
+                                                                                                        letter-spacing: .3px;
+                                                                                                        text-transform: uppercase;
+                                                                                                        " type="file" name="userImage"></span><span style="white-space: nowrap;">
+                                    <button   style="font-size: 14px;
+                                              letter-spacing: .3px;
+                                              text-transform: uppercase;
+                                              "type="submit" name="op" value="changeimage">Update Image</button>
+                                </span> 
+                                </div></li>
+                            </form>
+                            <form action="<c:url value="/user/update.do"/>" > 
                                 <li><span>Name:</span><span><input class="form-control" type="text" name="userName" value="${User.userName}"></span></li>
                                 <div style="color: red">${errorN}</div>
                                 <li><span>Phone:</span><span><input class="form-control" type="number" name="userPhone" value="${User.userPhone}"  style="-webkit-appearance: none; margin: 0;"></span></li>
                                 <div style="color: red">${errorPh}</div>
                                 <li><span>Address:</span><span><input class="form-control" type="text" name="userAddress" value="${User.userAddress}"></span></li>
                                 <div style="color: red">${errorA}</div>
-                            </ul>
-                    </div>
-                    <br>
-                    <div>
-                        <button type="submit" class="form-btn" name="op" value="update">Update</button>
+                        </ul>
                         <div style="color: red">${error}</div>
                         <div style="color: green">${messageU}</div>
-                    </div>
-                    </form>
-                </div>  
-            </div>    
-            <div class="col-lg-6 col-xl-8">
-                <div class="common-card">
-                    <div class="common-card-header">
-                        <h4 class="common-card-header-title">change password</h4>
-                    </div>
-                    <form method="post" action="<c:url value="/user/change.do"/>" > 
-                        <div class="common-card-body ">
-                            <ul class="profile-specify-list">
-                                <li><span>Current Password:</span><span><input class="form-control" type="password" name="userPass" ></span></li>
-                                <div style="color: red">${ePa}</div>
-                                <li><span>New Password:</span><span><input class="form-control" type="password" name="newPass" ></span></li>
-                                <div style="color: red">${errorNP}</div>
-                                <li><span>Repeat New Password:</span><span><input class="form-control" type="password" name="re_pass"  ></span></li>
-                                <div style="color: red">${eR}</div>
-                            </ul>
-                        </div>
-                        <br>
-                        <div>
-                            <button type="submit" class="form-btn" name="op" value="change">Change</button>
-                            <div style="color: red">${errorCP}</div>
-                            <div style="color: green">${messageC}</div>
+                        <div style="color: red">${errorImg}</div>
+                        <div style="color: green">${messageImg}</div>
 
+                        <button type="submit" class="form-btn" name="op" value="update">Update</button>
+                    </div>
+                    <br>
+                   
+
+                        </form>
+ 
+                </div>    
+                <div class="col-lg-6 col-xl-8">
+                    <div class="common-card">
+                        <div class="common-card-header">
+                            <h4 class="common-card-header-title">change password</h4>
                         </div>
-                    </form>
-                </div>            
+                        <form method="post" action="<c:url value="/user/change.do"/>" > 
+                            <div class="common-card-body ">
+                                <ul class="profile-specify-list">
+                                    <li><span>Current Password:</span><span><input class="form-control" type="password" name="userPass" ></span></li>
+                                    <div style="color: red">${ePa}</div>
+                                    <li><span>New Password:</span><span><input class="form-control" type="password" name="newPass" ></span></li>
+                                    <div style="color: red">${errorNP}</div>
+                                    <li><span>Repeat New Password:</span><span><input class="form-control" type="password" name="re_pass"  ></span></li>
+                                    <div style="color: red">${eR}</div>
+                                </ul>
+                            </div>
+                            <br>
+                            <div>
+                                <button type="submit" class="form-btn" name="op" value="change">Change</button>
+                                <div style="color: red">${errorCP}</div>
+                                <div style="color: green">${messageC}</div>
+
+                            </div>
+                        </form>
+                    </div>            
+                </div>
             </div>
         </div>
-    </div>
 </section>
 
 

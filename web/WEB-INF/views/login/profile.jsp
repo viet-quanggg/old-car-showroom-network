@@ -19,7 +19,7 @@
                             </c:if>
                             <c:if test="${User.userImage != null}">
                                 <div class="user-banner-profile-avatar"><a>
-                                        <img src="${User.getUserImage()}" alt="avatar"></a>
+                                        <img src="${User.getUserImage()}" onerror="this.src='"${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png'" alt="avatar"></a>
                                 </div>
                             </c:if>
                             <div class="user-banner-profile-meta">
