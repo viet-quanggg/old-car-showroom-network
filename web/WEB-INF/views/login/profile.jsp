@@ -71,6 +71,7 @@
                                 <c:if test="${ User.userRole == 0}">
                                 <li><a href="<c:url value="/order/favorite.do"/>">favorite</a></li>
                                 <li><a href="<c:url value="/cars/compare.do"/>">compares</a></li>
+                                <li><a href="<c:url value="/blog/bloglistuser.do?uid=${User.userID}"/>">Your Blog</a></li> 
                                 </c:if>
                         </ul>
                     </div>

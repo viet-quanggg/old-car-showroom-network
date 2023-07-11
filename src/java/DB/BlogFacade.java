@@ -271,5 +271,37 @@ public class BlogFacade {
         }
          
     }
+public List<Blog> blogPerPageuser(String id) throws SQLException {
+        List<Blog> list = new ArrayList<>();
+        try {
 
+            con = DBContext.getConnection();
+            ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName \n"
+                    + "from [Blog] b join [User] u \n"
+                    + "on b.blogId = u.userId \n"
+                    + "WHERE u.userId = ?\n"
+                    + "ORDER BY blogId\n");
+//                    + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+            ps.setString(1, id);
+//            ps.setInt(2, (index - 1) * num);
+//            ps.setInt(3, num);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Blog blog = new Blog();
+                blog.setBlogId(rs.getInt(1));
+                blog.setBlogTitle(rs.getString(2));
+                blog.setBlogDetail(rs.getString(3));
+                blog.setBlogImage(rs.getString(4));
+                blog.setBlogDate(rs.getDate(5));
+                blog.setUserId(rs.getInt(6));
+                blog.setUserName(rs.getString(7));
+                list.add(blog);
+            }
+            con.close();
+            return list;
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
 }

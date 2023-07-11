@@ -56,16 +56,17 @@
                                     <label class="form-label" for="blogimage" >blog images</label>
                                     <input type="file" id="blogimage" name="blogimage"><br/>
                                     <input type="hidden" name="blogid" value="${blog.blogId}">
+                                    <input type="hidden" name="userrole" value="${User.userRole}">
                                 </div>
                                
 
                             </div>
                             <br>
                             <div style="margin-top: 10px;">
-                                
                                 <button type="submit" id="op" name="op" value="edit_blog" class="form-btn" >Save</button><br/>
                                 ${message}
                             </div>
+                            
                         </div>
                     </div>
                 </form>

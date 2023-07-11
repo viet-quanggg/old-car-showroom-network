@@ -103,6 +103,7 @@
                     </div>
                 </div>
                 <div class="row row-cols-1">
+
                     <c:forEach items="${blog}" var="blog">
 
 
@@ -117,11 +118,32 @@
                                     </ul>
                                     <h3 class="blog-list-title"><a href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">${blog.blogTitle}.</a>
                                     </h3>
+
                                     <p class="blog-list-descrip" id="blog-detail-${blog.blogId}">${blog.blogDetail}<a href="blog-single.html">read more</a></p>
-                                    <a href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">read more</a>
-                                    <a href="<c:url value="/blog/blogedit.do?blid=${blog.blogId}"/>">Edit</a>
+
+
+
                                 </div>
+                                <div class="common-card row two-sided-layout" >
+                                    <div class="col-xl-5 left-side">
+                                        <a class="form-btn" href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">read more</a>
+                                    </div>
+                                    <div class ="col-xl-5 right-side ">
+                                        <c:choose>
+                                        <c:when test="${User.userRole == 2 || User.userRole ==1}">
+                                            <a class="form-btn" href="<c:url value='/blog/blogedit.do?blid=${blog.blogId}'/>">Edit</a>
+                                        </c:when>
+                                        <c:when test="${User.userRole == 0 && User.userID == blog.blogId}">
+                                            <a class="form-btn" href="<c:url value='/blog/blogedit.do?blid=${blog.blogId}'/>">Edit</a>
+                                        </c:when>
+                                        <c:otherwise>
+
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+
                             </div>
+                            
                         </div>
                         <script>
                             document.addEventListener("DOMContentLoaded", function () {
