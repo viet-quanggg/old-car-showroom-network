@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,30 +69,6 @@ public class UserController extends HttpServlet {
             case "change":
                 changeUser_handler(request, response);
                 break;
-            case "changeimage":
-                Part file = request.getPart("userImage");
-                String userImage = file.getSubmittedFileName();
-                String uploadPath = "/Users/_viet.quangg/Study/Subject Term 5/SWP391/NewFolder/old-car-showroom-network/web/images/user/" + userImage;
-                try {
-                    FileOutputStream fos = new FileOutputStream(uploadPath);
-                    InputStream is = file.getInputStream();
-                    byte[] data = new byte[is.available()];
-                    is.read(data);
-                    fos.write(data);
-                    fos.close();
-                    user = (User) session.getAttribute("User");
-                    if (user != null && user.getUserID() != 0) {
-                        user.setUserImage(request.getContextPath() + "/images/user/" + userImage);
-                        UserFacade uf = new UserFacade();
-                        uf.updateUserImage(user.getUserID(), request.getContextPath() + "/images/user/" + userImage);
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                response.sendRedirect(request.getContextPath() + "/login/update_profile.do");
-
-                break;
             default:
                 //Show error page
                 request.setAttribute("controller", "error");
@@ -109,10 +86,6 @@ public class UserController extends HttpServlet {
         switch (op) {
             case "change":
                 try {
-//            boolean check = false;
-//                String useremail = request.getParameter("userEmail");
-//                String userpass = request.getParameter("userPass");
-
                 String userpass = request.getParameter("userPass");
                 String newpass = request.getParameter("newPass");
                 String re_pass = request.getParameter("re_pass");
@@ -161,33 +134,22 @@ public class UserController extends HttpServlet {
                 request.getRequestDispatcher("/login/update_profile.do").forward(request, response);
             }
             break;
-
         }
     }
 
     protected void updateUser_handler(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User user = new User();
         String op = request.getParameter("op");
         HttpSession session = request.getSession();
         switch (op) {
             case "update":
                 try {
-//            boolean check = false;
-//                String useremail = request.getParameter("userEmail");
-//                String userpass = request.getParameter("userPass");
-
                 String username = request.getParameter("userName");
                 String userphone = request.getParameter("userPhone");
                 String useraddress = request.getParameter("userAddress");
 
                 UserFacade uf = new UserFacade();
-
-//                if (useremail.isEmpty()) {
-//                    request.setAttribute("errorE", "please fill in  your Email!");
-//                }
-//                if (userpass.isEmpty()) {
-//                    request.setAttribute("errorPa", "please  fill in your Password!");
-//                }
                 if (username.isEmpty()) {
                     request.setAttribute("errorN", "please fill in your User name!");
                 }
@@ -200,9 +162,8 @@ public class UserController extends HttpServlet {
                 if (/*useremail.isEmpty() || userpass.isEmpty() ||*/username.isEmpty() || userphone.isEmpty() || useraddress.isEmpty()) {
                     request.getRequestDispatcher("/login/update_profile.do").forward(request, response);
                 } else {
-                    User user = (User) session.getAttribute("User");
-//                    user.setUserEmail(useremail);
-//                    user.setUserPass(userpass);
+                    user = (User) session.getAttribute("User");
+
                     user.setUserName(username);
                     user.setUserPhone(userphone);
                     user.setUserAddress(useraddress);
@@ -214,6 +175,36 @@ public class UserController extends HttpServlet {
 
                 }
 
+            } catch (Exception e) {
+                request.setAttribute("error", e.toString());
+                request.getRequestDispatcher("/login/update_profile.do").forward(request, response);
+            }
+            break;
+            case "changeimage":
+                 try {
+                Part file = request.getPart("userImage");
+                String userImage = file.getSubmittedFileName();
+                if (userImage.toLowerCase().endsWith(".jpg") || userImage.toLowerCase().endsWith(".png")) {
+                    String uploadPath = "C:/Users/Dell/Downloads/ocsn-main/ocsn-main-main/old-car-showroom-network-6/old-car-showroom-network/web/images/user/" + userImage;
+                    FileOutputStream fos = new FileOutputStream(uploadPath);
+                    InputStream is = file.getInputStream();
+                    byte[] data = new byte[is.available()];
+                    is.read(data);
+                    fos.write(data);
+                    fos.close();
+                    user = (User) session.getAttribute("User");
+                    if (user != null && user.getUserID() != 0) {
+                        user.setUserImage(request.getContextPath() + "/images/user/" + userImage);
+                        UserFacade uf = new UserFacade();
+                        uf.updateUserImage(user.getUserID(), request.getContextPath() + "/images/user/" + userImage);
+                        request.setAttribute("messageImg", "Your profile picture has been updated!");
+                    }
+
+                } else {
+                    request.setAttribute("errorImg", "Sorry,we only accept .jpg or .png file!");
+                }
+
+                request.getRequestDispatcher("/login/update_profile.do").forward(request, response);
             } catch (Exception e) {
                 request.setAttribute("error", e.toString());
                 request.getRequestDispatcher("/login/update_profile.do").forward(request, response);
