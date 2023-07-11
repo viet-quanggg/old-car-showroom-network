@@ -82,11 +82,11 @@ public class CarFacade {
                     + "updateDate = CURRENT_TIMESTAMP, "
                     + "car_seat = ?, "
                     + "engine = ?, "
-                    + "odo = ? "
+                    + "odo = ?, "
                     + "brandID = ?, "
                     + "colorID = ? where carId = ?";
 
-            PreparedStatement stm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stm = con.prepareStatement(sql);
             stm.setString(1, carShowroom);
             stm.setDouble(2, carPrice);
             stm.setString(3, carName);
@@ -98,16 +98,16 @@ public class CarFacade {
             stm.setFloat(9, odo);
             stm.setInt(10, brandID);
             stm.setInt(11, colorID);
-            stm.setInt(11, carId);
-
+            stm.setInt(12, carId);
+            int count = stm.executeUpdate();
             if (stm != null) {
                 stm.close();
             }
-            int count = stm.executeUpdate();
+            
         } catch (Exception e) {
             System.out.println(e);
         }
-
+        con.close();
     }
 
     public int addCar(int ownerID, Double carPrice, String carName, int carYear, String carDescription, int brandID, int colorID, int car_seat, String engine, float odo) throws SQLException {
@@ -130,7 +130,7 @@ public class CarFacade {
                     + "[engine],"
                     + "[odo],"
                     + "[carShowroom]) VALUES (?,'',?,?,?,?,0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?, ?, ?, ?, 'FPTU')";
-            PreparedStatement stm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stm = con.prepareStatement(sql);
             stm.setInt(1, ownerID);
             stm.setDouble(2, carPrice);
             stm.setString(3, carName);
