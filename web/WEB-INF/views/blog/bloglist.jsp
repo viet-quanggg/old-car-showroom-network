@@ -88,13 +88,13 @@
                                         <option value="12"  >12</option>
                                     </select></div>
                             </form> 
-                            <div class="filter-short"><label class="filter-label">Short by :</label><select
+<!--                            <div class="filter-short"><label class="filter-label">Short by :</label><select
                                     class="form-select filter-select"  >
                                     <option selected>default</option>
                                     <option value="3">trending</option>
                                     <option value="1">featured</option>
                                     <option value="2">recommend</option>
-                                </select></div>
+                                </select></div>-->
                             <div class="filter-action"><a href="<c:url value="/blog/bloggrid.do"/>" title="Grid View"
                                                           class="material-icons">grid_view</a><a href="<c:url value="/blog/bloglist.do"/>" title="List View"
                                                           class="material-icons active">list_alt</a></div>

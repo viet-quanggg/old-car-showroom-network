@@ -100,7 +100,7 @@
                 <div class="blog-widget">
                     <h5 class="blog-widget-title">follow us</h5>
                     <ul class="blog-widget-social">
-                        <li><a href="#" class="facebook icofont-facebook"></a></li>
+                        <li><a href="https://www.facebook.com/FPTU.HCM" class="facebook icofont-facebook"></a></li>
                         <li><a href="#" class="twitter icofont-twitter"></a></li>
                         <li><a href="#" class="linkedin icofont-linkedin"></a></li>
                         <li><a href="#" class="pinterest icofont-pinterest"></a></li>
@@ -153,20 +153,20 @@
                                     </h3>
 
                                     <p class="blog-list-descrip" id="blog-detail-${blog.blogId}">${blog.blogDetail}<a href="blog-single.html">read more</a></p>
-                                    <div class="mc-breadcrumb-group" >
+                                    <div class="common-card row two-sided-layout" >
 
-                                        <div class="sidebar-btn mc-breadcrumb-title">
-                                            <a href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">read more</a>
+                                        <div class="col-xl-5 left-side">
+                                            <a class="form-btn" href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">read more</a>
                                         </div>
 <!--                                    <h3>${blog.blogTitle}</h3>
 <p>${blog.blogDetail}</p>-->
-                                        <div class="sidebar-btn mc-breadcrumb-title">
+                                        <div class ="col-xl-5 right-side ">
                                             <c:choose>
                                                 <c:when test="${User.userRole == 2 || User.userRole ==1}">
-                                                    <a href="<c:url value='/blog/blogedit.do?blid=${blog.blogId}'/>">Edit</a>
+                                                    <a class="form-btn" href="<c:url value='/blog/blogedit.do?blid=${blog.blogId}'/>">Edit</a>
                                                 </c:when>
                                                 <c:when test="${User.userRole == 0 && User.userID == blog.blogId}">
-                                                    <a href="<c:url value='/blog/blogedit.do?blid=${blog.blogId}'/>">Edit</a>
+                                                    <a class="form-btn" href="<c:url value='/blog/blogedit.do?blid=${blog.blogId}'/>">Edit</a>
                                                 </c:when>
                                                 <c:otherwise>
 
