@@ -71,7 +71,7 @@ public class UserController extends HttpServlet {
             case "changeimage":
                 Part file = request.getPart("userImage");
                 String userImage = file.getSubmittedFileName();
-                String uploadPath = "C:/Users/Dell/Downloads/ocsn-main/ocsn-main-main/old-car-showroom-network-6/old-car-showroom-network/web/image/" + userImage;
+                String uploadPath = "/Users/_viet.quangg/Study/Subject Term 5/SWP391/NewFolder/old-car-showroom-network/web/images/user/" + userImage;
                 try {
                     FileOutputStream fos = new FileOutputStream(uploadPath);
                     InputStream is = file.getInputStream();
@@ -81,9 +81,9 @@ public class UserController extends HttpServlet {
                     fos.close();
                     user = (User) session.getAttribute("User");
                     if (user != null && user.getUserID() != 0) {
-                        user.setUserImage(request.getContextPath() + "/image/" + userImage);
+                        user.setUserImage(request.getContextPath() + "/images/user/" + userImage);
                         UserFacade uf = new UserFacade();
-                        uf.updateUserImage(user.getUserID(), request.getContextPath() + "/image/" + userImage);
+                        uf.updateUserImage(user.getUserID(), request.getContextPath() + "/images/user/" + userImage);
                     }
 
                 } catch (Exception e) {

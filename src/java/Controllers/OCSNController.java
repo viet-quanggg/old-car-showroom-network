@@ -76,12 +76,62 @@ public class OCSNController extends HttpServlet {
             case "contact":
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
+            case "send":
+           try {
+                String name = request.getParameter("Cname");
+                String email = request.getParameter("Cemail");
+                String subject = request.getParameter("Csubject");
+                String message = request.getParameter("Cmessage");
+                try {
+                    GmailController gc = new GmailController();
+                    gc.sendMail(subject,
+                            "sender email: " + email + "\n"
+                            + "sender name: " + name + "\n"
+                            + "subject: " + subject + "\n"
+                            + "message:" + message, "oldcarshowroomnetwork@gmail.com");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                String announce = "Send successfully! We will contact you as soon as possible!";
+                request.setAttribute("message", announce);
+                request.getRequestDispatcher("/ocsn/contact.do").forward(request, response); //Hien trang thong bao loi
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            break;
+
             default:
                 //Show error page
                 request.setAttribute("controller", "error");
                 request.setAttribute("action", "error");
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
 
+        }
+    }
+
+    protected void sendFeedback(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String ops = request.getParameter("op");
+        switch (ops) {
+            case "send":
+                try {
+                String name = request.getParameter("name");
+                String email = request.getParameter("email");
+                String subject = request.getParameter("subjet");
+                String message = request.getParameter("message");
+                GmailController gc = new GmailController();
+                gc.sendMail(subject,
+                        "sender email: " + email + "\n"
+                        + "sender name: " + name + "\n"
+                        + "subject: " + subject + "\n"
+                        + "message:" + message, "oldcarshowroomnetwork@gmail.com");
+                String announce = "Send successfully! We will contact you as soon as possible!";
+                request.setAttribute("message", announce);
+                request.getRequestDispatcher("/ocsn/contact.do").forward(request, response); //Hien trang thong bao loi
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            break;
         }
     }
 

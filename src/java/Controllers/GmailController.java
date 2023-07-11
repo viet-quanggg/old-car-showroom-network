@@ -59,11 +59,11 @@ public class GmailController {
 
     private static Credential getCredentials(final NetHttpTransport httpTransport, GsonFactory jsonFactory) 
             throws IOException {
-        Reader clientSecretReader = new InputStreamReader(new FileInputStream("/Users/_viet.quangg/Downloads/client_secret_2_978807172034-4mlljef17cjtkjqj4lkq291ukice8rpa.apps.googleusercontent.com.json"));
+        Reader clientSecretReader = new InputStreamReader(new FileInputStream("/Users/_viet.quangg/Study/Subject Term 5/SWP391/client_secret_2_978807172034-4mlljef17cjtkjqj4lkq291ukice8rpa.apps.googleusercontent.com (2).json"));
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, clientSecretReader);
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 httpTransport, jsonFactory, clientSecrets, Set.of(GmailScopes.GMAIL_SEND))
-                .setDataStoreFactory(new FileDataStoreFactory(Paths.get("tokens").toFile()))
+                .setDataStoreFactory(new FileDataStoreFactory(Paths.get("tokenns").toFile()))
                 .setAccessType("offline")
                 .build();
         
@@ -121,7 +121,7 @@ public class GmailController {
                                                         
                                                     Best regards,
                                                     OCSN
-                                                        ""","quangnvse172928@fpt.edu.vn");
+                                                        ""","nguyenvietquang099@gmail.com");
 
     }
 }

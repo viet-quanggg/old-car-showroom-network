@@ -137,11 +137,9 @@ public class BlogFacade {
     }
 
     public void create(Blog blog) throws SQLException {
-        try (Connection con = DBContext.getConnection(); 
-            PreparedStatement ps = con.prepareStatement("SET IDENTITY_INSERT [dbo].[Blog] ON;" +
-                                             "INSERT INTO [dbo].[Blog](blogId, blogTitle, blogDetail, blogImage, userId, blogDate) VALUES ((SELECT MAX(blogId) FROM [dbo].[Blog]) + 1, ?, ?, ?, ?, CURRENT_TIMESTAMP);" +
-                                             "SET IDENTITY_INSERT [dbo].[Blog] OFF;"))
- {
+        try (Connection con = DBContext.getConnection(); PreparedStatement ps = con.prepareStatement("SET IDENTITY_INSERT [dbo].[Blog] ON;"
+                + "INSERT INTO [dbo].[Blog](blogId, blogTitle, blogDetail, blogImage, userId, blogDate) VALUES ((SELECT MAX(blogId) FROM [dbo].[Blog]) + 1, ?, ?, ?, ?, CURRENT_TIMESTAMP);"
+                + "SET IDENTITY_INSERT [dbo].[Blog] OFF;")) {
             ps.setString(1, blog.getBlogTitle());
             ps.setString(2, blog.getBlogDetail());
             ps.setString(3, blog.getBlogImage());
@@ -247,13 +245,13 @@ public class BlogFacade {
         return null;
     }
 
-    public void updateBlog(String blogTitle, String blogDetail, int userId, String blogId1) {
-         try (Connection con = DBContext.getConnection();
-             PreparedStatement ps = con.prepareStatement("UPDATE [dbo].[Blog] SET blogTitle = ?, blogDetail = ?, blogImage = 1, userId = ?, blogDate = CURRENT_TIMESTAMP WHERE blogId = ?;")) {
+    public void updateBlog(String blogTitle, String blogDetail, String blogImage, int userId, String blogId1) {
+        try (Connection con = DBContext.getConnection(); PreparedStatement ps = con.prepareStatement("UPDATE [dbo].[Blog] SET blogTitle = ?, blogDetail = ?, blogImage = ?, userId = ?, blogDate = CURRENT_TIMESTAMP WHERE blogId = ?;")) {
             ps.setString(1, blogTitle);
             ps.setString(2, blogDetail);
-            ps.setInt(3,userId );
-            ps.setString(4, blogId1);
+            ps.setString(3, blogImage);
+            ps.setInt(4, userId);
+            ps.setString(5, blogId1);
 
             int count = ps.executeUpdate();
 
@@ -269,9 +267,10 @@ public class BlogFacade {
             // Handle the exception here
             e.printStackTrace();
         }
-         
+
     }
-public List<Blog> blogPerPageuser(String id) throws SQLException {
+
+    public List<Blog> blogPerPageuser(String id) throws SQLException {
         List<Blog> list = new ArrayList<>();
         try {
 

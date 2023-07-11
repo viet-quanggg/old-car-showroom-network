@@ -23,7 +23,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-11 col-xl-10 m-auto">
-                <div class="blog-single"><img class="blog-single-img" src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/blog/02.jpg" alt="blog">
+                <div class="blog-single"><img class="blog-single-img" src="${bid.blogImage}" alt="blog">
                     <div class="blog-single-content">
                         <ul class="blog-single-meta-list">
                             <li><i class="material-icons">account_circle</i><span>post by <a

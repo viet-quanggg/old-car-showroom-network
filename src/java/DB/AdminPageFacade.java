@@ -24,7 +24,7 @@ public class AdminPageFacade {
     Connection con = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
-    
+
     public void updatePlan(PricingPlan plan) throws SQLException {
         //Tạo connection để kết nối vào DBMS
         Connection con = DBContext.getConnection();
@@ -39,11 +39,9 @@ public class AdminPageFacade {
         //Thực thi lệnh sql
         int count = stm.executeUpdate();
         //Đóng kết nối
-        
+
         con.close();
     }
-    
-    
 
     public int countUser() throws SQLException {
         try {
@@ -258,7 +256,7 @@ public class AdminPageFacade {
     public double countCompleteSaleSalary() throws SQLException {
         try {
             con = DBContext.getConnection();
-            ps = con.prepareStatement("select distinct sum(carPrice) \n"
+            ps = con.prepareStatement("sum(c.carPrice)\n"
                     + "from [Order] o join [Post] p on o.postId = p.postId join [Car] c on p.carId = c.carId \n"
                     + "where o.orderStatus = 'Complete' \n"
                     + "and MONTH(orderDate) = MONTH(CURRENT_TIMESTAMP) \n"
@@ -327,9 +325,6 @@ public class AdminPageFacade {
         }
         return null;
     }
-    
-    
-    
 
     public static void main(String[] args) throws SQLException {
         AdminPageFacade test = new AdminPageFacade();

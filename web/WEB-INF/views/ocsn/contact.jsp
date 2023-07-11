@@ -26,23 +26,25 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <form class="contact-form" action="https://formsubmit.co/367e60716c9534d9fc8b3579929fd86b" method="POST" enctype="text/plain">
+                    <form class="contact-form" action="<c:url value="/ocsn/send.do"/>" method="get" enctype="text/plain">
                         <h3 class="contact-form-title">Drop Your Thoughts</h3>
                         <div class="row">
                             <div class="form-group">
-                                <input type="text" name="name" required class="form-control" 
+                                <input type="text" name="Cname" required class="form-control" 
                                     placeholder="Enter your name" ></div>
                             <div class="form-group">
-                                <input type="email" name="email" required class="form-control" 
+                                <input type="email" name="Cemail" required class="form-control" 
                                     placeholder="Enter your email" ></div>
                             <div class="form-group">
-                                <input type="text" name="_subject" value="subject" required class="form-control"></div>
+                                <input type="text" name="Csubject" value="" placeholder="Enter your subject" required class="form-control"></div>
                             <div class="form-group">
-                                <textarea  name="massage" required class="form-control"
+                                <textarea  name="Cmessage" required class="form-control"
                                     placeholder="Write your message" ></textarea></div>
-                            <input type="hidden" name="_next" value="https://localhost:8080/OldCarShowroom/ocsn/index.do">
-                            <button type="submit" class="form-btn"
+                            <button type="submit" name="send" value="send" class="form-btn"
                                            >send message</button>
+                            <div>
+                                <a style="color: greenyellow">${message}<a/>
+                                <div/>
                         </div>
                     </form>
                 </div>

@@ -60,6 +60,7 @@ public class LoginController extends HttpServlet {
                         UserFacade uf = new UserFacade();
                         User check = uf.checkEmail(email);
                         if (check != null) {
+//                            try{
                             GmailController resetEmail = new GmailController();
                             resetEmail.sendMail("Reset Password",
                                     "Dear, \n"
@@ -71,6 +72,9 @@ public class LoginController extends HttpServlet {
                             String message = "Reset link sent! Please check your inbox to reset password.";
                             request.setAttribute("message", message);
                             request.getRequestDispatcher("/WEB-INF/views/login/forgotpassword.jsp").forward(request, response); //Hien trang thong bao loi
+//                            }catch(Exception ex){
+//                                ex.printStackTrace();
+//                            }
                         } else {
                             String error = "The account is not exist! Please register a new account.";
                             request.setAttribute("error", error);
@@ -84,7 +88,7 @@ public class LoginController extends HttpServlet {
             } catch (Exception ex) {
 
             }
-                break;
+            break;
             case "resetpassword":
                 String uEmail = request.getParameter("email");
                 request.setAttribute("uEmail", uEmail);

@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 
 public class Common {
     
-    public static String getFormatDate(Date date, String pattern) {
+    public String getFormatDate(Date date, String pattern) {
         SimpleDateFormat f = new SimpleDateFormat(pattern);
         return f.format(date);
     }
     
-    public static String getFormatPrice(double price) {
+    public String getFormatPrice(double price) {
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
         String formattedPrice = decimalFormat.format(price);
         String[] parts = formattedPrice.split("\\,");

@@ -75,7 +75,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-xl-12">
-                <form method="get" enctype="multipart/form-data" action="<c:url value='/blog/create_blog_handler.do' />" >
+                <form method="post" enctype="multipart/form-data" action="<c:url value='/blog/create_blog_handler.do' />" >
                     <div class="common-card active">
                         <div class="common-card-header">
                             <h4 class="common-card-header-title">blog information</h4>
@@ -103,7 +103,7 @@
                                     <label class="form-label" for="blogimage" >blog images</label>
                                     <input type="file" id="blogimage" name="blogimage"><br/>
                                 </div>
-                               
+
 
                             </div>
                             <br>
@@ -120,22 +120,17 @@
     </div>
 
 </section>
+<script>
+    document.querySelector("#blogimage").addEventListener("change", (e) => {
+        document.querySelector("#blogimage").src = URL.createObjectURL(e.target.files[0]);
+        document.querySelector("input[name=isAvaChange]").value = true;
+    })
 
-<!--        <div class="form-container">
-        <h2>Create a Blog</h2>
-        <form method="get" action="<c:url value="/blog/create_blog_handler.do"/>" enctype="multipart/form-data">
-            <label for="userName">Author:</label>
-            <input type="text" id="userName" name="userName" disabled="true" value="${User.userName}">
-            <label for="blogtitle">Blog Title:</label>
-            <input type="text" id="blogtitle" name="blogtitle" required="">
-            <label for="blogdetail">Blog Detail:</label>
-            <textarea id="blogdetail" name="blogdetail" rows="4" cols="50" required=""></textarea>
-            <input type="hidden" id="userId" name="userId" class="form-control" value="${User.userID}">
-             Added a new input field for image upload 
-            <label for="blogimage">Image:</label><br/>
-            <input type="file" accept="image/*" id="blogimage" name="blogimage"><br/>
-            <button type="submit" id="op" name="op" value="create_blog" class="form-btn" >Create Blog</button>
-${message}
-</form>
-</div>-->
+    document.querySelector("#avatar-preview").addEventListener("error", (e) => {
+                                    e.target.src = "<c:url value="/images/blog/user-avatar.png" />";
+    })
+
+</script>
+
+
 
