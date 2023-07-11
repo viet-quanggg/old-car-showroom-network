@@ -379,7 +379,7 @@
                                                 <td>
 
                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm-center">${list.carPrice}</h6>
+                                                            <h6 class="mb-0 text-sm-center">${list.formatPrice}</h6>
                                                         </div>
 
                                                 </td>

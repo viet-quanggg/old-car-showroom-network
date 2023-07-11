@@ -28,7 +28,7 @@
     }
 </style>
 
-<jsp:useBean class="Common.CommonForJSP" id="common"/>
+<jsp:useBean class="Utilities.CommonForJSP" id="common"/>
 
 <section class="section-gap-100">
     <div class="container">
@@ -55,7 +55,7 @@
                                     <div class="product-list-content">
                                         <div class="product-list-group">
                                             <div class="product-list-meta">
-                                                <h3><a href="inventory-single.html">${item.carName}</a></h3>
+                                                <h3><a href="<c:url value="/cars/carsingle.do?carId=${item.carID}"/>">${item.carName}</a></h3>
                                                 <ul>
                                                     <li>Create Date: ${common.getFormatDate(item.createDate, 'dd-MM-yyyy')}</li>
                                                 </ul>

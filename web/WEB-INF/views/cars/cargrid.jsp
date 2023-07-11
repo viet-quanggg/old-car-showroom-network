@@ -14,7 +14,7 @@
         </div>
     </div>
 </section>
-<jsp:useBean class="Common.CommonForJSP" id="common"/>
+<jsp:useBean class="Utilities.CommonForJSP" id="common"/>
 <section class="section-gap-100">
     <div class="container">
         <div class="row content-reverse">
@@ -47,7 +47,7 @@
                                             </div>
                                         </div>
                                         <div class="product-grid-meta">
-                                            <h4><a href="inventory-single.html">${item.carName}</a></h4>
+                                            <h4><a href="<c:url value="/cars/carsingle.do?carId=${item.carID}"/>">${item.carName}</a></h4>
                                             <ul>
                                                 <li>Brand: ${item.brand.name}</li>
                                                 <li>Color: ${item.color.color}</li>
