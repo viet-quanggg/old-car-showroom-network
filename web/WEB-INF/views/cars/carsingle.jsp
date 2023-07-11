@@ -1,7 +1,7 @@
- <%-- 
-    Document   : carsingle
-    Created on : May 28, 2023, 11:06:12 AM
-    Author     : _viet.quangg
+<%-- 
+   Document   : carsingle
+   Created on : May 28, 2023, 11:06:12 AM
+   Author     : _viet.quangg
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -48,17 +48,29 @@
                         </div>
                         <div class="common-card-body">
                             <p>${data.carDescription}</p>
-
+                    </div>
+                </div>
+                    <div class="common-card" id="overview">
+                        <div class="common-card-header">
+                            <h4 class="common-card-header-title">other information</h4>
+                        </div>
+                        <div class="common-card-body">
                         <p><span>${pdata.postDescript}</span></p>
                     </div>
                 </div>
             </div>
-                    
+
             <c:if test="${User.userRole == 0}">      
                 <div class="col-xl-5">
                     <div class="common-card" >
-                        <button class="col-xl-12 form-btn"  onclick="window.location.href='<c:url value="/order/ordercar.do?postId=${pdata.postId}"/>'">Order</button>
+                        <button class="col-xl-12 form-btn"  onclick="window.location.href = '<c:url value="/order/ordercar.do?postId=${pdata.postId}"/>'">Order</button>
                     </div>
+
+                    <c:if test="${User.userId == pdata.userId}">
+                        <div class="common-card" >
+                            <button class="col-xl-12 form-btn"  onclick="window.location.href = '<c:url value="/order/postmanager.do?postId=${pdata.postId}"/>'">Order</button>
+                        </div>   
+                    </c:if>
                 </div>
 
 
@@ -86,11 +98,16 @@
 
                             </ul>
                         </div>
-<!--                        <div class="common-card-body">
-                            ${pdata.postDescript}
-                        </div>-->
+                        <!--                        <div class="common-card-body">
+                        ${pdata.postDescript}
+                    </div>-->
                     </div>
+                    <div class="common-card" >
+                    <button class="col-xl-12 form-btn"  onclick="window.location.href = '<c:url value="/order/postmanager.do?postId=${pdata.postId}"/>'">Edit</button>
+                </div> 
                 </div>
+                  
+
 
 
             </c:if> 
@@ -145,7 +162,7 @@
                         <c:if test="${blist != null && !blist.isEmpty()}"> <c:forEach items="${blist}" var="branditem">
                                 <a class="brand-card" href="<c:url value="/cars/carlist.do?bid=${branditem.id}"/>">
                                     <img
-                            src="https://www.carlogos.org/car-logos/${branditem.name.toLowerCase()}-logo.png"  onerror="this.src='https://www.supercars.net/blog/wp-content/uploads/2019/12/${branditem.name}-Logo.png'" alt="${branditem.name}">
+                                        src="https://www.carlogos.org/car-logos/${branditem.name.toLowerCase()}-logo.png"  onerror="this.src='https://www.supercars.net/blog/wp-content/uploads/2019/12/${branditem.name}-Logo.png'" alt="${branditem.name}">
                                     <h6>${branditem.name}</h6>
 
                                 </a>
