@@ -128,9 +128,8 @@ public class CarFacade {
                     + "[colorID],"
                     + "[car_seat],"
                     + "[engine],"
-                    + "[odo],"
-                    + "[carShowroom]) VALUES (?,'',?,?,?,?,0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?, ?, ?, ?, 'FPTU')";
-            PreparedStatement stm = con.prepareStatement(sql);
+                    + "[odo]) VALUES (?,'FPTU',?,?,?,?,0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?, ?, ?, ?)";
+            PreparedStatement stm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stm.setInt(1, ownerID);
             stm.setDouble(2, carPrice);
             stm.setString(3, carName);

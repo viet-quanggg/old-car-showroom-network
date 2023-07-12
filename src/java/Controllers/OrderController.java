@@ -545,7 +545,7 @@ public class OrderController extends HttpServlet {
                     if (carname.isEmpty()) {
                         request.setAttribute("errorVN", "Please enter a name for the car!");
                     }
-                    if (carprice.isEmpty() || !carprice.matches("-?\\d+(\\.\\d+)?")) {
+                    if (carprice.isEmpty() || !carprice.matches("^0*[1-9]\\d*(\\.\\d+)?$")) {
                         request.setAttribute("errorVP", "Please enter a valid price!");
                     }
 
@@ -559,7 +559,7 @@ public class OrderController extends HttpServlet {
 
                     if (car_seat == null || car_seat.isEmpty() || !car_seat.matches("^[0-9]+$")) {
                         request.setAttribute("errorVCS", "Please specify the number of seats!");
-                    }
+                    } 
 
                     if (engine == null || engine.isEmpty() || engine.equals("")) {
                         request.setAttribute("errorVE", "Please choose a fuel type!");
@@ -577,7 +577,7 @@ public class OrderController extends HttpServlet {
                     if (otherin.isEmpty()) {
                         otherin = "";
                     }
-                    if (title.isBlank() || carname.isBlank() || carprice.isBlank() || odo.isBlank() || brandid.isBlank() || colorid.isBlank() || !carprice.matches("-?\\d+(\\.\\d+)?") || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$") || description.isBlank() || brandid.equals("") || colorid.equals("") || car_seat.isBlank() || engine.isBlank()) {
+                    if (title.isBlank() || carname.isBlank() || carprice.isBlank() || odo.isBlank() || brandid.isBlank() || colorid.isBlank() || !carprice.matches("^0*[1-9]\\d*(\\.\\d+)?$") || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$") || description.isBlank() || brandid.equals("") || colorid.equals("") || car_seat.isBlank() || engine.isBlank()) {
                         createad(request, response);
                         return;
                     } else {
@@ -716,7 +716,7 @@ public class OrderController extends HttpServlet {
 //                                }
 //                            }
 //                        }
-                        cf.updateCar(Integer.parseInt(carId), carShowroom, Double.parseDouble(carprice.replaceAll("[^\\d.]", "")), carname, Boolean.parseBoolean(carCondition), Integer.parseInt(caryear), Common.getFormatString(description), Integer.parseInt(brandid), Integer.parseInt(colorid), Integer.parseInt(car_seat), engine, Float.parseFloat(odo));
+                        cf.updateCar(Integer.parseInt(carId), Common.getFormatString(carShowroom), Double.parseDouble(carprice.replaceAll("[^\\d.]", "")), Common.getFormatString(carname), Boolean.parseBoolean(carCondition), Integer.parseInt(caryear), Common.getFormatString(description), Integer.parseInt(brandid), Integer.parseInt(colorid), Integer.parseInt(car_seat), engine, Float.parseFloat(odo));
                         PostFacade pf = new PostFacade();
                         pf.updatePost(Integer.parseInt(postId), title, otherin);
                     }

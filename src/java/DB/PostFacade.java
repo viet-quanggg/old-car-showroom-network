@@ -177,8 +177,7 @@ public class PostFacade {
     public void updatePostStatus(int postId, String postStatus) throws SQLException {
         Connection con = DBContext.getConnection();
         try {
-            PreparedStatement stm = con.prepareStatement("Update [Post] set postStatus = ? where postId = ?"
-                    + "VALUES (?,?,?,?,CURRENT_TIMESTAMP,'Inactive')");
+            PreparedStatement stm = con.prepareStatement("Update [Post] set postStatus = ? where postId = ?");
             stm.setString(1, postStatus);
             stm.setInt(2, postId);
             int count = stm.executeUpdate();
