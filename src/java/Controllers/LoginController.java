@@ -181,12 +181,12 @@ public class LoginController extends HttpServlet {
                         request.setAttribute("ExpDate", sdf.format((Date) calendar.getTime()));
                     }
                 }
-                PostFacade pf = new PostFacade();
-                List<Post> pl = pf.listByUser(user.getUserID());
-                request.setAttribute("Post", pl);
-                OrderFacade of = new OrderFacade();
-                List<Order> ol = of.listUserOrders(user.getUserID());
-                request.setAttribute("Order", ol);
+//                PostFacade pf = new PostFacade();
+//                List<Post> pl = pf.listByUser(user.getUserID());
+//                request.setAttribute("Post", pl);
+//                OrderFacade of = new OrderFacade();
+//                List<Order> ol = of.listUserOrders(user.getUserID());
+//                  request.setAttribute("Order", ol);
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer

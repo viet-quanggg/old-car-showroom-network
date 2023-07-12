@@ -127,12 +127,13 @@
                                                                                                         letter-spacing: .3px;
                                                                                                         text-transform: uppercase;
                                                                                                         " type="file" name="userImage"></span><span style="white-space: nowrap;">
-                                    <button   style="font-size: 14px;
-                                              letter-spacing: .3px;
-                                              text-transform: uppercase;
-                                              "type="submit" name="op" value="changeimage">Update Image</button>
+                                      <button   style="font-size: 15px;
+                                                     letter-spacing: .3px;
+                                                     text-transform: uppercase;
+                                                     margin-right: 40px;
+                                                     "type="submit" name="op" value="changeimage">Update Image</button>
                                 </span> 
-                                </div></li>
+                            </li>
                             </form>
                             <form action="<c:url value="/user/update.do"/>" > 
                                 <li><span>Name:</span><span><input class="form-control" type="text" name="userName" value="${User.userName}"></span></li>
@@ -150,10 +151,10 @@
                         <button type="submit" class="form-btn" name="op" value="update">Update</button>
                     </div>
                     <br>
-                   
 
-                        </form>
- 
+
+                    </form>
+
                 </div>    
                 <div class="col-lg-6 col-xl-8">
                     <div class="common-card">

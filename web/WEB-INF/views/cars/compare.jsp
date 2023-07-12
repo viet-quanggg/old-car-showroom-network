@@ -98,7 +98,7 @@
         </div>
     </div>
 </section>
-<jsp:useBean class="Common.CommonForJSP" id="common"/>
+<jsp:useBean class="Utilities.CommonForJSP" id="common"/>
 <div class="section-gap-100">
     <div class="container">
         <div class="row">
