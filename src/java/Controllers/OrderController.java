@@ -539,17 +539,17 @@ public class OrderController extends HttpServlet {
                     request.setAttribute("car_seat", car_seat);
                     request.setAttribute("otherin", otherin);
 
-                    if (title.isEmpty()) {
+                    if (title.isBlank()) {
                         request.setAttribute("errorVT", "Please add a title!");
                     }
-                    if (carname.isEmpty()) {
+                    if (carname.isBlank()) {
                         request.setAttribute("errorVN", "Please enter a name for the car!");
                     }
-                    if (carprice.isEmpty() || !carprice.matches("^0*[1-9]\\d*(\\.\\d+)?$")) {
+                    if (carprice.isBlank() || !carprice.matches("^0*[1-9]\\d*(\\.\\d+)?$")) {
                         request.setAttribute("errorVP", "Please enter a valid price!");
                     }
 
-                    if (odo.isEmpty() || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$")) {
+                    if (odo.isBlank() || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$")) {
                         request.setAttribute("errorVOD", "Please enter a valid mileage value!");
                     }
 
@@ -571,7 +571,7 @@ public class OrderController extends HttpServlet {
                     if (colorid == null || colorid.isEmpty() || colorid.equals("")) {
                         request.setAttribute("errorVC", "Please choose a color!");
                     }
-                    if (description.isEmpty()) {
+                    if (description.isBlank()) {
                         request.setAttribute("errorVD", "Please add a description!");
                     }
                     if (otherin.isEmpty()) {

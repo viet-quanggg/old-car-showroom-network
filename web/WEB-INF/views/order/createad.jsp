@@ -290,7 +290,7 @@
                             <div class="col-12">
                                 <div class="form-group mb-0"><label class="form-label" for="description">vehicle description
                                         <span>*</span></label><textarea id="description" name="description" class="form-control" value="${description}">${description}</textarea></div>
-                                <div style="color: red">${errorVD}</div>
+                                <div style="color: red; margin-top: 21px;">${errorVD}</div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group mb-0"><label class="form-label" for="description">other information
