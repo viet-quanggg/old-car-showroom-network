@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--                    <div class="col-lg-5 col-xl-4">
+                                     <div class="col-lg-5 col-xl-4">
                                             <ul class="user-banner-data">
                                                 <li class="ads"><i class="material-icons">note</i>
                                                     <h3>${Post.count}0</h3>
@@ -51,7 +51,7 @@
                                                     <p>total car buy</p>
                                                 </li>
                                             </ul>
-                                        </div>-->
+                                        </div>
                 </div>
                 <div class="row">
                     <div class="col-xl-12">

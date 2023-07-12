@@ -50,23 +50,23 @@
                             <p>${data.carDescription}</p>
                     </div>
                 </div>
-                    <div class="common-card" id="overview">
-                        <div class="common-card-header">
-                            <h4 class="common-card-header-title">other information</h4>
-                        </div>
-                        <div class="common-card-body">
+                <div class="common-card" id="overview">
+                    <div class="common-card-header">
+                        <h4 class="common-card-header-title">other information</h4>
+                    </div>
+                    <div class="common-card-body">
                         <p><span>${pdata.postDescript}</span></p>
                     </div>
                 </div>
             </div>
 
-            <c:if test="${User.userRole == 0}">      
+            <c:if test="${User != null && User.userRole == 0}">      
                 <div class="col-xl-5">
                     <div class="common-card" >
                         <button class="col-xl-12 form-btn"  onclick="window.location.href = '<c:url value="/order/ordercar.do?postId=${pdata.postId}"/>'">Order</button>
                     </div>
 
-                    <c:if test="${User.userId == pdata.userId}">
+                    <c:if test="${pdata != null &&  User.userID == pdata.userId}">
                         <div class="common-card" >
                             <button class="col-xl-12 form-btn"  onclick="window.location.href = '<c:url value="/order/postmanager.do?postId=${pdata.postId}"/>'">Order</button>
                         </div>   
@@ -75,7 +75,7 @@
 
 
             </c:if> 
-            <c:if test="${User.userRole == 2}">      
+            <c:if test="${User != null && User.userRole == 2}">      
                 <div class="col-xl-5">
                     <div class="common-card" id="information">
                         <div class="common-card-header">
@@ -103,10 +103,12 @@
                     </div>-->
                     </div>
                     <div class="common-card" >
-                    <button class="col-xl-12 form-btn"  onclick="window.location.href = '<c:url value="/order/postmanager.do?postId=${pdata.postId}"/>'">Edit</button>
-                </div> 
+                        <c:if test="${pdata != null}">
+                            <button class="col-xl-12 form-btn"  onclick="window.location.href = '<c:url value="/order/postmanager.do?postId=${pdata.postId}"/>'">Edit</button>
+                        </c:if>
+                    </div> 
                 </div>
-                  
+
 
 
 

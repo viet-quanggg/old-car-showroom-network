@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -185,7 +186,7 @@ public class UserFacade {
         return list;
     }
 
-    public User getUser(int userID) throws SQLException {
+    public User getUser(int userID) throws SQLException, ParseException {
         User user = null;
         Connection con = DBContext.getConnection();
         PreparedStatement stm = con.prepareStatement("select * from [User] where userID = ?");
@@ -206,7 +207,8 @@ public class UserFacade {
                 user.setPlanId(rs.getInt("planId"));
             }
             if (rs.getObject("planStart") != null) {
-                user.setPlanStart(rs.getDate("planStart"));
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                user.setPlanStart(sdf.parse(sdf.format(rs.getDate("planStart"))));
             }
         }
         con.close();

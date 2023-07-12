@@ -6,8 +6,10 @@ package Controllers;
 
 import DB.AdminPageFacade;
 import DB.OrderFacade;
+import DB.PlanFacade;
 import DB.UserFacade;
 import Models.OrderList;
+import Models.Plan;
 import Models.PricingPlan;
 import Models.User;
 import static Utilities.Hashing.hash;
@@ -23,6 +25,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.apache.jasper.tagplugins.jstl.core.Catch;
@@ -44,7 +49,7 @@ public class AdminController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
@@ -132,7 +137,31 @@ public class AdminController extends HttpServlet {
 
                 }
                 break;
+            case "view":
+                String vID = request.getParameter("userID");
 
+                int view = 0;
+                try {
+                    view = Integer.parseInt(vID);
+                } catch (NumberFormatException e) {
+                    System.err.println("Parse User ID !" + e);
+                }
+
+                user = uf.getUser(view);
+                PlanFacade pf = new PlanFacade();
+                Plan plan = pf.getUserPlan(user);
+                if (plan != null) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(user.getPlanStart());
+                    calendar.add(Calendar.MONTH, plan.getPlanTime());
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    request.setAttribute("ExpDate",sdf.format((Date) calendar.getTime()));
+                }
+                request.setAttribute("userData", user);
+                request.setAttribute("UserPlan", plan);
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+
+                break;
             case "delete":
                 int deleteid = Integer.parseInt(request.getParameter("userID"));
                 user = uf.getUser(deleteid);
@@ -618,6 +647,8 @@ public class AdminController extends HttpServlet {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -635,6 +666,8 @@ public class AdminController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
             Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

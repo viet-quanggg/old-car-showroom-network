@@ -34,15 +34,15 @@
                             <li class="price-item"><span>Post Limit: ${(plan.planLimit != 0) ? plan.planLimit : "infinite"} Posts</span></li>
                             <li class="price-item"><span>Full Support From OCSN</span></li>
                         </ul>
-                        <h4 class="price-amount">$${plan.planPrice}/-</h4>
+                        <h4 class="price-amount">$${plan.planPrice}</h4>
                         <c:if test="${User == null}">
-                        <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/login/register.do"/>">get
-                            register</a>
-                        </c:if>
-                        <c:if test="${User == null}">
-                        <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/login/register.do"/>">get
-                            register</a>
-                        </c:if>    
+                            <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/login/register.do"/>">get
+                                register</a>
+                            </c:if>
+                            <c:if test="${User != null}">
+                            <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/plan/buyplan.do?planId=${plan.planId}"/>">get
+                                register</a>
+                            </c:if> 
                     </div>
                 </div>
             </c:forEach>            

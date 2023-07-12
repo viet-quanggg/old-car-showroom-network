@@ -4,12 +4,16 @@
  */
 package Controllers;
 
+import DB.OrderFacade;
 import DB.PlanFacade;
+import DB.PostFacade;
 import Models.User;
 import DB.UserFacade;
+import Models.Order;
 import Utilities.Hashing;
 import static Utilities.Hashing.hash;
 import Models.Plan;
+import Models.Post;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,7 +26,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Level;
@@ -165,8 +171,22 @@ public class LoginController extends HttpServlet {
                 }
                 if (user.getPlanId() != 0) {
                     PlanFacade pf = new PlanFacade();
+                    Plan plan = pf.getUserPlan(user);
                     request.setAttribute("UserPlan", pf.getUserPlan(user));
+                    if (plan != null) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(user.getPlanStart());
+                        calendar.add(Calendar.MONTH, plan.getPlanTime());
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        request.setAttribute("ExpDate", sdf.format((Date) calendar.getTime()));
+                    }
                 }
+                PostFacade pf = new PostFacade();
+                List<Post> pl = pf.listByUser(user.getUserID());
+                request.setAttribute("Post", pl);
+                OrderFacade of = new OrderFacade();
+                List<Order> ol = of.listUserOrders(user.getUserID());
+                request.setAttribute("Order", ol);
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer

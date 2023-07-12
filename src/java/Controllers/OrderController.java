@@ -133,7 +133,8 @@ public class OrderController extends HttpServlet {
                 if (orderl != null) {
                     request.setAttribute("orders", orderl);
                 } else {
-                    request.setAttribute("action", "");
+                    request.setAttribute("action", "error");
+                    request.setAttribute("controller", "error");
                 }
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;

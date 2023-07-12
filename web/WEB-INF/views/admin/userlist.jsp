@@ -8,8 +8,16 @@
                 <div class="row">
                     <div class="col-lg-7 col-xl-8">
                         <div class="user-banner-profile">
-                            <div class="user-banner-profile-avatar"><a href="<c:url value="/views/login/profile.do"/>"><img
-                                        src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="avatar"></a></div>
+                            <c:if test="${User.userImage == null}">
+                                <div class="user-banner-profile-avatar">
+                                    <a><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png" alt="avatar"></a>
+                                </div>
+                            </c:if>
+                            <c:if test="${User.userImage != null}">
+                                <div class="user-banner-profile-avatar"><a>
+                                        <img src="${User.getUserImage()}" onerror="this.src='"${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png'" alt="avatar"></a>
+                                </div>
+                            </c:if>
                             <div class="user-banner-profile-meta">
                                 <div class="user-banner-profile-name">
                                     <h3>${User.userName}</h3>
@@ -105,7 +113,7 @@
         margin: 15% auto;
         padding: 20px;
         border: 1px solid #888;
-        width: 80%;
+        width: fit-content;
     }
 
     .dell-btn{
@@ -155,33 +163,37 @@
                         <tbody>
                             <c:forEach var="userli" items="${UserL}" varStatus="status">
                                 <tr>
-   
-                                <td>${status.count}</td>
-                                <td>${userli.userID}</td>
-                                <td>${userli.userEmail}</td>
-                                <td>${userli.userName}</td>
-                                <td>${userli.userPhone}</td>
-                                <td>${userli.userAddress}</td>
-                                <td>${userli.timeCreated}</td>
-                                <td>
-                                    <button> <a href="<c:url value="/admin/edit.do?userID=${userli.userID}"/>">Edit</a></button>
-                                    <button id="dell-btn" class="dell-btn" onclick="document.getElementById('modal').style.display = 'block'" >Delete</button>
-                                    <div id="modal" class="modal">
-                                        <div class="modal-content">
-                                            <div style="margin-right: 20px">
-                                                Are you sure you want to delete?
-                                                <div class="col">
+
+                                    <td>${status.count}</td>
+                                    <td>${userli.userID}</td>
+                                    <td>${userli.userEmail}</td>
+                                    <td>${userli.userName}</td>
+                                    <td>${userli.userPhone}</td>
+                                    <td>${userli.userAddress}</td>
+                                    <td>${userli.timeCreated}</td>
+                                    <td>
+                                        <button > <a href="<c:url value="/admin/view.do?userID=${userli.userID}"/>">View</a></button>
+                                        <button id="dell-btn" class="dell-btn" onclick="document.getElementById('modal').style.display = 'block'" >Delete</button>
+                                        <div id="modal" class="modal" >
+                                            <div class="modal-content" >
+                                                <div style="justify-content:center;display: flex; width: 100%;">
+                                                    Are you sure you want to delete?
+                                                </div>
+                                                <div style="justify-content:center;display: flex; width: 100%;" >
                                                     <a class="btn btn-outline-danger btn-sm" href="<c:url value="/admin/delete.do?userID=${userli.userID}"/>">Yes</a>
                                                     <a class="btn btn-outline-dark-blue btn-sm"href="<c:url value="/admin/userlist.do"/>">No</a>
                                                 </div>
-                                            </div
+
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            
+                                        </br>
+                                        <button> <a href="<c:url value="/admin/edit.do?userID=${userli.userID}"/>">Edit</a></button>
+
+                                    </td>
+
                                 </tr>
                             </c:forEach>
-                            </tbody>
+                        </tbody>
                     </div>
                 </table>
 
