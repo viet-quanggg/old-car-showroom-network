@@ -44,7 +44,21 @@ public class PostFacade {
         con.close();
         return post;
     }
+        
 
+public int countPost(int userId) throws SQLException {
+        int count = 0;
+       Connection con = DBContext.getConnection();
+        PreparedStatement stm = con.prepareStatement("select Count(*) as countPost from [Post] where userId=?");
+        stm.setInt(1, userId);
+        ResultSet rs = stm.executeQuery();
+        if (rs.next()) {
+
+            count = rs.getInt("countPost");
+        }
+        con.close();
+        return count;
+    }
     public List<Post> getPostList() throws SQLException {
         ArrayList<Post> list = null;
         Connection con = DBContext.getConnection();

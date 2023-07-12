@@ -560,7 +560,7 @@ public class OrderController extends HttpServlet {
 
                     if (car_seat == null || car_seat.isEmpty() || !car_seat.matches("^[0-9]+$")) {
                         request.setAttribute("errorVCS", "Please specify the number of seats!");
-                    } 
+                    }
 
                     if (engine == null || engine.isEmpty() || engine.equals("")) {
                         request.setAttribute("errorVE", "Please choose a fuel type!");
@@ -590,6 +590,9 @@ public class OrderController extends HttpServlet {
                         }
                         PostFacade pf = new PostFacade();
                         pf.addPost(user.getUserID(), carId, Common.getFormatString(title), Common.getFormatString(otherin));
+                        int countPost = pf.countPost(user.getUserID());
+                        session.setAttribute("countPost", countPost);
+
                     }
                 } catch (ServletException | IOException | NumberFormatException | SQLException e) {
                     request.setAttribute("error", e.toString());

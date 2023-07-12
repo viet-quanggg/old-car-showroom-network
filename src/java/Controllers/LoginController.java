@@ -250,6 +250,9 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("User", user);
                     PlanFacade pf = new PlanFacade();
                     Plan plan = pf.getUserPlan(user);
+                    PostFacade pof = new PostFacade();
+                    int countPost = pof.countPost(user.getUserID());
+                    session.setAttribute("countPost", countPost);
                     session.setAttribute("UserPlan", plan);
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
                     requestDispatcher.forward(request, response);

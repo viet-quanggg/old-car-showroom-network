@@ -45,7 +45,7 @@
                     <div class="col-lg-5 col-xl-4">
                         <ul class="user-banner-data">
                             <li class="ads"><i class="material-icons">note</i>
-                                <h3>${Post.count}0</h3>
+                                <h3>${countPost}</h3>
                                 <p>total post</p>
                             </li>
                             <li class="star"><i class="material-icons">car</i>
