@@ -26,6 +26,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.File;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -151,13 +152,13 @@ public class OrderController extends HttpServlet {
                 String appo = request.getParameter("appo");
                 String orid = request.getParameter("orderId");
                 try {
-                    if (appo != null && !appo.isBlank() && appo.matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}") && orid != null && !orid.isBlank() && orid.matches("^[1-9]\\d*$")) {
+                    if (appo != null && !appo.isBlank() && appo.matches("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}$") && orid != null && !orid.isBlank() && orid.matches("^[0-9]\\d*$")) {
 
                         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
                         LocalDateTime ldt = LocalDateTime.parse(appo, formatter);
                         LocalDateTime minDateTime = ldt.withHour(8).withMinute(0);
                         LocalDateTime maxDateTime = ldt.withHour(18).withMinute(0);
-                        if (ldt.isAfter(minDateTime) && ldt.isBefore(maxDateTime) && ldt.isBefore(LocalDateTime.now())) {
+                        if (ldt.isAfter(minDateTime) && ldt.isBefore(maxDateTime) && ldt.isAfter(LocalDateTime.now())) {
                             of.updateApp(ldt, Integer.parseInt(orid));
                             of.updateOrderStatus(Integer.parseInt(orid), "Cancelled");
                         }
@@ -705,21 +706,22 @@ public class OrderController extends HttpServlet {
                         return;
                     } else {
                         CarFacade cf = new CarFacade();
-//                        Enumeration<String> headerNames = request.getHeaderNames();
-//                        if (headerNames != null) {
-//                            while (headerNames.hasMoreElements()) {
-//                                String headerName = headerNames.nextElement();
-//                                if (headerName.startsWith("Content-Disposition")) {
-//                                    List<String> imageUrls = Common.saveImage(request, response, "Car");
-//                                    if (imageUrls != null && imageUrls.size() > 0) {
-//                                        for (String url : imageUrls) {
-//                                            cf.addCar_Image(Integer.parseInt(carId), url);
-//                                        }
-//                                    }
-//                                    break;
-//                                }
-//                            }
-//                        }
+                        Enumeration<String> headerNames = request.getHeaderNames();
+                        if (headerNames != null) {
+                            while (headerNames.hasMoreElements()) {
+                                String headerName = headerNames.nextElement();
+                                if (headerName.startsWith("Content-Disposition")) {
+                                    List<String> imageUrls = Common.saveImage(request, response, "Car");
+                                    if (imageUrls != null && imageUrls.size() > 0) {
+                                        for (String url : imageUrls) {
+                                            String actualurl = request.getContextPath() + File.separator + "image" + File.separator + url.substring(url.lastIndexOf(File.separator));
+                                            cf.addCar_Image(Integer.parseInt(carId), actualurl);
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                        }
                         cf.updateCar(Integer.parseInt(carId), Common.getFormatString(carShowroom), Double.parseDouble(carprice.replaceAll("[^\\d.]", "")), Common.getFormatString(carname), Boolean.parseBoolean(carCondition), Integer.parseInt(caryear), Common.getFormatString(description), Integer.parseInt(brandid), Integer.parseInt(colorid), Integer.parseInt(car_seat), engine, Float.parseFloat(odo));
                         PostFacade pf = new PostFacade();
                         pf.updatePost(Integer.parseInt(postId), title, otherin);
