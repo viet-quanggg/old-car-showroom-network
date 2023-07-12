@@ -137,12 +137,12 @@
                             <li class="nav-item"><a href="#" class="nav-link"><i class="material-icons">store</i><span
                                         class="nav-text">vendor</span><span class="nav-arrow"></span></a>
                                 <ul class="drop-list">
-                                    <li class="drop-item"><a href="vendor-grid.html" class="drop-link"><i
-                                                class="material-icons">remove</i><span>vendor grid</span></a></li>
-                                    <li class="drop-item"><a href="vendor-list.html" class="drop-link"><i
+                                    <li class="drop-item"><a href="<c:url value="/ocsn/vendor.do"/>" class="drop-link"><i
+                                                class="material-icons">remove</i><span>Vendor</span></a></li>
+<!--                                    <li class="drop-item"><a href="vendor-list.html" class="drop-link"><i
                                                 class="material-icons">remove</i><span>vendor list</span></a></li>
                                     <li class="drop-item"><a href="posted-ads.html" class="drop-link"><i
-                                                class="material-icons">remove</i><span>vendor single</span></a></li>
+                                                class="material-icons">remove</i><span>vendor single</span></a></li>-->
                                 </ul>
                             </li>
                             <li class="nav-item"><a href="#" class="nav-link"><i class="material-icons">menu_book</i><span
@@ -187,7 +187,7 @@
                             <li class="nav-item"><a href="#" class="nav-link"><i class="material-icons">security</i><span
                                         class="nav-text">security</span><span class="nav-arrow"></span></a>
                                 <ul class="drop-list">
-                                    <li class="drop-item"><a href="<c:url value="/views/login/login.do"/>" class="drop-link"><i
+                                    <li class="drop-item"><a href="<c:url value="/login/login.do"/>" class="drop-link"><i
                                                 class="material-icons">remove</i><span>login</span></a></li>
                                     <li class="drop-item"><a href="<c:url value="/login/register.do"/>" class="drop-link"><i
                                                 class="material-icons">remove</i><span>register</span></a></li>
@@ -236,8 +236,6 @@
                     <li class="float-item"><a href="notify.html" class="badge-hover"><i
                                 class="orange material-icons">notifications</i><span
                                 class="badge arrow-right">notify</span><sup>3</sup></a></li>
-                    <li class="nav-item"><a href="<c:url value="/blog/bloglistuser.do?bid=${User.userID}"/>" class="nav-link"><i
-                                class="material-icons">Your Blog</i><span class="nav-text">Your Blog</span></a></li> 
                 </ul>
             </div>
         </c:if>

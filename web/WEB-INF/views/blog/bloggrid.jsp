@@ -12,9 +12,9 @@
         <div class="single-banner">
             <div class="container">
                 <h2>blog grid page</h2>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/ocsn/index.do">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">blog-grid</li>
+                <ol>
+                    <a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">home</a>
+                    <a class="mc-breadcrumb-link" aria-current="page">blog-grid</a>
                 </ol>
             </div>
         </div>
@@ -26,8 +26,9 @@
             <div class="col-lg-4 col-xl-4">
                 <div class="blog-widget">
                     <h5 class="blog-widget-title">Find blogs</h5>
-                    <form class="blog-widget-form"><input type="text" placeholder="Search blogs"><button
-                            type="submit" class="material-icons">search</button></form>
+                    <form class="blog-widget-form" action="<c:url value="/blog/search_blog.do"/>" method="post">
+                        <input type="text" name="search" placeholder="Search blogs">
+                        <button type="submit" class="material-icons">search</button></form>
                 </div>
                 <div class="blog-widget">
                     <h5 class="blog-widget-title">popular feeds</h5>
@@ -68,11 +69,9 @@
                 <div class="blog-widget">
                     <h5 class="blog-widget-title">follow us</h5>
                     <ul class="blog-widget-social">
-                        <li><a href="#" class="facebook icofont-facebook"></a></li>
-                        <li><a href="#" class="twitter icofont-twitter"></a></li>
-                        <li><a href="#" class="linkedin icofont-linkedin"></a></li>
-                        <li><a href="#" class="pinterest icofont-pinterest"></a></li>
-                        <li><a href="#" class="instagram icofont-instagram"></a></li>
+                        <li><a href="https://www.facebook.com/FPTU.HCM" class="facebook icofont-facebook"></a></li>
+                        <li><a href="https://hcmuni.fpt.edu.vn" class="linkedin icofont-linkedin"></a></li>
+                    </ul>
                     </ul>
                 </div>
             </div>

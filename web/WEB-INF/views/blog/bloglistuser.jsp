@@ -98,14 +98,14 @@
         <div class="row content-reverse">
             <div class="col-lg-4 col-xl-4">
                 <div class="blog-widget">
+                    <div class="blog-widget">
                     <h5 class="blog-widget-title">follow us</h5>
                     <ul class="blog-widget-social">
                         <li><a href="https://www.facebook.com/FPTU.HCM" class="facebook icofont-facebook"></a></li>
-                        <li><a href="#" class="twitter icofont-twitter"></a></li>
-                        <li><a href="#" class="linkedin icofont-linkedin"></a></li>
-                        <li><a href="#" class="pinterest icofont-pinterest"></a></li>
-                        <li><a href="#" class="instagram icofont-instagram"></a></li>
+                        <li><a href="https://hcmuni.fpt.edu.vn" class="linkedin icofont-linkedin"></a></li>
                     </ul>
+                    </ul>
+                </div>
                 </div>
             </div>
             <div class="col-lg-8 col-xl-8">

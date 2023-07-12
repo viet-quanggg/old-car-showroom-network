@@ -103,6 +103,22 @@ public class BlogController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
             }
             break;
+            case "search_blog":
+                String searchQuery = request.getParameter("search").trim();
+
+                if (searchQuery == null || searchQuery.isEmpty()) {
+                    List<Blog> ship = bf.listBlog();
+                    request.setAttribute("blog", ship);
+                } else {
+                    // Perform search logic and retrieve matching orders from the database
+                    List<Blog> search = bf.searchBlog(searchQuery);
+
+                    request.setAttribute("blog", search);
+                }
+                request.setAttribute("action", "bloglist");
+
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+                break;
             case "bloggrid":
                 try {
                 String indexPage = request.getParameter("index");
@@ -306,7 +322,7 @@ public class BlogController extends HttpServlet {
             break;
 
         }
-
+    
     }
 
     private String convertISToString(InputStream is) throws IOException {

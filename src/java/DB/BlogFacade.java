@@ -303,4 +303,29 @@ public class BlogFacade {
         }
         return null;
     }
+
+    public List<Blog> searchBlog(String search) throws SQLException {
+        try {
+            List<Blog> list = new ArrayList<>();
+            con = DBContext.getConnection();
+            ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName from [Blog] b join [User] u on b.blogId = u.userId WHERE b.blogTitle LIKE '%"+search+"%'");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Blog blog = new Blog();
+                blog.setBlogId(rs.getInt(1));
+                blog.setBlogTitle(rs.getString(2));
+                blog.setBlogDetail(rs.getString(3));
+                blog.setBlogImage(rs.getString(4));
+                blog.setBlogDate(rs.getDate(5));
+                blog.setUserId(rs.getInt(6));
+                blog.setUserName(rs.getString(7));
+                list.add(blog);
+            }
+            con.close();
+            return list;
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
 }
