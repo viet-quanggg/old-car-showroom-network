@@ -30,7 +30,7 @@ import java.util.Date;
 @WebServlet(name = "UserController", urlPatterns = {"/user"})
 public class UserController extends HttpServlet {
 
-    protected String UP_LOAD_PATH = "/Users/_viet.quangg/Study/Subject Term 5/SWP391/NewFolder/old-car-showroom-network/web/images/user/";
+    protected String UP_LOAD_PATH = "/Users/Dell/Downloads/ocsn-main/ocsn-main-main/old-car-showroom-network-6/old-car-showroom-network/web/images/user/";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

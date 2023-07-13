@@ -39,10 +39,27 @@
                             <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/login/register.do"/>">get
                                 register</a>
                             </c:if>
-                            <c:if test="${User != null}">
-                            <h5 class="price-mode">per advertise post</h5><a class="price-action" href="<c:url value="/plan/buyplan.do?planId=${plan.planId}"/>">get
-                                register</a>
+                            <c:if test="${User != null}"> 
+                            <h5 class="price-mode">per advertise post</h5><a class="price-action" onclick="document.getElementById('modal').style.display = 'block'" >get
+                                subscribe</a>
+                            <div id="modal" class="modal" >
+                                <div class="modal-content" >
+                                        <div class="header-user" style="justify-content:center;display: flex; width: 100%;">
+                                        <img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/download.png"
+                                             alt="user">                                                   
+                                    </div>                                             
+                                             <div style="justify-content:center;display: flex; width: 100%;">
+                                        <h3 style="color:greenyellow"> Payment Successful!</h3>
+                                    </div>
+                                        <div style="justify-content:center;display: flex; width: 100%;" >
+                                            <a class="btn btn-outline-success btn-sm"href="<c:url value="/plan/buyplan.do?planId=${plan.planId}"/>">OK</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
                             </c:if> 
+
                     </div>
                 </div>
             </c:forEach>            

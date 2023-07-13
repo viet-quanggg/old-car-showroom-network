@@ -187,10 +187,10 @@ public class LoginController extends HttpServlet {
                 }
                 PostFacade pf = new PostFacade();
                 List<Post> pl = pf.listByUser(user.getUserID());
-                request.setAttribute("Post", (pl != null && pl.size() > 0) ? pl.size() : 0);
+                session.setAttribute("Post", (pl != null && pl.size() > 0) ? pl.size() : 0);
                 OrderFacade of = new OrderFacade();
                 List<Order> ol = of.listUserOrders(user.getUserID());
-                request.setAttribute("Order", (ol != null && ol.size() > 0) ? ol.size() : 0);
+                session.setAttribute("Order", (ol != null && ol.size() > 0) ? ol.size() : 0);
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
@@ -278,7 +278,10 @@ public class LoginController extends HttpServlet {
 //                            session.setAttribute("UserPlan", plan);
 //                        }
 //                    }
-
+                    OrderFacade of = new OrderFacade();
+                    int countPost = of.countOrder(user.getUserID());
+                    request.setAttribute("countPost", countPost);
+                    PostFacade pof = new PostFacade();
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
                     requestDispatcher.forward(request, response);
 

@@ -36,7 +36,7 @@ public class PlanController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, ParseException {
+            throws ServletException, IOException, SQLException, ParseException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
@@ -66,7 +66,7 @@ public class PlanController extends HttpServlet {
                     plan = pf.getUserPlan(user);
                     user.setPostLimit(plan.getPlanLimit());
                     user = uf.updatePlan(user);
-                    
+
 //                    if (user.getPlanId() != 0 && user.getPlanStart() != null && plan != null) {
 //                        session.setAttribute("countPost", "");
 //
@@ -89,16 +89,30 @@ public class PlanController extends HttpServlet {
 //                        }
 //                        session.setAttribute("UserPlan", plan);
 //                    }
+                    new GmailController().sendMail("A new message", """
+                                                    Dear reader,
+                                                        
+                                                    This is a test message from the staff of the old car showroom
+                                                    http://localhost:8080/OldCarShowroom/ocsn/index.do
+                                                    Thanks for using our service!
+                                                        
+                                                    Best regards,
+                                                    OCSN
+                                                        """, "ngtranxuanan@gmail.com");
 
-                    session.setAttribute("User", user);
-                    session.setAttribute("UserPlan", plan);
-                } catch (NumberFormatException e) {
+                
+
+                session.setAttribute("User", user);
+                session.setAttribute("UserPlan", plan);
+        }catch (NumberFormatException e) {
                     System.err.println("Parse plan ID !" + e);
                 }
-                response.sendRedirect(request.getContextPath() + "/ocsn/index.do");
+        response.sendRedirect(request.getContextPath() + "/ocsn/index.do");
 
-                break;
-            case "getplan":
+        break;
+    
+
+case "getplan":
                 Plan userplan = (Plan) session.getAttribute("UserPlan");
                 request.setAttribute("UserPlan", userplan);
             default:
@@ -119,13 +133,21 @@ public class PlanController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(PlanController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+
+} catch (SQLException ex) {
+            Logger.getLogger(PlanController.class  
+
+.getName()).log(Level.SEVERE, null, ex);
+
+} catch (ParseException ex) {
+            Logger.getLogger(PlanController.class  
+
+.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(PlanController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -139,13 +161,21 @@ public class PlanController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(PlanController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+
+} catch (SQLException ex) {
+            Logger.getLogger(PlanController.class  
+
+.getName()).log(Level.SEVERE, null, ex);
+
+} catch (ParseException ex) {
+            Logger.getLogger(PlanController.class  
+
+.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(PlanController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -156,7 +186,7 @@ public class PlanController extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
