@@ -27,7 +27,7 @@
                     <div class="blog-single-content">
                         <ul class="blog-single-meta-list">
                             <li><i class="material-icons">account_circle</i><span>post by <a
-                                        href="blog-single.html">${bid.userName}</a></span></li>
+                                        href="#">${bid.userName}</a></span></li>
                             <li><i class="material-icons">event_note</i><span>${bid.blogDate}</span></li>
                             <li><i class="material-icons">forum</i><span>05 comments</span></li>
                             <li><i class="material-icons">public</i><span>03 share</span></li>

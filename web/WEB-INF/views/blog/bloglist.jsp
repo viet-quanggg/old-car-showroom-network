@@ -78,14 +78,23 @@
                     <div class="col-xl-12">
 
                         <div class="top-filter">
-                            <form action="" method="POST">
-                                <div class="filter-show"><label class="filter-label">Show :</label>
-                                    <select class="form-select filter-select" onchange="this.form.submit()" name="blogPerPage" >
-                                        <option selected value="4">4</option>
-                                        <option value="8"  >8</option>
-                                        <option value="12"  >12</option>
-                                    </select></div>
-                            </form> 
+                            <form action="<c:url value='/blog/bloglist.do'/>" method="POST">
+                                <div class="filter-show">
+                                    <label class="filter-label">Show :</label>
+                                    <select class="form-select filter-select" name="blogPerPage" id="blogPerPage" onchange="updateText(); this.form.submit()">
+                                        <option value="4">4</option>
+                                        <option value="8">8</option>
+                                        <option value="12">12</option>
+                                    </select>
+                                </div>
+                            </form>
+
+                            <script>
+                                function updateText() {
+                                    var comboBox = document.getElementById("blogPerPage");
+                                    var selectedValue = comboBox.options[comboBox.selectedIndex].value;
+                                    comboBox.innerHTML = selectedValue;
+                            </script>
                             <!--                            <div class="filter-short"><label class="filter-label">Short by :</label><select
                                                                 class="form-select filter-select"  >
                                                                 <option selected>default</option>
@@ -156,32 +165,40 @@
 
                             </div>
                             <script>
-                                document.addEventListener("DOMContentLoaded", function () {
-                                    const MAX_LENGTH = 200; // Maximum length of truncated text
-                                    const paragraph = document.getElementById("blog-detail-${blog.blogId}");
-                                    const shortenedText = paragraph.textContent.slice(0, MAX_LENGTH);
-                                    const truncatedText = shortenedText + "...";
-                                    paragraph.textContent = truncatedText;
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        const MAX_LENGTH = 200; // Maximum length of truncated text
+                                        const paragraph = document.getElementById("blog-detail-${blog.blogId}");
+                                        const shortenedText = paragraph.textContent.slice(0, MAX_LENGTH);
+                                        const truncatedText = shortenedText + "...";
+                                        paragraph.textContent = truncatedText;
 
-                                });
+                                    }
+                                    );
                             </script>
                         </c:forEach>
                     </div>
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="bottom-paginate mb-50">
-                                <p class="page-info">Showing ${currentPage} of ${endPage} Results</p>
+                                <p class="page-info">Showing ${result} of ${countblog} Results</p>
                                 <ul class="pagination">
                                     <li class="page-item"><a href="#" class="page-link material-icons">chevron_left</a>
                                     </li>
-                                    
-                                    
-                                            <c:forEach begin="1" end="${endPage}" var="i">
-                                                <li class="page-item">
-                                                    <a href="<c:url value='/blog/bloglist.do?index=${i}'/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
-                                                </li>
-                                            </c:forEach>
-                                        
+
+                                    <c:forEach begin="1" end="${endPage}" var="i">
+                                        <c:if test="${search13 == null}">
+                                            <li class="page-item">
+
+                                                <a href="<c:url value='/blog/bloglist.do?index=${i}'/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
+                                            </li>
+                                        </c:if>
+                                        <c:if test="${search13 != null}">
+                                            <li class="page-item">
+                                                <a href="<c:url value='/blog/search_blog.do?index=${i}&search=${search13}'/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
+                                            </li>
+                                        </c:if>
+                                    </c:forEach>
+
 
                                     <!--                                                        <li class="page-item"><a href="#" class="page-link">02</a></li>
                                                                                                 <li class="page-item"><a href="#" class="page-link">03</a></li>

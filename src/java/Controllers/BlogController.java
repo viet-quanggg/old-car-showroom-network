@@ -47,7 +47,7 @@ import org.apache.tomcat.jni.SSLContext;
 @MultipartConfig
 public class BlogController extends HttpServlet {
 
-    protected String UP_LOAD_PATH = "/Users/_viet.quangg/Study/Subject Term 5/SWP391/latest/old-car-showroom-network/web/images/blog";
+    protected String UP_LOAD_PATH = "D:\\SWP391\\old-car-showroom-network\\web\\images\\blog\\";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -96,6 +96,8 @@ public class BlogController extends HttpServlet {
                 request.setAttribute("endPage", endPage);
                 request.setAttribute("latest", latest);
                 request.setAttribute("blog", blog);
+                request.setAttribute("result", num);
+                request.setAttribute("countblog", countPage);
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
             } catch (Exception e) {
                 request.setAttribute("controller", "error");
@@ -120,7 +122,7 @@ public class BlogController extends HttpServlet {
                         indexPage = "1";
                     }
                     int index = Integer.parseInt(indexPage);
-
+                    
                     String blogPerPage = request.getParameter("blogPerPage");
                     if (blogPerPage == null) {
                         blogPerPage = "4";
@@ -132,14 +134,16 @@ public class BlogController extends HttpServlet {
                     if (endPage % num != 0) {
                         endPage++;
                     }
-
                     List<Blog> search = bf.searchBlog(index, num, searchQuery);
                     int currentPage = index;
                     latest = bf.listLatest();
                     request.setAttribute("currentPage", currentPage);
+                    request.setAttribute("result", num);
+                    request.setAttribute("countblog", countPage);
                     request.setAttribute("endPage", endPage);
                     request.setAttribute("latest", latest);
                     request.setAttribute("blog", search);
+                    request.setAttribute("search13", searchQuery);
                 }
                 request.setAttribute("action", "bloglist");
 
@@ -176,13 +180,15 @@ public class BlogController extends HttpServlet {
                     }
 
 //                blog = bf.listBlog();
-                   List<Blog> search = bf.searchBlog(index, num, searchQuery1);
+                    List<Blog> search = bf.searchBlog(index, num, searchQuery1);
                     int currentPage = index;
                     latest = bf.listLatest();
                     request.setAttribute("currentPage", currentPage);
                     request.setAttribute("endPage", endPage);
                     request.setAttribute("latest", latest);
                     request.setAttribute("blog", search);
+                    request.setAttribute("result", num);
+                    request.setAttribute("countblog", countPage);
                 }
                 request.setAttribute("action", "bloggrid");
 
@@ -217,6 +223,8 @@ public class BlogController extends HttpServlet {
                 request.setAttribute("endPage", endPage);
                 request.setAttribute("latest", latest);
                 request.setAttribute("blog", blog);
+                request.setAttribute("result", num);
+                request.setAttribute("countblog", countPage);
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
 
                 //Hien trang thong bao loi

@@ -114,7 +114,7 @@ public class BlogFacade {
     public Blog listBlogId(String id) throws SQLException {
         try {
             con = DBContext.getConnection();
-            ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName from [Blog] b join [User] u on b.blogId = u.userId where blogId = ?");
+            ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName from [Blog] b join [User] u on b.userId= u.userId where blogId = ?");
             ps.setString(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -187,7 +187,7 @@ public class BlogFacade {
             con = DBContext.getConnection();
             ps = con.prepareStatement("select COUNT(*)\n"
                     + "from [blog]"
-                    + "WHERE blogTitle = '%"+search+"%'");
+                    + "WHERE blogTitle like '%"+search+"%'");
             rs = ps.executeQuery();
             while (rs.next()) {
                 return rs.getInt(1);
