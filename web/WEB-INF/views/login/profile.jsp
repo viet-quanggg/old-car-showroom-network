@@ -129,42 +129,44 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-5 col-xl-4">
-                <div class="common-card">
-                    <div class="common-card-header">
-                        <h4 class="common-card-header-title">Your Plan Package</h4>
-                    </div>
-                    <form>
-                        <div class="common-card-body "> 
-                            <ul class="profile-specify-list">
-                                <c:if test="${UserPlan!=null}">
-                                    <li><span>Package</span><span>${UserPlan.planName}</span></li>
-                                    <li><span>Expired Date:</span><span>${ExpDate}</span></li>
-                                    <li><span>Post available:</span><span>${(UserPlan.planLimit  != 0) ? User.postLimit : "infinite"}</span></li>
-                                        <c:if test="${UserPlan!=null && User.postLimit == 0}">
-                                        <h6 style="display:flex;justify-content: center;margin-top: 10px">You have reached the post limit!</h6>
-                                        <h6 style="display:flex;justify-content: center;">Re-subscribe to make more posts!</h6>
-                                        <a href="../../../../src/java/Controllers/LoginController.java"></a>
-                                        <li><a class="form-btn" href="<c:url value="/order/pricingplan.do"/>" style="margin-top: 10px;">
-                                                Subscribe plan
-                                            </a></li>
-                                        </c:if>
-                                    </c:if> 
-                                    <c:if test="${UserPlan==null}">
-                                    <h6 style="display:flex;justify-content: center;">You have not subscribe to a plan yet!</h6>
-                                    <a class="form-btn" href="<c:url value="/order/pricingplan.do"/>" style="margin-top: 10px;">
-                                        Subscribe plan
-                                    </a>
-                                </c:if>
-                            </ul>
+            </div> 
+            <c:if test="${User.userRole == 0}">
+                <div class="col-lg-5 col-xl-4">
+                    <div class="common-card">
+                        <div class="common-card-header">
+                            <h4 class="common-card-header-title">Your Plan Package</h4>
                         </div>
-                    </form>
+                        <form>
+                            <div class="common-card-body "> 
+                                <ul class="profile-specify-list">
+                                    <c:if test="${UserPlan!=null}">
+                                        <li><span>Package</span><span>${UserPlan.planName}</span></li>
+                                        <li><span>Expired Date:</span><span>${ExpDate}</span></li>
+                                        <li><span>Post available:</span><span>${(UserPlan.planLimit  != 0) ? User.postLimit : "infinite"}</span></li>
+                                            <c:if test="${UserPlan!=null && User.postLimit == 0}">
+                                            <h6 style="display:flex;justify-content: center;margin-top: 10px">You have reached the post limit!</h6>
+                                            <h6 style="display:flex;justify-content: center;">Re-subscribe to make more posts!</h6>
+                                            <a href="../../../../src/java/Controllers/LoginController.java"></a>
+                                            <li><a class="form-btn" href="<c:url value="/order/pricingplan.do"/>" style="margin-top: 10px;">
+                                                    Subscribe plan
+                                                </a></li>
+                                            </c:if>
+                                        </c:if> 
+                                        <c:if test="${UserPlan==null}">
+                                        <h6 style="display:flex;justify-content: center;">You have not subscribe to a plan yet!</h6>
+                                        <a class="form-btn" href="<c:url value="/order/pricingplan.do"/>" style="margin-top: 10px;">
+                                            Subscribe plan
+                                        </a>
+                                    </c:if>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</c:if>
 </section>
 
 
