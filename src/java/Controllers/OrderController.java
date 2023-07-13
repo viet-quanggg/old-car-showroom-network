@@ -205,11 +205,11 @@ public class OrderController extends HttpServlet {
                         new GmailController().sendMail("notification", """
                                                     Dear User,
                                                         
-                                                       Your Order was Cancelled !
+                                                       Your Order was cancelled !
                                                         
                                                     Best regards,
                                                     OCSN
-                                                        """, "nguyenvietquang099@gmail.com");
+                                                        """, user.getUserEmail());
                         break;
                     case "success":
                         int orderId2 = Integer.parseInt(request.getParameter("orderId"));
@@ -218,11 +218,11 @@ public class OrderController extends HttpServlet {
                         new GmailController().sendMail("notification", """
                                                     Dear User,
                                                         
-                                                       Your Order was Complete !
+                                                       Your Order is completed !
                                                         
                                                     Best regards,
                                                     OCSN
-                                                        """, "nguyenvietquang099@gmail.com");
+                                                        """, user.getUserEmail());
                         break;
                     case "pending":
                         int orderId3 = Integer.parseInt(request.getParameter("orderId"));
@@ -231,11 +231,11 @@ public class OrderController extends HttpServlet {
                         new GmailController().sendMail("notification", """
                                                     Dear User,
                                                         
-                                                       Your Order was Pending !
+                                                       Your Order is placed !
                                                         
                                                     Best regards,
                                                     OCSN
-                                                        """, "nguyenvietquang099@gmail.com");
+                                                        """, user.getUserEmail());
                         break;
                     case "inprocess":
                         int orderId4 = Integer.parseInt(request.getParameter("orderId"));
@@ -244,11 +244,11 @@ public class OrderController extends HttpServlet {
                         new GmailController().sendMail("notification", """
                                                     Dear User,
                                                         
-                                                       Your Order was In Process !
+                                                       Your Order is processing !
                                                         
                                                     Best regards,
                                                     OCSN
-                                                        """, "nguyenvietquang099@gmail.com");
+                                                        """, user.getUserEmail());
                         break;
 //                    case "delete":
 //                        int orderId5 = Integer.parseInt(request.getParameter("orderId"));

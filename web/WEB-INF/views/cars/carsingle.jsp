@@ -61,6 +61,14 @@
                     </div>
                 </c:if>
             </div>
+            <c:if test="${User == null }" >
+                <div class="col-xl-5">
+                    <div class="common-card" >
+                        <button class="col-xl-12 form-btn"  onclick="window.location.href = '<c:url value="/login/login.do"/>'">Order</button>
+                    </div>
+                </div>
+
+            </c:if>
 
             <c:if test="${User != null && User.userRole == 0}">      
                 <div class="col-xl-5">

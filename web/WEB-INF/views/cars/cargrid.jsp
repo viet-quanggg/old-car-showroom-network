@@ -32,7 +32,7 @@
                         <c:forEach items="${data}" var="item">
                             <div class="col">
                                 <div class="product-grid-card">
-                                    <div class="product-grid-image"><img style='max-height: 240px; min-height: 240px;max-width: 320px; min-width: 320px' src="${pageContext.request.contextPath}${item.image.size() != 0 ? item.image.get(0).url : ''}" alt="product">
+                                    <div class="product-grid-image"><img href="<c:url value="/cars/carsingle.do?carId=${item.carID}"/>" style='max-height: 240px; min-height: 240px;max-width: 320px; min-width: 320px' src="${pageContext.request.contextPath}${item.image.size() != 0 ? item.image.get(0).url : ''}" alt="product">
                                         <div class="product-grid-badge"><span class="badge new" style="color: ${item.carCondition ? 'red' : 'green'}">${item.carCondition ? 'Sold' : 'Available'}</span></div>
                                         <div class="product-grid-hints"><i
                                                 class="material-icons">collections</i><span>${item.image.size()}</span></div>

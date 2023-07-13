@@ -50,7 +50,7 @@
 
                                 <div class="product-list-card">
                                     <div class="product-list-image">
-                                        <img style="max-height: 220px; min-height: 220px; max-width: 310px;min-width: 310px" src="${pageContext.request.contextPath}${item.image.size() == 0 ? '' : item.image.get(0).url}" alt="product">
+                                        <img  style="max-height: 220px; min-height: 220px; max-width: 310px;min-width: 310px" src="${pageContext.request.contextPath}${item.image.size() == 0 ? '' : item.image.get(0).url}" alt="product">
                                     </div>
                                     <div class="product-list-content">
                                         <div class="product-list-group">
