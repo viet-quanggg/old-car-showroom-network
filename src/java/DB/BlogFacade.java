@@ -137,7 +137,8 @@ public class BlogFacade {
     }
 
     public void create(Blog blog) throws SQLException {
-        try (Connection con = DBContext.getConnection(); PreparedStatement ps = con.prepareStatement("SET IDENTITY_INSERT [dbo].[Blog] ON;"
+        try (Connection con = DBContext.getConnection(); 
+                PreparedStatement ps = con.prepareStatement("SET IDENTITY_INSERT [dbo].[Blog] ON;"
                 + "INSERT INTO [dbo].[Blog](blogId, blogTitle, blogDetail, blogImage, userId, blogDate) VALUES ((SELECT MAX(blogId) FROM [dbo].[Blog]) + 1, ?, ?, ?, ?, CURRENT_TIMESTAMP);"
                 + "SET IDENTITY_INSERT [dbo].[Blog] OFF;")) {
             ps.setString(1, blog.getBlogTitle());

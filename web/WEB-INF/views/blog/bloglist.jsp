@@ -169,7 +169,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-12">
-                            <!--                            <div class="bottom-paginate mb-50">
+                                                        <div class="bottom-paginate mb-50">
                                                             <p class="page-info">Showing ${currentPage} of ${endPage} Results</p>
                                                             <ul class="pagination">
                                                                 <li class="page-item"><a href="#" class="page-link material-icons">chevron_left</a>
@@ -178,16 +178,20 @@
                                 <li class="page-item">
                                     <a href="<c:url value="/blog/bloglist.do?index=${i}"/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
                                 </li>
+                                
+                                <li class="page-item">
+                                    <a href="<c:url value="/blog/search.do?index=${i}"/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
+                                </li>
                             </c:forEach>
 
-                                                        <li class="page-item"><a href="#" class="page-link">02</a></li>
+<!--                                                        <li class="page-item"><a href="#" class="page-link">02</a></li>
                                                             <li class="page-item"><a href="#" class="page-link">03</a></li>
                                                             <li class="page-item"><a href="#" class="page-link">...</a></li>
                                                             <li class="page-item"><a href="#" class="page-link">45</a></li>
                             <li class="page-item"><a href="<c:url value="/blog/bloglist.do?index=${i + 1}"/>" class="page-link material-icons">chevron_right</a>
-                            </li>
+                            </li>-->
                         </ul>
-                    </div>-->
+                    </div>
                         </div>
                     </div>
 

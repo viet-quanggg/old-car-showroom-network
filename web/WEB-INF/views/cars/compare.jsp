@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-lg-7 col-xl-8">
                         <div class="user-banner-profile">
-                                                        <c:if test="${User.userImage == null}">
+                            <c:if test="${User.userImage == null}">
                                 <div class="user-banner-profile-avatar">
                                     <a><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png" alt="avatar"></a>
                                 </div>
@@ -41,7 +41,7 @@
                     <div class="col-lg-5 col-xl-4">
                         <ul class="user-banner-data">
                             <li class="ads"><i class="material-icons">note</i>
-                                <h3>${Post.count}0</h3>
+                                <h3>${countPost}</h3>
                                 <p>total post</p>
                             </li>
                             <li class="star"><i class="material-icons">car</i>
@@ -75,7 +75,8 @@
                                 <li><a href="<c:url value="/order/orderlist.do"/>"class="">Order List</a></li>
                                 <li><a href="<c:url value="/order/favorite.do"/>"class="">favorite</a></li>
                                 <li><a href="<c:url value="/cars/compare.do"/>"class="active">compares</a></li>
-                                </c:if>
+                                <li><a href="<c:url value="/blog/bloglistuser.do?uid=${User.userID}"/>">Your Blog</a></li> 
+                            </c:if>
 
                         </ul>
                     </div>

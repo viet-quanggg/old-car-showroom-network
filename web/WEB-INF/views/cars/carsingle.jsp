@@ -50,14 +50,16 @@
                             <p>${data.carDescription}</p>
                     </div>
                 </div>
-                <div class="common-card" id="overview">
-                    <div class="common-card-header">
-                        <h4 class="common-card-header-title">other information</h4>
+                <c:if test="${!pdata.postDescript.isBlank()}">
+                    <div class="common-card" id="overview">
+                        <div class="common-card-header">
+                            <h4 class="common-card-header-title">other information</h4>
+                        </div>
+                        <div class="common-card-body">
+                            <p><span>${pdata.postDescript}</span></p>
+                        </div>
                     </div>
-                    <div class="common-card-body">
-                        <p><span>${pdata.postDescript}</span></p>
-                    </div>
-                </div>
+                </c:if>
             </div>
 
             <c:if test="${User != null && User.userRole == 0}">      

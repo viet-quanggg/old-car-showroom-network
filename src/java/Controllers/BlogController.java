@@ -47,7 +47,7 @@ import org.apache.tomcat.jni.SSLContext;
 @MultipartConfig
 public class BlogController extends HttpServlet {
 
-    protected String UP_LOAD_PATH = "/Users/_viet.quangg/Study/Subject Term 5/SWP391/NewFolder/old-car-showroom-network/web/images/blog/";
+    protected String UP_LOAD_PATH = "D:\\SWP391\\old-car-showroom-network\\web\\images\\blog\\";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -107,8 +107,12 @@ public class BlogController extends HttpServlet {
                 String searchQuery = request.getParameter("search").trim();
 
                 if (searchQuery == null || searchQuery.isEmpty()) {
-                    List<Blog> ship = bf.listBlog();
-                    request.setAttribute("blog", ship);
+//                    List<Blog> ship = bf.listBlog();
+                    request.setAttribute("action", "bloglist");
+                    processRequest(request, response);
+                    return;
+//                    response.sendRedirect(request.getContextPath() + "/blog/bloglist.do");
+//                    request.setAttribute("blog", ship);
                 } else {
                     // Perform search logic and retrieve matching orders from the database
                     List<Blog> search = bf.searchBlog(searchQuery);
@@ -116,6 +120,26 @@ public class BlogController extends HttpServlet {
                     request.setAttribute("blog", search);
                 }
                 request.setAttribute("action", "bloglist");
+
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
+                break;
+            case "search_blog1":
+                String searchQuery1 = request.getParameter("search").trim();
+
+                if (searchQuery1 == null || searchQuery1.isEmpty()) {
+//                    List<Blog> ship = bf.listBlog();
+                    request.setAttribute("action", "bloglist");
+                    processRequest(request, response);
+                    return;
+//                    response.sendRedirect(request.getContextPath() + "/blog/bloglist.do");
+//                    request.setAttribute("blog", ship);
+                } else {
+                    // Perform search logic and retrieve matching orders from the database
+                    List<Blog> search = bf.searchBlog(searchQuery1);
+
+                    request.setAttribute("blog", search);
+                }
+                request.setAttribute("action", "bloggrid");
 
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 break;
@@ -249,33 +273,30 @@ public class BlogController extends HttpServlet {
                         Part part = request.getPart("blogimage");
                         String blogImage = part.getSubmittedFileName();
                         String uploadPath = UP_LOAD_PATH + blogImage;
-                        try {
-                            FileOutputStream fos = new FileOutputStream(uploadPath);
-                            InputStream is = part.getInputStream();
-                            byte[] data = new byte[is.available()];
-                            is.read(data);
-                            fos.write(data);
-                            fos.close();
-                            if (blogTitle == null || blogTitle.isEmpty()
-                                    || blogDetail == null || blogDetail.isEmpty()
-                                    || blogImage == null) {
-                                throw new IllegalArgumentException("Missing or invalid input field(s)");
-                            }
-                            String inputImage = request.getContextPath() + "/images/blog/" + blogImage;
-                            Blog newBlog = new Blog(blogTitle, blogDetail, inputImage, userId);
-                            bf.create(newBlog);
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
+
+                        FileOutputStream fos = new FileOutputStream(uploadPath);
+                        InputStream is = part.getInputStream();
+                        byte[] data = new byte[is.available()];
+                        is.read(data);
+                        fos.write(data);
+                        fos.close();
+                        if (blogTitle == null || blogTitle.isEmpty()
+                                || blogDetail == null || blogDetail.isEmpty()
+                                || blogImage == null) {
+                            throw new IllegalArgumentException("Missing or invalid input field(s)");
                         }
 
+                        String inputImage = request.getContextPath() + "/images/blog/" + blogImage;
+                        Blog newBlog = new Blog(blogTitle, blogDetail, inputImage, userId);
+                        bf.create(newBlog);
                         request.setAttribute("message", "Create successfully");
                         request.getRequestDispatcher("/blog/blogcreate.do").forward(request, response);
                     } catch (Exception ex) {
                         // Log the exception
                         ex.printStackTrace();
-                        request.setAttribute("action", "create_blog");
-                        request.setAttribute("error", ex.getMessage());
-                        response.sendRedirect(request.getContextPath() + "/error.jsp");
+                        request.setAttribute("controller", "error");
+                        request.setAttribute("action", "error");
+                        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                     }
                     break;
                     default:
@@ -322,7 +343,7 @@ public class BlogController extends HttpServlet {
             break;
 
         }
-    
+
     }
 
     private String convertISToString(InputStream is) throws IOException {
