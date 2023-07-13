@@ -57,7 +57,7 @@
                             <div class="blog-author-group">
                                 <div class="blog-author-info"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="author">
                                     <h4><a href="blog-author.html">${bid.userName}</a></h4>
-                                    <h6><a href="#">www.mironmahmud.com</a></h6>
+<!--                                    <h6><a href="#">www.mironmahmud.com</a></h6>-->
                                     <a href="<c:url value="/blog/blogedit.do?blid=${bid.blogId}"/>">Edit</a>
                                 </div>
                                 <div class="blog-author-content">
@@ -84,7 +84,7 @@
                         <div class="blog-single-suggest">
                             <c:forEach begin="0" end="1" items="${latest}" var="latest"> 
                                 <div class="blog-grid-card">
-                                    <div class="blog-grid-media"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/blog/02.jpg" alt="blog">
+                                    <div class="blog-grid-media"><img src="${latest.blogImage}" alt="blog">
                                         <ul class="blog-grid-widget">
                                             <li><i class="material-icons">forum</i><span>3</span></li>
                                             <li><i class="material-icons">send</i><span>2</span></li>

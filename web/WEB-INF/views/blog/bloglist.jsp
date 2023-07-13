@@ -33,7 +33,7 @@
                     <h5 class="blog-widget-title">latest blogs</h5>
                     <ul class="blog-widget-feed">
                         <c:forEach begin="0" end="3" items="${latest}" var="latest">
-                            <li><a class="blog-widget-media" href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/blog/01.jpg"
+                            <li><a class="blog-widget-media" href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>"><img src="${latest.blogImage}"
                                                                                                                                    alt="blog"></a>
                                 <h5 class="blog-widget-text"><a href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>">${latest.blogTitle}</a><span>${latest.blogDate}</span></h5>
                             </li>
@@ -116,7 +116,7 @@
 
                         <div class="col">
                             <div class="blog-list-card">
-                                <div class="blog-list-media"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/blog/01.jpg" alt="blog"></div>
+                                <div class="blog-list-media"><img src="${blog.blogImage}" alt="blog"></div>
                                 <div class="blog-list-content">
                                     <ul class="blog-list-meta">
                                         <li><i class="material-icons">account_circle</i><span>post by <a

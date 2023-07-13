@@ -34,7 +34,7 @@
                     <h5 class="blog-widget-title">popular feeds</h5>
                     <ul class="blog-widget-feed">
                         <c:forEach begin="0" end="3" items="${latest}" var="latest">                         
-                            <li><a class="blog-widget-media" href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/blog/01.jpg"
+                            <li><a class="blog-widget-media" href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>"><img src="${latest.blogImage}"
                                                                                                                                    alt="blog"></a>
                                 <h5 class="blog-widget-text"><a href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>">${latest.blogTitle}</a><span>${latest.blogDate}</span></h5>
                             </li>
@@ -106,7 +106,7 @@
                     <c:forEach  var="blog" items="${blog}">
                         <div class="col">
                             <div class="blog-grid-card">
-                                <div class="blog-grid-media"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/blog/01.jpg" alt="blog">
+                                <div class="blog-grid-media"><img src="${blog.blogImage}" alt="blog">
                                     <ul class="blog-grid-widget">
                                         <li><i class="material-icons">forum</i><span>3</span></li>
                                         <li><i class="material-icons">send</i><span>2</span></li>

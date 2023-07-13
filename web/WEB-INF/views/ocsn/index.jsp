@@ -1903,48 +1903,7 @@
     </div>
 </section>
 <section class="section-gap-120 review-part">
-    <div class="container">
-        <div class="row review-slider slider-arrow">
-            <div class="col">
-                <div class="review-wrap">
-                    <div class="review-wrap-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/review/01.jpg" alt="review"></div>
-                    <div class="review-wrap-content">
-                        <div class="review-wrap-meta">
-                            <div class="review-wrap-video"><a href="#" class="material-icons">play_arrow</a><i
-                                    class="material-icons">format_quote</i></div>
-                            <div class="review-wrap-item">
-                                <h4>mercedes-benz wagon</h4>
-                                <h5>see the full review</h5>
-                            </div>
-                        </div>
-                        <p class="review-wrap-quote">" Lorem ipsum dolor sit amet consectetur adipisicing elit
-                            Expedita ut porro beatae itaque accusantium nisi Asperiores reprehenderit "</p>
-                        <h3 class="review-wrap-user">miron mahmud</h3>
-                        <h5 class="review-wrap-type">buyer review</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="review-wrap">
-                    <div class="review-wrap-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/review/02.jpg" alt="review"></div>
-                    <div class="review-wrap-content">
-                        <div class="review-wrap-meta">
-                            <div class="review-wrap-video"><a href="#" class="material-icons">play_arrow</a><i
-                                    class="material-icons">format_quote</i></div>
-                            <div class="review-wrap-item">
-                                <h4>lamborghini huracan</h4>
-                                <h5>see the full review</h5>
-                            </div>
-                        </div>
-                        <p class="review-wrap-quote">" Lorem ipsum dolor sit amet consectetur adipisicing elit
-                            Expedita ut porro beatae itaque accusantium nisi Asperiores reprehenderit "</p>
-                        <h3 class="review-wrap-user">tahmina bonny</h3>
-                        <h5 class="review-wrap-type">seller review</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </section>
 <section class="section-gap-120">
     <div class="container">
@@ -2001,7 +1960,7 @@
             <c:forEach var="blog" begin="0" end="3" items="${blog}">
                 <div class="col">
                     <div class="blog-grid-card">
-                        <div class="blog-grid-media"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/blog/01.jpg" alt="blog">
+                        <div class="blog-grid-media"><img src="${blog.blogImage}" alt="blog">
                             <ul class="blog-grid-widget">
                                 <li><i class="material-icons">forum</i><span>3</span></li>
                                 <li><i class="material-icons">send</i><span>2</span></li>

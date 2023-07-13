@@ -47,7 +47,7 @@ import org.apache.tomcat.jni.SSLContext;
 @MultipartConfig
 public class BlogController extends HttpServlet {
 
-    protected String UP_LOAD_PATH = "/Users/_viet.quangg/Study/Subject Term 5/SWP391/latest/old-car-showroom-network/web/images/blog";
+    protected String UP_LOAD_PATH = "/Users/_viet.quangg/Study/Subject Term 5/SWP391/latest/old-car-showroom-network/web/images/blog/";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
