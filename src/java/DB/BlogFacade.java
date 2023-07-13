@@ -28,7 +28,7 @@ public class BlogFacade {
         try {
             List<Blog> list = new ArrayList<>();
             con = DBContext.getConnection();
-            ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName from [Blog] b join [User] u on b.blogId = u.userId");
+            ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName from [Blog] b join [User] u on b.userId = u.userId");
             rs = ps.executeQuery();
             while (rs.next()) {
                 Blog blog = new Blog();
@@ -55,7 +55,7 @@ public class BlogFacade {
             con = DBContext.getConnection();
             ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName \n"
                     + "from [Blog] b join [User] u \n"
-                    + "on b.blogId = u.userId \n"
+                    + "on b.userId = u.userId \n"
                     + "ORDER BY NEWID();");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -90,7 +90,7 @@ public class BlogFacade {
         try {
 
             con = DBContext.getConnection();
-            ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName from [Blog] b join [User] u on b.blogId = u.userId order by blogId DESC");
+            ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName from [Blog] b join [User] u on b.userId = u.userId order by blogId DESC");
             rs = ps.executeQuery();
             while (rs.next()) {
                 Blog blog = new Blog();
@@ -236,7 +236,7 @@ public class BlogFacade {
             con = DBContext.getConnection();
             ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName \n"
                     + "from [Blog] b join [User] u \n"
-                    + "on b.blogId = u.userId \n"
+                    + "on b.userId = u.userId \n"
                     + "ORDER BY blogId\n"
                     + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
             ps.setInt(1, (index - 1) * num);
@@ -293,7 +293,7 @@ public class BlogFacade {
             con = DBContext.getConnection();
             ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName \n"
                     + "from [Blog] b join [User] u \n"
-                    + "on b.blogId = u.userId \n"
+                    + "on b.userId = u.userId \n"
                     + "WHERE u.userId = ?\n"
                     + "ORDER BY blogId\n");
 //                    + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
@@ -327,7 +327,7 @@ public class BlogFacade {
             con = DBContext.getConnection();
             ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName \n"
                     + "FROM [Blog] b JOIN [User] u \n"
-                    + "ON b.blogId = u.userId \n"
+                    + "ON b.userId = u.userId \n"
                     + "WHERE b.blogTitle LIKE '%"+search+"%'\n"
                     + "ORDER BY blogId\n"
                     + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
