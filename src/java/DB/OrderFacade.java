@@ -221,7 +221,7 @@ public class OrderFacade {
 
         try {
             con = DBContext.getConnection();
-            String sql = "SELECT o.orderId, c.carName, o.userId, c.carPrice, o.orderStatus, u.userName, o.orderDate FROM [Order] o JOIN [car] c ON o.postId = c.carId LEFT JOIN [User] u ON o.userId = u.userId";
+            String sql = "SELECT o.orderId, o.postId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
 

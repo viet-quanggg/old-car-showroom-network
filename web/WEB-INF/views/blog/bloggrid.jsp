@@ -26,7 +26,7 @@
             <div class="col-lg-4 col-xl-4">
                 <div class="blog-widget">
                     <h5 class="blog-widget-title">Find blogs</h5>
-                    <form class="blog-widget-form" action="<c:url value="/blog/search_blog.do"/>" method="post">
+                    <form class="blog-widget-form" action="<c:url value="/blog/search_blog1.do"/>" method="post">
                         <input type="text" name="search" placeholder="Search blogs">
                         <button type="submit" class="material-icons">search</button></form>
                 </div>
