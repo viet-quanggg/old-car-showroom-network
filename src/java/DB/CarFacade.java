@@ -23,6 +23,80 @@ import java.util.Set;
  */
 public class CarFacade {
 
+    public List<Car> getActiveCar() throws SQLException {
+        List<Car> list = null;
+
+        //Tạo connection để kết nối vào DBMS
+        Connection con = DBContext.getConnection();
+        //Tạo đối tượng PreparedStatement
+        try {
+
+            String sql = "SELECT c.[carId]\n"
+                    + " ,c.[ownerId]\n"
+                    + " ,c.[carShowroom]\n"
+                    + " ,c.[carPrice]\n"
+                    + " ,c.[carName]\n"
+                    + " ,c.[carYear]\n"
+                    + " ,c.[carDescription]\n"
+                    + " ,c.[carCondition]\n"
+                    + " ,c.[createDate]\n"
+                    + " ,c.[updateDate]\n"
+                    + " ,c.[car_seat]\n"
+                    + " ,c.[engine]\n"
+                    + " ,c.[odo]\n"
+                    + " ,c.[brandID]\n"
+                    + " ,c.[colorID]\n"
+                    + " ,b.[name]\n"
+                    + " ,b.[createDate] as 'brandCreateDate'\n"
+                    + " ,b.[updateDate] as 'brandUpdateDate'\n"
+                    + " ,color.[color]\n"
+                    + " ,color.[createDate] as 'colorCreateDate'\n"
+                    + " FROM [dbo].[Car] c inner join [dbo].[Brand] b\n"
+                    + " on c.brandID =  b.id inner join [dbo].[color] color\n"
+                    + " on c.colorID =  color.id inner join [dbo].[Post] p\n"
+                    + " on c.carId = p.carId where p.postStatus = 'Active'\n"
+                    + " ORDER BY updateDate DESC, createDate DESC, c.carId DESC;";
+
+            PreparedStatement stm = con.prepareStatement(sql);
+            //Thực thi lệnh sql
+            ResultSet rs = stm.executeQuery();
+            //Load dữ liệu vào đối tượng toy nếu có
+            list = new ArrayList<>();
+            while (rs.next()) {
+
+                String sql1 = "SELECT * FROM Car_Image WHERE carID = ? ";
+
+                PreparedStatement stm1 = con.prepareStatement(sql1);
+                //Thực thi lệnh sql
+                stm1.setInt(1, rs.getInt("carID"));
+                ResultSet rs1 = stm1.executeQuery();
+
+                List<Image> image = new ArrayList<>();
+                while (rs1.next()) {
+                    image.add(new Image(rs1.getInt("id"), rs1.getString("url"), rs1.getInt("carID")));
+                }
+
+                Brand brand = new Brand(rs.getInt("brandID"), rs.getString("name"),
+                        rs.getDate("brandCreateDate"), rs.getDate("brandUpdateDate"), 0);
+
+                Color color = new Color(rs.getInt("colorID"), rs.getString("color"), rs.getDate("colorCreateDate"));
+
+                Car car = new Car(rs.getInt("carID"), rs.getInt("ownerId"), rs.getString("carShowroom"),
+                        rs.getDouble("carPrice"), rs.getString("carName"), rs.getInt("carYear"),
+                        rs.getString("carDescription"), rs.getBoolean("carCondition"),
+                        rs.getDate("createDate"), rs.getDate("updateDate"),
+                        rs.getString("car_seat"), rs.getString("engine"), rs.getFloat("odo"),
+                        brand, image, color);
+
+                list.add(car);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        con.close();
+        return list;
+    }
+
     public void addCar_Image(int carId, String url) throws SQLException {
         Connection con = DBContext.getConnection();
         try {
@@ -47,8 +121,6 @@ public class CarFacade {
         con.close();
 
     }
-    
-   
 
     public void updateCarCondition(boolean carCondition, int carId) throws SQLException {
         Connection con = DBContext.getConnection();
@@ -105,7 +177,7 @@ public class CarFacade {
             if (stm != null) {
                 stm.close();
             }
-            
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -154,42 +226,49 @@ public class CarFacade {
         }
         return id;
     }
-    
-    public List<Car> getActiveCar() throws SQLException {
-        List<Car> list = null;
 
-        //Tạo connection để kết nối vào DBMS
+    public List<Car> getBySearch(String x) throws SQLException {
+        List<Car> list = new ArrayList<>();
+
         Connection con = DBContext.getConnection();
         //Tạo đối tượng PreparedStatement
         try {
 
             String sql = "SELECT c.[carId]\n"
-                    + "      ,c.[ownerId]\n"
-                    + "      ,c.[carShowroom]\n"
-                    + "      ,c.[carPrice]\n"
-                    + "      ,c.[carName]\n"
-                    + "      ,c.[carYear]\n"
-                    + "      ,c.[carDescription]\n"
-                    + "      ,c.[carCondition]\n"
-                    + "      ,c.[createDate]\n"
-                    + "      ,c.[updateDate]\n"
-                    + "      ,c.[car_seat]\n"
-                    + "      ,c.[engine]\n"
-                    + "      ,c.[odo]\n"
-                    + "      ,c.[brandID]\n"
-                    + "      ,c.[colorID]\n"
-                    + "      ,b.[name]\n"
-                    + "      ,b.[createDate] as 'brandCreateDate'\n"
-                    + "      ,b.[updateDate] as 'brandUpdateDate'\n"
-                    + "      ,color.[color]\n"
-                    + "      ,color.[createDate] as 'colorCreateDate'\n"
-                    + "  FROM [dbo].[Car] c inner join [dbo].[Brand] b\n"
-                    + "  on c.brandID =  b.id inner join [dbo].[color] color\n"
-                    + "  on c.colorID =  color.id inner join [dbo].[Post] p\n"
-                    + "  on c.carId = p.carId where p.postStatus = 'Active'\n"
-                    + "  ORDER BY updateDate DESC, createDate DESC, c.carId DESC";
+                    + ",c.[ownerId]\n"
+                    + ",c.[carShowroom]\n"
+                    + ",c.[carPrice]\n"
+                    + ",c.[carName]\n"
+                    + ",c.[carYear]\n"
+                    + ",c.[carDescription]\n"
+                    + ",c.[carCondition]\n"
+                    + ",c.[createDate]\n"
+                    + ",c.[updateDate]\n"
+                    + ",c.[car_seat]\n"
+                    + ",c.[engine]\n"
+                    + ",c.[odo]\n"
+                    + ",c.[brandID]\n"
+                    + ",c.[colorID]\n"
+                    + ",b.[name]\n"
+                    + ",b.[createDate] as 'brandCreateDate'\n"
+                    + ",b.[updateDate] as 'brandUpdateDate'\n"
+                    + ",color.[color]\n"
+                    + ",color.[createDate] as 'colorCreateDate'\n"
+                    + "FROM [dbo].[Car] c inner join [dbo].[Brand] b\n"
+                    + "on c.brandID =  b.id inner join [dbo].[color] color\n"
+                    + "on c.colorID =  color.id inner join [dbo].[Post] p\n"
+                    + "		on c.carId = p.carId where \n"
+                    + "(carPrice LIKE ? OR carName LIKE ? OR carYear LIKE ? OR carCondition LIKE ? OR b.[name] LIKE ? OR color.[color] LIKE ?) and p.postStatus = 'Active'\n"
+                    + " ORDER BY updateDate DESC, createDate DESC, c.carId DESC;";
 
             PreparedStatement stm = con.prepareStatement(sql);
+            stm.setString(1, "%" + x + "%");
+            stm.setString(2, "%" + x + "%");
+            stm.setString(3, "%" + x + "%");
+            stm.setString(4, "%" + x + "%");
+            stm.setString(5, "%" + x + "%");
+            stm.setString(6, "%" + x + "%");
+
             //Thực thi lệnh sql
             ResultSet rs = stm.executeQuery();
             //Load dữ liệu vào đối tượng toy nếu có
@@ -226,6 +305,7 @@ public class CarFacade {
             System.out.println(ex);
         }
         con.close();
+
         return list;
     }
 
@@ -362,87 +442,6 @@ public class CarFacade {
         } catch (SQLException e) {
             System.out.println(e);
         }
-
-        return list;
-    }
-
-    public List<Car> getBySearch(String x) throws SQLException {
-        List<Car> list = new ArrayList<>();
-
-        Connection con = DBContext.getConnection();
-        //Tạo đối tượng PreparedStatement
-        try {
-
-            String sql = "SELECT [carId]\n"
-                    + "      ,c.[ownerId]\n"
-                    + "      ,c.[carShowroom]\n"
-                    + "      ,c.[carPrice]\n"
-                    + "      ,c.[carName]\n"
-                    + "      ,c.[carYear]\n"
-                    + "      ,c.[carDescription]\n"
-                    + "      ,c.[carCondition]\n"
-                    + "      ,c.[createDate]\n"
-                    + "      ,c.[updateDate]\n"
-                    + "      ,c.[car_seat]\n"
-                    + "      ,c.[engine]\n"
-                    + "      ,c.[odo]\n"
-                    + "      ,c.[brandID]\n"
-                    + "      ,c.[colorID]\n"
-                    + "      ,b.[name]\n"
-                    + "      ,b.[createDate] as 'brandCreateDate'\n"
-                    + "      ,b.[updateDate] as 'brandUpdateDate'\n"
-                    + "      ,color.[color]\n"
-                    + "      ,color.[createDate] as 'colorCreateDate'\n"
-                    + "  FROM [dbo].[Car] c inner join [dbo].[Brand] b\n"
-                    + "  on c.brandID =  b.id inner join [dbo].[color] color\n"
-                    + "  on c.colorID =  color.id \n"
-                    + "  WHERE carPrice LIKE ? OR carName LIKE ? OR carYear LIKE ? OR carCondition LIKE ? OR b.[name] LIKE ? OR color.[color] LIKE ? \n"
-                    + "  ORDER BY updateDate DESC, createDate DESC, carId DESC";
-
-            PreparedStatement stm = con.prepareStatement(sql);
-            stm.setString(1, "%" + x + "%");
-            stm.setString(2, "%" + x + "%");
-            stm.setString(3, "%" + x + "%");
-            stm.setString(4, "%" + x + "%");
-            stm.setString(5, "%" + x + "%");
-            stm.setString(6, "%" + x + "%");
-
-            //Thực thi lệnh sql
-            ResultSet rs = stm.executeQuery();
-            //Load dữ liệu vào đối tượng toy nếu có
-            list = new ArrayList<>();
-            while (rs.next()) {
-
-                String sql1 = "SELECT * FROM Car_Image WHERE carID = ? ";
-
-                PreparedStatement stm1 = con.prepareStatement(sql1);
-                //Thực thi lệnh sql
-                stm1.setInt(1, rs.getInt("carID"));
-                ResultSet rs1 = stm1.executeQuery();
-
-                List<Image> image = new ArrayList<>();
-                while (rs1.next()) {
-                    image.add(new Image(rs1.getInt("id"), rs1.getString("url"), rs1.getInt("carID")));
-                }
-
-                Brand brand = new Brand(rs.getInt("brandID"), rs.getString("name"),
-                        rs.getDate("brandCreateDate"), rs.getDate("brandUpdateDate"), 0);
-
-                Color color = new Color(rs.getInt("colorID"), rs.getString("color"), rs.getDate("colorCreateDate"));
-
-                Car car = new Car(rs.getInt("carID"), rs.getInt("ownerId"), rs.getString("carShowroom"),
-                        rs.getDouble("carPrice"), rs.getString("carName"), rs.getInt("carYear"),
-                        rs.getString("carDescription"), rs.getBoolean("carCondition"),
-                        rs.getDate("createDate"), rs.getDate("updateDate"),
-                        rs.getString("car_seat"), rs.getString("engine"), rs.getFloat("odo"),
-                        brand, image, color);
-
-                list.add(car);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-        con.close();
 
         return list;
     }

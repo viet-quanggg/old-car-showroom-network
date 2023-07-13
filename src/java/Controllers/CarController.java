@@ -202,45 +202,35 @@ public class CarController extends HttpServlet {
 
     private List<Car> pagination(HttpServletRequest request, String xPage, String xNumberPerPage, String xSort, int[] cid, int[] bid, String xSearch) throws SQLException {
         CarFacade fa = new CarFacade();
-        List<Car> allCar = null, result = null;
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("User");
-        if (user == null || user.getUserRole() == 0) {
-            allCar = new ArrayList<>();
-            allCar = fa.getActiveCar();
-        } else {
-            allCar = new ArrayList<>();
-            allCar = fa.getCar();
-        }
+        List<Car> allCar = fa.getActiveCar();
 
-        if (allCar != null) {
-            allCar = (cid.length != 0) ? filterColor(allCar, cid) : allCar;
-            allCar = (bid.length != 0) ? filterBrand(allCar, bid) : allCar;
-            allCar = (xSearch != null && !xSearch.isEmpty()) ? fa.getBySearch(xSearch) : allCar;
+        allCar = (cid.length != 0) ? filterColor(allCar, cid) : allCar;
+        allCar = (bid.length != 0) ? filterBrand(allCar, bid) : allCar;
+        allCar = (xSearch != null && !xSearch.isEmpty()) ? fa.getBySearch(xSearch) : allCar;
 
-            allCar = (xSort != null) ? sorting(xSort, allCar) : allCar;
+        allCar = (xSort != null) ? sorting(xSort, allCar) : allCar;
 
-            int page = (xPage == null) ? 1 : Integer.parseInt(xPage);
-            int numberPerPage = (xNumberPerPage == null) ? 9 : Integer.parseInt(xNumberPerPage);
-            int size = allCar.size();
+        int page = (xPage == null) ? 1 : Integer.parseInt(xPage);
+        int numberPerPage = (xNumberPerPage == null) ? 9 : Integer.parseInt(xNumberPerPage);
+        int size = allCar.size();
 
-            int numberOfPage = ((size % numberPerPage == 0) ? (size / numberPerPage) : (size / numberPerPage + 1));
+        int numberOfPage = ((size % numberPerPage == 0) ? (size / numberPerPage) : (size / numberPerPage + 1));
 
-            int start = (page - 1) * numberPerPage;
-            int end = Math.min(page * numberPerPage, size);
+        int start = (page - 1) * numberPerPage;
+        int end = Math.min(page * numberPerPage, size);
 
-            result = fa.getListByPage(allCar, start, end);
+        List<Car> result = fa.getListByPage(allCar, start, end);
 
-            request.setAttribute("numberOfPage", numberOfPage);
-            request.setAttribute("size", size);
-            request.setAttribute("start", start + 1);
-            request.setAttribute("end", end);
+        request.setAttribute("numberOfPage", numberOfPage);
+        request.setAttribute("size", size);
+        request.setAttribute("start", start + 1);
+        request.setAttribute("end", end);
 
-            request.setAttribute("page", page);
-            request.setAttribute("numberPerPage", numberPerPage);
-            request.setAttribute("sort", xSort);
-            request.setAttribute("search", xSearch);
-        }
+        request.setAttribute("page", page);
+        request.setAttribute("numberPerPage", numberPerPage);
+        request.setAttribute("sort", xSort);
+        request.setAttribute("search", xSearch);
+
         return result;
 
     }

@@ -543,32 +543,89 @@ INSERT [dbo].[Blog]( blogTitle,blogDetail,blogImage,userId ,blogDate ) VALUES ('
 INSERT [dbo].[Blog]( blogTitle,blogDetail,blogImage,userId ,blogDate ) VALUES ('The Future of Connected Cars', 'Connected cars, also known as smart cars, are rapidly becoming the norm in the automotive industry. These vehicles are equipped with advanced features like internet connectivity, GPS navigation, and real-time traffic updates. One of the main benefits of connected cars is improved safety. With features like automatic emergency braking and lane departure warnings, these cars can help prevent accidents on the road. Additionally, many connected cars come with built-in cameras and sensors, providing drivers with a 360-degree view of their surroundings. Another advantage of connected cars is increased convenience. With features like voice commands and smartphone integration, drivers can easily control various aspects of their car without taking their hands off the wheel. This can help reduce distractions and improve safety on the road. As more automakers invest in connected car technology, it is clear that these vehicles will continue to play an important role in the future of transportation. From improved safety to increased convenience, the benefits of connected cars are hard to ignore.', '/OldCarShowroom/images/blog/blue-sport-sedan-parked-yard.jpg', 1, CURRENT_TIMESTAMP);
 INSERT [dbo].[Blog]( blogTitle,blogDetail,blogImage,userId ,blogDate ) VALUES ('The Rise of Hybrid Cars', 'Hybrid cars have become increasingly popular in recent years as consumers look for more environmentally friendly modes of transportation. These cars combine a traditional gasoline engine with an electric motor, providing improved fuel efficiency and reduced emissions. One of the main benefits of hybrid cars is their ability to switch between gasoline and electric power. This means that they can operate in all-electric mode at low speeds, reducing emissions and saving fuel. At higher speeds, the gasoline engine takes over to provide additional power. Another advantage of hybrid cars is reduced maintenance costs. With fewer moving parts than traditional gasoline engines, hybrid cars require less maintenance and have a longer lifespan. Additionally, many hybrid cars come with features like regenerative braking, which helps recharge the battery while driving and further improves fuel efficiency. As more automakers invest in the development of hybrid technology, it is clear that these vehicles will play an important role in the future of the automotive industry.', '/OldCarShowroom/images/blog/blue-sport-sedan-parked-yard.jpg', 1, CURRENT_TIMESTAMP);
 INSERT [dbo].[Blog]( blogTitle,blogDetail,blogImage,userId ,blogDate ) VALUES ('The Benefits of Autonomous Cars', 'Autonomous cars, also known as self-driving cars, are becoming increasingly popular as they offer several benefits over traditional vehicles. One of the main advantages of autonomous cars is increased safety on the road. With advanced sensors and algorithms, these cars can detect objects and make split-second decisions to avoid accidents. Another benefit of autonomous cars is increased efficiency. These vehicles can communicate with each other to optimize routes and reduce congestion on the road. Additionally, they can operate at optimal speeds, which can help save fuel and reduce emissions. Finally, autonomous cars offer greater convenience to drivers. With self-driving technology, drivers can sit back and relax while the car takes care of the driving. This can help reduce stress and improve the overall driving experience. While there are still some concerns about the safety and reliability of autonomous cars, it is clear that these vehicles have the potential to revolutionize the way we travel on the road.', '/OldCarShowroom/images/blog/blue-sport-sedan-parked-yard.jpg', 1,CURRENT_TIMESTAMP);
+
 -- POST TABLE VALUES INSERT
 DBCC CHECKIDENT ('[Post]', RESEED, 0);
 INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
-VALUES (12, 23, 'Test Driving the 2023 Audi R8', 'I had the chance to test drive the new Audi R8 and let me just say, it did not disappoint!', '2023-06-06', 'Active');
+VALUES (9, 40, 'Lexus570', 'I had the chance to test drive the new Lexus and let me just say, it did not disappoint!', '2023-06-06', 'Inactive');
 INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus)
-VALUES (15, 6, 'Looking to sell my car', 'I have a 2015 Honda Civic in great condition with low mileage. Please contact me if interested.', '2023-06-06', 'Active');
+VALUES (14, 39, 'Looking to sell my car', 'I have a 2015 Honda Civic in great condition with low mileage. Please contact me if interested.', '2023-06-06', 'Inactive');
 INSERT INTO Post (userId, carId, postTitle, postDescript, postDate, postStatus) 
-VALUES (14, 7, 'Selling my Toyota Camry', '2019 model, only 10k miles driven, excellent condition', '2023-06-07', 'Active')
+VALUES (15, 38, 'Selling my Toyota Camry', '2019 model, only 10k miles driven, excellent condition', '2023-06-07', 'Active')
 INSERT INTO Post (userId, carId, postTitle, postDescript, postDate, postStatus) 
-VALUES (12, 3, 'Looking to sell my Honda Civic', '2018 model, well-maintained, clean title, no accidents', '2023-06-06', 'Active')
+VALUES (12, 37, 'Looking to sell my Honda Civic', '2018 model, well-maintained, clean title, no accidents', '2023-06-06', 'Active')
 INSERT INTO Post (userId, carId, postTitle, postDescript, postDate, postStatus) 
-VALUES (13, 4, 'Selling my BMW X5 SUV', 'Fully loaded with all features, mint condition, only 15k miles', '2023-06-05', 'Inactive'); 
-INSERT INTO Post (userId, carId, postTitle, postDescript, postDate, postStatus) VALUES (4, 11, 'Selling my Ford Mustang GT', '2017 model, low mileage, fully customized', '2023-06-04', 'Active');
-INSERT INTO Post (userId, carId, postTitle, postDescript, postDate, postStatus) VALUES (5, 15, 'Looking to sell my Mercedes-Benz C-Class', '2016 model, excellent condition, all services up-to-date', '2023-06-03', 'Inactive');
+VALUES (15, 36, 'Selling my BMW X5 SUV', 'Fully loaded with all features, mint condition, only 15k miles', '2023-06-05', 'Active'); 
+INSERT INTO Post (userId, carId, postTitle, postDescript, postDate, postStatus)
+VALUES (15, 35, 'Selling my Ford Mustang GT', '2017 model, low mileage, fully customized', '2023-06-04', 'Active');
+INSERT INTO Post (userId, carId, postTitle, postDescript, postDate, postStatus)
+VALUES (10, 34, 'Looking to sell my Mercedes-Benz C-Class', '2016 model, excellent condition, all services up-to-date', '2023-06-03', 'Active');
 INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
-VALUES (6, 32, 'My Favorite Classic Car', 'I absolutely love the design and style of the 1969 Ford Mustang.', '2023-06-06', 'Active');
+VALUES (9, 33, 'My Favorite Classic Car', 'I absolutely love the design and style of the 1969 Ford Mustang.', '2023-06-06', 'Active');
 INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
-VALUES (3, 12, 'My Custom Muscle Car', 'Check out these photos of my fully customized 1970 Dodge Charger!', '2023-06-06', 'Active');
+VALUES (3, 32, 'My Custom Muscle Car', 'Check out these photos of my fully customized 1970 Dodge Charger!', '2023-06-06', 'Active');
 INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
-VALUES (16, 38, 'My Custom BMW Car', 'Check out these photos of my fully customized i8 BMW!', '2023-05-05', 'Active');
+VALUES (8, 31, 'My Custom BMW Car', 'Check out these photos of my fully customized i8 BMW!', '2023-05-05', 'Active');
 INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
-VALUES (5, 32, 'My Custom Car', 'Check out these photos of my fully customized car!', '2023-06-08', 'Active');
+VALUES (6, 30, 'My Custom Car', 'Check out these photos of my fully customized car!', '2023-06-08', 'Active');
 INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
-VALUES (8, 32, 'My Custom Car Wanted To Sell', 'Check out these photos of my fully customized car!Or Inbox for more Information', '2023-06-08', 'Active');
+VALUES (7, 29, 'My Custom Car Wanted To Sell', 'Check out these photos of my fully customized car!Or Inbox for more Information', '2023-06-08', 'Active');
 INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
-VALUES (12, 12, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+VALUES (12, 28, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (6, 27, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (6, 26, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (9, 25, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (7, 24, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (8, 23, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (6, 22, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (13, 21, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (9, 20, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (7, 19, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (13, 18, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (12, 17, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (10, 16, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (9, 15, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (8, 14, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (7, 13, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (6, 12, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (13, 11, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (7, 10, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (9, 9, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (8, 8, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (11, 7, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (10, 6, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (6, 5, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (7, 4, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (8, 3, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (10, 2, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (12, 1, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
 
 -- INSERT DATA FOR ORDER TABLE
 DBCC CHECKIDENT ('[Order]', RESEED, 0);

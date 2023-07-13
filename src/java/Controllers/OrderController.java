@@ -431,7 +431,7 @@ public class OrderController extends HttpServlet {
         } catch (Exception e) {
 
         }
-        response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
+        response.sendRedirect(request.getContextPath() + "/order/postedad.do");
     }
 
     private void removeWish(HttpServletRequest request, HttpServletResponse response) throws SQLException {

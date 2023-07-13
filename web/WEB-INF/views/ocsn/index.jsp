@@ -67,7 +67,7 @@
             </div>
         </div>
     </section>
-    <section class="section-gap-95">
+<!--    <section class="section-gap-95">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
@@ -104,7 +104,7 @@
                             src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/category/Hatchback.html" alt="category"><span>Hatchback (24)</span></a></div>
             </div>
         </div>
-    </section>
+    </section>-->
     <section class="section-gap-95">
         <div class="container">
             <div class="row">
@@ -120,7 +120,7 @@
             </div>
             <jsp:useBean class="DB.CarFacade" id="carDAO" />                    
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-                <c:forEach begin="1" end="8" items="${carDAO.car}" var="item">
+                <c:forEach begin="0" end="7" items="${carDAO.activeCar}" var="item">
                     <div class="col">
                         <div class="product-grid-card">
                             <div class="product-grid-image"><img style="max-height: 200px; min-height: 200px"src="${pageContext.request.contextPath}${item.image.size() == 0 ? '' : item.image.get(0).url}" alt="feature">
@@ -170,7 +170,7 @@
         </div>
     </div>
 </div>
-</section>
+<!--</section>
 <section class="section-gap-120 feature-part">
     <div class="container">
         <div class="row">
@@ -220,7 +220,7 @@
                 </div>
             </div>
         </div>
-<!--        <div class="row">
+        <div class="row">
             <div class="col-xl-12">
                 <div class="nav nav-pills browse-nav"><button type="button" data-bs-toggle="pill"
                                                               data-bs-target="#vendor" class="nav-link active"><i
@@ -234,7 +234,7 @@
                                                                                             data-bs-toggle="pill" data-bs-target="#views" class="nav-link"><i
                             class="material-icons">visibility</i><span>top views</span></button></div>
             </div>
-        </div>-->
+        </div>
         <div class="tab-pane fade show active" id="vendor">
             <div class="row row-cols-xl-4">
                 <c:forEach begin="1" end="8" items="${carDAO.car}" var="item">
@@ -242,14 +242,14 @@
                         <div class="product-grid-card">
                             <div class="product-grid-image"><img style="max-height:200px; min-height: 200px" src="${pageContext.request.contextPath}${item.image.size() == 0 ? '' : item.image.get(0).url}" alt="feature">
                                 <div class="product-grid-badge"><span class="badge new">new</span></div>
-                                <!--                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
-                                                                </div>-->
-<!--                                <div class="product-grid-overlay">
+                                                                <div class="product-grid-hints"><i class="material-icons">collections</i><span>4</span>
+                                                                </div>
+                                <div class="product-grid-overlay">
                                     <div class="product-grid-vendor"><i class="material-icons">person</i><a
                                             href="profile.html">by autoland</a></div>
                                     <div class="product-grid-rating"><i class="material-icons">star</i><a
                                             href="review.html">28 review</a></div>
-                                </div>-->
+                                </div>
                             </div>
                             <div class="product-grid-content">
                                 <div class="product-grid-group">
@@ -1551,8 +1551,8 @@
                                 <ul>
                                     <li>delpara, narayanganj</li>
                                     <li>23h ago!</li>
-                                </ul>
-                            </div>
+                                </ul>-->
+<!--                            </div>
                             <ul class="product-grid-extra">
                                 <li><i class="material-icons">construction</i><span>manual</span></li>
                                 <li><i class="material-icons">settings</i><span>2000 km</span></li>
@@ -1610,7 +1610,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>-->
 <c:if test="${blist != null && !blist.isEmpty()}">
     <section class="section-gap-95">
         <div class="container">
