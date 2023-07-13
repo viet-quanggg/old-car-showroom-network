@@ -81,6 +81,9 @@ public class OCSNController extends HttpServlet {
             case "contact":
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
+            case "vendor":
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                break;
             case "send":
            try {
                 String name = request.getParameter("Cname");

@@ -91,13 +91,20 @@ public class BlogController extends HttpServlet {
                 int currentPage = index;
 //
 //                blog = bf.pagingBlog(index);
+                int blogofpage = countPage - num * (index - 1);
+                if (blogofpage > num) {
+                    request.setAttribute("result", num);
+                } else {
+                    request.setAttribute("result", blogofpage);
+                }
                 latest = bf.listLatest();
                 request.setAttribute("currentPage", currentPage);
                 request.setAttribute("endPage", endPage);
                 request.setAttribute("latest", latest);
                 request.setAttribute("blog", blog);
-                request.setAttribute("result", num);
+//                request.setAttribute("result", num);
                 request.setAttribute("countblog", countPage);
+                request.setAttribute("blogPerPage", blogPerPage);
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
             } catch (Exception e) {
                 request.setAttribute("controller", "error");
@@ -122,7 +129,7 @@ public class BlogController extends HttpServlet {
                         indexPage = "1";
                     }
                     int index = Integer.parseInt(indexPage);
-                    
+
                     String blogPerPage = request.getParameter("blogPerPage");
                     if (blogPerPage == null) {
                         blogPerPage = "4";

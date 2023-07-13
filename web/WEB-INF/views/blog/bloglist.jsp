@@ -81,9 +81,10 @@
                             <form action="<c:url value='/blog/bloglist.do'/>" method="POST">
                                 <div class="filter-show">
                                     <label class="filter-label">Show :</label>
-                                    <select class="form-select filter-select" name="blogPerPage" id="blogPerPage" onchange="updateText(); this.form.submit()">
+                                    <select class=" filter-select" name="blogPerPage" id="blogPerPage" onchange="this.form.submit()">
+                                        <option selected="">Choose</option>
                                         <option value="4">4</option>
-                                        <option value="8">8</option>
+                                        <option value="8">8</option> 
                                         <option value="12">12</option>
                                     </select>
                                 </div>
@@ -188,13 +189,12 @@
                                     <c:forEach begin="1" end="${endPage}" var="i">
                                         <c:if test="${search13 == null}">
                                             <li class="page-item">
-
-                                                <a href="<c:url value='/blog/bloglist.do?index=${i}'/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
+                                                <a href="<c:url value='/blog/bloglist.do?index=${i}&blogPerPage=${blogPerPage}'/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
                                             </li>
                                         </c:if>
                                         <c:if test="${search13 != null}">
                                             <li class="page-item">
-                                                <a href="<c:url value='/blog/search_blog.do?index=${i}&search=${search13}'/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
+                                                <a href="<c:url value='/blog/search_blog.do?index=${i}&search=${search13}&blogPerPage=${blogPerPage}'/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
                                             </li>
                                         </c:if>
                                     </c:forEach>
