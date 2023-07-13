@@ -114,7 +114,7 @@ public class BlogFacade {
     public Blog listBlogId(String id) throws SQLException {
         try {
             con = DBContext.getConnection();
-            ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName from [Blog] b join [User] u on b.userId= u.userId where blogId = ?");
+            ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName, u.userImage, u.userEmail from [Blog] b join [User] u on b.userId= u.userId where blogId = ?");
             ps.setString(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -126,6 +126,9 @@ public class BlogFacade {
                 blog.setBlogDate(rs.getDate(5));
                 blog.setUserId(rs.getInt(6));
                 blog.setUserName(rs.getString(7));
+                blog.setUserImage(rs.getString(8));
+                blog.setUserEmail(rs.getString(9));
+           
                 return blog;
             }
             con.close();

@@ -55,9 +55,9 @@
                         </div>
                         <div class="blog-author">
                             <div class="blog-author-group">
-                                <div class="blog-author-info"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="author">
+                                <div class="blog-author-info"><img src="${bid.userImage}" alt="author">
                                     <h4><a href="blog-author.html">${bid.userName}</a></h4>
-<!--                                    <h6><a href="#">www.mironmahmud.com</a></h6>-->
+                                    <h6><a href="#">${bid.userEmail}</a></h6>
                                     <a href="<c:url value="/blog/blogedit.do?blid=${bid.blogId}"/>">Edit</a>
                                 </div>
                                 <div class="blog-author-content">

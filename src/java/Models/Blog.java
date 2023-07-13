@@ -12,14 +12,15 @@ import java.util.Date;
  */
 public class Blog {
 
-   private int blogId;
-   private String blogTitle;
-   private String blogDetail;
-   private String blogImage;
-   private Date blogDate;
-   private int userId;
-   private String userName;
-   
+    private int blogId;
+    private String blogTitle;
+    private String blogDetail;
+    private String blogImage;
+    private Date blogDate;
+    private int userId;
+    private String userName;
+    private String userImage;
+    private String userEmail;
 
     public Blog() {
     }
@@ -32,6 +33,18 @@ public class Blog {
         this.blogDate = blogDate;
         this.userId = userId;
         this.userName = userName;
+    }
+
+    public Blog(int blogId, String blogTitle, String blogDetail, String blogImage, Date blogDate, int userId, String userName, String userImage, String userEmail) {
+        this.blogId = blogId;
+        this.blogTitle = blogTitle;
+        this.blogDetail = blogDetail;
+        this.blogImage = blogImage;
+        this.blogDate = blogDate;
+        this.userId = userId;
+        this.userName = userName;
+        this.userImage = userImage;
+        this.userEmail = userEmail;
     }
 
     public Blog(String blogTitle, String blogDetail, String blogImage, int userId) {
@@ -97,12 +110,27 @@ public class Blog {
         this.userName = userName;
     }
 
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+    
+    
+
     @Override
     public String toString() {
         return "Blog{" + "blogId=" + blogId + ", blogTitle=" + blogTitle + ", blogDetail=" + blogDetail + ", blogImage=" + blogImage + ", blogDate=" + blogDate + ", userId=" + userId + ", userName=" + userName + '}';
     }
 
-    
-    
-   
 }
