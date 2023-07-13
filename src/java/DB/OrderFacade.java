@@ -103,7 +103,7 @@ public class OrderFacade {
         }
     }
 
-   public void addPlan(PricingPlan plan) throws SQLException {
+    public void addPlan(PricingPlan plan) throws SQLException {
         try {
             Connection con = DBContext.getConnection();
             PreparedStatement stm = null;
@@ -122,7 +122,6 @@ public class OrderFacade {
         }
 
     }
-
 
 //    public PricingPlan createPlan(String planName, int planTime, int planLimit, String planStatus, double planPrice) throws SQLException {
 //        PricingPlan plan = new PricingPlan();
@@ -268,7 +267,9 @@ public class OrderFacade {
 
             while (rs.next()) {
                 Order orderlist = new Order();
-                if (rs.getObject("orderApp") != null) orderlist.setOrderApp(rs.getObject("orderApp", LocalDateTime.class));
+                if (rs.getObject("orderApp") != null) {
+                    orderlist.setOrderApp(rs.getObject("orderApp", LocalDateTime.class));
+                }
                 orderlist.setOrderId(rs.getInt("orderId"));
                 orderlist.setPostId(rs.getInt("postId"));
                 orderlist.setCreatedDate(rs.getDate("orderDate"));
@@ -293,6 +294,25 @@ public class OrderFacade {
         }
 
         return orders;
+    }
+
+    public int countOrder(int userId) throws SQLException {
+        int count = 0;
+        Connection con = DBContext.getConnection();
+        PreparedStatement stm = con.prepareStatement("SELECT COUNT(*) AS orderCount\n"
+                + "FROM [Order] o\n"
+                + "LEFT JOIN [Post] p ON o.postId = p.postId\n"
+                + "LEFT JOIN [Car] c ON p.carId = c.carId\n"
+                + "LEFT JOIN [User] u ON o.userId = u.userId\n"
+                + "WHERE o.userId =?");
+        stm.setInt(1, userId);
+        ResultSet rs = stm.executeQuery();
+        if (rs.next()) {
+
+            count = rs.getInt("orderCount");
+        }
+        con.close();
+        return count;
     }
 
     public List<Order> listUserOrders(int userId) throws SQLException {
@@ -309,7 +329,9 @@ public class OrderFacade {
 
             while (rs.next()) {
                 Order orderlist = new Order();
-                if (rs.getObject("orderApp") != null) orderlist.setOrderApp(rs.getObject("orderApp", LocalDateTime.class));
+                if (rs.getObject("orderApp") != null) {
+                    orderlist.setOrderApp(rs.getObject("orderApp", LocalDateTime.class));
+                }
                 orderlist.setOrderId(rs.getInt("orderId"));
                 orderlist.setPostId(rs.getInt("postId"));
                 orderlist.setCreatedDate(rs.getDate("orderDate"));
@@ -335,7 +357,7 @@ public class OrderFacade {
 
         return orders;
     }
-    
+
     public void updateApp(LocalDateTime orderApp, int orderId) throws SQLException {
         con = DBContext.getConnection();
         ps = con.prepareStatement("UPDATE [Order] SET orderApp=? WHERE orderId=?");
@@ -406,19 +428,19 @@ public class OrderFacade {
     }
 
     public List<OrderList> search(String searchQuery) throws SQLException {
-       List<OrderList> orders = new ArrayList<>();
+        List<OrderList> orders = new ArrayList<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
             con = DBContext.getConnection();
-            String sql = "SELECT o.orderId, c.carName, o.userId, c.carPrice, o.orderStatus, u.userName, o.orderDate FROM [Order] o JOIN [car] c ON o.postId = c.carId LEFT JOIN [User] u ON o.userId = u.userId WHERE c.carName LIKE '%"+searchQuery+"%'";
+            String sql = "SELECT o.orderId, c.carName, o.userId, c.carPrice, o.orderStatus, u.userName, o.orderDate FROM [Order] o JOIN [car] c ON o.postId = c.carId LEFT JOIN [User] u ON o.userId = u.userId WHERE c.carName LIKE '%" + searchQuery + "%'";
             stmt = con.prepareStatement(sql);
             //stmt.setString(1, searchQuery);
 
             rs = stmt.executeQuery();
-            
+
             while (rs.next()) {
                 OrderList orderlist = new OrderList();
                 orderlist.setOrderId(rs.getInt("orderId"));
@@ -446,5 +468,5 @@ public class OrderFacade {
 
         return orders;
 
-}
+    }
 }
