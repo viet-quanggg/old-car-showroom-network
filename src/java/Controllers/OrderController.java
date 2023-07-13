@@ -17,6 +17,7 @@ import Models.Post;
 import Models.PricingPlan;
 import Models.User;
 import Models.Item;
+import Models.Plan;
 import Models.Wishlist;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -499,10 +500,18 @@ public class OrderController extends HttpServlet {
         request.setAttribute("data", wish);
     }
 
-    public void createad(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void createad(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         CarFacade cf = new CarFacade();
         List<Color> clist = cf.getAllColor();
         List<Brand> blist = cf.getAllBrand();
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("User");
+        PostFacade pf = new PostFacade();
+        List<Post> pl = pf.listByUser(user.getUserID());
+        session.setAttribute("Post", (pl != null && pl.size() > 0) ? pl.size() : 0);
+        OrderFacade of = new OrderFacade();
+        List<Order> ol = of.listUserOrders(user.getUserID());
+        session.setAttribute("Order", (ol != null && ol.size() > 0) ? ol.size() : 0);
         request.setAttribute("clist", clist);
         request.setAttribute("blist", blist);
         request.setAttribute("controller", "order");
@@ -615,7 +624,7 @@ public class OrderController extends HttpServlet {
                             UserFacade uf = new UserFacade();
                             uf.updatePlan(user);
                             session.setAttribute("User", user);
-                        } 
+                        }
 //                        if (user.getUserRole() == 0) {
 //                            String countPost = session.getAttribute("countPost").toString();
 //                            if (!countPost.isBlank() && !countPost.equals("infinite") && countPost.matches("^[0-9]+$")) {
@@ -630,7 +639,7 @@ public class OrderController extends HttpServlet {
                     request.setAttribute("action", "error");
                     request.setAttribute("controller", "error");
                     request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-                
+
                 }
 
                 request.setAttribute("action", "createad");
