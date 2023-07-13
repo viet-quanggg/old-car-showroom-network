@@ -115,8 +115,30 @@ public class BlogController extends HttpServlet {
 //                    request.setAttribute("blog", ship);
                 } else {
                     // Perform search logic and retrieve matching orders from the database
-                    List<Blog> search = bf.searchBlog(searchQuery);
+                    String indexPage = request.getParameter("index");
+                    if (indexPage == null) {
+                        indexPage = "1";
+                    }
+                    int index = Integer.parseInt(indexPage);
 
+                    String blogPerPage = request.getParameter("blogPerPage");
+                    if (blogPerPage == null) {
+                        blogPerPage = "4";
+                    }
+                    int num = Integer.parseInt(blogPerPage);
+
+                    int countPage = bf.countBlogsearch(searchQuery);
+                    int endPage = countPage / num;
+                    if (endPage % num != 0) {
+                        endPage++;
+                    }
+
+                    List<Blog> search = bf.searchBlog(index, num, searchQuery);
+                    int currentPage = index;
+                    latest = bf.listLatest();
+                    request.setAttribute("currentPage", currentPage);
+                    request.setAttribute("endPage", endPage);
+                    request.setAttribute("latest", latest);
                     request.setAttribute("blog", search);
                 }
                 request.setAttribute("action", "bloglist");
@@ -135,8 +157,31 @@ public class BlogController extends HttpServlet {
 //                    request.setAttribute("blog", ship);
                 } else {
                     // Perform search logic and retrieve matching orders from the database
-                    List<Blog> search = bf.searchBlog(searchQuery1);
+                    String indexPage = request.getParameter("index");
+                    if (indexPage == null) {
+                        indexPage = "1";
+                    }
+                    int index = Integer.parseInt(indexPage);
 
+                    String blogPerPage = request.getParameter("blogPerPage");
+                    if (blogPerPage == null) {
+                        blogPerPage = "2";
+                    }
+                    int num = Integer.parseInt(blogPerPage);
+
+                    int countPage = bf.countBlogsearch(searchQuery1);
+                    int endPage = countPage / num;
+                    if (endPage % num != 0) {
+                        endPage++;
+                    }
+
+//                blog = bf.listBlog();
+                   List<Blog> search = bf.searchBlog(index, num, searchQuery1);
+                    int currentPage = index;
+                    latest = bf.listLatest();
+                    request.setAttribute("currentPage", currentPage);
+                    request.setAttribute("endPage", endPage);
+                    request.setAttribute("latest", latest);
                     request.setAttribute("blog", search);
                 }
                 request.setAttribute("action", "bloggrid");

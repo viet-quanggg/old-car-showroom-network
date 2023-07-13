@@ -127,14 +127,14 @@
 
                                     <c:choose>
                                         <c:when test="${User.userRole == 2 || User.userRole ==1}">
-                                           
+
                                             <div class="col-xl-5 ">
                                                 <a class="form-btn" href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">read more</a>
                                             </div>
                                             <div class ="col-xl-5  ">
                                                 <a class="form-btn" href="<c:url value='/blog/blogedit.do?blid=${blog.blogId}'/>">Edit</a>
                                             </div>
-                                           
+
                                         </c:when>
                                         <c:when test="${User.userRole == 0 && User.userID == blog.blogId}">
                                             <div class="col-xl-5 left-side">
@@ -169,29 +169,28 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-12">
-                                                        <div class="bottom-paginate mb-50">
-                                                            <p class="page-info">Showing ${currentPage} of ${endPage} Results</p>
-                                                            <ul class="pagination">
-                                                                <li class="page-item"><a href="#" class="page-link material-icons">chevron_left</a>
-                                                                </li>
-                            <c:forEach begin="1" end="${endPage}" var="i">
-                                <li class="page-item">
-                                    <a href="<c:url value="/blog/bloglist.do?index=${i}"/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
-                                </li>
-                                
-                                <li class="page-item">
-                                    <a href="<c:url value="/blog/search.do?index=${i}"/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
-                                </li>
-                            </c:forEach>
+                            <div class="bottom-paginate mb-50">
+                                <p class="page-info">Showing ${currentPage} of ${endPage} Results</p>
+                                <ul class="pagination">
+                                    <li class="page-item"><a href="#" class="page-link material-icons">chevron_left</a>
+                                    </li>
+                                    
+                                    
+                                            <c:forEach begin="1" end="${endPage}" var="i">
+                                                <li class="page-item">
+                                                    <a href="<c:url value='/blog/bloglist.do?index=${i}'/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
+                                                </li>
+                                            </c:forEach>
+                                        
 
-<!--                                                        <li class="page-item"><a href="#" class="page-link">02</a></li>
-                                                            <li class="page-item"><a href="#" class="page-link">03</a></li>
-                                                            <li class="page-item"><a href="#" class="page-link">...</a></li>
-                                                            <li class="page-item"><a href="#" class="page-link">45</a></li>
-                            <li class="page-item"><a href="<c:url value="/blog/bloglist.do?index=${i + 1}"/>" class="page-link material-icons">chevron_right</a>
-                            </li>-->
-                        </ul>
-                    </div>
+                                    <!--                                                        <li class="page-item"><a href="#" class="page-link">02</a></li>
+                                                                                                <li class="page-item"><a href="#" class="page-link">03</a></li>
+                                                                                                <li class="page-item"><a href="#" class="page-link">...</a></li>
+                                                                                                <li class="page-item"><a href="#" class="page-link">45</a></li>
+                                                                <li class="page-item"><a href="<c:url value="/blog/bloglist.do?index=${i + 1}"/>" class="page-link material-icons">chevron_right</a>
+                                                                </li>-->
+                                </ul>
+                            </div>
                         </div>
                     </div>
 

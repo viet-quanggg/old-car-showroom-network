@@ -182,6 +182,21 @@ public class BlogFacade {
         }
         return 0;
     }
+    public int countBlogsearch(String search) {
+        try {
+            con = DBContext.getConnection();
+            ps = con.prepareStatement("select COUNT(*)\n"
+                    + "from [blog]"
+                    + "WHERE blogTitle = '%"+search+"%'");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+
+        }
+        return 0;
+    }
 
     public List<Blog> pagingBlog(int index) throws SQLException {
         List<Blog> list = new ArrayList<>();
@@ -305,11 +320,19 @@ public class BlogFacade {
         return null;
     }
 
-    public List<Blog> searchBlog(String search) throws SQLException {
+    public List<Blog> searchBlog(int index, int num, String search) throws SQLException {
         try {
             List<Blog> list = new ArrayList<>();
             con = DBContext.getConnection();
-            ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName from [Blog] b join [User] u on b.blogId = u.userId WHERE b.blogTitle LIKE '%"+search+"%'");
+            con = DBContext.getConnection();
+            ps = con.prepareStatement("SELECT b.blogId, b.blogTitle, b.blogDetail, b.blogImage, b.blogDate, u.userId, u.userName \n"
+                    + "FROM [Blog] b JOIN [User] u \n"
+                    + "ON b.blogId = u.userId \n"
+                    + "WHERE b.blogTitle LIKE '%"+search+"%'\n"
+                    + "ORDER BY blogId\n"
+                    + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+            ps.setInt(1, (index - 1) * num);
+            ps.setInt(2, num);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Blog blog = new Blog();
