@@ -732,7 +732,7 @@
                                 <li><i class="material-icons">settings</i><span>2000 km</span></li>
                                 <li><i class="material-icons">local_gas_station</i><span>diesel</span></li>
                             </ul>
-                            <div class="product-grid-btn"><a href="inventory-single.html"><i
+                            <div class="product-grid-btn"><a href="iny-single.html"><i
                                         class="material-icons">visibility</i><span>details</span></a><a
                                     href="https://youtu.be/VWrJkx6O0L8" class="venobox" data-autoplay="true"
                                     data-vbtype="video"><i class="material-icons">videocam</i><span>video</span></a>

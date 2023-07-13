@@ -64,6 +64,9 @@ public class UserFacade {
             if (rs.getObject("planStart") != null) {
                 user.setPlanStart(rs.getDate("planStart"));
             }
+            if (rs.getObject("postLimit") != null) {
+                user.setPostLimit(rs.getInt("postLimit"));
+            }
         }
         con.close();
         return user;
@@ -180,6 +183,9 @@ public class UserFacade {
             if (rs.getObject("planStart") != null) {
                 user.setPlanStart(rs.getDate("planStart"));
             }
+            if (rs.getObject("postLimit") != null) {
+                user.setPostLimit(rs.getInt("postLimit"));
+            }
             list.add(user);
         }
         con.close();
@@ -210,6 +216,9 @@ public class UserFacade {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 user.setPlanStart(sdf.parse(sdf.format(rs.getDate("planStart"))));
             }
+            if (rs.getObject("postLimit") != null) {
+                user.setPostLimit(rs.getInt("postLimit"));
+            }
         }
         con.close();
         return user;
@@ -238,6 +247,9 @@ public class UserFacade {
             if (rs.getObject("planStart") != null) {
                 user.setPlanStart(rs.getDate("planStart"));
             }
+            if (rs.getObject("postLimit") != null) {
+                user.setPostLimit(rs.getInt("postLimit"));
+            }
             list.add(user);
         }
         con.close();
@@ -249,7 +261,7 @@ public class UserFacade {
         ArrayList<User> list = new ArrayList<>();
         Connection con = DBContext.getConnection();
         PreparedStatement stm = con.prepareStatement("select * from [User] where userRole=0 and userName like ?");
-        stm.setString(1, "%"+ searchQuery + "%");
+        stm.setString(1, "%" + searchQuery + "%");
         ResultSet rs = stm.executeQuery();
         while (rs.next()) {
             user = new User();
@@ -267,6 +279,9 @@ public class UserFacade {
             }
             if (rs.getObject("planStart") != null) {
                 user.setPlanStart(rs.getDate("planStart"));
+            }
+            if (rs.getObject("postLimit") != null) {
+                user.setPostLimit(rs.getInt("postLimit"));
             }
             list.add(user);
         }
@@ -291,6 +306,7 @@ public class UserFacade {
             user.setTimeCreated(rs.getDate("timeCreated"));
             user.setUserRole(rs.getInt("userRole"));
             user.setUserImage(rs.getString("userImage"));
+            
         }
         con.close();
         return user;
@@ -328,8 +344,8 @@ public class UserFacade {
         con.close();
         return user;
     }
-    
-        public void resetPassword(String pass, String email) throws SQLException {
+
+    public void resetPassword(String pass, String email) throws SQLException {
         Connection con = DBContext.getConnection();
         PreparedStatement stm = con.prepareStatement("UPDATE [User] set userPass =? where userEmail = ?");
         stm.setString(1, pass);
@@ -338,14 +354,21 @@ public class UserFacade {
         con.close();
     }
 
-    public User updatePlan(User user) throws SQLException {
+    public User updatePlan(User user) throws SQLException, ParseException {
         Connection con = DBContext.getConnection();
-        PreparedStatement stm = con.prepareStatement("UPDATE [User] set planId = ?, planStart = CURRENT_TIMESTAMP where userId = ?");
-        stm.setInt(1, user.getPlanId());
-        stm.setInt(2, user.getUserID());
-        int count = stm.executeUpdate();
-        con.close();
-        return user;
+        PreparedStatement stm = con.prepareStatement("UPDATE [User] set planId = ?, postLimit = ?, planStart = CURRENT_TIMESTAMP where userId = ?");
+        if (user.getPlanId() == 0) {
+            stm.setObject(1, null);
+            stm.setObject(2, null);
+            stm.setObject(3, user.getUserID());
+        } else {
+            stm.setInt(1, user.getPlanId());
+            stm.setInt(2, user.getPostLimit());
+            stm.setInt(3, user.getUserID());
+            int count = stm.executeUpdate();
+            con.close();
+        }
+        return getUser(user.getUserID());
     }
 
     public void update(User user) throws SQLException {
@@ -378,7 +401,7 @@ public class UserFacade {
             ps = con.prepareStatement(sql);
             ps.setString(1, user.getUserName());
             ps.setString(2, user.getUserEmail());
-         //   ps.setString(3, user.getUserImage());
+            //   ps.setString(3, user.getUserImage());
             // Execute the SQL statement
             int rowsInserted = ps.executeUpdate();
 
@@ -424,7 +447,7 @@ public class UserFacade {
 
         }
     }
-    
+
     public void updateUserImage(int userId, String url) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -443,7 +466,8 @@ public class UserFacade {
 
         }
     }
- public ArrayList<User> getAll() throws SQLException {
+
+    public ArrayList<User> getAll() throws SQLException {
         User user = null;
         ArrayList<User> list = new ArrayList<>();
         Connection con = DBContext.getConnection();
@@ -465,6 +489,9 @@ public class UserFacade {
             }
             if (rs.getObject("planStart") != null) {
                 user.setPlanStart(rs.getDate("planStart"));
+            }
+            if (rs.getObject("postLimit") != null) {
+                user.setPostLimit(rs.getInt("postLimit"));
             }
             list.add(user);
         }

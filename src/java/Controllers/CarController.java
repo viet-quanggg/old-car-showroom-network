@@ -12,6 +12,7 @@ import Models.Color;
 import Models.Compare;
 import Models.Line;
 import Models.Post;
+import Models.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,6 +20,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,6 +53,7 @@ public class CarController extends HttpServlet {
         Car car = cf.getDetails(id);
         List<Brand> bl = cf.getAllBrand();
         Post post = pf.checkCarId(id);
+
         request.setAttribute("data", car);
         request.setAttribute("pdata", post);
         request.setAttribute("blist", bl);
@@ -94,8 +97,8 @@ public class CarController extends HttpServlet {
         }
 
 //        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-
     }
+
     private void removeCompare(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         Cookie arr[] = request.getCookies();
         String txt = "";
@@ -140,9 +143,10 @@ public class CarController extends HttpServlet {
         response.addCookie(c);
 
     }
+
     private void compare(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         Cookie arr[] = request.getCookies();
-        int count=0;
+        int count = 0;
         String txt = "";
         if (arr != null) {
             for (Cookie item : arr) {
@@ -155,9 +159,10 @@ public class CarController extends HttpServlet {
         CarFacade cf = new CarFacade();
         List<Car> data = cf.getCar();
 
-      Compare compare = new Compare(txt, data);
+        Compare compare = new Compare(txt, data);
         request.setAttribute("data", compare);
     }
+
     protected void getListing(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
 
@@ -180,6 +185,11 @@ public class CarController extends HttpServlet {
         List<Car> data = pagination(request, xPage, xNumberPerPage, xSort, cid, bid, xSearch);
         /* Pagination */
 
+        if (data == null) {
+            response.sendRedirect(request.getContextPath() + "/ocsn/index.do");
+            return;
+        }
+
         request.setAttribute("data", data);
 
         request.setAttribute("cChecked", cChecked);
@@ -192,35 +202,45 @@ public class CarController extends HttpServlet {
 
     private List<Car> pagination(HttpServletRequest request, String xPage, String xNumberPerPage, String xSort, int[] cid, int[] bid, String xSearch) throws SQLException {
         CarFacade fa = new CarFacade();
-        List<Car> allCar = fa.getCar();
+        List<Car> allCar = null, result = null;
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("User");
+        if (user == null || user.getUserRole() == 0) {
+            allCar = new ArrayList<>();
+            allCar = fa.getActiveCar();
+        } else {
+            allCar = new ArrayList<>();
+            allCar = fa.getCar();
+        }
 
-        allCar = (cid.length != 0) ? filterColor(allCar, cid) : allCar;
-        allCar = (bid.length != 0) ? filterBrand(allCar, bid) : allCar;
-        allCar = (xSearch != null && !xSearch.isEmpty()) ? fa.getBySearch(xSearch) : allCar;
+        if (allCar != null) {
+            allCar = (cid.length != 0) ? filterColor(allCar, cid) : allCar;
+            allCar = (bid.length != 0) ? filterBrand(allCar, bid) : allCar;
+            allCar = (xSearch != null && !xSearch.isEmpty()) ? fa.getBySearch(xSearch) : allCar;
 
-        allCar = (xSort != null) ? sorting(xSort, allCar) : allCar;
+            allCar = (xSort != null) ? sorting(xSort, allCar) : allCar;
 
-        int page = (xPage == null) ? 1 : Integer.parseInt(xPage);
-        int numberPerPage = (xNumberPerPage == null) ? 9 : Integer.parseInt(xNumberPerPage);
-        int size = allCar.size();
+            int page = (xPage == null) ? 1 : Integer.parseInt(xPage);
+            int numberPerPage = (xNumberPerPage == null) ? 9 : Integer.parseInt(xNumberPerPage);
+            int size = allCar.size();
 
-        int numberOfPage = ((size % numberPerPage == 0) ? (size / numberPerPage) : (size / numberPerPage + 1));
+            int numberOfPage = ((size % numberPerPage == 0) ? (size / numberPerPage) : (size / numberPerPage + 1));
 
-        int start = (page - 1) * numberPerPage;
-        int end = Math.min(page * numberPerPage, size);
+            int start = (page - 1) * numberPerPage;
+            int end = Math.min(page * numberPerPage, size);
 
-        List<Car> result = fa.getListByPage(allCar, start, end);
+            result = fa.getListByPage(allCar, start, end);
 
-        request.setAttribute("numberOfPage", numberOfPage);
-        request.setAttribute("size", size);
-        request.setAttribute("start", start + 1);
-        request.setAttribute("end", end);
+            request.setAttribute("numberOfPage", numberOfPage);
+            request.setAttribute("size", size);
+            request.setAttribute("start", start + 1);
+            request.setAttribute("end", end);
 
-        request.setAttribute("page", page);
-        request.setAttribute("numberPerPage", numberPerPage);
-        request.setAttribute("sort", xSort);
-        request.setAttribute("search", xSearch);
-
+            request.setAttribute("page", page);
+            request.setAttribute("numberPerPage", numberPerPage);
+            request.setAttribute("sort", xSort);
+            request.setAttribute("search", xSearch);
+        }
         return result;
 
     }

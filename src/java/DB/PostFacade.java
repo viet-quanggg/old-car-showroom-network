@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PostFacade {
@@ -46,11 +47,13 @@ public class PostFacade {
     }
         
 
-public int countPost(int userId) throws SQLException {
+public int countPost(int userId, Date startDate, Date endDate) throws SQLException {
         int count = 0;
        Connection con = DBContext.getConnection();
-        PreparedStatement stm = con.prepareStatement("select Count(*) as countPost from [Post] where userId=?");
+        PreparedStatement stm = con.prepareStatement("select Count(*) as countPost from [Post] where userId = ? and postDate between ? and ?");
         stm.setInt(1, userId);
+        stm.setObject(2, startDate);
+        stm.setObject(3, endDate);
         ResultSet rs = stm.executeQuery();
         if (rs.next()) {
 
@@ -59,6 +62,7 @@ public int countPost(int userId) throws SQLException {
         con.close();
         return count;
     }
+
     public List<Post> getPostList() throws SQLException {
         ArrayList<Post> list = null;
         Connection con = DBContext.getConnection();

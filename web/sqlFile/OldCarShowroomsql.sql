@@ -68,6 +68,7 @@ userRole int NOT NULL,
 userImage nvarchar(255),
 planId int,
 planStart Date,
+postLimit int,
 foreign key (planId) references [Plan](planId)
 );
 GO

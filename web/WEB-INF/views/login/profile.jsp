@@ -141,11 +141,11 @@
                                 <c:if test="${UserPlan!=null}">
                                     <li><span>Package</span><span>${UserPlan.planName}</span></li>
                                     <li><span>Expired Date:</span><span>${ExpDate}</span></li>
-                                    <li><span>Post available:</span><span>${(UserPlan.planLimit  != 0) ? UserPlan.planLimit-countPost : "infinite"}</span></li>
-                                        <c:if test="${UserPlan!=null&&UserPlan.planLimit-countPost == 0}">
-                                        <h6 style="display:flex;justify-content: center;margin-top: 10px">You have run out of post</h6>
-                                        <h6 style="display:flex;justify-content: center;">re-subscribe to create more post!</h6>
-
+                                    <li><span>Post available:</span><span>${(UserPlan.planLimit  != 0) ? User.postLimit : "infinite"}</span></li>
+                                        <c:if test="${UserPlan!=null && User.postLimit == 0}">
+                                        <h6 style="display:flex;justify-content: center;margin-top: 10px">You have reached the post limit!</h6>
+                                        <h6 style="display:flex;justify-content: center;">Re-subscribe to make more posts!</h6>
+                                        <a href="../../../../src/java/Controllers/LoginController.java"></a>
                                         <li><a class="form-btn" href="<c:url value="/order/pricingplan.do"/>" style="margin-top: 10px;">
                                                 Subscribe plan
                                             </a></li>

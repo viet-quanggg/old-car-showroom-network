@@ -4,6 +4,7 @@ import Utilities.Common;
 import DB.CarFacade;
 import DB.OrderFacade;
 import DB.OrderFacade;
+import DB.PlanFacade;
 import DB.PostFacade;
 import DB.PostFacade;
 import DB.UserFacade;
@@ -28,6 +29,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.File;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -508,11 +510,15 @@ public class OrderController extends HttpServlet {
     }
 
     private void create_handler(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, ParseException {
         String op = request.getParameter("op");
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("User");
-        if (user != null) {
+        if (user != null /*&& (((user.getUserRole() == 0 && user.getPlanId() != 0 && user.getPlanId() != 3 && user.getPostLimit() != 0 && user.getPlanStart() != null)) || user.getUserRole() == 1 || user.getUserRole() == 2)*/) {
+            if (user.getPostLimit() == 0) {
+                response.sendRedirect(request.getContextPath() + "/login/profile.do");
+                return;
+            }
             switch (op) {
                 case "createcar":
                 try {
@@ -579,9 +585,21 @@ public class OrderController extends HttpServlet {
                     if (otherin.isEmpty()) {
                         otherin = "";
                     }
-                    if (title.isBlank() || carname.isBlank() || carprice.isBlank() || odo.isBlank() || brandid.isBlank() || colorid.isBlank() || !carprice.matches("^0*[1-9]\\d*(\\.\\d+)?$") || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$") || description.isBlank() || brandid.equals("") || colorid.equals("") || car_seat.isBlank() || engine.isBlank()) {
+                    if (title.isBlank() || carname.isBlank() || carprice.isBlank() || odo.isBlank() || brandid == null || colorid == null || brandid.isBlank() || colorid.isBlank() || !carprice.matches("^0*[1-9]\\d*(\\.\\d+)?$") || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$") || description.isBlank() || brandid.equals("") || colorid.equals("") || car_seat.isBlank() || engine.isBlank()) {
                         createad(request, response);
                         return;
+                    } else if (user == null) {
+                        response.sendRedirect(request.getContextPath() + "/login/login_handler.do");
+                        return;
+//                    } else if (user.getUserRole() == 0) {
+//                        String countPost = session.getAttribute("countPost").toString();
+//                        if (countPost.isBlank()) {
+//                            createad(request, response);
+//                            return;
+//                        } else if (countPost.matches("^[0-9]+$") && Integer.parseInt("countPost") == 0) {
+//                            createad(request, response);
+//                            return;
+//                        }
                     } else {
 
                         CarFacade cf = new CarFacade();
@@ -591,21 +609,40 @@ public class OrderController extends HttpServlet {
                         }
                         PostFacade pf = new PostFacade();
                         pf.addPost(user.getUserID(), carId, Common.getFormatString(title), Common.getFormatString(otherin));
-                        int countPost = pf.countPost(user.getUserID());
-                        session.setAttribute("countPost", countPost);
-
+                        if (user.getUserRole() == 0 && user.getPostLimit() > 0) {
+                            user.setPostLimit(user.getPostLimit() - 1);
+                            UserFacade uf = new UserFacade();
+                            uf.updatePlan(user);
+                            session.setAttribute("User", user);
+                        } 
+//                        if (user.getUserRole() == 0) {
+//                            String countPost = session.getAttribute("countPost").toString();
+//                            if (!countPost.isBlank() && !countPost.equals("infinite") && countPost.matches("^[0-9]+$")) {
+//                                request.setAttribute("countPost", Integer.parseInt(countPost) - 1);
+//                            }
+//
+//                        }
                     }
+
                 } catch (ServletException | IOException | NumberFormatException | SQLException e) {
                     request.setAttribute("error", e.toString());
+                    request.setAttribute("action", "error");
+                    request.setAttribute("controller", "error");
+                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                
                 }
-//                request.setAttribute("action", "createad");
-//                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-                createad(request, response);
+
+                request.setAttribute("action", "createad");
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
 
             }
+            return;
         }
-        createad(request, response);
+
+        request.setAttribute("action", "index");
+        request.setAttribute("controller", "ocsn");
+        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
     }
 
     private void update_handler(HttpServletRequest request, HttpServletResponse response)
@@ -706,22 +743,22 @@ public class OrderController extends HttpServlet {
                         return;
                     } else {
                         CarFacade cf = new CarFacade();
-                        Enumeration<String> headerNames = request.getHeaderNames();
-                        if (headerNames != null) {
-                            while (headerNames.hasMoreElements()) {
-                                String headerName = headerNames.nextElement();
-                                if (headerName.startsWith("Content-Disposition")) {
-                                    List<String> imageUrls = Common.saveImage(request, response, "Car");
-                                    if (imageUrls != null && imageUrls.size() > 0) {
-                                        for (String url : imageUrls) {
-                                            String actualurl = request.getContextPath() + File.separator + "image" + File.separator + url.substring(url.lastIndexOf(File.separator));
-                                            cf.addCar_Image(Integer.parseInt(carId), actualurl);
-                                        }
-                                    }
-                                    break;
-                                }
-                            }
-                        }
+//                        Enumeration<String> headerNames = request.getHeaderNames();
+//                        if (headerNames != null) {
+//                            while (headerNames.hasMoreElements()) {
+//                                String headerName = headerNames.nextElement();
+//                                if (headerName.startsWith("Content-Disposition")) {
+//                                    List<String> imageUrls = Common.saveImage(request, response, "Car");
+//                                    if (imageUrls != null && imageUrls.size() > 0) {
+//                                        for (String url : imageUrls) {
+//                                            String actualurl = request.getContextPath() + File.separator + "image" + File.separator + url.substring(url.lastIndexOf(File.separator));
+//                                            cf.addCar_Image(Integer.parseInt(carId), actualurl);
+//                                        }
+//                                    }
+//                                    break;
+//                                }
+//                            }
+//                        }
                         cf.updateCar(Integer.parseInt(carId), Common.getFormatString(carShowroom), Double.parseDouble(carprice.replaceAll("[^\\d.]", "")), Common.getFormatString(carname), Boolean.parseBoolean(carCondition), Integer.parseInt(caryear), Common.getFormatString(description), Integer.parseInt(brandid), Integer.parseInt(colorid), Integer.parseInt(car_seat), engine, Float.parseFloat(odo));
                         PostFacade pf = new PostFacade();
                         pf.updatePost(Integer.parseInt(postId), title, otherin);
@@ -790,10 +827,12 @@ public class OrderController extends HttpServlet {
             processRequest(request, response);
 
         } catch (SQLException ex) {
-            Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrderController.class
+                    .getName()).log(Level.SEVERE, null, ex);
 
         } catch (Exception ex) {
-            Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrderController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 

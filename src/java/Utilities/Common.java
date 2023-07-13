@@ -9,30 +9,32 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
-import java.sql.Date;
+import java.util.Date;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Common {
-    
+
     public String getFormatDate(Date date, String pattern) {
         SimpleDateFormat f = new SimpleDateFormat(pattern);
         return f.format(date);
     }
-    
+
     public String getFormatPrice(double price) {
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
         String formattedPrice = decimalFormat.format(price);
         String[] parts = formattedPrice.split("\\,");
-        
+
         String wholePart = parts[0];
-        
+
         String result = "";
-        
+
         wholePart = wholePart.replaceAll("\\.", "");
         System.out.println(wholePart);
         // Tỷ
@@ -56,21 +58,21 @@ public class Common {
             int thousand = Integer.parseInt(wholePart);
             if (thousand > 0) {
                 result += thousand + " Nghìn ";
-                
+
             }
         }
-        
+
         return result.trim();
     }
-    
+
     public static String getFormatString(String string) {
         return string.replaceAll("\\s+", " ").trim();
     }
-    
+
     public static List<String> saveImage(HttpServletRequest request, HttpServletResponse response, String foldername) {
         List<String> pathlist = null;
         try {
-            
+
             Collection<Part> parts = request.getParts();
             if (parts != null && parts.size() > 0) {
                 File fileSaveDir = new File(getAbsolutePath(request, response, File.separator + "images"));
@@ -85,28 +87,28 @@ public class Common {
                 imageParts = parts.stream()
                         .filter(part -> part.getContentType() != null && part.getContentType().startsWith("image/"))
                         .collect(Collectors.toList());
-                
+
                 if (imageParts != null && imageParts.size() > 0) {
                     String uploadDir = getAbsolutePath(request, response, File.separator + "images" + File.separator + foldername);
                     pathlist = new ArrayList<>();
-                    
+
                     for (Part part : imageParts) {
                         String filePath = uploadDir + File.separator + getFileName(part);
                         File existingFile = new File(filePath);
                         if (!existingFile.exists()) {
                             pathlist.add(filePath);
                             part.write(filePath);
-                        }   
+                        }
                     }
                 }
             }
-            
+
         } catch (Exception e) {
-            
+
         }
         return pathlist;
     }
-    
+
     private static String getFileName(Part part) {
         String contentDisp = part.getHeader("content-disposition");
         String[] tokens = contentDisp.split(";");
@@ -117,7 +119,23 @@ public class Common {
         }
         return "";
     }
-    
+
+    public static Date countDate(Date startDate, int month) throws ParseException {
+        Date endDate = null;
+        try {
+            if (startDate != null) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(startDate);
+                calendar.add(Calendar.MONTH, month);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                endDate = (Date) sdf.parse(sdf.format(calendar.getTime()));
+            }
+        } catch (Exception e) {
+
+        }
+        return endDate;
+    }
+
     public static String getAbsolutePath(HttpServletRequest request, HttpServletResponse response, String relativepath) {
         ServletContext servletContext = request.getServletContext();
 

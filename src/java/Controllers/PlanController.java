@@ -1,9 +1,11 @@
 package Controllers;
 
 import DB.PlanFacade;
+import DB.PostFacade;
 import DB.UserFacade;
 import Models.Plan;
 import Models.User;
+import Utilities.Common;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -33,7 +36,7 @@ public class PlanController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
@@ -48,14 +51,45 @@ public class PlanController extends HttpServlet {
                 String pID = request.getParameter("planId");
                 User user = (User) session.getAttribute("User");
                 int id = 0;
+                if (user == null || user.getUserRole() != 0) {
+                    request.setAttribute("controller", "login");
+                    request.setAttribute("action", "login");
+                    request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
+                    return;
+                }
                 try {
                     if (!pID.isBlank() && user != null) {
                         id = Integer.parseInt(pID);
                     }
                     user.setPlanId(id);
                     UserFacade uf = new UserFacade();
-                    uf.updatePlan(user);
                     plan = pf.getUserPlan(user);
+                    user.setPostLimit(plan.getPlanLimit());
+                    user = uf.updatePlan(user);
+                    
+//                    if (user.getPlanId() != 0 && user.getPlanStart() != null && plan != null) {
+//                        session.setAttribute("countPost", "");
+//
+//                        Date startDate = user.getPlanStart();
+//                        Date endDate = Common.countDate(user.getPlanStart(), plan.getPlanLimit());
+//
+//                        PostFacade pof = new PostFacade();
+//                        if (user.getPlanId() != 3) {
+//                            int countPost = plan.getPlanLimit() - pof.countPost(user.getUserID(), startDate, endDate);
+//                            if (countPost <= 0) {
+//                                user.setPlanId(0);
+//                                user = uf.updatePlan(user);
+//                                session.setAttribute("User", user);
+//
+//                            } else {
+//                                session.setAttribute("countPost", countPost);
+//                            }
+//                        } else {
+//                            session.setAttribute("countPost", "infinite");
+//                        }
+//                        session.setAttribute("UserPlan", plan);
+//                    }
+
                     session.setAttribute("User", user);
                     session.setAttribute("UserPlan", plan);
                 } catch (NumberFormatException e) {
@@ -65,7 +99,7 @@ public class PlanController extends HttpServlet {
 
                 break;
             case "getplan":
-                Plan userplan = (Plan)session.getAttribute("UserPlan");
+                Plan userplan = (Plan) session.getAttribute("UserPlan");
                 request.setAttribute("UserPlan", userplan);
             default:
                 //Show error page
@@ -91,6 +125,8 @@ public class PlanController extends HttpServlet {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(PlanController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(PlanController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -108,6 +144,8 @@ public class PlanController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
+            Logger.getLogger(PlanController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
             Logger.getLogger(PlanController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

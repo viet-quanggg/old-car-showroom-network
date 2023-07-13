@@ -24,7 +24,7 @@ public class User {
     private int totalUser;
     private int planId = 0;
     private Date planStart = null;
-
+    private int postLimit = 0;
     public int getPlanId() {
         return planId;
     }
@@ -167,6 +167,14 @@ public class User {
 
     public void setTimeCreated(Date timeCreated) {
         this.timeCreated = timeCreated;
+    }
+
+    public int getPostLimit() {
+        return postLimit;
+    }
+
+    public void setPostLimit(int postLimit) {
+        this.postLimit = postLimit;
     }
     
     

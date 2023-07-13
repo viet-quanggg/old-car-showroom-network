@@ -14,6 +14,7 @@ import Utilities.Hashing;
 import static Utilities.Hashing.hash;
 import Models.Plan;
 import Models.Post;
+import Utilities.Common;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,6 +26,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,7 +53,7 @@ public class LoginController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         String controller = (String) request.getAttribute("controller");
@@ -169,16 +171,18 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
                     return;
                 }
-                if (user.getPlanId() != 0) {
+                if (user.getPlanId() != 0 && user.getPlanStart() != null) {
                     PlanFacade pf = new PlanFacade();
                     Plan plan = pf.getUserPlan(user);
                     request.setAttribute("UserPlan", pf.getUserPlan(user));
                     if (plan != null) {
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(user.getPlanStart());
-                        calendar.add(Calendar.MONTH, plan.getPlanTime());
+//                        Calendar calendar = Calendar.getInstance();
+//                        calendar.setTime(user.getPlanStart());
+//                        calendar.add(Calendar.MONTH, plan.getPlanTime());
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        request.setAttribute("ExpDate", sdf.format((Date) calendar.getTime()));
+//                        request.setAttribute("ExpDate", sdf.format((Date) calendar.getTime()));
+                        request.setAttribute("ExpDate", sdf.format(Common.countDate(user.getPlanStart(), plan.getPlanLimit())));
+
                     }
                 }
                 PostFacade pf = new PostFacade();
@@ -233,6 +237,7 @@ public class LoginController extends HttpServlet {
                 if (user != null) {
                     //Neu login thanh cong:
                     //Luu user vao session
+                    session.setAttribute("User", user);
                     if (request.getParameter("remember") != null && request.getParameter("remember").equals("on")) {
                         String remember = request.getParameter("remember");
                         System.out.println("remember : " + remember);
@@ -247,13 +252,33 @@ public class LoginController extends HttpServlet {
                         response.addCookie(cRemember);
 
                     }
-                    session.setAttribute("User", user);
-                    PlanFacade pf = new PlanFacade();
-                    Plan plan = pf.getUserPlan(user);
-                    PostFacade pof = new PostFacade();
-                    int countPost = pof.countPost(user.getUserID());
-                    session.setAttribute("countPost", countPost);
-                    session.setAttribute("UserPlan", plan);
+//                    if (user.getPlanId() != 0 && user.getPlanStart() != null) {
+//                        session.setAttribute("countPost", "");
+//                        PlanFacade pf = new PlanFacade();
+//                        Plan plan = pf.getUserPlan(user);
+//                        Date startDate = user.getPlanStart();
+//                        Date endDate = Common.countDate(user.getPlanStart(), plan.getPlanLimit());
+//
+//                        PostFacade pof = new PostFacade();
+//                        if (plan != null) {
+//                            if (user.getPlanId() != 3) {
+//                                int countPost = plan.getPlanLimit() - pof.countPost(user.getUserID(), startDate, endDate);
+//                                if (countPost <= 0) {
+//                                    user.setPlanId(0);
+//                                    user = uf.updatePlan(user);
+//                                    session.setAttribute("User", user);
+//
+//                                } else {
+//                                    session.setAttribute("countPost", countPost);
+//                                }
+//                            }
+//                            else {
+//                                session.setAttribute("countPost", "infinite");
+//                            }
+//                            session.setAttribute("UserPlan", plan);
+//                        }
+//                    }
+
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
                     requestDispatcher.forward(request, response);
 
@@ -478,6 +503,8 @@ public class LoginController extends HttpServlet {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -495,6 +522,8 @@ public class LoginController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
