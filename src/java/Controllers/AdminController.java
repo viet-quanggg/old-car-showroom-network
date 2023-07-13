@@ -244,7 +244,6 @@ public class AdminController extends HttpServlet {
                 request.setAttribute("completeSale", completeSale);
                 request.setAttribute("completeSalelastMonth", completeSalelastMonth);
                 request.setAttribute("countUser", countUser);
-                request.setAttribute("completeSale", completeSale);
                 request.setAttribute("userlastMonth", countUserlastMonth);
                 request.setAttribute("userthisMonth", countUserthisMonth);
                 request.setAttribute("acclastMonth", countAcclastMonth);

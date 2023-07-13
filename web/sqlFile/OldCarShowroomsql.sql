@@ -213,8 +213,8 @@ VALUES
 		(N'Cream', GETDATE())	/*11*/
 GO
 
-insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole])
-				values(N'admin@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Admin',132465,N'SaiGon',CURRENT_TIMESTAMP,2)
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'admin@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Admin',132465,N'SaiGon',CURRENT_TIMESTAMP,2,'/OldCarShowroom/images/user/66f-1.jpg')
 insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole])
 				values(N'staff1@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Staff1',242425,N'SaiGon',CURRENT_TIMESTAMP,1)
 insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole])
@@ -255,6 +255,17 @@ insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress]
 				values ('staff23@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'John Dope', '5555555555', '789 Main Street, Anytown USA', '2023-05-19', 1)
 insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole])
 				values ('staff54@example.com', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 'Test Smith2', '5555555555', '789 Main Street, Anytown USA', '2023-06-06', 1)
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'nguyenvietquang099@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Nguyễn Việt Quang',0919473970,N'Go Vap',CURRENT_TIMESTAMP,2,'/OldCarShowroom/images/user/66f-1.jpg')
+				insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'caothang7a7@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Phạm Tuấn Cao Thăng',0796155919,N'District 1',CURRENT_TIMESTAMP,2,'/OldCarShowroom/images/user/66f-1.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'moremoremotto1@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Trần Phước Thịnh',132465,N'District 2',CURRENT_TIMESTAMP,2,'/OldCarShowroom/images/user/66f-1.jpg')
+				insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'meruem0812@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Phùi Chếch Minh',132465,N'Binh Duong',CURRENT_TIMESTAMP,2,'/OldCarShowroom/images/user/66f-1.jpg')
+insert [dbo].[User] ([userEmail],[userPass],[userName],[userPhone],[userAddress],[timeCreated],[userRole],[userImage])
+				values(N'mphamtran8@gmail.com','A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3',N'Phạm Trần Hoàng Minh',132465,N'District 2',CURRENT_TIMESTAMP,2,'/OldCarShowroom/images/user/66f-1.jpg')
+
 INSERT INTO [dbo].[Car] ([ownerId], [carShowroom], [carPrice], [carName], [carYear], [carDescription], [carCondition], [createDate], [updateDate], [car_seat], [engine], [odo] ,[brandID], [colorID])
 VALUES
 		(5, N'FPTU', 665000000, N'Mazda 6 Premium 2.0', 2019, N'Bán Mazda 6 2.0 Premium Sx 2019 sedan hạng B option cao cấp ODO 4v Km biển Hà Nội tên cá nhân.Cam kết chất lượng xe đẹp không đâm đụng.Hỗ trợ bank thủ tục nhanh LH để biết thông tin về chiếc xe này.Cảm ơn đã đọc tin.', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 30000 , 6, 4),

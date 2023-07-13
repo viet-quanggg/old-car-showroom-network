@@ -128,48 +128,6 @@
         </div>
     </section>
     <section class="section-gap-100 review-part">
-        <div class="container">
-            <div class="row review-slider slider-arrow">
-                <div class="col">
-                    <div class="review-wrap">
-                        <div class="review-wrap-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/review/01.jpg" alt="review"></div>
-                        <div class="review-wrap-content">
-                            <div class="review-wrap-meta">
-                                <div class="review-wrap-video"><a href="#" class="material-icons">play_arrow</a><i
-                                        class="material-icons">format_quote</i></div>
-                                <div class="review-wrap-item">
-                                    <h4>mercedes-benz wagon</h4>
-                                    <h5>see the full review</h5>
-                                </div>
-                            </div>
-                            <p class="review-wrap-quote">" Lorem ipsum dolor sit amet consectetur adipisicing elit
-                                Expedita ut porro beatae itaque accusantium nisi Asperiores reprehenderit "</p>
-                            <h3 class="review-wrap-user">miron mahmud</h3>
-                            <h5 class="review-wrap-type">buyer review</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="review-wrap">
-                        <div class="review-wrap-image"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/review/02.jpg" alt="review"></div>
-                        <div class="review-wrap-content">
-                            <div class="review-wrap-meta">
-                                <div class="review-wrap-video"><a href="#" class="material-icons">play_arrow</a><i
-                                        class="material-icons">format_quote</i></div>
-                                <div class="review-wrap-item">
-                                    <h4>lamborghini huracan</h4>
-                                    <h5>see the full review</h5>
-                                </div>
-                            </div>
-                            <p class="review-wrap-quote">" Lorem ipsum dolor sit amet consectetur adipisicing elit
-                                Expedita ut porro beatae itaque accusantium nisi Asperiores reprehenderit "</p>
-                            <h3 class="review-wrap-user">tahmina bonny</h3>
-                            <h5 class="review-wrap-type">seller review</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
     <section class="section-gap-75">
         <div class="container">
@@ -180,111 +138,23 @@
                     </div>
                 </div>
             </div>
+
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-4">
-                <div class="col">
-                    <div class="team-card">
-                        <figure class="team-media"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/team/01.jpg" alt="team">
-                            <div class="team-overlay"><a href="#" class="icofont-facebook facebook"></a><a href="#"
-                                                                                                           class="icofont-twitter twitter"></a><a href="#"
-                                                                       class="icofont-linkedin linkedin"></a></div>
-                        </figure>
-                        <div class="team-meta">
-                            <h4><a href="#">managment name</a></h4>
-                            <p>designation</p>
+                <c:forEach items="${teamMember}" var="teamMember">
+                    <div class="col">
+                        <div class="team-card">
+                            <figure class="team-media"><img src="${teamMember.userImage}" alt="team">
+                                <div class="team-overlay"><a href="#" class="icofont-facebook facebook"></a><a href="#"
+                                                                                                               class="icofont-twitter twitter"></a><a href="#"
+                                                                           class="icofont-linkedin linkedin"></a></div>
+                            </figure>
+                            <div class="team-meta">
+                                <h4><a href="#">${teamMember.userName}</a></h4>
+                                <p>${teamMember.userEmail}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="team-card">
-                        <figure class="team-media"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/team/02.jpg" alt="team">
-                            <div class="team-overlay"><a href="#" class="icofont-facebook facebook"></a><a href="#"
-                                                                                                           class="icofont-twitter twitter"></a><a href="#"
-                                                                       class="icofont-linkedin linkedin"></a></div>
-                        </figure>
-                        <div class="team-meta">
-                            <h4><a href="#">managment name</a></h4>
-                            <p>designation</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="team-card">
-                        <figure class="team-media"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/team/03.jpg" alt="team">
-                            <div class="team-overlay"><a href="#" class="icofont-facebook facebook"></a><a href="#"
-                                                                                                           class="icofont-twitter twitter"></a><a href="#"
-                                                                       class="icofont-linkedin linkedin"></a></div>
-                        </figure>
-                        <div class="team-meta">
-                            <h4><a href="#">managment name</a></h4>
-                            <p>designation</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="team-card">
-                        <figure class="team-media"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/team/04.jpg" alt="team">
-                            <div class="team-overlay"><a href="#" class="icofont-facebook facebook"></a><a href="#"
-                                                                                                           class="icofont-twitter twitter"></a><a href="#"
-                                                                       class="icofont-linkedin linkedin"></a></div>
-                        </figure>
-                        <div class="team-meta">
-                            <h4><a href="#">managment name</a></h4>
-                            <p>designation</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="team-card">
-                        <figure class="team-media"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/team/05.jpg" alt="team">
-                            <div class="team-overlay"><a href="#" class="icofont-facebook facebook"></a><a href="#"
-                                                                                                           class="icofont-twitter twitter"></a><a href="#"
-                                                                       class="icofont-linkedin linkedin"></a></div>
-                        </figure>
-                        <div class="team-meta">
-                            <h4><a href="#">managment name</a></h4>
-                            <p>designation</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="team-card">
-                        <figure class="team-media"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/team/06.jpg" alt="team">
-                            <div class="team-overlay"><a href="#" class="icofont-facebook facebook"></a><a href="#"
-                                                                                                           class="icofont-twitter twitter"></a><a href="#"
-                                                                       class="icofont-linkedin linkedin"></a></div>
-                        </figure>
-                        <div class="team-meta">
-                            <h4><a href="#">managment name</a></h4>
-                            <p>designation</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="team-card">
-                        <figure class="team-media"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/team/07.jpg" alt="team">
-                            <div class="team-overlay"><a href="#" class="icofont-facebook facebook"></a><a href="#"
-                                                                                                           class="icofont-twitter twitter"></a><a href="#"
-                                                                       class="icofont-linkedin linkedin"></a></div>
-                        </figure>
-                        <div class="team-meta">
-                            <h4><a href="#">managment name</a></h4>
-                            <p>designation</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="team-card">
-                        <figure class="team-media"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/team/08.jpg" alt="team">
-                            <div class="team-overlay"><a href="#" class="icofont-facebook facebook"></a><a href="#"
-                                                                                                           class="icofont-twitter twitter"></a><a href="#"
-                                                                       class="icofont-linkedin linkedin"></a></div>
-                        </figure>
-                        <div class="team-meta">
-                            <h4><a href="#">managment name</a></h4>
-                            <p>designation</p>
-                        </div>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </section>

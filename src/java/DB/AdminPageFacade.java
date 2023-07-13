@@ -256,10 +256,12 @@ public class AdminPageFacade {
     public double countCompleteSaleSalary() throws SQLException {
         try {
             con = DBContext.getConnection();
-            ps = con.prepareStatement("sum(c.carPrice)\n"
-                    + "from [Order] o join [Post] p on o.postId = p.postId join [Car] c on p.carId = c.carId \n"
-                    + "where o.orderStatus = 'Complete' \n"
-                    + "and MONTH(orderDate) = MONTH(CURRENT_TIMESTAMP) \n"
+            ps = con.prepareStatement("select sum(c.carPrice) from\n"
+                    + "[Order] o join Post p\n"
+                    + "on o.postId = p.postId \n"
+                    + "left join Car c on c.carId = p.carId\n"
+                    + "where o.orderStatus = 'Complete'\n"
+                    + "and MONTH(orderDate) = MONTH(CURRENT_TIMESTAMP)\n"
                     + "AND YEAR(orderDate) = YEAR(CURRENT_TIMESTAMP)");
             rs = ps.executeQuery();
             double count = 0;
@@ -316,6 +318,34 @@ public class AdminPageFacade {
                 listStaff.setUserAddress(rs.getString(5));
                 listStaff.setUserRole(rs.getInt(6));
                 listStaff.setTimeCreated(rs.getDate(7));
+                list.add(listStaff);
+            }
+            con.close();
+            return list;
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+    
+        public List<User> listteamMember() throws SQLException {
+        try {
+            List<User> list = new ArrayList<>();
+            con = DBContext.getConnection();
+            ps = con.prepareStatement("select userId, userName, userEmail,userPhone,userAddress, userRole, userImage, timeCreated \n"
+                    + "from [User] \n"
+                    + "where userRole = 2");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                User listStaff = new User();
+                listStaff.setUserID(rs.getInt(1));
+                listStaff.setUserName(rs.getString(2));
+                listStaff.setUserEmail(rs.getString(3));
+                listStaff.setUserPhone(rs.getString(4));
+                listStaff.setUserAddress(rs.getString(5));
+                listStaff.setUserRole(rs.getInt(6));
+                listStaff.setUserImage(rs.getString(7));
+                listStaff.setTimeCreated(rs.getDate(8));
                 list.add(listStaff);
             }
             con.close();

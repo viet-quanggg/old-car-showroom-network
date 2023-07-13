@@ -4,6 +4,7 @@
  */
 package Controllers;
 
+import DB.AdminPageFacade;
 import DB.BlogFacade;
 import DB.BrandFacade;
 import DB.CarFacade;
@@ -11,6 +12,7 @@ import DB.OrderFacade;
 import Models.Blog;
 import Models.Brand;
 import Models.PricingPlan;
+import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -41,7 +43,7 @@ public class OCSNController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
@@ -71,6 +73,9 @@ public class OCSNController extends HttpServlet {
             }
             break;
             case "aboutus":
+                AdminPageFacade apf = new AdminPageFacade();
+                List<User> teamMember = apf.listteamMember();
+                request.setAttribute("teamMember", teamMember);
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
             case "contact":
@@ -147,7 +152,11 @@ public class OCSNController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(OCSNController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -161,7 +170,11 @@ public class OCSNController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(OCSNController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
