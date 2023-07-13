@@ -46,7 +46,7 @@
                                 <h3>${Post}</h3>
                                 <p>total post</p>
                             </li>
-                            <li class="star"><i class="material-icons">car</i>
+                            <li class="ads"><i class="material-icons">shopping_cart</i>
                                 <h3>${Order}</h3>
                                 <p>total order</p>
                             </li>
@@ -157,6 +157,19 @@
                                         <a class="form-btn" href="<c:url value="/order/pricingplan.do"/>" style="margin-top: 10px;">
                                             Subscribe plan
                                         </a>
+                                             <div id="modal" class="modal" >
+                                            <div class="modal-content" >
+                                                <div style="justify-content:center;display: flex; width: 100%;">
+                                                    Are you sure you want to delete?
+                                                </div>
+                                                <div style="justify-content:center;display: flex; width: 100%;" >
+                                                    <a class="btn btn-outline-danger btn-sm" href="<c:url value="/admin/delete.do?userID=${userli.userID}"/>">Yes</a>
+                                                    <a class="btn btn-outline-dark-blue btn-sm"href="<c:url value="/admin/userlist.do"/>">No</a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
                                     </c:if>
                                 </ul>
                             </div>
