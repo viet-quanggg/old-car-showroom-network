@@ -68,9 +68,9 @@
                         <button class="col-xl-12 form-btn"  onclick="window.location.href = '<c:url value="/order/ordercar.do?postId=${pdata.postId}"/>'">Order</button>
                     </div>
 
-                    <c:if test="${pdata != null &&  User.userID == pdata.userId}">
+                    <c:if test="${User != null && pdata != null && (User.userID == pdata.userId || User.userRole == 1 || User.userRole == 2)}">
                         <div class="common-card" >
-                            <button class="col-xl-12 form-btn"  onclick="window.location.href = '<c:url value="/order/postmanager.do?postId=${pdata.postId}"/>'">Order</button>
+                            <button class="col-xl-12 form-btn"  onclick="window.location.href = '<c:url value="/order/postmanager.do?postId=${pdata.postId}"/>'">Edit</button>
                         </div>   
                     </c:if>
                 </div>

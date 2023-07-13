@@ -108,7 +108,7 @@ public class OrderController extends HttpServlet {
                     return;
                 }
                 String pid = request.getParameter("postId").trim();
-                if (pid != null && !pid.isEmpty() && pid.matches("^[1-9]\\d*$")) {
+                if (pid != null && !pid.isEmpty() && pid.matches("^[0-9]\\d*$")) {
                     int id = Integer.parseInt(pid);
                     OrderList ol = of.getOrderByPost(id);
                     if (ol == null) {
