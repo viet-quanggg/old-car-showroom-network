@@ -221,7 +221,7 @@ public class OrderFacade {
 
         try {
             con = DBContext.getConnection();
-            String sql = "SELECT o.orderId, o.postId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId";
+            String sql = "SELECT o.orderId, o.postId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate, u.userEmail FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
 
@@ -234,6 +234,7 @@ public class OrderFacade {
                 orderlist.setUserId(rs.getInt("userId"));
                 orderlist.setUserName(rs.getString("userName"));
                 orderlist.setCarName(rs.getString("carName"));
+                orderlist.setUserEmail(rs.getString("userEmail"));
                 orders.add(orderlist);
             }
         } catch (SQLException e) {

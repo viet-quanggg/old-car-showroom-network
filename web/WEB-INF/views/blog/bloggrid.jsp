@@ -145,10 +145,17 @@
                                 <li class="page-item"><a href="#" class="page-link material-icons">chevron_left</a>
                                 </li>
                                 <c:forEach begin="1" end="${endPage}" var="i">
-                                    <li class="page-item">
-                                        <a href="<c:url value="/blog/bloggrid.do?index=${i}"/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
-                                    </li>
-                                </c:forEach>
+                                        <c:if test="${search13 == null}">
+                                            <li class="page-item">
+                                                <a href="<c:url value='/blog/bloglist.do?index=${i}&blogPerPage=${blogPerPage}'/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
+                                            </li>
+                                        </c:if>
+                                        <c:if test="${search13 != null}">
+                                            <li class="page-item">
+                                                <a href="<c:url value='/blog/search_blog.do?index=${i}&search=${search13}&blogPerPage=${blogPerPage}'/>" class="page-link ${currentPage == i ? 'active' : ''}">${i}</a>
+                                            </li>
+                                        </c:if>
+                                    </c:forEach>
                                 <!--                                <li class="page-item"><a href="#" class="page-link">02</a></li>
                                                                 <li class="page-item"><a href="#" class="page-link">03</a></li>
                                                                 <li class="page-item"><a href="#" class="page-link">...</a></li>

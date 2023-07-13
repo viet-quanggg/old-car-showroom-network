@@ -152,8 +152,9 @@
                             <td>${orderlist.orderStatus}</td>
                             <td>${orderlist.getFormatPrice()}</td>
                             <td>${orderlist.createdDate}</td> 
-
+<!--                            <td>${orderlist.userEmail}</td>-->
                             <td >
+                                <input type="hidden" name="Email" value="${orderlist.userEmail}"/>
                                 <input type="hidden" name="orderId" value="${orderlist.orderId}">
                                 <select class="form-select" name="op">
                                     <option selected>Select</option>

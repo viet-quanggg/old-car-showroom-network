@@ -81,7 +81,7 @@
                             <form action="<c:url value='/blog/bloglist.do'/>" method="POST">
                                 <div class="filter-show">
                                     <label class="filter-label">Show :</label>
-                                    <select class=" filter-select" name="blogPerPage" id="blogPerPage" onchange="this.form.submit()">
+                                    <select class="filter-select" name="blogPerPage" id="blogPerPage" onchange="this.form.submit()">
                                         <option selected="">Choose</option>
                                         <option value="4">4</option>
                                         <option value="8">8</option> 

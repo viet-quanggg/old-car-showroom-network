@@ -14,6 +14,7 @@ public class Order {
     private Car car;
     private int userId;
     private int postId;
+    private int userEmail;
     private String orderStatus;
     private String userName;
     private Date createdDate;
@@ -27,6 +28,25 @@ public class Order {
         this.car = car;
         this.userId = userId;
         this.postId = postId;
+        this.orderStatus = orderStatus;
+        this.userName = userName;
+        this.createdDate = createdDate;
+    }
+
+    public int getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(int userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public Order(int orderId, Car car, int userId, int postId, int userEmail, String orderStatus, String userName, Date createdDate) {
+        this.orderId = orderId;
+        this.car = car;
+        this.userId = userId;
+        this.postId = postId;
+        this.userEmail = userEmail;
         this.orderStatus = orderStatus;
         this.userName = userName;
         this.createdDate = createdDate;

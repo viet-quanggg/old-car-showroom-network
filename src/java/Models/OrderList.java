@@ -20,7 +20,7 @@ public class OrderList {
     private String orderStatus;
     private String userName;
     private Date createdDate;
-
+    private String userEmail;
     public OrderList() {
     }
 
@@ -32,6 +32,25 @@ public class OrderList {
         this.orderStatus = orderStatus;
         this.userName = userName;
         this.createdDate = createdDate;
+    }
+
+    public OrderList(int orderId, String carName, int userId, double carPrice, String orderStatus, String userName, Date createdDate, String userEmail) {
+        this.orderId = orderId;
+        this.carName = carName;
+        this.userId = userId;
+        this.carPrice = carPrice;
+        this.orderStatus = orderStatus;
+        this.userName = userName;
+        this.createdDate = createdDate;
+        this.userEmail = userEmail;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
     
 

@@ -185,6 +185,7 @@ public class OrderController extends HttpServlet {
 //                OrderFacade orderFacade = new OrderFacade();
                 List<OrderList> orders = of.getAllOrders();
                 request.setAttribute("orders", orders);
+                String email = request.getParameter("Email");
                 String op = request.getParameter("op");
                 if (op == null) {
                     op = "";
@@ -197,7 +198,7 @@ public class OrderController extends HttpServlet {
 //                        request.setAttribute("action", "error");
 //                        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
 //                }
-
+                    
                     case "denied":
                         int orderId1 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId1, "Cancelled");
@@ -209,7 +210,7 @@ public class OrderController extends HttpServlet {
                                                         
                                                     Best regards,
                                                     OCSN
-                                                        """, user.getUserEmail());
+                                                        """, email);
                         break;
                     case "success":
                         int orderId2 = Integer.parseInt(request.getParameter("orderId"));
@@ -222,7 +223,7 @@ public class OrderController extends HttpServlet {
                                                         
                                                     Best regards,
                                                     OCSN
-                                                        """, user.getUserEmail());
+                                                        """, email);
                         break;
                     case "pending":
                         int orderId3 = Integer.parseInt(request.getParameter("orderId"));
@@ -235,7 +236,7 @@ public class OrderController extends HttpServlet {
                                                         
                                                     Best regards,
                                                     OCSN
-                                                        """, user.getUserEmail());
+                                                        """, email);
                         break;
                     case "inprocess":
                         int orderId4 = Integer.parseInt(request.getParameter("orderId"));
@@ -248,7 +249,7 @@ public class OrderController extends HttpServlet {
                                                         
                                                     Best regards,
                                                     OCSN
-                                                        """, user.getUserEmail());
+                                                        """, email);
                         break;
 //                    case "delete":
 //                        int orderId5 = Integer.parseInt(request.getParameter("orderId"));

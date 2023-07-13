@@ -4703,10 +4703,16 @@ input::placeholder,textarea::placeholder{
 .filter-select{
     height:40px;
     border-color:rgba(168,174,177,.5);
-    background-color:transparent
+    background-color:transparent;
+    padding-top:.5rem;
+    padding-bottom:.5rem;
+    border-radius:.3rem
 }
 .filter-select:focus-within{
-    border-color:rgba(168,174,177,.8)
+    border-color:rgba(168,174,177,.8);
+        padding-top:.5rem;
+    padding-bottom:.5rem;
+    border-radius:.3rem
 }
 .filter-action{
     display:-webkit-box;
