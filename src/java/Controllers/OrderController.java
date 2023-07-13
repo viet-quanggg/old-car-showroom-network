@@ -114,7 +114,7 @@ public class OrderController extends HttpServlet {
                     if (ol == null) {
                         PostFacade pf = new PostFacade();
                         Post post = pf.getDetails(id);
-                        if (post != null) {
+                        if (post != null && post.getUserId() != user.getUserID()) {
                             of.addOrder(id, user.getUserID());
                             CarFacade cf = new CarFacade();
                             cf.updateCarCondition(true, post.getCar().getCarID());

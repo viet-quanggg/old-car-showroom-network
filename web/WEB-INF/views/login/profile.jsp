@@ -153,7 +153,7 @@
                                             </c:if>
                                         </c:if> 
                                         <c:if test="${UserPlan==null}">
-                                        <h6 style="display:flex;justify-content: center;">You have not subscribe to a plan yet!</h6>
+                                        <h6 style="display:flex;justify-content: center;">You have not subscribed to a plan yet!</h6>
                                         <a class="form-btn" href="<c:url value="/order/pricingplan.do"/>" style="margin-top: 10px;">
                                             Subscribe plan
                                         </a>

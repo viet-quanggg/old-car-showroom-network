@@ -214,7 +214,7 @@
                             </li>
                             <li class="nav-item"><a href="<c:url value="/order/createad.do"/>" class="nav-link"><i
                                         class="material-icons">note_add</i><span class="nav-text">create ads</span></a></li>
-                            <li class="nav-item"><a href="posted-ads.html" class="nav-link"><i
+                            <li class="nav-item"><a href="<c:url value="/order/postedad.do"/>" class="nav-link"><i
                                         class="material-icons">apps</i><span class="nav-text">posted ads</span></a></li>                          
                             <li class="nav-item"><a href="<c:url value="/views/login/login.do"/>" class="nav-link"><i
                                         class="material-icons">logout</i><span class="nav-text">logout</span></a></li> 
