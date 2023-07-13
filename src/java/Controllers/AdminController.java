@@ -397,6 +397,7 @@ public class AdminController extends HttpServlet {
                 if (pLimit < 0) {
                     request.setAttribute("errorL", "The Limit Post must greater than 0!");
                     //  request.getRequestDispatcher("/login/register.do").forward(request, response);
+                } else {
                 }
                 if (pStatus.isEmpty() || pStatus == null) {
                     request.setAttribute("errorS", "The Status of the plan can not be empty");

@@ -174,7 +174,7 @@
             </div>
             <div class="sidenav-footer position-absolute w-100 bottom-0 ">
                 <div class="mx-3">
-                  
+
                 </div>
             </div>
         </aside>
@@ -227,32 +227,34 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
-                                                        <input type="number" step="1" min="0"  name="pTime" id="pTime">
+                                                        <input type="number" step="1" min="0" required name="pTime" id="pTime">
                                                     </div>
                                                     <div class="d-flex px-2 py-1" style="color: red">${errorT}</div>
                                                 </td>
                                                 <td >
                                                     <div class="d-flex px-2 py-1">
-                                                        <input type="number" step="1" min="0"  name="pLimit" id="pLimit">
+                                                        <input type="number" step="1" min="0" required name="pLimit" id="pLimit">
                                                     </div>
                                                     <div class="d-flex px-2 py-1" style="color: red">${errorL}</div>
                                                 </td>
                                                 <td >
                                                     <div class="d-flex px-2 py-1">
-                                                        <select  name="pStatus">
-                                                            <option selected>Select</option>
+                                                        <select required name="pStatus">
+                                                           
                                                             <option class="form-check-label" value="active" >Active</option>
                                                             <option class="form-check-label" value="deactivate">Deactivate</option>
-
+                                                        </select>
                                                     </div>
-                                                    <div class="d-flex px-2 py-1" style="color: red">${errorS}</div>
+
+
+
                                                 </td>
 
                                                 <td >
                                                     <div class="d-flex px-2 py-1">
-                                                        <input type="number" min="0" id="pPrice" step="0.01" name="pPrice" >
+                                                        <input type="number" min="0" required="" id="pPrice" step="0.01" name="pPrice" >
                                                     </div>
-                                                    <div class="d-flex px-2 py-1" style="color: red">${errorP}</div></div>
+                                                    <div class="d-flex px-2 py-1" style="color: red"><a>${errorP}<a/></div>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <button type="submit" id="op" name="op" value="create" class="form-btn">Create</button>
