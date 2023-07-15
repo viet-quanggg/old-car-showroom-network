@@ -87,6 +87,7 @@
         </div>
     </div>
 </section>
+              
 <section class="mc-breadcrumb">
     <div class="container">
         <div class="mc-breadcrumb-group">
@@ -99,10 +100,11 @@
         </div>
     </div>
 </section>
-
+               
 <section class="section-gap-100">
     <div class="container">
         <div class="row">
+              <div style="margin-bottom:10px"> <h3 style="color:red">${temporalblunder}</h3></div>
             <div class="col-xl-12">
                 <div class="favorite-title">
                     <h6>appointment</h6>
@@ -115,11 +117,12 @@
                     <c:forEach items="${orders}" var="item">
                         <li class="favorite-item">
                             <div class="favorite-media">
-                                <form method="post" action="<c:url value="/order/orderappoint.do"/>">
+                                <form method="post" action="<c:url value="/order/changeappointment.do"/>">
                                     <input type="hidden" name="orderId" id="orderId" value="${item.orderId}">
                                     <c:if test="${item.orderApp != null}">  <input type="datetime-local" name="appo" id="appo" value="${item.orderApp}"></c:if>
                                     <c:if test="${item.orderApp == null}">  <input type="datetime-local" name="appo" id="appo"></c:if>
                                         <button type="submit">Submit</button>
+
                                     </form>
                                 </div>
                                 <div class="favorite-info product-list-card" style="background-color: #ffffff; border:none; outline:none; pointer-events: none;">

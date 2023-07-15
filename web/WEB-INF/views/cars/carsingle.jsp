@@ -97,8 +97,8 @@
                                                                             src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/bg/cover.jpg" alt="cover"></a><a class="vendor-grid-avatar"
                                                                                                                                                                                    href="profile.html"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="avatar"></a>
                             --> <ul class="vendor-grid-meta">
-                                <li class="profile"><i class="material-icons">account_circle</i><span>Owner ID: </span><a
-                                        href="profile.html">${data.ownerID}</a></li>
+                                <li class="profile"><i class="material-icons">account_circle</i><span>Owner ID: <a
+                                            href="<c:url value="/admin/view.do?userID=${data.ownerID}"/>">${data.ownerID}</a></span></li>
                                 <li><span>Title: ${pdata.postTitle}</span></li>
                                 <li><span>Status: ${pdata.postStatus}</span></li>
                                 <li><span>Date: ${pdata.postDate}</span></li>
@@ -148,7 +148,6 @@
                             <li><span>price:</span><span>${data.getFormatPrice()}</span></li>
                             <li><span>year:</span><span>${data.carYear}</span></li>
                             <li><span>showroom:</span><span>${data.carShowroom}</span></li>
-                            <li><span>condition:</span><span>${data.carCondition}</span></li>
                             <li><span>brand name:</span><span>${data.brand.name}</span></li>
                             <li><span>colour:</span><span>${data.color.color}</span></li>
                             <li><span>seat:</span><span>${data.car_seat}</span></li>

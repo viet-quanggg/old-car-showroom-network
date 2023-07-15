@@ -27,18 +27,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--                    <div class="col-lg-5 col-xl-4">
-                                            <ul class="user-banner-data">
-                                                <li class="ads"><i class="material-icons">note</i>
-                                                    <h3>${Post.count}0</h3>
-                                                    <p>total post</p>
-                                                </li>
-                                                <li class="star"><i class="material-icons">car</i>
-                                                    <h3>${order.count}0</h3>
-                                                    <p>total car buy</p>
-                                                </li>
-                                            </ul>
-                                        </div>-->
+
                 </div>
                 <div class="row">
                     <div class="col-xl-12">
@@ -199,5 +188,23 @@
                 </div>
             </form>
         </div>
-    </div>  
+        <!--        <div  class="col-lg-12 col-xl-12">
+                    <form class="create-ads-form" action="<c:url value="/order/image_hanlder.do"/>">  
+                        <div class="common-card active">
+                            <div class="common-card-header">
+                                <h4 class="common-card-header-title">Media</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group mb-0" style="margin-top: 21px; display:block; align-items: center"><label class="form-label" for="images">Media
+                                            </label></div>
+                                        <input type="file" id="images" name="images" class="form-control" multiple>
+                                </div>
+                                <div style="margin-top: 10px;">
+                                    <button type="submit" name="op" id="op" value="update" class="form-btn">Submit</button>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+        -->    </div>  
 </section>

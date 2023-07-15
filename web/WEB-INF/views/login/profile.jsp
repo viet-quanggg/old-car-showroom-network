@@ -19,7 +19,7 @@
                             </c:if>
                             <c:if test="${User.userImage != null}">
                                 <div class="user-banner-profile-avatar"><a>
-                                        <img src="${User.getUserImage()}" onerror="this.src='"${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png'" alt="avatar"></a>
+                                        <img src="${User.getUserImage()}" onerror="this.src='${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/user.png'" alt="avatar"></a>
                                 </div>
                             </c:if>
                             <div class="user-banner-profile-meta">
@@ -40,18 +40,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-xl-4">
-                        <ul class="user-banner-data">
-                            <li class="ads"><i class="material-icons">note</i>
-                                <h3>${Post}</h3>
-                                <p>total post</p>
-                            </li>
-                            <li class="ads"><i class="material-icons">shopping_cart</i>
-                                <h3>${Order}</h3>
-                                <p>total order</p>
-                            </li>
-                        </ul>
-                    </div>
+                    <c:if test="${User.userRole == 0}">
+                        <div class="col-lg-5 col-xl-4">
+                            <ul class="user-banner-data">
+                                <li class="ads"><i class="material-icons">note</i>
+                                    <h3>${Post}</h3>
+                                    <p>total post</p>
+                                </li>
+                                <li class="star"><i class="material-icons">car</i>
+                                    <h3>${Order}</h3>
+                                    <p>total order</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </c:if>
+
                 </div>
                 <div class="row">
                     <div class="col-xl-12">
@@ -153,9 +156,9 @@
                                             </c:if>
                                         </c:if> 
                                         <c:if test="${UserPlan==null}">
-                                        <h6 style="display:flex;justify-content: center;">You have not subscribed to a plan yet!</h6>
-                                        <a class="form-btn" href="<c:url value="/order/pricingplan.do"/>" style="margin-top: 10px;">
-                                            Subscribe plan
+                                        <h6 style="display:flex;justify-content: center; " >You have not subscribed to a plan yet!</h6>
+                                        <a class="form-btn" href="<c:url value="/order/pricingplan.do"/>" style="margin-top: 10px;" onmouseover="this.style.color = 'white'">
+                                            get a plan
                                         </a>
                                              <div id="modal" class="modal" >
                                             <div class="modal-content" >

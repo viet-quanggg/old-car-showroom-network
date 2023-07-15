@@ -58,6 +58,8 @@ public class LoginController extends HttpServlet {
         HttpSession session = request.getSession();
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
+        session = request.getSession();
+        User user = (User) session.getAttribute("User");
         switch (action) {
             case "resetpassword_handler":
                 try {
@@ -165,8 +167,7 @@ public class LoginController extends HttpServlet {
                 break;
             }
             case "profile":
-                session = request.getSession();
-                User user = (User) session.getAttribute("User");
+                
                 if (user == null) {
                     request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
                     return;
@@ -196,11 +197,17 @@ public class LoginController extends HttpServlet {
                 //in thong bao loi chi tiet cho developer
                 break;
             case "update_profile":
-                session = request.getSession();
-                if (session.getAttribute("User") == null) {
+                if (user == null) {
                     request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
                     return;
                 }
+                
+                PostFacade pof = new PostFacade();
+                List<Post> pol = pof.listByUser(user.getUserID());
+                request.setAttribute("Post", (pol != null && pol.size() > 0) ? pol.size() : 0);
+                OrderFacade orf = new OrderFacade();
+                List<Order> orl = orf.listUserOrders(user.getUserID());
+                request.setAttribute("Order", (orl != null && orl.size() > 0) ? orl.size() : 0);
                 request.setAttribute("action", "updateprofile");
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
@@ -374,7 +381,7 @@ public class LoginController extends HttpServlet {
                             new GmailController().sendMail("A new message", """
                                                     Dear  """ + newUser.getUserName() + """                                                              
                                                       
-                                                        Your account has been successfully created,please login to continue
+                                                            Your account has been successfully created,please login to continue
                                                         http://localhost:8080/OldCarShowroom/login/login.do
                                                         Thanks for using our service!
                                                         

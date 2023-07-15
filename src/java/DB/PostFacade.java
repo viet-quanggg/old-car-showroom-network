@@ -23,7 +23,7 @@ public class PostFacade {
             PreparedStatement stm = con.prepareStatement("select * from [Post] where postId = " + postId);
             ResultSet rs = stm.executeQuery();
             
-            while (rs.next()) {
+            if (rs.next()) {
                 post = new Post();
                 cf = new CarFacade();
                 post.setPostId(rs.getInt("postId"));
@@ -179,7 +179,7 @@ public int countPost(int userId, Date startDate, Date endDate) throws SQLExcepti
     public void updatePost(int postId, String postTitle, String postDescript) throws SQLException {
         Connection con = DBContext.getConnection();
         try {
-            PreparedStatement stm = con.prepareStatement("Update [Post] set postTitle = ?, set postDescript = ? where postId = ?");
+            PreparedStatement stm = con.prepareStatement("Update [Post] set postTitle = ?, postDescript = ? where postId = ?");
             stm.setString(1, postTitle);
             stm.setString(2, postDescript);
             stm.setInt(3, postId);

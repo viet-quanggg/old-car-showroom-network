@@ -357,11 +357,7 @@ public class UserFacade {
     public User updatePlan(User user) throws SQLException, ParseException {
         Connection con = DBContext.getConnection();
         PreparedStatement stm = con.prepareStatement("UPDATE [User] set planId = ?, postLimit = ?, planStart = CURRENT_TIMESTAMP where userId = ?");
-        if (user.getPlanId() == 0) {
-            stm.setObject(1, null);
-            stm.setObject(2, null);
-            stm.setObject(3, user.getUserID());
-        } else {
+        if (user.getPlanId() > 0) {
             stm.setInt(1, user.getPlanId());
             stm.setInt(2, user.getPostLimit());
             stm.setInt(3, user.getUserID());

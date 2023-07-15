@@ -75,11 +75,11 @@ public class Common {
 
             Collection<Part> parts = request.getParts();
             if (parts != null && parts.size() > 0) {
-                File fileSaveDir = new File(getAbsolutePath(request, response, File.separator + "images"));
+                File fileSaveDir = new File(getAbsolutePath(request, response, File.separator + "web" + File.separator + "images"));
                 if (!fileSaveDir.exists()) {
                     fileSaveDir.mkdirs();
                 }
-                fileSaveDir = new File(getAbsolutePath(request, response, File.separator + "images" + File.separator + foldername));
+                fileSaveDir = new File(getAbsolutePath(request, response, File.separator + "web" +  File.separator + "images" + File.separator + foldername));
                 if (!fileSaveDir.exists()) {
                     fileSaveDir.mkdirs();
                 }
@@ -88,8 +88,10 @@ public class Common {
                         .filter(part -> part.getContentType() != null && part.getContentType().startsWith("image/"))
                         .collect(Collectors.toList());
 
+//                 List<Part> imageParts = (List<Part>) request.getParts();
+
                 if (imageParts != null && imageParts.size() > 0) {
-                    String uploadDir = getAbsolutePath(request, response, File.separator + "images" + File.separator + foldername);
+                    String uploadDir = getAbsolutePath(request, response, File.separator + "web" +  File.separator + "images" + File.separator + foldername);
                     pathlist = new ArrayList<>();
 
                     for (Part part : imageParts) {
@@ -109,7 +111,7 @@ public class Common {
         return pathlist;
     }
 
-    private static String getFileName(Part part) {
+    public static String getFileName(Part part) {
         String contentDisp = part.getHeader("content-disposition");
         String[] tokens = contentDisp.split(";");
         for (String token : tokens) {

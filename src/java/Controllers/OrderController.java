@@ -28,7 +28,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,6 +62,26 @@ public class OrderController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private void orderlist(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+
+        User user = (User) request.getSession().getAttribute("User");
+        OrderFacade of = new OrderFacade();
+        List<Order> orderl = null;
+        if (user.getUserRole() != 0) {
+            orderl = of.listOrders();
+        } else {
+            orderl = of.listUserOrders(user.getUserID());
+        }
+        if (orderl != null) {
+            request.setAttribute("orders", orderl);
+            request.setAttribute("action", "orderlist");
+        } else {
+            request.setAttribute("action", "error");
+            request.setAttribute("controller", "error");
+        }
+        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, Exception {
 
@@ -128,19 +153,7 @@ public class OrderController extends HttpServlet {
                 break;
 
             case "orderlist":
-                List<Order> orderl = null;
-                if (user.getUserRole() != 0) {
-                    orderl = of.listOrders();
-                } else {
-                    orderl = of.listUserOrders(user.getUserID());
-                }
-                if (orderl != null) {
-                    request.setAttribute("orders", orderl);
-                } else {
-                    request.setAttribute("action", "error");
-                    request.setAttribute("controller", "error");
-                }
-                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+                orderlist(request, response);
                 break;
 
             case "removeorder":
@@ -150,7 +163,7 @@ public class OrderController extends HttpServlet {
                 }
                 response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
                 break;
-            case "orderappoint":
+            case "changeappointment":
 
                 String appo = request.getParameter("appo");
                 String orid = request.getParameter("orderId");
@@ -163,7 +176,9 @@ public class OrderController extends HttpServlet {
                         LocalDateTime maxDateTime = ldt.withHour(18).withMinute(0);
                         if (ldt.isAfter(minDateTime) && ldt.isBefore(maxDateTime) && ldt.isAfter(LocalDateTime.now())) {
                             of.updateApp(ldt, Integer.parseInt(orid));
-                            of.updateOrderStatus(Integer.parseInt(orid), "Cancelled");
+                            of.updateOrderStatus(Integer.parseInt(orid), "Processing");
+                        } else {
+                            request.setAttribute("temporalblunder", "The time set is invalid!");
                         }
 
                     }
@@ -174,8 +189,12 @@ public class OrderController extends HttpServlet {
                 } catch (Exception e) {
 
                 }
-                response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
+                orderlist(request, response);
+//                response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
                 break;
+//            case"image_hanlder":
+//                image_handler(request, response);
+//                break;
             case "ordermanager":
                 if (user.getUserRole() == 0) {
                     request.setAttribute("controller", "login");
@@ -199,7 +218,7 @@ public class OrderController extends HttpServlet {
 //                        request.setAttribute("action", "error");
 //                        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
 //                }
-                    
+
                     case "denied":
                         int orderId1 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId1, "Cancelled");
@@ -392,7 +411,7 @@ public class OrderController extends HttpServlet {
                             request.setAttribute("engine", post.getCar().getEngine());
                             request.setAttribute("odo", post.getCar().getOdo());
                             String car_seat = post.getCar().getCar_seat().trim();
-                            if (!car_seat.isBlank()) {
+                            if (!car_seat.isBlank() && car_seat.contains(" ")) {
                                 String cs = car_seat.substring(0, car_seat.indexOf(" "));
                                 if (!cs.isBlank() && cs.matches("^\\d+$")) {
                                     request.setAttribute("car_seat", Integer.parseInt(cs));
@@ -415,7 +434,7 @@ public class OrderController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 return;
             }
-            response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
+            response.sendRedirect(request.getContextPath() + "/order/postedad.do");
             return;
         }
         response.sendRedirect(request.getContextPath() + "/login/login_handler.do");
@@ -525,123 +544,170 @@ public class OrderController extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("User");
         if (user != null /*&& (((user.getUserRole() == 0 && user.getPlanId() != 0 && user.getPlanId() != 3 && user.getPostLimit() != 0 && user.getPlanStart() != null)) || user.getUserRole() == 1 || user.getUserRole() == 2)*/) {
-            if (user.getPostLimit() == 0) {
-                response.sendRedirect(request.getContextPath() + "/login/profile.do");
-                return;
-            }
+
             switch (op) {
                 case "createcar":
                 try {
 //            boolean check = false;
 
-                    String title = request.getParameter("title");
-                    String carname = request.getParameter("carname");
-                    String carprice = request.getParameter("carprice");
-                    String brandid = request.getParameter("brandid");
-                    String colorid = request.getParameter("colorid");
-                    String description = request.getParameter("description");
-                    String otherin = request.getParameter("otherin");
-                    String caryear = request.getParameter("caryear");
-                    String engine = request.getParameter("engine");
-                    String car_seat = request.getParameter("car_seat");
-                    String odo = request.getParameter("odo");
-                    request.setAttribute("title", title);
-                    request.setAttribute("carname", carname);
-                    request.setAttribute("carprice", carprice);
-                    request.setAttribute("caryear", caryear);
-                    request.setAttribute("brandid", brandid);
-                    request.setAttribute("colorid", colorid);
-                    request.setAttribute("description", description);
-                    request.setAttribute("engine", engine);
-                    request.setAttribute("odo", odo);
-                    request.setAttribute("car_seat", car_seat);
-                    request.setAttribute("otherin", otherin);
-
-                    if (title.isBlank()) {
-                        request.setAttribute("errorVT", "Please add a title!");
-                    }
-                    if (carname.isBlank()) {
-                        request.setAttribute("errorVN", "Please enter a name for the car!");
-                    }
-                    if (carprice.isBlank() || !carprice.matches("^0*[1-9]\\d*(\\.\\d+)?$")) {
-                        request.setAttribute("errorVP", "Please enter a valid price!");
-                    }
-
-                    if (odo.isBlank() || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$")) {
-                        request.setAttribute("errorVOD", "Please enter a valid mileage value!");
-                    }
-
-                    if (caryear == null || caryear.isEmpty() || !caryear.matches("^[0-9]+$")) {
-                        request.setAttribute("errorVY", "Please choose a year!");
-                    }
-
-                    if (car_seat == null || car_seat.isEmpty() || !car_seat.matches("^[0-9]+$")) {
-                        request.setAttribute("errorVCS", "Please specify the number of seats!");
-                    }
-
-                    if (engine == null || engine.isEmpty() || engine.equals("")) {
-                        request.setAttribute("errorVE", "Please choose a fuel type!");
-                    }
-
-                    if (brandid == null || brandid.isEmpty() || brandid.equals("")) {
-                        request.setAttribute("errorVB", "Please choose a brand!");
-                    }
-                    if (colorid == null || colorid.isEmpty() || colorid.equals("")) {
-                        request.setAttribute("errorVC", "Please choose a color!");
-                    }
-                    if (description.isBlank()) {
-                        request.setAttribute("errorVD", "Please add a description!");
-                    }
-                    if (otherin.isEmpty()) {
-                        otherin = "";
-                    }
-                    if (title.isBlank() || carname.isBlank() || carprice.isBlank() || odo.isBlank() || brandid == null || colorid == null || brandid.isBlank() || colorid.isBlank() || !carprice.matches("^0*[1-9]\\d*(\\.\\d+)?$") || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$") || description.isBlank() || brandid.equals("") || colorid.equals("") || car_seat.isBlank() || engine.isBlank()) {
-                        createad(request, response);
-                        return;
-                    } else if (user == null) {
-                        response.sendRedirect(request.getContextPath() + "/login/login_handler.do");
-                        return;
-//                    } else if (user.getUserRole() == 0) {
-//                        String countPost = session.getAttribute("countPost").toString();
-//                        if (countPost.isBlank()) {
-//                            createad(request, response);
-//                            return;
-//                        } else if (countPost.matches("^[0-9]+$") && Integer.parseInt("countPost") == 0) {
-//                            createad(request, response);
-//                            return;
-//                        }
+                    if (user.getUserRole() == 0 && user.getPostLimit() == 0) {
+                        request.setAttribute("errormess", "You cannot create a new post given the state of your subscription.");
                     } else {
+                        String title = request.getParameter("title");
+                        String carname = request.getParameter("carname");
+                        String carprice = request.getParameter("carprice");
+                        String brandid = request.getParameter("brandid");
+                        String colorid = request.getParameter("colorid");
+                        String description = request.getParameter("description");
+                        String otherin = request.getParameter("otherin");
+                        String caryear = request.getParameter("caryear");
+                        String engine = request.getParameter("engine");
+                        String car_seat = request.getParameter("car_seat");
+                        String odo = request.getParameter("odo");
+                        request.setAttribute("title", title);
+                        request.setAttribute("carname", carname);
+                        request.setAttribute("carprice", carprice);
+                        request.setAttribute("caryear", caryear);
+                        request.setAttribute("brandid", brandid);
+                        request.setAttribute("colorid", colorid);
+                        request.setAttribute("description", description);
+                        request.setAttribute("engine", engine);
+                        request.setAttribute("odo", odo);
+                        request.setAttribute("car_seat", car_seat);
+                        request.setAttribute("otherin", otherin);
 
-                        CarFacade cf = new CarFacade();
-                        int carId = cf.addCar(user.getUserID(), Double.valueOf(carprice), Common.getFormatString(carname), Integer.parseInt(caryear), Common.getFormatString(description), Integer.parseInt(brandid), Integer.parseInt(colorid), Integer.parseInt(car_seat), Common.getFormatString(engine), Float.parseFloat(odo));
-                        if (carId == -1) {
-                            break;
+                        if (title.isBlank()) {
+                            request.setAttribute("errorVT", "Please add a title!");
                         }
-                        PostFacade pf = new PostFacade();
-                        pf.addPost(user.getUserID(), carId, Common.getFormatString(title), Common.getFormatString(otherin));
-                        if (user.getUserRole() == 0 && user.getPostLimit() > 0) {
-                            user.setPostLimit(user.getPostLimit() - 1);
-                            UserFacade uf = new UserFacade();
-                            uf.updatePlan(user);
-                            session.setAttribute("User", user);
+                        if (carname.isBlank()) {
+                            request.setAttribute("errorVN", "Please enter a name for the car!");
                         }
-//                        if (user.getUserRole() == 0) {
-//                            String countPost = session.getAttribute("countPost").toString();
-//                            if (!countPost.isBlank() && !countPost.equals("infinite") && countPost.matches("^[0-9]+$")) {
-//                                request.setAttribute("countPost", Integer.parseInt(countPost) - 1);
+                        if (carprice.isBlank() || !carprice.matches("^0*[1-9]\\d*(\\.\\d+)?$")) {
+                            request.setAttribute("errorVP", "Please enter a valid price!");
+                        }
+
+                        if (odo.isBlank() || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$")) {
+                            request.setAttribute("errorVOD", "Please enter a valid mileage value!");
+                        }
+
+                        if (caryear == null || caryear.isEmpty() || !caryear.matches("^[0-9]+$")) {
+                            request.setAttribute("errorVY", "Please choose a year!");
+                        }
+
+                        if (car_seat == null || car_seat.isEmpty() || !car_seat.matches("^[0-9]+$")) {
+                            request.setAttribute("errorVCS", "Please specify the number of seats!");
+                        }
+
+                        if (engine == null || engine.isEmpty() || engine.equals("")) {
+                            request.setAttribute("errorVE", "Please choose a fuel type!");
+                        }
+
+                        if (brandid == null || brandid.isEmpty() || brandid.equals("")) {
+                            request.setAttribute("errorVB", "Please choose a brand!");
+                        }
+                        if (colorid == null || colorid.isEmpty() || colorid.equals("")) {
+                            request.setAttribute("errorVC", "Please choose a color!");
+                        }
+                        if (description.isBlank()) {
+                            request.setAttribute("errorVD", "Please add a description!");
+                        }
+                        if (otherin.isEmpty()) {
+                            otherin = "";
+                        }
+                        if (title.isBlank() || carname.isBlank() || carprice.isBlank() || odo.isBlank() || brandid == null || colorid == null || brandid.isBlank() || colorid.isBlank() || !carprice.matches("^0*[1-9]\\d*(\\.\\d+)?$") || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$") || description.isBlank() || brandid.equals("") || colorid.equals("") || car_seat.isBlank() || engine.isBlank()) {
+                            createad(request, response);
+                            return;
+                        } else if (user == null) {
+                            response.sendRedirect(request.getContextPath() + "/login/login_handler.do");
+                            return;
+
+                        } else {
+
+                            CarFacade cf = new CarFacade();
+
+                            int carId = cf.addCar(user.getUserID(), Double.valueOf(carprice), Common.getFormatString(carname), Integer.parseInt(caryear), Common.getFormatString(description), Integer.parseInt(brandid), Integer.parseInt(colorid), Integer.parseInt(car_seat), Common.getFormatString(engine), Float.parseFloat(odo));
+                            if (carId == -1) {
+                                break;
+                            }
+
+                            PostFacade pf = new PostFacade();
+                            pf.addPost(user.getUserID(), carId, Common.getFormatString(title), Common.getFormatString(otherin));
+//                        for (Part part : request.getParts()) {
+//                            String carImage = part.getSubmittedFileName();
+//                            if (carImage.toLowerCase().endsWith(".jpg") || carImage.toLowerCase().endsWith(".png")) {
+//                                String uploadPath = "C:\\Users\\Dell\\Music\\old-car-showroom-network\\web\\images\\car\\" + carImage;
+//                                FileOutputStream fos = new FileOutputStream(uploadPath);
+//                                InputStream is = part.getInputStream();
+//                                byte[] data = new byte[is.available()];
+//                                is.read(data);
+//                                fos.write(data);
+//                                fos.close();
+//                                cf.addCar_Image(carId, request.getContextPath() + "/images/car/" + carImage);
+//                            }
+//                        }
+//                        Enumeration<String> headerNames = request.getHeaderNames();
+//                        if (headerNames != null) {
+//                            while (headerNames.hasMoreElements()) {
+//                                String headerName = headerNames.nextElement();
+//                                if (headerName.startsWith("Content-Disposition")) {
+//                             List<String> imageUrls = Common.saveImage(request, response, "Car");
+//                            if (imageUrls != null && imageUrls.size() > 0) {
+//                                for (String url : imageUrls) {
+//                                    String actualurl = request.getContextPath() + File.separator + "image" + File.separator + url.substring(url.lastIndexOf(File.separator));
+//                                   cf.addCar_Image(carId, actualurl);
+//                               }
 //                            }
 //
+//                                    break;
+//                                }
+//                            }
 //                        }
-                    }
 
+//                        if (request.getParts() != null) {
+//                            File uploadDir = new File("C:\\Users\\Dell\\Music\\old-car-showroom-network\\web\\images\\car");
+//                            if (!uploadDir.exists()) {
+//                                uploadDir.mkdir();
+//                            }
+//
+//                            InputStream fileContent;
+//                            String fileName;
+//                            for (Part part : request.getParts()) {
+//                                if (part.getName().equals("images")) {
+//                                    fileName = Common.getFileName(part);
+//                                    fileContent = part.getInputStream();
+//                                    // Save the file to the upload directory
+//                                    Files.copy(fileContent, Paths.get("C:\\Users\\Dell\\Music\\old-car-showroom-network\\web\\images\\car", fileName));
+//
+//                                }
+//                            }
+//                        }
+                            if (user.getUserRole() == 0 && user.getPostLimit() > 0) {
+                                user.setPostLimit(user.getPostLimit() - 1);
+                                UserFacade uf = new UserFacade();
+                                uf.updatePlan(user);
+                                session.setAttribute("User", user);
+                            }
+
+                            if (carId != -1) {
+                                response.sendRedirect(request.getContextPath() + "/cars/carsingle.do?carId=" + carId);
+                                return;
+                            }
+                        }
+                    }
                 } catch (ServletException | IOException | NumberFormatException | SQLException e) {
                     request.setAttribute("error", e.toString());
                     request.setAttribute("action", "error");
                     request.setAttribute("controller", "error");
                     request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
-
+                    return;
                 }
 
+                CarFacade cf = new CarFacade();
+                List<Color> clist = cf.getAllColor();
+                List<Brand> blist = cf.getAllBrand();
+                request.setAttribute("clist", clist);
+                request.setAttribute("blist", blist);
+                request.setAttribute("controller", "order");
                 request.setAttribute("action", "createad");
                 request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
@@ -650,9 +716,7 @@ public class OrderController extends HttpServlet {
             return;
         }
 
-        request.setAttribute("action", "index");
-        request.setAttribute("controller", "ocsn");
-        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+        response.sendRedirect("/oscn/index.do");
     }
 
     private void update_handler(HttpServletRequest request, HttpServletResponse response)
@@ -675,6 +739,12 @@ public class OrderController extends HttpServlet {
                     if (postId.isBlank() || carId.isBlank() || carShowroom.isBlank() || carCondition.isBlank() || !postId.matches("^\\d+$") || !carId.matches("^\\d+$")) {
                         response.sendRedirect(request.getContextPath() + "/order/postedad.do");
 
+                    }
+                    PostFacade pf = new PostFacade();
+                    Post post = pf.getDetails(Integer.parseInt(postId));
+                    if (post == null || post.getCar() == null || (user.getUserID() == 0 && user.getUserID() != post.getUserId())) {
+                        response.sendRedirect(request.getContextPath() + "/order/postedad.do");
+                        return;
                     }
                     String title = request.getParameter("title");
                     String carname = request.getParameter("carname");
@@ -770,8 +840,13 @@ public class OrderController extends HttpServlet {
 //                            }
 //                        }
                         cf.updateCar(Integer.parseInt(carId), Common.getFormatString(carShowroom), Double.parseDouble(carprice.replaceAll("[^\\d.]", "")), Common.getFormatString(carname), Boolean.parseBoolean(carCondition), Integer.parseInt(caryear), Common.getFormatString(description), Integer.parseInt(brandid), Integer.parseInt(colorid), Integer.parseInt(car_seat), engine, Float.parseFloat(odo));
-                        PostFacade pf = new PostFacade();
+                        pf = new PostFacade();
                         pf.updatePost(Integer.parseInt(postId), title, otherin);
+                        if (carId.matches("^\\d+$")) {
+                            response.sendRedirect(request.getContextPath() + "/cars/carsingle.do?carId=" + carId);
+                            return;
+                        }
+
                     }
                 } catch (IOException | NumberFormatException | SQLException e) {
                     request.setAttribute("error", e.toString());
@@ -797,6 +872,147 @@ public class OrderController extends HttpServlet {
 
     }
 
+//    private void image_handler(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException, SQLException, Exception {
+//        String op = request.getParameter("op");
+//        HttpSession session = request.getSession();
+//        User user = (User) session.getAttribute("User");
+//        if (user != null) {
+//            switch (op) {
+//                case "update":
+//                try {
+//                    request.setAttribute("postId", null);
+//                    request.setAttribute("carId", null);
+//                    request.setAttribute("carShowroom", null);
+//                    request.setAttribute("carCondition", null);
+//                    String postId = request.getParameter("postId");
+//                    String carId = request.getParameter("carId");
+//                    String carShowroom = request.getParameter("carShowroom");
+//                    String carCondition = request.getParameter("carCondition");
+//                    if (postId.isBlank() || carId.isBlank() || carShowroom.isBlank() || carCondition.isBlank() || !postId.matches("^\\d+$") || !carId.matches("^\\d+$")) {
+//                        response.sendRedirect(request.getContextPath() + "/order/postedad.do");
+//
+//                    }
+//                    String title = request.getParameter("title");
+//                    String carname = request.getParameter("carname");
+//                    String carprice = request.getParameter("carprice");
+//                    String brandid = request.getParameter("brandid");
+//                    String colorid = request.getParameter("colorid");
+//                    String description = request.getParameter("description");
+//                    String otherin = request.getParameter("otherin");
+//                    String caryear = request.getParameter("caryear");
+//                    String engine = request.getParameter("engine");
+//                    String car_seat = request.getParameter("car_seat");
+//                    String odo = request.getParameter("odo");
+//                    request.setAttribute("postId", postId);
+//                    request.setAttribute("carId", carId);
+//                    request.setAttribute("carShowroom", carShowroom);
+//                    request.setAttribute("carCondition", carCondition);
+//                    request.setAttribute("title", title);
+//                    request.setAttribute("carname", carname);
+//                    request.setAttribute("carprice", carprice);
+//                    request.setAttribute("caryear", caryear);
+//                    request.setAttribute("brandid", brandid);
+//                    request.setAttribute("colorid", colorid);
+//                    request.setAttribute("description", description);
+//                    request.setAttribute("engine", engine);
+//                    request.setAttribute("odo", odo);
+//                    request.setAttribute("car_seat", car_seat);
+//                    request.setAttribute("otherin", otherin);
+//
+//                    if (title.isEmpty()) {
+//                        request.setAttribute("errorVT", "Please add a title!");
+//                    }
+//                    if (carname.isEmpty()) {
+//                        request.setAttribute("errorVN", "Please enter a name for the car!");
+//                    }
+//                    if (carprice.isEmpty() || !carprice.matches("^0*[1-9]\\d*(\\.\\d+)?$")) {
+//                        request.setAttribute("errorVP", "Please enter a valid price!");
+//                    }
+//
+//                    if (odo.isEmpty() || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$")) {
+//                        request.setAttribute("errorVOD", "Please enter a valid mileage value!");
+//                    }
+//
+//                    if (caryear == null || caryear.isEmpty() || !caryear.matches("^[0-9]+$")) {
+//                        request.setAttribute("errorVY", "Please choose a year!");
+//                    }
+//
+//                    if (car_seat == null || car_seat.isEmpty() || !car_seat.matches("^[0-9]+$")) {
+//                        request.setAttribute("errorVCS", "Please specify the number of seats!");
+//                    }
+//
+//                    if (engine == null || engine.isEmpty() || engine.equals("")) {
+//                        request.setAttribute("errorVE", "Please choose a fuel type!");
+//                    }
+//
+//                    if (brandid == null || brandid.isEmpty() || brandid.equals("")) {
+//                        request.setAttribute("errorVB", "Please choose a brand!");
+//                    }
+//                    if (colorid == null || colorid.isEmpty() || colorid.equals("")) {
+//                        request.setAttribute("errorVC", "Please choose a color!");
+//                    }
+//                    if (description.isEmpty()) {
+//                        request.setAttribute("errorVD", "Please add a description!");
+//                    }
+//                    if (otherin.isBlank()) {
+//                        otherin = "";
+//                    }
+//                    if (title.isBlank() || carname.isBlank() || carprice.isBlank() || odo.isBlank() || brandid.isBlank() || colorid.isBlank() || !carprice.matches("^0*[1-9]\\d*(\\.\\d+)?$") || description.isBlank() || brandid.equals("") || colorid.equals("") || car_seat.isBlank() || engine.isBlank() || !odo.matches("^(?!0+(\\.0+)?$)\\d*(\\.\\d+)?$")) {
+//                        CarFacade cf = new CarFacade();
+//                        List<Color> clist = cf.getAllColor();
+//                        List<Brand> blist = cf.getAllBrand();
+//                        request.setAttribute("clist", clist);
+//                        request.setAttribute("blist", blist);
+//                        request.setAttribute("controller", "order");
+//                        request.setAttribute("action", "postmanager");
+//                        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+//                        return;
+//                    } else {
+//                        CarFacade cf = new CarFacade();
+////                        Enumeration<String> headerNames = request.getHeaderNames();
+////                        if (headerNames != null) {
+////                            while (headerNames.hasMoreElements()) {
+////                                String headerName = headerNames.nextElement();
+////                                if (headerName.startsWith("Content-Disposition")) {
+////                                    List<String> imageUrls = Common.saveImage(request, response, "Car");
+////                                    if (imageUrls != null && imageUrls.size() > 0) {
+////                                        for (String url : imageUrls) {
+////                                            String actualurl = request.getContextPath() + File.separator + "image" + File.separator + url.substring(url.lastIndexOf(File.separator));
+////                                            cf.addCar_Image(Integer.parseInt(carId), actualurl);
+////                                        }
+////                                    }
+////                                    break;
+////                                }
+////                            }
+////                        }
+//                        cf.updateCar(Integer.parseInt(carId), Common.getFormatString(carShowroom), Double.parseDouble(carprice.replaceAll("[^\\d.]", "")), Common.getFormatString(carname), Boolean.parseBoolean(carCondition), Integer.parseInt(caryear), Common.getFormatString(description), Integer.parseInt(brandid), Integer.parseInt(colorid), Integer.parseInt(car_seat), engine, Float.parseFloat(odo));
+//                        PostFacade pf = new PostFacade();
+//                        pf.updatePost(Integer.parseInt(postId), title, otherin);
+//                    }
+//                } catch (IOException | NumberFormatException | SQLException e) {
+//                    request.setAttribute("error", e.toString());
+//                    request.setAttribute("controller", "error");
+//                    request.setAttribute("action", "error");
+//                    request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+//                    return;
+//                }
+//                break;
+//            }
+//            CarFacade cf = new CarFacade();
+//            List<Color> clist = cf.getAllColor();
+//            List<Brand> blist = cf.getAllBrand();
+//            request.setAttribute("clist", clist);
+//            request.setAttribute("blist", blist);
+//            request.setAttribute("controller", "order");
+//            request.setAttribute("action", "postmanager");
+//            request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+//            return;
+//        }
+//
+//        response.sendRedirect(request.getContextPath() + "/login/login_handler.do");
+//
+//    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

@@ -38,19 +38,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-xl-4">
-                        <ul class="user-banner-data">
-                            <li class="ads"><i class="material-icons">note</i>
-                                <h3>${Post}</h3>
-                                <p>total post</p>
-                            </li>
-                            <li class="ads"><i class="material-icons">shopping_cart</i>
-                                <h3>${Order}</h3>
-                                <p>total order</p>
-                            </li>
-
-                        </ul>
-                    </div>
+                    <c:if test="${pdata!=null}">
+                        <div class="col-lg-5 col-xl-4">
+                            <ul class="user-banner-data">
+                                <li class="ads"><i class="material-icons">note</i>
+                                    <h3>${pdata.size()}</h3>
+                                    <p>total post</p>
+                                </li>
+                                <!--                                <c:if test="${User.userRole == 0}">
+                                                                <li class="star"><i class="material-icons">car</i>
+                                                                    <h3>${Order}</h3>
+                                                                    <p>total order</p>
+                                                                </li
+                                </c:if>-->
+                            </ul>
+                        </div>
+                    </c:if>
                 </div>
                 <div class="row">
                     <div class="col-xl-12">
@@ -187,9 +190,10 @@
                                     </c:if>
 
                                 </div>
+                                <div style="display:flex;justify-content: center;align-items:center">
+                                    <a href="${pageContext.request.contextPath}/order/postmanager.do?postId=${item.postId}" class="favorite-close" style="margin-right:2px"><i class="material-icons">edit</i></a>
 
-                                <a href="${pageContext.request.contextPath}/order/postmanager.do?postId=${item.postId}" class="favorite-close"><i class="material-icons">edit</i></a>
-
+                                    <a href="${pageContext.request.contextPath}/cars/carsingle.do?carId=${item.car.carID}" class="favorite-close"><i class="material-icons" style="margin-left:2px">visibility</i></a> </div>
                             </li>
                         </c:forEach>
 

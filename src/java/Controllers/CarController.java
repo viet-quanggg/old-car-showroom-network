@@ -46,6 +46,9 @@ public class CarController extends HttpServlet {
             id = Integer.parseInt(xID);
         } catch (NumberFormatException e) {
             System.err.println("Parse Car ID !" + e);
+            request.setAttribute("action", "error");
+            request.setAttribute("controller", "error");
+            request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
         }
 
         CarFacade cf = new CarFacade();
