@@ -47,7 +47,7 @@ import org.apache.tomcat.jni.SSLContext;
 @MultipartConfig
 public class BlogController extends HttpServlet {
 
-    protected String UP_LOAD_PATH = "F:\\swp1\\old-car-showroom-network\\web\\images\\blog\\";
+    protected String UP_LOAD_PATH = "/Users/_viet.quangg/Study/Subject Term 5/SWP391/latest/old-car-showroom-network/web/images/blog/";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -77,9 +77,11 @@ public class BlogController extends HttpServlet {
                 int index = Integer.parseInt(indexPage);
 
                 String blogPerPage = request.getParameter("blogPerPage");
+                if (blogPerPage == null) {
+                    blogPerPage = "4";
+                }
+                int num = Integer.parseInt(blogPerPage);
 
-                
-                        int num  = (blogPerPage == null) ? 4 : Integer.parseInt(blogPerPage); 
                 int countPage = bf.countBlog();
                 int endPage = countPage / num;
                 if (endPage % num != 0) {
@@ -149,7 +151,6 @@ public class BlogController extends HttpServlet {
                     request.setAttribute("latest", latest);
                     request.setAttribute("blog", search);
                     request.setAttribute("search13", searchQuery);
-                    request.setAttribute("blogPerPage", blogPerPage);
                 }
                 request.setAttribute("action", "bloglist");
 
@@ -175,7 +176,7 @@ public class BlogController extends HttpServlet {
 
                     String blogPerPage = request.getParameter("blogPerPage");
                     if (blogPerPage == null) {
-                        blogPerPage = "4";
+                        blogPerPage = "2";
                     }
                     int num = Integer.parseInt(blogPerPage);
 
@@ -184,17 +185,17 @@ public class BlogController extends HttpServlet {
                     if (endPage % num != 0) {
                         endPage++;
                     }
+
+//                blog = bf.listBlog();
                     List<Blog> search = bf.searchBlog(index, num, searchQuery1);
                     int currentPage = index;
                     latest = bf.listLatest();
                     request.setAttribute("currentPage", currentPage);
-                    request.setAttribute("result", num);
-                    request.setAttribute("countblog", countPage);
                     request.setAttribute("endPage", endPage);
                     request.setAttribute("latest", latest);
                     request.setAttribute("blog", search);
-                    request.setAttribute("search13", searchQuery1);
-                    request.setAttribute("blogPerPage", blogPerPage);
+                    request.setAttribute("result", num);
+                    request.setAttribute("countblog", countPage);
                 }
                 request.setAttribute("action", "bloggrid");
 

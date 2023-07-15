@@ -48,8 +48,9 @@
                             </ul>
                             <ul class="blog-single-widget-list">
                                 <li><span>Share:</span></li>
-                                <li><a href="https://www.facebook.com/FPTU.HCM" class="facebook">facebook</a></li>
-                                <li><a href="https://hcmuni.fpt.edu.vn" class="linkedin">Website</a></li>
+                                <li><a href="#" class="facebook">facebook</a></li>
+                                <li><a href="#" class="twitter">twitter</a></li>
+                                <li><a href="#" class="linkedin">linkedin</a></li>
                             </ul>
                         </div>
                         <div class="blog-author">
@@ -57,81 +58,58 @@
                                 <div class="blog-author-info"><img src="${bid.userImage}" alt="author">
                                     <h4><a href="blog-author.html">${bid.userName}</a></h4>
                                     <h6><a href="#">${bid.userEmail}</a></h6>
-                                        <c:choose>
-                                            <c:when test="${User.userRole == 2 || User.userRole ==1}">
-
-                                            <div class="col-xl-5 ">
-                                                <a class="form-btn" href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">read more</a>
-                                            </div>
-                                            <div class ="col-xl-5  ">
-                                                <a class="form-btn" href="<c:url value='/blog/blogedit.do?blid=${blog.blogId}'/>">Edit</a>
-                                            </div>
-
-                                        </c:when>
-                                        <c:when test="${User.userRole == 0 && User.userID == blog.blogId}">
-                                            <div class="col-xl-5 left-side">
-                                                <a class="form-btn" href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">read more</a>
-                                            </div>
-                                            <div class ="col-xl-5 right-side ">
-                                                <a class="form-btn" href="<c:url value='/blog/blogedit.do?blid=${blog.blogId}'/>">Edit</a>
-                                            </div>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <div>
-                                                <a class="form-btn" href="<c:url value="/blog/blogsingle.do?bid=${blog.blogId}"/>">read more</a>
-                                            </div>
-                                        </c:otherwise>
-                                    </c:choose>
+                                    <a href="<c:url value="/blog/blogedit.do?blid=${bid.blogId}"/>">Edit</a>
                                 </div>
-
-                                <ul class="blog-author-content">
-                                    <li><a href="https://www.facebook.com/FPTU.HCM" class="facebook icofont-facebook"></a></li>
-                                    <li><a href="https://hcmuni.fpt.edu.vn" class="linkedin icofont-linkedin"></a></li>
-                                </ul>
-
+                                <div class="blog-author-content">
+                                    <ul>
+                                        <li><a href="#" class="facebook icofont-facebook"></a></li>
+                                        <li><a href="#" class="twitter icofont-twitter"></a></li>
+                                        <li><a href="#" class="linkedin icofont-linkedin"></a></li>
+                                        <li><a href="#" class="pinterest icofont-pinterest"></a></li>
+                                        <li><a href="#" class="instagram icofont-instagram"></a></li>
+                                    </ul>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate temporibus
+                                        harum laborum quaerat blanditiis iste mollitia aperiam aut voluptates quidem
+                                        nois aliquam incidunt expedita odit id repellat dicta Odio consectetur modi
+                                        mollitia nihil Deserunt ab non tenetur quasi libero magn.</p>
+                                </div>
                             </div>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate temporibus
-                                harum laborum quaerat blanditiis iste mollitia aperiam aut voluptates quidem
-                                nois aliquam incidunt expedita odit id repellat dicta Odio consectetur modi
-                                mollitia nihil Deserunt ab non tenetur quasi libero magn.</p>
+                            <ul class="blog-author-meta-list">
+                                <li><i class="material-icons">feed</i><span>Total Blog (25)</span></li>
+                                <li><i class="material-icons">forum</i><span>Total Comment (130)</span></li>
+                                <li><i class="material-icons">public</i><span>Total Share (45)</span></li>
+                                
+                            </ul>
                         </div>
+                        <div class="blog-single-suggest">
+                            <c:forEach begin="0" end="1" items="${latest}" var="latest"> 
+                                <div class="blog-grid-card">
+                                    <div class="blog-grid-media"><img src="${latest.blogImage}" alt="blog">
+                                        <ul class="blog-grid-widget">
+                                            <li><i class="material-icons">forum</i><span>3</span></li>
+                                            <li><i class="material-icons">send</i><span>2</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="blog-grid-content">
+                                        <ul class="blog-grid-meta">
+                                            <li><i class="material-icons">person</i><span>post by <a
+                                                        href="blog-single.html">${latest.userName}</a></span></li>
+                                            <li><i class="material-icons">event</i><span>${latest.blogDate}</span></li>
+                                        </ul>
+                                        <h3 class="blog-grid-name"><a href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>">${latest.blogTitle}</a></h3>
+                                        <p class="blog-grid-descrip">${latest.blogDetail}
+                                            <a href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>">read more</a>
+                                            
+                                        </p>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                         
+                        </div>
+                        <div class="blog-single-navigate"><a href="#">Prev Post</a><a href="#">Next Post</a></div>
                     </div>
-                    <ul class="blog-author-meta-list">
-                        <li><i class="material-icons">feed</i><span>Total Blog (25)</span></li>
-                        <li><i class="material-icons">forum</i><span>Total Comment (130)</span></li>
-                        <li><i class="material-icons">public</i><span>Total Share (45)</span></li>
-
-                    </ul>
                 </div>
-                <div class="blog-single-suggest">
-                    <c:forEach begin="0" end="1" items="${latest}" var="latest"> 
-                        <div class="blog-grid-card">
-                            <div class="blog-grid-media"><img src="${latest.blogImage}" alt="blog">
-                                <ul class="blog-grid-widget">
-                                    <li><i class="material-icons">forum</i><span>3</span></li>
-                                    <li><i class="material-icons">send</i><span>2</span></li>
-                                </ul>
-                            </div>
-                            <div class="blog-grid-content">
-                                <ul class="blog-grid-meta">
-                                    <li><i class="material-icons">person</i><span>post by <a
-                                                href="blog-single.html">${latest.userName}</a></span></li>
-                                    <li><i class="material-icons">event</i><span>${latest.blogDate}</span></li>
-                                </ul>
-                                <h3 class="blog-grid-name"><a href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>">${latest.blogTitle}</a></h3>
-                                <p class="blog-grid-descrip">${latest.blogDetail}
-                                    <a href="<c:url value="/blog/blogsingle.do?bid=${latest.blogId}"/>">read more</a>
-
-                                </p>
-                            </div>
-                        </div>
-                    </c:forEach>
-
-                </div>
-                <div class="blog-single-navigate"><a href="#">Prev Post</a><a href="#">Next Post</a></div>
             </div>
         </div>
     </div>
-</div>
-</div>
 </article>
