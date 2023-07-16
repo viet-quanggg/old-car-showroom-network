@@ -51,12 +51,18 @@ public class CarController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
         }
 
+        
         CarFacade cf = new CarFacade();
         PostFacade pf = new PostFacade();
         Car car = cf.getDetails(id);
         List<Brand> bl = cf.getAllBrand();
         Post post = pf.checkCarId(id);
 
+        String n = (String) request.getSession().getAttribute("notification");
+        if (!n.isBlank() && (n.equals("A new car has been successfully added!") || n.equals("The post has been successfully updated!"))) {
+            request.getSession().setAttribute("notification", null);
+            request.setAttribute("message", n);
+        }
         request.setAttribute("data", car);
         request.setAttribute("pdata", post);
         request.setAttribute("blist", bl);

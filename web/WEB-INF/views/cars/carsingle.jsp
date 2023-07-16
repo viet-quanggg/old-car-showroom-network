@@ -19,6 +19,7 @@
 <section class="section-gap-100">
     <div class="container">
         <div class="row">
+            <div style="margin-bottom:10px"> <h3 style="color:green">${message}</h3></div>
             <div class="col-xl-7">
                 <div class="product-single-meta-group"><span class="product-single-meta-price">${data.getFormatPrice()}</span>
                     <h2 class="product-single-meta-title">${data.carName}</h2>
@@ -182,6 +183,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
     <!--<section class="section-gap-100">

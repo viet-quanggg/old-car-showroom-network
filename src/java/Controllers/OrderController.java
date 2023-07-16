@@ -172,13 +172,13 @@ public class OrderController extends HttpServlet {
 
                         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
                         LocalDateTime ldt = LocalDateTime.parse(appo, formatter);
-                        LocalDateTime minDateTime = ldt.withHour(8).withMinute(0);
-                        LocalDateTime maxDateTime = ldt.withHour(18).withMinute(0);
+                        LocalDateTime minDateTime = ldt.withHour(6).withMinute(0);
+                        LocalDateTime maxDateTime = ldt.withHour(20).withMinute(0);
                         if (ldt.isAfter(minDateTime) && ldt.isBefore(maxDateTime) && ldt.isAfter(LocalDateTime.now())) {
                             of.updateApp(ldt, Integer.parseInt(orid));
                             of.updateOrderStatus(Integer.parseInt(orid), "Processing");
                         } else {
-                            request.setAttribute("temporalblunder", "The time set is invalid!");
+                            request.setAttribute("temporalblunder", "The appointment can only be set between 6 A.M and 8 P.M every day of the week, but not within today.");
                         }
 
                     }
@@ -689,6 +689,7 @@ public class OrderController extends HttpServlet {
                             }
 
                             if (carId != -1) {
+                                request.getSession().setAttribute("notification", "A new car has been successfully added!");
                                 response.sendRedirect(request.getContextPath() + "/cars/carsingle.do?carId=" + carId);
                                 return;
                             }
@@ -843,6 +844,7 @@ public class OrderController extends HttpServlet {
                         pf = new PostFacade();
                         pf.updatePost(Integer.parseInt(postId), title, otherin);
                         if (carId.matches("^\\d+$")) {
+                            request.getSession().setAttribute("notification", "The post has been successfully updated!");
                             response.sendRedirect(request.getContextPath() + "/cars/carsingle.do?carId=" + carId);
                             return;
                         }
