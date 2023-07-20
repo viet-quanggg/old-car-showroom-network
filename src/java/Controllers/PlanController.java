@@ -57,15 +57,29 @@ public class PlanController extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
                     return;
                 }
+
                 try {
-                    if (!pID.isBlank() && user != null) {
+                    if (pID != null && !pID.isBlank() && user != null && pID.matches("[1-9]")) {
                         id = Integer.parseInt(pID);
+                        user.setPlanId(id);
+                        UserFacade uf = new UserFacade();
+                        plan = pf.getUserPlan(user);
+                        user.setPostLimit(plan.getPlanLimit());
+                        user = uf.updatePlan(user);
+                        new GmailController().sendMail("A new message", """
+                                                    Dear reader,
+                                                        
+                                                    This is a test message from the staff of the old car showroom
+                                                    You have successfully purchase """ + plan.getPlanName() + """
+                                                    Thank you so much for using out service    
+                                                    Best regards,
+                                                    OCSN
+                                                        """, user.getUserEmail());
+
+                        session.setAttribute("User", user);
+                        session.setAttribute("UserPlan", plan);
+                        response.sendRedirect(request.getContextPath() + "/login/profile.do");
                     }
-                    user.setPlanId(id);
-                    UserFacade uf = new UserFacade();
-                    plan = pf.getUserPlan(user);
-                    user.setPostLimit(plan.getPlanLimit());
-                    user = uf.updatePlan(user);
 
 //                    if (user.getPlanId() != 0 && user.getPlanStart() != null && plan != null) {
 //                        session.setAttribute("countPost", "");
@@ -89,30 +103,35 @@ public class PlanController extends HttpServlet {
 //                        }
 //                        session.setAttribute("UserPlan", plan);
 //                    }
-                    new GmailController().sendMail("A new message", """
-                                                    Dear reader,
-                                                        
-                                                    This is a test message from the staff of the old car showroom
-                                                    http://localhost:8080/OldCarShowroom/ocsn/index.do
-                                                    Thanks for using our service!
-                                                        
-                                                    Best regards,
-                                                    OCSN
-                                                        """, "ngtranxuanan@gmail.com");
-
-                
-
-                session.setAttribute("User", user);
-                session.setAttribute("UserPlan", plan);
-        }catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     System.err.println("Parse plan ID !" + e);
                 }
-        response.sendRedirect(request.getContextPath() + "/ocsn/index.do");
+                response.sendRedirect(request.getContextPath() + "/ocsn/index.do");
+                break;
+            case "payment":
+                request.setAttribute("controller", "order");
+                String planID = request.getParameter("planId");
+                user = (User) session.getAttribute("User");
+                int pid = 0;
+                if (user == null || user.getUserRole() != 0) {
+                    request.setAttribute("controller", "login");
+                    request.setAttribute("action", "login");
+                    request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
+                    return;
+                }
+                try {
+                    if (!planID.isBlank() && user != null) {
+                        pid = Integer.parseInt(planID);
+                        request.setAttribute("keikaku", pf.getKeikaku(pid));
 
-        break;
-    
+                    }
+                } catch (NumberFormatException e) {
+                    System.err.println("Parse plan ID !" + e);
+                }
 
-case "getplan":
+                request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+
+            case "getplan":
                 Plan userplan = (Plan) session.getAttribute("UserPlan");
                 request.setAttribute("UserPlan", userplan);
             default:
@@ -133,20 +152,18 @@ case "getplan":
      * @throws IOException if an I/O error occurs
      */
     @Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
 
-} catch (SQLException ex) {
-            Logger.getLogger(PlanController.class  
+        } catch (SQLException ex) {
+            Logger.getLogger(PlanController.class
+                    .getName()).log(Level.SEVERE, null, ex);
 
-.getName()).log(Level.SEVERE, null, ex);
-
-} catch (ParseException ex) {
-            Logger.getLogger(PlanController.class  
-
-.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(PlanController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(PlanController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -161,20 +178,18 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
      * @throws IOException if an I/O error occurs
      */
     @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
 
-} catch (SQLException ex) {
-            Logger.getLogger(PlanController.class  
+        } catch (SQLException ex) {
+            Logger.getLogger(PlanController.class
+                    .getName()).log(Level.SEVERE, null, ex);
 
-.getName()).log(Level.SEVERE, null, ex);
-
-} catch (ParseException ex) {
-            Logger.getLogger(PlanController.class  
-
-.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(PlanController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(PlanController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -186,7 +201,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
      * @return a String containing servlet description
      */
     @Override
-public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

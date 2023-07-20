@@ -6,35 +6,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core"%>
 <body>
-    <style>
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: fit-content;
-        }
-
-        .dell-btn{
-            color:#0d6efd
-        }
-
-        .dell-btn:hover{
-            color:#0a58ca
-        }
-    </style>
+  
     <div class="mobile-menu"><a href="<c:url value="/login/register.do"/>"><i class="material-icons">person</i><span>account</span></a><a
             href="notify.html"><i class="material-icons">notifications</i><span>notify</span><sup>9</sup></a><a
             href="create-ads.html" title="sell vehicless"><i class="material-icons">storefront</i></a><a
@@ -1890,25 +1862,10 @@
                                 register</a>
                             </c:if>
                             <c:if test="${User != null}"> 
-                            <h5 class="price-mode">per advertise post</h5><a class="price-action" onclick="document.getElementById('modal').style.display = 'block'" >get
+                            <h5 class="price-mode">per advertise post</h5><a class="price-action"href="<c:url value="/plan/payment.do?planId=${plan.planId}"/>" >get
                                 subscribe</a>
-                            <div id="modal" class="modal" >
-                                <div class="modal-content" >
-                                        <div class="header-user" style="justify-content:center;display: flex; width: 100%;">
-                                        <img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/download.png"
-                                             alt="user">                                                   
-                                    </div>                                             
-                                             <div style="justify-content:center;display: flex; width: 100%;">
-                                        <h3 style="color:greenyellow"> Payment Successful!</h3>
-                                    </div>
-                                        <div style="justify-content:center;display: flex; width: 100%;" >
-                                            <a class="btn btn-outline-success btn-sm"href="<c:url value="/plan/buyplan.do?planId=${plan.planId}"/>">OK</a>
-                                        </div>
 
-                                    </div>
-                                </div>
-
-                            </c:if> 
+                        </c:if> 
                         </div>
                     </div>
                 </c:forEach>         

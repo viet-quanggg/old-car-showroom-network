@@ -43,4 +43,17 @@ public class PlanFacade {
         con.close();
         return plan;
     }
+    
+    public Plan getKeikaku(int keikakuid) throws SQLException {
+        Plan plan = null;
+        Connection con = DBContext.getConnection();
+        PreparedStatement stm = con.prepareStatement("select * from [Plan] where planId = ?");
+        stm.setInt(1, keikakuid);
+        ResultSet rs = stm.executeQuery();
+        if (rs.next()) {
+            plan = new Plan(rs.getInt("planId"), rs.getString("planName"), rs.getInt("planTime"), rs.getInt("planLimit"), rs.getDouble("planPrice"));
+        }
+        con.close();
+        return plan;
+    }
 }

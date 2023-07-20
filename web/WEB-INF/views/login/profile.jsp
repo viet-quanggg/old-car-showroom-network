@@ -146,7 +146,7 @@
                                         <li><span>Package</span><span>${UserPlan.planName}</span></li>
                                         <li><span>Expired Date:</span><span>${ExpDate}</span></li>
                                         <li><span>Post available:</span><span>${(UserPlan.planLimit  != 0) ? User.postLimit : "infinite"}</span></li>
-                                            <c:if test="${UserPlan!=null && User.postLimit == 0}">
+                                            <c:if test="${UserPlan != null && User.planId != 3 && User.postLimit == 0}">
                                             <h6 style="display:flex;justify-content: center;margin-top: 10px">You have reached the post limit!</h6>
                                             <h6 style="display:flex;justify-content: center;">Re-subscribe to make more posts!</h6>
                                             <a href="../../../../src/java/Controllers/LoginController.java"></a>
