@@ -27,6 +27,20 @@
                             </div>
                         </div>
                     </div>
+                    <c:if test="${User.userRole == 0}">
+                        <div class="col-lg-5 col-xl-4">
+                            <ul class="user-banner-data">
+                                <li class="ads"><i class="material-icons">note</i>
+                                    <h3>${Post}</h3>
+                                    <p>total post</p>
+                                </li>
+                                <li class="ads"><i class="material-icons">shopping_cart</i>
+                                    <h3>${Order}</h3>
+                                    <p>total order</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </c:if>
 
                 </div>
                 <div class="row">
@@ -53,7 +67,8 @@
                                 <li><a href="<c:url value="/order/orderlist.do"/>">Order List</a></li>
                                 <li><a href="<c:url value="/order/favorite.do"/>">favorite</a></li>
                                 <li><a href="<c:url value="/cars/compare.do"/>">compares</a></li>
-                                </c:if>
+                                <li><a href="<c:url value="/blog/bloglistuser.do?uid=${User.userID}"/>">Your Blog</a></li> 
+                            </c:if>
                         </ul>
                     </div>
                 </div>

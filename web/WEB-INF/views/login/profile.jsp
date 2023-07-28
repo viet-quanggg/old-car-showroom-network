@@ -47,7 +47,7 @@
                                     <h3>${Post}</h3>
                                     <p>total post</p>
                                 </li>
-                                <li class="star"><i class="material-icons">car</i>
+                            <li class="ads"><i class="material-icons">shopping_cart</i>
                                     <h3>${Order}</h3>
                                     <p>total order</p>
                                 </li>
