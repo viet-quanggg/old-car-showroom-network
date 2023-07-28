@@ -317,7 +317,7 @@ INSERT INTO [dbo].[Plan] ( [planName],[planTime],[planLimit],[planStatus],[planP
 values
 ('Silver Package',1,3,'Active',15),
 ('Gold Package',3,10,'Active',30),
-('Platinum Package',6, null,'Active',60)
+('Platinum Package',6, 50,'Active',60)
 
 INSERT INTO [dbo].[Car_Image]	([url],[createDate],[updateDate],[carID])
 VALUES	
