@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Utilities;
-
+//
+//import org.apache.commons.fileupload.FileItem;
+//import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+//import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -68,6 +71,32 @@ public class Common {
     public static String getFormatString(String string) {
         return string.replaceAll("\\s+", " ").trim();
     }
+    
+//    public static List<String> image_handler(HttpServletRequest request, HttpServletResponse response, String foldername) {
+//        List<String> pathlist = null;
+//        try {
+//        }catch(Exception e) {
+//            List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+//            
+//            for (FileItem item : items) {
+//                if (!item.isFormField()) { // Check if the item is a file
+//                    String fileName = item.getName();
+//                    
+//                    // Specify the directory to save the file
+//                    String uploadDirectory = "/path/to/upload/directory/";
+//                    
+//                    // You can also generate a unique file name if needed
+//                    // String uniqueFileName = generateUniqueFileName(fileName);
+//                    
+//                    File uploadedFile = new File(uploadDirectory, fileName);
+//                    item.write(uploadedFile);
+//                }
+//            }
+//            
+//            response.getWriter().print("Upload successful!");
+//        }
+//        return pathlist;
+//    }
 
     public static List<String> saveImage(HttpServletRequest request, HttpServletResponse response, String foldername) {
         List<String> pathlist = null;
@@ -140,8 +169,10 @@ public class Common {
 
     public static String getAbsolutePath(HttpServletRequest request, HttpServletResponse response, String relativepath) {
         ServletContext servletContext = request.getServletContext();
-
+        String sc = servletContext.getRealPath("");
+        if (sc.contains("build") || sc.contains("web"))
+            sc =  sc.substring(0, sc.lastIndexOf("network")) + "network";
         // Lay the absolute path den folder can luu
-        return servletContext.getRealPath(relativepath);
+        return sc + relativepath;
     }
 }

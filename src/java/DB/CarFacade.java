@@ -100,7 +100,8 @@ public class CarFacade {
     public void addCar_Image(int carId, String url) throws SQLException {
         Connection con = DBContext.getConnection();
         try {
-            PreparedStatement stm = con.prepareStatement("Select * from [Car_Image] where [url] = " + url);
+            PreparedStatement stm = con.prepareStatement("Select * from [Car_Image] where [url] = ?");
+            stm.setString(1, url);
             ResultSet rs = stm.executeQuery();
             if (!rs.next()) {
                 stm = con.prepareStatement("INSERT INTO [Car_Image] ([url], createDate, updateDate, carID)"

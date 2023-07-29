@@ -22,6 +22,7 @@ import Models.Wishlist;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
@@ -50,6 +51,7 @@ import java.util.logging.Logger;
  *
  * @author _viet.quangg
  */
+@MultipartConfig
 @WebServlet(name = "OrderController", urlPatterns = {"/order"})
 public class OrderController extends HttpServlet {
 
@@ -101,6 +103,10 @@ public class OrderController extends HttpServlet {
         }
         switch (action) {
             case "createad":
+                if (user.getUserRole() == 2) {
+                    response.sendRedirect(request.getContextPath() + "/cars/carlist.do");
+                    return;
+                }
                 createad(request, response);
                 //   request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response); //Hien trang thong bao loi
                 //in thong bao loi chi tiet cho developer
@@ -298,6 +304,10 @@ public class OrderController extends HttpServlet {
                 // request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
                 break;
             case "create_handler":
+                if (user.getUserRole() == 2) {
+                    response.sendRedirect(request.getContextPath() + "/cars/carlist.do");
+                    return;
+                }
                 create_handler(request, response);
                 break;
             case "denied":
@@ -632,55 +642,56 @@ public class OrderController extends HttpServlet {
 
                             PostFacade pf = new PostFacade();
                             pf.addPost(user.getUserID(), carId, Common.getFormatString(title), Common.getFormatString(otherin));
-//                        for (Part part : request.getParts()) {
-//                            String carImage = part.getSubmittedFileName();
-//                            if (carImage.toLowerCase().endsWith(".jpg") || carImage.toLowerCase().endsWith(".png")) {
-//                                String uploadPath = "C:\\Users\\Dell\\Music\\old-car-showroom-network\\web\\images\\car\\" + carImage;
-//                                FileOutputStream fos = new FileOutputStream(uploadPath);
-//                                InputStream is = part.getInputStream();
-//                                byte[] data = new byte[is.available()];
-//                                is.read(data);
-//                                fos.write(data);
-//                                fos.close();
-//                                cf.addCar_Image(carId, request.getContextPath() + "/images/car/" + carImage);
-//                            }
-//                        }
-//                        Enumeration<String> headerNames = request.getHeaderNames();
-//                        if (headerNames != null) {
-//                            while (headerNames.hasMoreElements()) {
-//                                String headerName = headerNames.nextElement();
-//                                if (headerName.startsWith("Content-Disposition")) {
-//                             List<String> imageUrls = Common.saveImage(request, response, "Car");
-//                            if (imageUrls != null && imageUrls.size() > 0) {
-//                                for (String url : imageUrls) {
-//                                    String actualurl = request.getContextPath() + File.separator + "image" + File.separator + url.substring(url.lastIndexOf(File.separator));
-//                                   cf.addCar_Image(carId, actualurl);
-//                               }
-//                            }
-//
-//                                    break;
+//                            if (request.getParts() != null) {
+//                                for (Part part : request.getParts()) {
+//                                    String carImage = part.getSubmittedFileName();
+//                                    if (carImage.toLowerCase().endsWith(".jpg") || carImage.toLowerCase().endsWith(".png")) {
+//                                        String uploadPath = "/Users/Dell/Music/old-car-showroom-network/web/images/car/" + carImage;
+//                                        FileOutputStream fos = new FileOutputStream(uploadPath);
+//                                        InputStream is = part.getInputStream();
+//                                        byte[] data = new byte[is.available()];
+//                                        is.read(data);
+//                                        fos.write(data);
+//                                        fos.close();
+//                                        cf.addCar_Image(carId, request.getContextPath() + "/images/car/" + carImage);
+//                                    }
 //                                }
 //                            }
-//                        }
 
-//                        if (request.getParts() != null) {
-//                            File uploadDir = new File("C:\\Users\\Dell\\Music\\old-car-showroom-network\\web\\images\\car");
-//                            if (!uploadDir.exists()) {
-//                                uploadDir.mkdir();
-//                            }
-//
-//                            InputStream fileContent;
-//                            String fileName;
-//                            for (Part part : request.getParts()) {
-//                                if (part.getName().equals("images")) {
-//                                    fileName = Common.getFileName(part);
-//                                    fileContent = part.getInputStream();
-//                                    // Save the file to the upload directory
-//                                    Files.copy(fileContent, Paths.get("C:\\Users\\Dell\\Music\\old-car-showroom-network\\web\\images\\car", fileName));
-//
+//                            Enumeration<String> headerNames = request.getHeaderNames();
+//                            if (headerNames != null) {
+//                                while (headerNames.hasMoreElements()) {
+//                                    String headerName = headerNames.nextElement();
+//                                    if (headerName.startsWith("Content-Disposition")) {
+//                                        List<String> imageUrls = Common.saveImage(request, response, "Car");
+//                                        if (imageUrls != null && imageUrls.size() > 0) {
+//                                            for (String url : imageUrls) {
+//                                                String actualurl = request.getContextPath() + File.separator + "image" + File.separator + url.substring(url.lastIndexOf(File.separator));
+//                                                cf.addCar_Image(carId, actualurl);
+//                                            }
+//                                        }
+//                                    }
 //                                }
 //                            }
-//                        }
+                        if (request.getParts() != null) {
+                            String url = Common.getAbsolutePath(request, response, File.separator + "web" + File.separator + "images" + File.separator + "car" + File.separator);
+                            File uploadDir = new File(url);
+                            if (!uploadDir.exists()) {
+                                uploadDir.mkdir();
+                            }
+
+                            InputStream fileContent;
+                            String fileName;
+                            for (Part part : request.getParts()) {
+                                if (part.getName().equals("images")) {
+                                    fileName = Common.getFileName(part);
+                                    fileContent = part.getInputStream();
+                                    // Save the file to the upload directory
+                                    Files.copy(fileContent, Paths.get(url, fileName));
+                                    cf.addCar_Image(carId, "/images/car/" + fileName);
+                                }
+                            }
+                        }
                             if (user.getUserRole() == 0 && user.getPostLimit() > 0) {
                                 user.setPostLimit(user.getPostLimit() - 1);
                                 UserFacade uf = new UserFacade();
@@ -714,10 +725,12 @@ public class OrderController extends HttpServlet {
                 break;
 
             }
+
             return;
         }
 
-        response.sendRedirect("/oscn/index.do");
+        response.sendRedirect(
+                "/oscn/index.do");
     }
 
     private void update_handler(HttpServletRequest request, HttpServletResponse response)

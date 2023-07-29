@@ -188,23 +188,24 @@
                 </div>
             </form>
         </div>
-        <!--        <div  class="col-lg-12 col-xl-12">
-                    <form class="create-ads-form" action="<c:url value="/order/image_hanlder.do"/>">  
-                        <div class="common-card active">
-                            <div class="common-card-header">
-                                <h4 class="common-card-header-title">Media</h4>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group mb-0" style="margin-top: 21px; display:block; align-items: center"><label class="form-label" for="images">Media
-                                            </label></div>
-                                        <input type="file" id="images" name="images" class="form-control" multiple>
-                                </div>
-                                <div style="margin-top: 10px;">
-                                    <button type="submit" name="op" id="op" value="update" class="form-btn">Submit</button>
-                                </div>
-                            </div>
-                    </form>
+        <div  class="col-lg-12 col-xl-12">
+            <form class="create-ads-form" action="<c:url value="/order/image_hanlder.do"/>" enctype="multipart/form-data">  
+                <div class="common-card active">
+                    <div class="common-card-header">
+                        <h4 class="common-card-header-title">Media</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group mb-0" style="margin-top: 21px; display:block; align-items: center"><label class="form-label" for="images">Media
+                                </label></div>
+                            <input type="file" id="images" name="images" class="form-control" multiple>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <button type="submit" name="op" id="op" value="updateimage" class="form-btn">Submit</button>
+                        </div>
+                    </div>
                 </div>
-        -->    </div>  
+            </form>
+        </div>
+    </div>  
 </section>
