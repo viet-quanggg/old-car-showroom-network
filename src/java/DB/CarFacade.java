@@ -549,6 +549,51 @@ public class CarFacade {
         return list;
     }
 
+    public void deleteCarImageByCar(int carId) throws SQLException {
+        Connection con = DBContext.getConnection();
+        try {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM [Car_Image] WHERE carID = ?");
+            ps.setInt(1, carId);
+            ps.executeUpdate();
+            if (ps != null) {
+                ps.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        con.close();
+    }
+    
+    public void deleteCarImage(int id) throws SQLException {
+        Connection con = DBContext.getConnection();
+        try {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM [Car_Image] WHERE id = ?");
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            if (ps != null) {
+                ps.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        con.close();
+    }
+    
+    public void deleteCar(int carId) throws SQLException {
+        Connection con = DBContext.getConnection();
+        try {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM [Car] WHERE carId = ?");
+            ps.setInt(1, carId);
+            ps.executeUpdate();
+            if (ps != null) {
+                ps.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        con.close();
+    }
+
     public List<Car> getRelatedCar(int bid) throws SQLException {
         List<Car> list = new ArrayList<>();
 

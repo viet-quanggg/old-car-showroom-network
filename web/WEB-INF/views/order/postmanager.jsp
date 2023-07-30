@@ -194,18 +194,31 @@
                     <div class="common-card-header">
                         <h4 class="common-card-header-title">Media</h4>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group mb-0" style="margin-top: 21px; display:block; align-items: center"><label class="form-label" for="images">Media
-                                </label></div>
+                    <c:if test="${data != null && data.size() > 0}">
+                        <div class="common-card-body row">
+                            <c:forEach items="${data}" var="i">
+                                <div class="col-md-4">
+                                    <img  src="${pageContext.request.contextPath}${i.url}" style="max-width: 100%; display:block; margin: 5px"/></div>
+                                </c:forEach>
+                        </div> 
+                    </c:if>
+                    <div  style="margin-top: 21px; margin-right:0; display:block; align-items: center">
+
+                        <div style="width:100%">
                             <input type="file" id="images" name="images" class="form-control" multiple>
                         </div>
-                        <div style="margin-top: 10px;">
-                            <button type="submit" name="op" id="op" value="updateimage" class="form-btn">Submit</button>
+                        <div class="row" style="margin-top: 10px;align-items: center;width:100%">
+                            <div class="col-md-6" style="margin:0; padding-left:0; padding-right:3px">
+                                <button type="submit" name="op" id="op" value="addimage" class="form-btn">Add</button>
+                            </div>
+                            <div class="col-md-6" style="margin:0;padding-right:0; padding-left:3px">
+                                <button type="submit" name="op" id="op" value="updateimage" class="form-btn">Change</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-    </div>  
+    </div>
+
 </section>

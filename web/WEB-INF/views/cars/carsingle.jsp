@@ -86,56 +86,64 @@
 
 
             </c:if> 
-            <c:if test="${User != null && User.userRole == 2}">      
+            <c:if test="${User != null}">
                 <div class="col-xl-5">
-                    <div class="common-card" id="information">
-                        <div class="common-card-header">
-                            <h4 class="common-card-header-title">post information</h4>
-                        </div>
+                    <c:if test="${User.userRole != 0}">     
+                        <div class="common-card" id="information">
+                            <div class="common-card-header">
+                                <h4 class="common-card-header-title">post information</h4>
+                            </div>
 
-                        <div class="common-card-body">
-                            <!--                                    <div class="product-single-vendor"><a class="vendor-grid-cover" href="profile.html"><img
-                                                                            src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/bg/cover.jpg" alt="cover"></a><a class="vendor-grid-avatar"
-                                                                                                                                                                                   href="profile.html"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="avatar"></a>
-                            --> <ul class="vendor-grid-meta">
-                                <li class="profile"><i class="material-icons">account_circle</i><span>Owner ID: <a
-                                            href="<c:url value="/admin/view.do?userID=${data.ownerID}"/>">${data.ownerID}</a></span></li>
-                                <li><span>Title: ${pdata.postTitle}</span></li>
-                                <li><span>Status: ${pdata.postStatus}</span></li>
-                                <li><span>Date: ${pdata.postDate}</span></li>
-                                <li ><span>Car ID: ${data.carID}</span></li>
-                                <li ><span>Car Created: ${data.createDate}</span></li>
-                                <li ><span>Car Modified: ${data.updateDate}</span></li>
+                            <div class="common-card-body">
+                                <!--                                    <div class="product-single-vendor"><a class="vendor-grid-cover" href="profile.html"><img
+                                                                                src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/bg/cover.jpg" alt="cover"></a><a class="vendor-grid-avatar"
+                                                                                                                                                                                       href="profile.html"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/avatar/01.jpg" alt="avatar"></a>
+                                --> <ul class="vendor-grid-meta">
+                                    <li class="profile"><i class="material-icons">account_circle</i><span>Owner ID: <a
+                                                href="<c:url value="/admin/view.do?userID=${data.ownerID}"/>">${data.ownerID}</a></span></li>
+                                    <li><span>Title: ${pdata.postTitle}</span></li>
+                                    <li><span>Status: ${pdata.postStatus}</span></li>
+                                    <li><span>Date: ${pdata.postDate}</span></li>
+                                    <li ><span>Car ID: ${data.carID}</span></li>
+                                    <li ><span>Car Created: ${data.createDate}</span></li>
+                                    <li ><span>Car Modified: ${data.updateDate}</span></li>
 
-                            </ul>
+                                </ul>
+                            </div>
+                            <!--                        <div class="common-card-body">
+                            ${pdata.postDescript}
+                        </div>-->
                         </div>
-                        <!--                        <div class="common-card-body">
-                        ${pdata.postDescript}
-                    </div>-->
-                    </div>
-                    <div class="common-card" >
-                        <c:if test="${pdata != null}">
+                    </c:if> 
+                    <c:if test="${User.userRole != 0 || (User.userID == pdata.userId && !data.carCondition)}">
+                        <div class="common-card" >
+
                             <button class="col-xl-12 form-btn"  onclick="window.location.href = '<c:url value="/order/postmanager.do?postId=${pdata.postId}"/>'">Edit</button>
-                        </c:if>
+                            <button class="col-xl-12 form-btn"  style="margin-top:10px" onclick="window.location.href = '<c:url value="/post/delete.do?carId=${data.carID}"/>'">Delete</button>
+                        </div> 
+                    </c:if> 
+                </div>
+            </c:if>
+
+
+
+
+        </div>
+        <c:if test="${data.image != null && data.image.size() > 0}">
+            <div class="col-xl-12">
+                <div class="common-card" id="media">
+                    <div class="common-card-header">
+                        <h4 class="common-card-header-title">vehicle media</h4>
+                    </div>
+                    <div class="common-card-body row">
+                        <c:forEach items="${data.image}" var="i">
+                            <div class="col-md-${data.image.size()>2?'4':'6'}">
+                                <img  src="${pageContext.request.contextPath}${i.url}" style="max-width: 100%; display:block; margin: 5px"/></div>
+                            </c:forEach>
                     </div> 
                 </div>
-
-
-
-
-            </c:if> 
-        </div>
-        <div class="col-xl-12">
-            <div class="common-card" id="media">
-                <div class="common-card-header">
-                    <h4 class="common-card-header-title">vehicle media</h4>
-                </div>
-                <div class="common-card-body"><div><c:forEach items="${data.image}" var="i">
-                            <img src="${pageContext.request.contextPath}${i.url}" style="max-width: 100%; display:block; margin: 5px"/>
-                        </c:forEach></div>
-                </div> 
             </div>
-        </div>
+        </c:if>
         <div class ="row">
             <div class="col-xl-8">
                 <div class="common-card" id="features">

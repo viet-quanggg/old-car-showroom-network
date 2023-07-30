@@ -410,6 +410,18 @@ public class OrderFacade {
         con.close();
     }
 
+    public void deleteByPost(int postId) throws SQLException {
+        con = DBContext.getConnection();
+        try {
+            ps = con.prepareStatement("DELETE FROM [Order] WHERE postId = ?");
+            ps.setInt(1, postId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        con.close();
+    }
+
     public void updateOrderStatus(int orderId, String orderStatus) throws SQLException {
         con = DBContext.getConnection();
         ps = con.prepareStatement("UPDATE [Order] SET orderStatus=? WHERE orderId=?");
@@ -435,7 +447,7 @@ public class OrderFacade {
 
         try {
             con = DBContext.getConnection();
-            String sql = "SELECT o.orderId, c.carName, o.userId, c.carPrice, o.orderStatus, u.userName, o.orderDate FROM [Order] o JOIN [car] c ON o.postId = c.carId LEFT JOIN [User] u ON o.userId = u.userId WHERE c.carName LIKE '%" + searchQuery + "%'";
+            String sql = "SELECT o.orderId, o.orderApp, o.postId, c.carId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId WHERE c.carName LIKE '%" + searchQuery + "%'";
             stmt = con.prepareStatement(sql);
             //stmt.setString(1, searchQuery);
 

@@ -51,22 +51,24 @@ public class CarController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
         }
 
-        
         CarFacade cf = new CarFacade();
         PostFacade pf = new PostFacade();
         Car car = cf.getDetails(id);
         List<Brand> bl = cf.getAllBrand();
         Post post = pf.checkCarId(id);
-
-        String n = (String) request.getSession().getAttribute("notification");
-        if (n != null && !n.isBlank() && (n.equals("A new car has been successfully added!") || n.equals("The post has been successfully updated!"))) {
-            request.getSession().setAttribute("notification", null);
-            request.setAttribute("message", n);
-        }
-        request.setAttribute("data", car);
-        request.setAttribute("pdata", post);
-        request.setAttribute("blist", bl);
-        request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+        //if (post != null && car != null && post.getPostStatus().equals("Active")) {
+            String n = (String) request.getSession().getAttribute("notification");
+            if (n != null && !n.isBlank() && (n.equals("A new car has been successfully added!") || n.equals("The post has been successfully updated!"))) {
+                request.getSession().setAttribute("notification", null);
+                request.setAttribute("message", n);
+            }
+            request.setAttribute("data", car);
+            request.setAttribute("pdata", post);
+            request.setAttribute("blist", bl);
+            request.getRequestDispatcher("/WEB-INF/layouts/main.jsp").forward(request, response);
+          //  return;
+        //}
+        //response.sendRedirect(request.getContextPath() + "/cars/carlist.do");
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

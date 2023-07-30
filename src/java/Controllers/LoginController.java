@@ -285,13 +285,19 @@ public class LoginController extends HttpServlet {
 //                            session.setAttribute("UserPlan", plan);
 //                        }
 //                    }
-                    OrderFacade of = new OrderFacade();
-                    int countPost = of.countOrder(user.getUserID());
-                    request.setAttribute("countPost", countPost);
-                    PostFacade pof = new PostFacade();
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
-                    requestDispatcher.forward(request, response);
 
+
+
+//                    OrderFacade of = new OrderFacade();
+//                    int countPost = of.countOrder(user.getUserID());
+//                    request.setAttribute("countPost", countPost);
+//                    PostFacade pof = new PostFacade();
+//                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
+//                    requestDispatcher.forward(request, response);
+                    
+                    
+                       response.sendRedirect(request.getContextPath() + "/ocsn/index.do");
+                       return;
                 } else {
                     request.setAttribute("errorLogin", "Email or password is wrong, please enter again!");
                     request.getRequestDispatcher("/login/login.do").forward(request, response);

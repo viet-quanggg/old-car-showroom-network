@@ -183,6 +183,15 @@ public class OrderController extends HttpServlet {
                         if (ldt.isAfter(minDateTime) && ldt.isBefore(maxDateTime) && ldt.isAfter(LocalDateTime.now())) {
                             of.updateApp(ldt, Integer.parseInt(orid));
                             of.updateOrderStatus(Integer.parseInt(orid), "Processing");
+                            new GmailController().sendMail("A new message", """
+                                                    Dear User,
+                                                        
+                                                    This is an automatic message on behalf of the staff behind OCSN.
+                                                    An appointment regarding an order of yours has been set to take place on """ + (appo + ".") + """
+                                                    Punctuality is highly encouraged.
+                                                    Best regards,
+                                                    OCSN
+                                                        """, user.getUserEmail());
                         } else {
                             request.setAttribute("temporalblunder", "The appointment can only be set between 6 A.M and 8 P.M every day of the week, but not within today.");
                         }
@@ -258,7 +267,7 @@ public class OrderController extends HttpServlet {
                         new GmailController().sendMail("notification", """
                                                     Dear User,
                                                         
-                                                       Your Order is placed !
+                                                       Your Order is pending !
                                                         
                                                     Best regards,
                                                     OCSN
@@ -427,6 +436,7 @@ public class OrderController extends HttpServlet {
                                     request.setAttribute("car_seat", Integer.parseInt(cs));
                                 }
                             }
+                            request.setAttribute("data", post.getCar().getImage());
                             request.setAttribute("otherin", post.getPostDescript());
                             request.setAttribute("clist", clist);
                             request.setAttribute("blist", blist);
@@ -549,7 +559,7 @@ public class OrderController extends HttpServlet {
     }
 
     private void create_handler(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, ParseException {
+            throws ServletException, IOException, SQLException, ParseException, Exception {
         String op = request.getParameter("op");
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("User");
@@ -673,25 +683,33 @@ public class OrderController extends HttpServlet {
 //                                    }
 //                                }
 //                            }
-                        if (request.getParts() != null) {
-                            String url = Common.getAbsolutePath(request, response, File.separator + "web" + File.separator + "images" + File.separator + "car" + File.separator);
-                            File uploadDir = new File(url);
-                            if (!uploadDir.exists()) {
-                                uploadDir.mkdir();
+                            try {
+                                if (request.getParts() != null && request.getContentType() != null && request.getContentType().startsWith("multipart/form-data")) {
+                                    String url = Common.getAbsolutePath(request, response, File.separator + "web" + File.separator + "images" + File.separator + "car");
+                                    File uploadDir = new File(url);
+                                    if (!(uploadDir.exists() && uploadDir.isDirectory())) {
+                                        if(!uploadDir.mkdir()) {
+                                            throw new RuntimeException("Failed to create throwthe upload directory");
+                                        }
+                                    }
+
+                                    InputStream fileContent;
+                                    String fileName;
+                                    for (Part part : request.getParts()) {
+                                        String contentType = part.getContentType();
+                                        if (contentType != null && (contentType.startsWith("image/") || part.getName().equals("images"))) {
+                                            fileName = Common.getFileName(part);
+                                            fileContent = part.getInputStream();
+                                            // Save the file to the upload directory
+                                            Files.copy(fileContent, Paths.get(url, fileName));
+                                            cf.addCar_Image(carId, "/images/car/" + fileName);
+                                        }
+                                    }
+                                }
+                            } catch (Exception e) {
+
                             }
 
-                            InputStream fileContent;
-                            String fileName;
-                            for (Part part : request.getParts()) {
-                                if (part.getName().equals("images")) {
-                                    fileName = Common.getFileName(part);
-                                    fileContent = part.getInputStream();
-                                    // Save the file to the upload directory
-                                    Files.copy(fileContent, Paths.get(url, fileName));
-                                    cf.addCar_Image(carId, "/images/car/" + fileName);
-                                }
-                            }
-                        }
                             if (user.getUserRole() == 0 && user.getPostLimit() > 0) {
                                 user.setPostLimit(user.getPostLimit() - 1);
                                 UserFacade uf = new UserFacade();
@@ -701,6 +719,16 @@ public class OrderController extends HttpServlet {
 
                             if (carId != -1) {
                                 request.getSession().setAttribute("notification", "A new car has been successfully added!");
+//                                new GmailController().sendMail("A new message", """
+//                                                    Dear User,
+//                                                        
+//                                                    This is an automatic message on behalf of the staff behind OCSN.
+//                                                    You have successfully added a new car to the showroom's inventory.
+//                                                    Once verified, it may be displayed publically.
+//                                                    Thank you so much for using our service.    
+//                                                    Best regards,
+//                                                    OCSN
+//                                                        """, user.getUserEmail());
                                 response.sendRedirect(request.getContextPath() + "/cars/carsingle.do?carId=" + carId);
                                 return;
                             }
@@ -752,11 +780,11 @@ public class OrderController extends HttpServlet {
                     String carCondition = request.getParameter("carCondition");
                     if (postId.isBlank() || carId.isBlank() || carShowroom.isBlank() || carCondition.isBlank() || !postId.matches("^\\d+$") || !carId.matches("^\\d+$")) {
                         response.sendRedirect(request.getContextPath() + "/order/postedad.do");
-
+                        return;
                     }
                     PostFacade pf = new PostFacade();
                     Post post = pf.getDetails(Integer.parseInt(postId));
-                    if (post == null || post.getCar() == null || (user.getUserID() == 0 && user.getUserID() != post.getUserId())) {
+                    if (post == null || post.getCar() == null || (user.getUserID() == 0 && (user.getUserID() != post.getUserId() || post.getCar().isCarCondition() == true))) {
                         response.sendRedirect(request.getContextPath() + "/order/postedad.do");
                         return;
                     }

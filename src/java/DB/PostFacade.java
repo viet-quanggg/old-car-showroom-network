@@ -127,6 +127,21 @@ public int countPost(int userId, Date startDate, Date endDate) throws SQLExcepti
         con.close();
         return list;
     }
+    
+    public void deletePost(int postId) throws SQLException {
+        Connection con = DBContext.getConnection();
+        try {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM [Post] WHERE postId = ?");
+            ps.setInt(1, postId);
+            ps.executeUpdate();
+            if (ps != null) {
+                ps.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        con.close();
+    }
 
     public Post checkCarId(int carId) throws SQLException {
         Post post = null;
