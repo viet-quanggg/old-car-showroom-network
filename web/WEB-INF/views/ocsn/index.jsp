@@ -113,7 +113,7 @@
                     <div class="section-head">
                         <div class="section-text">
                             <h2>recent add vehicles</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
+                            <p>Your dreams here</p>
                         </div><a href="<c:url value="/cars/carlist.do"/>" class="btn btn-inline"><i
                                 class="material-icons">travel_explore</i><span>browse all</span></a>
                     </div>
@@ -1690,7 +1690,7 @@
         </div>
     </section>
 </c:if>
-<section class="section-gap-95">
+<!--<section class="section-gap-95">
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
@@ -1712,7 +1712,7 @@
                     </div>
                 </div>
             </div>
-            <!--                <div class="col">
+                            <div class="col">
                                 <div class="city-card"><img src="${pageContext.request.contextPath}/mironmahmud.com/ghurnek/assets/images/city/losangeles.jpg" alt="city">
                                     <div class="city-overlay"><a href="<c:url value="/cars/carlist.do"/>" class="material-icons">add</a>
                                         <h3><a href="<c:url value="/cars/carlist.do"/>">los angeles</a></h3>
@@ -1767,10 +1767,10 @@
                                         <p>84 vehicles</p>
                                     </div>
                                 </div>
-                            </div>-->
+                            </div>
         </div>
     </div>
-</section>
+</section>-->
 <section class="section-gap-120">
     <div class="container">
         <div class="row">
@@ -1778,7 +1778,7 @@
                 <div class="section-head">
                     <div class="section-text">
                         <h2>how we best for you</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
+                        <p>News used cars</p>
                     </div><a href="<c:url value="/ocsn/aboutus.do"/>" class="btn btn-inline"><i
                             class="material-icons">details</i><span>more details</span></a>
                 </div>
@@ -1801,7 +1801,7 @@
                         So why wait? Sign up today and join the thousands of satisfied customers who have already turned to us for their automotive needs!</p>
                 </div>
             </div>
-        </div>
+<!--        </div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-4">
             <div class="col">
                 <div class="funfactor-card"><i class="material-icons">drive_eta</i>
@@ -1827,7 +1827,7 @@
                     </h4>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 </section>
 <section class="section-gap-120">
@@ -1907,7 +1907,7 @@
 <section class="section-gap-120 review-part">
 
 </section>
-<section class="section-gap-120">
+<!--<section class="section-gap-120">
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
@@ -1944,7 +1944,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>-->
 <section class="section-gap-95">
     <div class="container">
         <div class="row">

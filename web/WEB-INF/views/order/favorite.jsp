@@ -132,12 +132,12 @@
                                 <a href="<c:url value="/cars/carsingle.do?carId=${item.car.carID}"/>" title="Details">
                                     <i class="material-icons">visibility</i>
                                 </a>
-                                <a href="#!" title="Video" class="venobox" data-autoplay="true" data-vbtype="video">
+<!--                                <a href="#!" title="Video" class="venobox" data-autoplay="true" data-vbtype="video">
                                     <i class="material-icons">videocam</i>
                                 </a>
                                 <a href="#!" title="Cart" class="venobox" data-autoplay="true" data-vbtype="cart">
                                     <i class="material-icons">storefront</i>
-                                </a>
+                                </a>-->
                                 <a href="${pageContext.request.contextPath}/addToCompare?id=${item.car.carID}" >
                                     <i class="material-icons">compare</i>
                                     <!--                                                <span>compare</span>-- not use>-->

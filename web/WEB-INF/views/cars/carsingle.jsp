@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-12">
+<!--            <div class="col-xl-12">
                 <div class="product-single-scrollspy-btns"><a href="#overview" class="nav-link" title="Overview"><i
                             class="material-icons">visibility</i><span>overview</span></a><a href="#media"
                                                                                      class="nav-link" title="Media"><i
@@ -38,7 +38,7 @@
                     <c:if test="${User.userRole == 2}">     <a href="#information" class="nav-link" title="Post Information"><i class="material-icons">help</i><span>information</span></a> </c:if>
 
                     </div>
-                </div>
+                </div>-->
 
             </div>
             <div class="row">

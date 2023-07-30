@@ -45,7 +45,7 @@
                                    >
                             <label >${brand.get(i).name}</label>
                         </div>
-                        <span class="product-widget-number">(${brand.get(i).count})</span>
+<!--                        <span class="product-widget-number">(${brand.get(i).count})</span>-->
                     </li>
                 </c:forEach>
             </ul>

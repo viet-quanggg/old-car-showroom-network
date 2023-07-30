@@ -11,7 +11,7 @@
                     <li class="breadcrumb-item active" aria-current="page">inventory-list</li>
                 </ol>
             </div>
-        </div>
+        </div>  
     </div>
 </section>
 
