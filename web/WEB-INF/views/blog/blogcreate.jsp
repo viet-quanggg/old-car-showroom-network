@@ -62,8 +62,11 @@
             <div class="container">
                 <h2>blog creation page</h2>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/ocsn/index.do">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">blog-creation</li>
+                    <ul class="mc-breadcrumb-list" style="margin-right: 1000px">
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">Home</a></li>
+                            
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/blog/blogcreate.do"/>">Blog-Create</a></li>
+                        </ul>
                 </ol>
             </div>
         </div>

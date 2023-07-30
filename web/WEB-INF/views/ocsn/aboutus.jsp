@@ -12,8 +12,11 @@
                 <div class="container">
                     <h2>about our company</h2>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="Check us out today and experience the future of car buying and selling for yourself!">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">about-us</li>
+                        <ul class="mc-breadcrumb-list" style="margin-right: 1000px">
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">Home</a></li>
+                            
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/aboutus.do"/>">About-Us</a></li>
+                        </ul>
                     </ol>
                 </div>
             </div>

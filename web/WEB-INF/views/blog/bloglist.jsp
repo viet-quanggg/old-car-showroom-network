@@ -11,12 +11,19 @@
             <div class="container">
                 <h2>blog list page</h2>
                 <ol>
-                    <a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">home</a>
-                    <a class="mc-breadcrumb-link" aria-current="page">blog-list</a>
-                </ol>
-            </div>
+<!--                    <div class="container">-->
+<!--                        <div class="mc-breadcrumb-group">-->
+                        <ul class="mc-breadcrumb-list" style="margin-right: 1000px">
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">Home</a></li>
+                           
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/blog/bloglist.do"/>">Blog-list</a></li>
+                        </ul>
+<!--                    </div>-->
+<!--            </div>-->
+            </ol>
         </div>
     </div>
+</div>
 </section>
 <section class="section-gap-100">
     <div class="container">

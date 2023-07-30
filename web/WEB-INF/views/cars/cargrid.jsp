@@ -7,8 +7,11 @@
             <div class="container">
                 <h2>Inventory Grid View</h2>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<c:url value="/ocsn/index.do"/>">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">inventory-grid</li>
+                    <ul class="mc-breadcrumb-list" style="margin-right: 900px">
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">Home</a></li>
+                            
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/cars/cargrid.do"/>">Inventory-Grid</a></li>
+                        </ul>
                 </ol>
             </div>
         </div>

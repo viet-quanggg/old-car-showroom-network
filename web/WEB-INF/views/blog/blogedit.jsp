@@ -13,8 +13,11 @@
             <div class="container">
                 <h2>blog edit page</h2>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/ocsn/index.do">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">blog-edit</li>
+                     <ul class="mc-breadcrumb-list" style="margin-right: 1000px">
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">Home</a></li>
+                            
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/blog/blogedit.do"/>">Blog-Edit</a></li>
+                        </ul>
                 </ol>
             </div>
         </div>

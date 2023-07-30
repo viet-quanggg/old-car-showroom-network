@@ -11,8 +11,11 @@
                 <div class="container">
                     <h2>contact us</h2>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<c:url value="/ocsn/index.do"/>">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">contact</li>
+                        <ul class="mc-breadcrumb-list" style="margin-right: 1000px">
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">Home</a></li>
+                            
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/contact.do"/>">Contact-Us</a></li>
+                        </ul>
                     </ol>
                 </div>
             </div>

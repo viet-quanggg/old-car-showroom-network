@@ -13,8 +13,11 @@
             <div class="container">
                 <h2>blog grid page</h2>
                 <ol>
-                    <a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">home</a>
-                    <a class="mc-breadcrumb-link" aria-current="page">blog-grid</a>
+                     <ul class="mc-breadcrumb-list" style="margin-right: 1000px">
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">Home</a></li>
+                            
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/blog/bloggrid.do"/>">Blog-Grid</a></li>
+                        </ul>
                 </ol>
             </div>
         </div>
