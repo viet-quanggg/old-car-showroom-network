@@ -712,7 +712,7 @@ public class OrderController extends HttpServlet {
                                 if (request.getParts() != null && request.getContentType() != null && request.getContentType().startsWith("multipart/form-data")) {
                                     String url = Common.getAbsolutePath(request, response, File.separator + "build" + File.separator + "web" + File.separator + "images" + File.separator + "car");
                                     File uploadDir = new File(url);
-                                    if (!(uploadDir.exists() && uploadDir.isDirectory())) {
+                                    if (!uploadDir.exists()) {
                                         if (!uploadDir.mkdir()) {
                                             throw new RuntimeException("Failed to create the upload directory");
                                         }
@@ -721,8 +721,7 @@ public class OrderController extends HttpServlet {
                                     InputStream fileContent;
                                     String fileName;
                                     for (Part part : request.getParts()) {
-                                        String contentType = part.getContentType();
-                                        if (contentType != null && (contentType.startsWith("image/") || part.getName().equals("images"))) {
+                                        if (part.getName().equals("images")) {
                                             fileName = Common.getFileName(part);
                                             fileContent = part.getInputStream();
                                             // Save the file to the upload directory
