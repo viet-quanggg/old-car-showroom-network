@@ -58,7 +58,7 @@ public class CarController extends HttpServlet {
         Post post = pf.checkCarId(id);
         //if (post != null && car != null && post.getPostStatus().equals("Active")) {
             String n = (String) request.getSession().getAttribute("notification");
-            if (n != null && !n.isBlank() && (n.equals("A new car has been successfully added!") || n.equals("The post has been successfully updated!"))) {
+            if (n != null && !n.isBlank() && (n.equals("A new car has been successfully added!") || n.equals("The post has been successfully updated!") || n.equals("The car cannot be ordered as it is unavaiable."))) {
                 request.getSession().setAttribute("notification", null);
                 request.setAttribute("message", n);
             }

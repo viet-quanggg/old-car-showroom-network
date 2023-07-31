@@ -145,14 +145,20 @@ public class OrderController extends HttpServlet {
                         int id = Integer.parseInt(pid);
                         PostFacade pf = new PostFacade();
                         Post post = pf.getDetails(id);
-                        if (post != null && post.getUserId() != user.getUserID() && !post.getCar().isCarCondition()) {
-                            OrderList ol = of.getUncancelledOrderByPost(id);
-                            if (ol == null) {
-                                of.addOrder(id, user.getUserID());
-                                CarFacade cf = new CarFacade();
-                                cf.updateCarCondition(true, post.getCar().getCarID());
-                                response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
-                                return;
+                        if (post != null && post.getUserId() != user.getUserID()) {
+                            if (!post.getCar().isCarCondition()) {
+                                OrderList ol = of.getUncancelledOrderByPost(id);
+                                if (ol == null) {
+                                    of.addOrder(id, user.getUserID());
+                                    CarFacade cf = new CarFacade();
+                                    cf.updateCarCondition(true, post.getCar().getCarID());
+                                    response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
+                                    return;
+                                }
+                            }
+                            else {
+                                session.setAttribute("notification", "The car cannot be ordered as it is unavailable.");
+                                response.sendRedirect(request.getContextPath() + "/cars/carsingle.do?carId=" + post.getCar().getCarID());
                             }
                         }
                     }
@@ -249,7 +255,7 @@ public class OrderController extends HttpServlet {
                                 cf.updateCarCondition(false, p.getCar().getCarID());
                                 of.updateOrderStatus(orderId1, "Cancel");
                             }
-                            
+
                         }
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
                         new GmailController().sendMail("notification", """
