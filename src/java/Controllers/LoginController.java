@@ -387,9 +387,10 @@ public class LoginController extends HttpServlet {
                             new GmailController().sendMail("A new message", """
                                                     Dear  """ + newUser.getUserName() + """                                                              
                                                       
-                                                            Your account has been successfully created,please login to continue
+                                                        Your account has been successfully created. You can try logging in now to use our services.
+                                                        
                                                         http://localhost:8080/OldCarShowroom/login/login.do
-                                                        Thanks for using our service!
+                                                        Thanks for joining our community!
                                                         
                                                     Best regards,
                                                     OCSN

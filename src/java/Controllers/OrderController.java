@@ -155,8 +155,7 @@ public class OrderController extends HttpServlet {
                                     response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
                                     return;
                                 }
-                            }
-                            else {
+                            } else {
                                 session.setAttribute("notification", "The car cannot be ordered as it is unavailable.");
                                 response.sendRedirect(request.getContextPath() + "/cars/carsingle.do?carId=" + post.getCar().getCarID());
                             }
@@ -193,8 +192,10 @@ public class OrderController extends HttpServlet {
                         if (ldt.isAfter(minDateTime) && ldt.isBefore(maxDateTime) && ldt.isAfter(LocalDateTime.now())) {
                             of.updateApp(ldt, Integer.parseInt(orid));
                             of.updateOrderStatus(Integer.parseInt(orid), "Processing");
-                            new GmailController().sendMail("A new message", """
-                                                    Dear User,
+                            if (user.getUserRole() != 0) {
+                                new GmailController().sendMail("Incoming Appointment!", """
+                                                    Dear """ + user.getUserName() + ","
+                                        + """
                                                         
                                                     This is an automatic message on behalf of the staff behind OCSN.
                                                     An appointment regarding an order of yours has been set to take place on """ + (appo + ".") + """
@@ -202,6 +203,14 @@ public class OrderController extends HttpServlet {
                                                     Best regards,
                                                     OCSN
                                                         """, user.getUserEmail());
+                            } else {
+                                new GmailController().sendMail("New Order Created", 
+                                                    """
+                                                    This is an automatic message on behalf of the user who created the order.
+                                                    An appointment regarding an order of the user is expected to take place on """ + (appo + ".") + """
+                                                    Take care.
+                                                        """, "oldcarshowroomnetwork@gmail.com");
+                            }
                         } else {
                             request.setAttribute("temporalblunder", "The appointment can only be set between 6 A.M and 8 P.M every day of the week, but not within today.");
                         }
@@ -259,57 +268,60 @@ public class OrderController extends HttpServlet {
 
                         }
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-                        new GmailController().sendMail("notification", 
-                                   "Dear,"+username
-                                 + "\n\n"
-                                 + "Your Order with ID: "+ orderId1
-                                 + "  has been Cancelled!    "
-                                 + "\n\n"
-                                 + "Best regards,\n"
-                                 + "OCSN"
-                                , email);
+                        new GmailController().sendMail("notification",
+                                "Dear," + username
+                                + "\n\n"
+                                + "Your order with ID: " + orderId1
+                                + " has been cancelled!    "
+                                + "\n\n"
+                                + "Best regards,\n"
+                                + "OCSN",
+                                 email);
                         break;
                     case "success":
                         int orderId2 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId2, "Complete");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-                       new GmailController().sendMail("notification", 
-                                   "Dear,"+username
-                                 + "\n\n"
-                                 + "Your Order with ID: "+ orderId2
-                                 + "  has been Completed!    "
-                                 + "\n\n"
-                                 + "Best regards,\n"
-                                 + "OCSN"
-                                , email);
+                        new GmailController().sendMail("notification",
+                                "Dear," + username
+                                + "\n\n"
+                                + "Your order with ID: " + orderId2
+                                + " has been completed!"
+                                + "\nThank you for using our service!"
+                                + "\n\n"
+                                + "Best regards,\n"
+                                + "OCSN",
+                                 email);
                         break;
                     case "pending":
                         int orderId3 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId3, "Pending");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-                        new GmailController().sendMail("notification", 
-                                   "Dear,"+username
-                                 + "\n\n"
-                                 + "Your Order with ID: "+ orderId3
-                                 + "  has been Pending!    "
-                                 + "\n\n"
-                                 + "Best regards,\n"
-                                 + "OCSN"
-                                , email);
+                        new GmailController().sendMail("notification",
+                                "Dear," + username
+                                + "\n\n"
+                                + "Your order with ID: " + orderId3
+                                + " is currently pending!"
+                                + "\nYou are well-advised to arrange an appointment for the order if you do not plan to proceed with the order within today."
+                                + "\n\n"
+                                + "Best regards,\n"
+                                + "OCSN",
+                                 email);
                         break;
                     case "inprocess":
                         int orderId4 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId4, "Processing");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-                        new GmailController().sendMail("notification", 
-                                   "Dear,"+username
-                                 + "\n\n"
-                                 + "Your Order with ID: "+ orderId4
-                                 + "  has been In Processing!    "
-                                 + "\n\n"
-                                 + "Best regards,\n"
-                                 + "OCSN"
-                                , email);
+                        new GmailController().sendMail("notification",
+                                "Dear," + username
+                                + "\n\n"
+                                + "Your order with ID: " + orderId4
+                                + " is currently being processed!"
+                                + "\nWe look forward to doing business with you at the showroom!"
+                                + "\n\n"
+                                + "Best regards,\n"
+                                + "OCSN",
+                                 email);
                         break;
 //                    case "delete":
 //                        int orderId5 = Integer.parseInt(request.getParameter("orderId"));
@@ -743,16 +755,18 @@ public class OrderController extends HttpServlet {
 
                             if (carId != -1) {
                                 request.getSession().setAttribute("notification", "A new car has been successfully added!");
-//                                new GmailController().sendMail("A new message", """
-//                                                    Dear User,
-//                                                        
-//                                                    This is an automatic message on behalf of the staff behind OCSN.
-//                                                    You have successfully added a new car to the showroom's inventory.
-//                                                    Once verified, it may be displayed publically.
-//                                                    Thank you so much for using our service.    
-//                                                    Best regards,
-//                                                    OCSN
-//                                                        """, user.getUserEmail());
+                                new GmailController().sendMail("Car Post Created Successfull!", """
+                                                    Dear """ + user.getUserName() + ","
+                                        + """
+                                                    
+                                                    This is an automatic message on behalf of the staff behind OCSN.
+                                                    You have successfully added a new car to the showroom's inventory.
+                                                    Once verified, it may be displayed publicly.
+                                                    Thank you so much for using our service.    
+                                                    
+                                                    Best regards,
+                                                    OCSN
+                                                         """, user.getUserEmail());
                                 response.sendRedirect(request.getContextPath() + "/cars/carsingle.do?carId=" + carId);
                                 return;
                             }
