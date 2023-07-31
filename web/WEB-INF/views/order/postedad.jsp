@@ -94,8 +94,6 @@
             <h2 class="mc-breadcrumb-title">user posted ads</h2>
             <ul class="mc-breadcrumb-list">
                 <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="index.html">home</a></li>
-                <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="dashboard.html">dashboard</a>
-                </li>
                 <li class="mc-breadcrumb-item">posted-ads</li>
             </ul>
         </div>

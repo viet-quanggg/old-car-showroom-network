@@ -1847,7 +1847,7 @@
             <c:forEach items="${plan}" var="plan">           
                 <div class="col">
                     <div class="price-card"><i class="price-icon material-icons">task_alt</i>
-                        <h3 class="price-title">${plan.planName}</h3>
+                        <h3 class="price-title" style="font-size: 25px">${plan.planName}</h3>
                         <p class="price-subtitle">Choose what most suitable for your need</p>
                         <ul class="price-list">
                             <li class="price-item"><span>Plan Period: ${plan.planTime} months</span></li>
