@@ -139,21 +139,25 @@ public class OrderController extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/cars/carlist.do");
                     return;
                 }
-                String pid = request.getParameter("postId").trim();
-                if (pid != null && !pid.isEmpty() && pid.matches("^[0-9]\\d*$")) {
-                    int id = Integer.parseInt(pid);
-                    OrderList ol = of.getOrderByPost(id);
-                    if (ol == null) {
+                try {
+                    String pid = request.getParameter("postId").trim();
+                    if (pid != null && !pid.isEmpty() && pid.matches("^[0-9]\\d*$")) {
+                        int id = Integer.parseInt(pid);
                         PostFacade pf = new PostFacade();
                         Post post = pf.getDetails(id);
-                        if (post != null && post.getUserId() != user.getUserID()) {
-                            of.addOrder(id, user.getUserID());
-                            CarFacade cf = new CarFacade();
-                            cf.updateCarCondition(true, post.getCar().getCarID());
-                            response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
-                            return;
+                        if (post != null && post.getUserId() != user.getUserID() && !post.getCar().isCarCondition()) {
+                            OrderList ol = of.getUncancelledOrderByPost(id);
+                            if (ol == null) {
+                                of.addOrder(id, user.getUserID());
+                                CarFacade cf = new CarFacade();
+                                cf.updateCarCondition(true, post.getCar().getCarID());
+                                response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
+                                return;
+                            }
                         }
                     }
+                } catch (Exception e) {
+
                 }
                 response.sendRedirect(request.getContextPath() + "/order/orderlist.do");
                 break;
@@ -236,7 +240,17 @@ public class OrderController extends HttpServlet {
 
                     case "denied":
                         int orderId1 = Integer.parseInt(request.getParameter("orderId"));
-                        of.updateOrderStatus(orderId1, "Cancelled");
+                        Order ol = of.getOrder(orderId1);
+                        if (ol != null) {
+                            PostFacade pf = new PostFacade();
+                            Post p = pf.getDetails(ol.getPostId());
+                            if (p != null && p.getCar() != null) {
+                                CarFacade cf = new CarFacade();
+                                cf.updateCarCondition(false, p.getCar().getCarID());
+                                of.updateOrderStatus(orderId1, "Cancel");
+                            }
+                            
+                        }
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
                         new GmailController().sendMail("notification", """
                                                     Dear User,
@@ -685,11 +699,11 @@ public class OrderController extends HttpServlet {
 //                            }
                             try {
                                 if (request.getParts() != null && request.getContentType() != null && request.getContentType().startsWith("multipart/form-data")) {
-                                    String url = Common.getAbsolutePath(request, response, File.separator + "web" + File.separator + "images" + File.separator + "car");
+                                    String url = Common.getAbsolutePath(request, response, File.separator + "build" + File.separator + "web" + File.separator + "images" + File.separator + "car");
                                     File uploadDir = new File(url);
                                     if (!(uploadDir.exists() && uploadDir.isDirectory())) {
-                                        if(!uploadDir.mkdir()) {
-                                            throw new RuntimeException("Failed to create throwthe upload directory");
+                                        if (!uploadDir.mkdir()) {
+                                            throw new RuntimeException("Failed to create the upload directory");
                                         }
                                     }
 

@@ -70,6 +70,9 @@
                                 <c:if test="${User.userRole == 0 || User.userRole == 1}">
                                 <li><a href="<c:url value="/order/postedad.do"/>">posted car</a></li>
                                 </c:if>
+                                <c:if test="${ User.userRole == 1 || User.userRole == 2}">
+                                <li><a href="<c:url value="/order/orderlist.do"/>" >Change appointment</a></li>
+                                </c:if>
                                 <c:if test="${User.userRole == 2 || User.userRole == 1}">
                                 <li><a href="<c:url value="/order/ordermanager.do"/>" class="active" >Order Manager</a></li>
                                 </c:if>
