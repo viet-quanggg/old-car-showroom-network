@@ -10,10 +10,12 @@
         <div class="single-banner">
             <div class="container">
                 <h2>blog single page</h2>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<c:url value="/ocsn/index.do"/>">Home</a></li>
-                    <li class="breadcrumb-item"><a href="<c:url value="/blog/bloggrid.do"/>">blog-grid</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">blog-single</li>
+                <ol>
+                    <ul class="mc-breadcrumb-list" style="margin-right: 1000px">
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/ocsn/index.do"/>">Home</a></li>
+                            
+                            <li class="mc-breadcrumb-item"><a class="mc-breadcrumb-link" href="<c:url value="/blog/blogsingle.do"/>">Blog-Single</a></li>
+                        </ul>
                 </ol>
             </div>
         </div>
