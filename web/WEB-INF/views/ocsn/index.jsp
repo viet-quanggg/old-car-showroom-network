@@ -1632,7 +1632,7 @@
                             <img src="https://www.carlogos.org/car-logos/${branditem.name.toLowerCase()}-logo.png"  onerror="this.src='https://www.supercars.net/blog/wp-content/uploads/2019/12/${branditem.name}-Logo.png'" alt="${branditem.name}">
                             <h6>${branditem.name}</h6>
 
-                            <h6>(${branditem.count}) ${branditem.name}</h6>
+                            <h6>(${branditem.count})</h6>
 
                         </a></div>
                     </c:forEach>

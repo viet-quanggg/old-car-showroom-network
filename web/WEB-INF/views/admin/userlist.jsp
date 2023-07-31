@@ -36,20 +36,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-xl-4">
-                        <ul class="user-banner-data">
-                            <li class="ads"><i class="material-icons">note</i>
-                                <h3>${countPost}</h3>
-                                <p>total post</p>
-                            </li>
-                            <li class="ads"><i class="material-icons">
-                                    shopping_cart
-                                </i>
-                                <h3>${countOrder}</h3>
-                                <p>total order</p>
-                            </li
-                        </ul>
-                    </div>
+                                        <c:if test="${User.userRole == 0}">
+                        <div class="col-lg-5 col-xl-4">
+                            <ul class="user-banner-data">
+                                <li class="ads"><i class="material-icons">note</i>
+                                    <h3>${Post}</h3>
+                                    <p>total post</p>
+                                </li>
+                            <li class="ads"><i class="material-icons">shopping_cart</i>
+                                    <h3>${Order}</h3>
+                                    <p>total order</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </c:if>
                 </div>
                 <div class="row">
                     <div class="col-xl-12">
