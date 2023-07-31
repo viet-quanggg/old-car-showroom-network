@@ -143,7 +143,7 @@
                                                                              title="Favorite" class="favorite material-icons">favorite</button></div>
                                 </div>
                                 <div class="product-grid-meta">
-                                    <h4><a href="inventory-single.html">${item.carName}</a></h4>
+                                    <h4><a href="<c:url value="/cars/carsingle.do?carId=${item.carID}"/>">${item.carName}</a></h4>
                                     <ul>
                                         <li><span>${item.car_seat}</span></li>
                                         <li>${item.createDate}</li>

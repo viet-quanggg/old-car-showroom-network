@@ -308,7 +308,17 @@ VALUES
 		(6, N'FPTU', 750000000, N'Toyota Fortuner 2.7V 4x2 AT', 2021, N'ngọt hơn nước cất', 0, GETDATE(), GETDATE(),N'7 seat', N'Diesel', 54300, 1, 2),
 		(5, N'FPTU', 3900000000, N'BMW i8 1.5L Hybrid', 2015, N'Widebody EVO của hãng Energy motorsport đến Từ Nhật Bản khoảng 230 triệu khiến ngoại thất giống 1 siêu xe thực thụ và hầm hố', 0, GETDATE(), GETDATE(),N'2 seat', N'Gasoline', 24000, 3, 1),
 		(7, N'FPTU', 489000000, N'Ford Ranger XLS 2.2L 4x2 MT', 2020, N'Xe được trang bị sẵn nhiều Options cần thiết: New Sync, phim cách nhiệt, cam hành trình, cam de,…', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 32300, 7, 2),
-		(6, N'FPTU', 2550000000, N'Porsche Panamera 3.6 V6', 2014, N'dễ vào việc lắm', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 16000, 16, 11)
+		(6, N'FPTU', 2550000000, N'Porsche Panamera 3.6 V6', 2014, N'dễ vào việc lắm', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 16000, 16, 11),
+		(8, N'FPTU', 700000000, N'Honda Civic RS', 2022, N'Exterior: The Honda Civic RS boasts an eye-catching and modern design that will turn heads wherever you go. Its Crystal Black Pearl color enhances its sporty and sophisticated appearance. The aerodynamic body lines and sleek contours not only make it look stunning but also contribute to its impressive fuel efficiency.
+Interior: Step inside, and you will be greeted by a spacious, luxurious cabin filled with premium materials and high-tech features. The comfortable leather seats provide excellent support, ensuring a pleasant driving experience during long journeys. The modern dashboard is equipped with the latest infotainment system, including a responsive touchscreen, Bluetooth connectivity, and smartphone integration.
+Performance: Under the hood, the 2020 Honda Civic RS boasts a powerful 1.5L Turbocharged engine, delivering both exhilarating performance and outstanding fuel efficiency. Whether you are cruising through city streets or embarking on a road trip, this car offers a smooth and agile ride. The CVT automatic transmission ensures seamless gear shifts, adding to the overall driving pleasure.
+Safety Features: Your safety is a top priority, and the Honda Civic RS does not disappoint. It comes equipped with a range of advanced safety features, including:
+Honda Sensing Suite: Lane-Keeping Assist, Adaptive Cruise Control, Collision Mitigation Braking, and Road Departure Mitigation.
+Multi-Angle Rearview Camera: For easy parking and reversing.
+Advanced Airbag System: Providing all-around protection for you and your passengers.
+Ownership and Maintenance: This 2020 Honda Civic RS has been meticulously maintained and serviced regularly. It comes with a complete service history and is still under warranty, giving you peace of mind and confidence in your purchase.
+Contact: If you are interested in owning this stylish and reliable 2020 Honda Civic RS, do not hesitate to reach out to us . Schedule a test drive today and see for yourself what this amazing car has to offer!
+Do not miss this opportunity to own a perfect blend of style, performance, and safety in one incredible package. Act fast, as this Honda Civic RS will not be available for long!', 0, GETDATE(), GETDATE(),N'5 seat', N'Gasoline', 36000, 5, 1)
 		
 
 
@@ -520,7 +530,12 @@ VALUES
 		('/images/car/Porsche/PorschePanamera36V6/2.jpg', GETDATE(), GETDATE(), 40),
 		('/images/car/Porsche/PorschePanamera36V6/3.jpg', GETDATE(), GETDATE(), 40),
 		('/images/car/Porsche/PorschePanamera36V6/4.jpg', GETDATE(), GETDATE(), 40),
-		('/images/car/Porsche/PorschePanamera36V6/5.jpg', GETDATE(), GETDATE(), 40)
+		('/images/car/Porsche/PorschePanamera36V6/5.jpg', GETDATE(), GETDATE(), 40),
+				('/images/car/Honda/HondaRS/1.jpg', GETDATE(), GETDATE(), 41),
+		('/images/car/Honda/HondaRS/2.jpg', GETDATE(), GETDATE(), 41),
+		('/images/car/Honda/HondaRS/3.jpg', GETDATE(), GETDATE(), 41),
+		('/images/car/Honda/HondaRS/4.jpg', GETDATE(), GETDATE(), 41),
+		('/images/car/Honda/HondaRS/5.jpg', GETDATE(), GETDATE(), 41)
 
 
 
@@ -626,6 +641,8 @@ INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus
 VALUES (10, 2, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
 INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
 VALUES (12, 1, 'Old Car But New Price ', 'Check out my car, decided by you', '2023-06-08', 'Active');
+INSERT INTO [Post] (userId, carId, postTitle, postDescript, postDate, postStatus) 
+VALUES (8, 41, 'Honda Civic RS', 'The Honda Civic RS showcases an athletic and modern design, setting it apart from the mundane crowd. Its captivating Crystal Black Pearl color enhances its sporty and sophisticated appearance, making heads turn wherever you go. The aggressive front grille, sleek LED headlights, and striking 18-inch alloy wheels add an extra touch of flair to its overall appearance.', '2023-06-08', 'Active');
 
 -- INSERT DATA FOR ORDER TABLE
 DBCC CHECKIDENT ('[Order]', RESEED, 0);
