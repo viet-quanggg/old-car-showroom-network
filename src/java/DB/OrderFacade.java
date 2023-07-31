@@ -259,7 +259,7 @@ public class OrderFacade {
 
         try {
             con = DBContext.getConnection();
-            String sql = "SELECT o.orderId, o.postId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate, u.userEmail FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId";
+            String sql = "SELECT o.orderId, o.postId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate, u.userEmail FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId ORDER BY o.orderDate DESC";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
 
@@ -300,7 +300,7 @@ public class OrderFacade {
         CarFacade cf = new CarFacade();
         try {
             con = DBContext.getConnection();
-            String sql = "SELECT o.orderId, o.orderApp, o.postId, c.carId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId";
+            String sql = "SELECT o.orderId, o.orderApp, o.postId, c.carId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId ORDER BY o.orderDate DESC";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
 
@@ -362,7 +362,7 @@ public class OrderFacade {
         CarFacade cf = new CarFacade();
         try {
             con = DBContext.getConnection();
-            String sql = "SELECT o.orderId, o.orderApp, o.postId, c.carId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId where o.userId = " + userId;
+            String sql = "SELECT o.orderId, o.orderApp, o.postId, c.carId, c.carName, c.carPrice, o.userId, u.userName, o.orderStatus, o.orderDate FROM [Order] o LEFT JOIN [Post] p on o.postId = p.postId LEFT JOIN [Car] c on p.carId = c.carId LEFT JOIN [User] u on o.userId = u.userId where o.userId = " + userId +"ORDER BY o.orderDate DESC ";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
 
