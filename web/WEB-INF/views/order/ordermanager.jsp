@@ -159,6 +159,7 @@
                             <td>${orderlist.createdDate}</td> 
 <!--                            <td>${orderlist.userEmail}</td>-->
                             <td >
+                                <input type="hidden" name="UName"value="${orderlist.userName}"/>
                                 <input type="hidden" name="Email" value="${orderlist.userEmail}"/>
                                 <input type="hidden" name="orderId" value="${orderlist.orderId}">
                                 <select class="form-select" name="op">

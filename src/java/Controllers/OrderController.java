@@ -231,6 +231,7 @@ public class OrderController extends HttpServlet {
                 List<OrderList> orders = of.getAllOrders();
                 request.setAttribute("orders", orders);
                 String email = request.getParameter("Email");
+                String username = request.getParameter("UName");
                 String op = request.getParameter("op");
                 if (op == null) {
                     op = "";
@@ -258,53 +259,57 @@ public class OrderController extends HttpServlet {
 
                         }
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-                        new GmailController().sendMail("notification", """
-                                                    Dear User,
-                                                        
-                                                       Your Order was cancelled !
-                                                        
-                                                    Best regards,
-                                                    OCSN
-                                                        """, email);
+                        new GmailController().sendMail("notification", 
+                                   "Dear,"+username
+                                 + "\n\n"
+                                 + "Your Order with ID: "+ orderId1
+                                 + "  has been Cancelled!    "
+                                 + "\n\n"
+                                 + "Best regards,\n"
+                                 + "OCSN"
+                                , email);
                         break;
                     case "success":
                         int orderId2 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId2, "Complete");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-                        new GmailController().sendMail("notification", """
-                                                    Dear User,
-                                                        
-                                                       Your Order is completed !
-                                                        
-                                                    Best regards,
-                                                    OCSN
-                                                        """, email);
+                       new GmailController().sendMail("notification", 
+                                   "Dear,"+username
+                                 + "\n\n"
+                                 + "Your Order with ID: "+ orderId2
+                                 + "  has been Completed!    "
+                                 + "\n\n"
+                                 + "Best regards,\n"
+                                 + "OCSN"
+                                , email);
                         break;
                     case "pending":
                         int orderId3 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId3, "Pending");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-                        new GmailController().sendMail("notification", """
-                                                    Dear User,
-                                                        
-                                                       Your Order is pending !
-                                                        
-                                                    Best regards,
-                                                    OCSN
-                                                        """, email);
+                        new GmailController().sendMail("notification", 
+                                   "Dear,"+username
+                                 + "\n\n"
+                                 + "Your Order with ID: "+ orderId3
+                                 + "  has been Pending!    "
+                                 + "\n\n"
+                                 + "Best regards,\n"
+                                 + "OCSN"
+                                , email);
                         break;
                     case "inprocess":
                         int orderId4 = Integer.parseInt(request.getParameter("orderId"));
                         of.updateOrderStatus(orderId4, "Processing");
                         response.sendRedirect(request.getContextPath() + "/order/ordermanager.do");
-                        new GmailController().sendMail("notification", """
-                                                    Dear User,
-                                                        
-                                                       Your Order is processing !
-                                                        
-                                                    Best regards,
-                                                    OCSN
-                                                        """, email);
+                        new GmailController().sendMail("notification", 
+                                   "Dear,"+username
+                                 + "\n\n"
+                                 + "Your Order with ID: "+ orderId4
+                                 + "  has been In Processing!    "
+                                 + "\n\n"
+                                 + "Best regards,\n"
+                                 + "OCSN"
+                                , email);
                         break;
 //                    case "delete":
 //                        int orderId5 = Integer.parseInt(request.getParameter("orderId"));
