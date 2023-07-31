@@ -73,7 +73,7 @@ public class PostController extends HttpServlet {
                         List<Image> list = car.getImage();
                         if (list != null && list.size() > 0) {
                             for (Image img : list) {
-                                File file = new File(Common.getAbsolutePath(request, response, img.getUrl()));
+                                File file = new File(Common.getAbsolutePath(request, response, File.separator + "web" + img.getUrl()));
                                 if (file.exists()) {
                                     if (file.delete()) {
                                         cf.deleteCarImage(img.getId());
